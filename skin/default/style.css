@@ -1,0 +1,380 @@
+body {
+	font: 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding:0;
+	margin:0;
+	background:url(images/bg.png) no-repeat fixed;
+	background-color: #fff;
+	background-size: cover;
+	color:#bbb;
+}
+
+input{
+	border:1px solid #eee;
+	padding:2px !important;
+}
+
+
+* {
+	border-collapse: collapse;
+  box-sizing: border-box;
+	border: 0px;
+}
+
+A:link {
+	COLOR: #eee;
+	TEXT-DECORATION: none;
+}
+A:visited {
+	COLOR: #eee;
+	TEXT-DECORATION: none;
+}
+A:active {
+	COLOR: #eee;
+	TEXT-DECORATION: none;
+}
+A:hover {
+	COLOR: #fff;
+	TEXT-DECORATION: underline;
+}
+.myctl {
+	PADDING: 0px;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+background: rgba(40, 40, 40, .9);
+	MARGIN: 0px;
+	FONT: 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	COLOR: #eee;
+}
+
+.mytext {
+	FONT: 10px/16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+.mytext2 {
+	FONT: 10px/16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: right;
+}
+.mytext3 {
+	FONT: 9px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+table {
+	table-layout: fixed;
+	background:none !important;
+	width:100% !important;
+	padding:2px 10px;
+}
+th{
+	margin-top:10px;
+}
+
+.mytable {
+	border-collapse:collapse;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+background: rgba(40, 40, 40, .9);
+}
+.mytitle {
+	color:#eee;
+	padding-left: 40px;
+	font-size: 20px;
+	width:100%;
+	background: rgb(140, 140, 140); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(240, 240, 240, .2);
+}
+
+.mytitle td{
+	padding:2px 10px;
+	vertical-align:top;
+	padding-left: 40px;
+}
+
+.myheader {
+	font-family:Verdana;
+	font-size:9pt;
+	font-weight:bold;
+	text-align:center;
+}
+.mycell {
+	font-family:Verdana;
+	font-size:8pt;
+	text-align:center;
+}
+.dashed {
+	font-family:Verdana;
+	font-size:7pt;
+	text-align:center;
+	border-collapse:collapse;
+}
+.serverinfo {
+	position:absolute;
+	float:left;
+	top:0px;
+	overflow:hidden;
+	margin:20px;
+	padding:10px;
+	background: rgb(20, 20, 20); /* Fall-back for browsers that don't       support rgba */
+	background: rgba(20, 20, 20, .9);
+	box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.7);
+}
+
+.serverinfo font{
+	float:right;
+}
+
+.redir {
+	font-family:Verdana;
+	font-size:9pt;
+	text-align:center;
+	border-collapse:collapse;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(40, 40, 40, .9);
+}
+td {
+	border-collapse:collapse;
+}
+
+
+
+.header{
+	box-sizing: border-box;
+	padding:0px;
+	//margin-bottom:10px;
+	background-color: #333;
+	margin:0 auto 0 auto;
+	width:90%;
+	//border-bottom:1px solid black;
+	overflow:hidden;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+	background-size: cover;
+}
+
+
+.loginstatus{
+	box-sizing: border-box;
+	padding:20px;
+	margin:auto;
+	width:90%;
+	text-align: center;
+	margin-bottom:5px;
+	background: rgb(20, 20, 20); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(20, 20, 20, .9);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+}
+
+
+.content{
+	float:left;
+	width:100%;
+	overflow: hidden;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(40, 40, 40, .9);
+}
+.main{
+	width:90%;
+	margin:auto;
+	overflow: hidden;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+}
+
+.debuginfo{
+	box-sizing: border-box;
+	width:90%;
+	margin: auto;
+	overflow: hidden;
+	font-size:10px;
+	padding: 10px;
+	color:#aaa;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(40, 40, 40, .9);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+}
+.footerinfo{
+	width:33%;
+	float: left;
+}
+
+.menu{
+	float:left;
+	padding:0;
+	width:100%;
+	font-size:10pt;
+	text-align: center;
+	background: rgb(20, 20, 20); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(20, 20, 20, .9);
+}
+.menu a{
+	padding:5px;
+	color:black;
+	text-decoration: none;
+	text-align: left;
+	display: block;
+	background: rgb(80, 80, 80); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(80, 80, 80, .9);
+	width:200px;
+}
+
+.menuheader{
+	padding:0;
+	color:white;
+	font-weight: bold;
+	width:200px;
+}
+
+.menuheader a{
+	padding: 5px 0;
+	background:none;
+	color:white;
+	margin:0;
+	text-align:center;
+}
+
+.menusubheader{
+	color:white;
+	font-weight: bold;
+	width:200px;
+	background: rgb(80, 80, 80); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(80, 80, 80, .9);
+}
+
+.menu a:hover{
+	background-color: #ccc;
+}
+
+.footer{
+	box-sizing: border-box;
+	padding:10px;
+	background: rgb(20, 20, 20); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(20, 20, 20, .9);
+	width:90%;
+	margin: auto;
+	overflow: hidden;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+}
+
+
+.skinselection{
+	width:33%;
+	overflow: hidden;
+	float: left;
+}
+
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdownmenu {
+    display: none;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdowncontainer{
+	float:left;
+	padding:0;
+}
+
+/* Show the dropdown menu on hover */
+.dropdowncontainer:hover .dropdownmenu {
+    display: block;
+}
+
+.servername{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100px;
+	color:#eee;
+	text-align:center;
+	text-shadow: 2px 3px 4px rgb(0, 0, 0);
+	text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+.contentTable{
+	text-align:left;
+	//table-layout: auto;
+	width:100%;
+	font-family:Verdana;
+	font-size:8pt;
+}
+
+.contentTable.mobList{
+	table-layout: auto;
+	white-space: nowrap;
+}
+
+
+.contentTable td{
+	padding:2px 10px;
+	vertical-align:top;
+}
+.contentRowHeader{
+	color:#eee;
+	padding-left: 40px;
+	font-size: 20px;
+	width:100%;
+	background: rgb(140, 140, 140); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(240, 240, 240, .2);
+}
+
+.contentRowHeader td{
+	padding-left: 40px;
+}
+
+.contentRowSubHeader{
+	font-family:Verdana;
+	font-size:9pt;
+	font-weight:bold;
+	width:100%;
+}
+
+.mobDrops img{
+	float:left;
+	margin:-1px;
+}
+.mobDrops td{
+	vertical-align:middle;
+}
+
+.mobDrops td:nth-child(1){
+	width:20px;
+	padding: 2px;
+}
+
+.mobDrops{
+table-layout: auto;
+	float:right;
+	width:350px !important;
+}
+
+.mobDropsTD{
+	padding: 0 !important;
+}
+
+.items{
+	font-family:Verdana;
+	font-size:8pt;
+	text-align:center;
+}
+
+
+.items img{
+	margin:5px;
+	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(40, 40, 40, .6);
+	height:100px;
+	width:75px;
+	float:left;
+	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.8);
+}
+
+.items img:before {
+  content: "?";
+	height:100px;
+	width:75px;
+	font-size: 80px;
+	position:relative;
+	display: block;
+	top:0;
+	background:#fff;
+	margin-bottom:-100px;
+}
