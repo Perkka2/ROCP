@@ -1,0 +1,68 @@
+SQL Host
+SQL User
+SQL Password
+SQL CP Database name
+SQL Ragnarok Database name (Athena Only)
+SQL Log Database name (Athena SVN only)
+Passphrase to encrypt various strings (Will render current emblems useless if changed.)
+Server Type (0 = Aegis (MSSQL), 1 = oAthena (MySQL), 2 = eAthena(MySQL))
+Page title %s (optional) replaced with server type
+Language
+Backup interval reminder (Hours)
+Default skin to users.
+Check Server?
+Maintenance?
+Account/Login Server IP
+Account/Login Server Port
+Char Server IP
+Char Server Port
+Zone/Map Server IP
+Zone/Map Server Port
+Server Name
+Use GZIP Compression?
+Use MD5 Encryption? (Athena Only)
+Number of results per page.
+Valid characters in GET/POST inputs (Regex)
+Guild War Start (Ex. 1300)
+Guild War End (Ex. 1400)
+Guild War Days (ex. 0,3,6 for Sun, Wed, Sat) - Hours are aligned to these days
+Guild War Time offset (24 hour time) for displaying times
+Save Type
+Minimum Character Level to Transfer Money
+Allow Sex Changes?
+Max Announcements to View?
+Query Debug?
+Log SELECT queries?
+Log INSERT queries?
+Log UPDATE queries?
+Log DELETE queries?
+Website Location
+Forums Location
+Patch Location
+IRC Location
+CP Location (http://____)
+Maximum Characters Detected by Script
+Ladder Display Limit
+Guild Ladder Display Limit
+Registration On?
+Method of Registration: 0 = Normal, 1 = Email Auth, 2 = Admin Auth
+Default GM level of registered accounts (Athena/Freya only)
+Use security codes in registration?
+Stops user from registering with a password similar to their username
+Maximum accounts per IP? (0 = Unlimited)
+Maximum accounts per Email? (0 = Unlimited)
+Maximum Accounts on Server (0 = Unlimited)
+Days until account is considered inactive (Athena Only, 0 = Disable this feature)
+Email SMTP Host
+Whether or not to authenticate SMTP
+SMTP Login (If auth is on)
+SMTP Password (If auth is on)
+Display Name on Email
+SMTP Email Address to use
+Colour used for Admin
+Colour used for GM
+Colour used for Game GM
+1 if you are using Stored Procedure to increase rates, otherwise 0. (Aegis Only)
+EXP Rate
+JEXP Rate
+Drop Rate

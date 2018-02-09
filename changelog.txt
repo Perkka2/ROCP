@@ -1,0 +1,784 @@
+4.3.4 - June 12th, 2005 [Vich]
+
+Revision a (June 16th, 2005):
+Added config option $CONFIG['sim_pass'] - Setting this to one will prevent people registering with a similar password to their username
+Fixed $CONFIG_max_per_email bug - Now the setting actually works :p
+Fixed selection of headings (i.e. Management Tools, Ban Controls, GM Tools ,etc) in the GM menu redirecting to a non-existing page
+Updated irc link to be an actual hyperlink (works with mIRC)
+Added more functionality to the guild times - can now specify day ranges, and alternate times for one day
+Fixed char_manage - probably only a temp fix for clicking on account names, does a standard search on the account name
+-----
+Added support for baby classes in whosonline, player ladder and server info.
+Added support for multiple different Guild War days/times (also displays differently in server info)
+Added option to change page title (panel name)
+Fixed server info showing numbers for Guild War days (as well as the day names) and formatted times
+Added guild time offset option for people hosting on a server in a different timezone (will use times in config, but display different times in panel)
+Fixed upload emblem
+Updated Guild Castle names/descriptions (Thanks to Erpirata)
+Upgraded the adodb with the latest version for more stability and compatibility with php5 (Thanks to Erpirata for idea)
+Fixed/Updated the roster (and readded it to default access)
+Made hair style select option off by default as many stylist npcs now offer this
+Upgraded ladder sorting and class selection
+Added Job Level to ladder
+Added whosonline ignore (No Aegis support and pointless for Aegis anyway)
+Added 2 additional skins (sincross and greeny)
+Added support for MVP ladder and logs for eAthena SVN (new config option $CONFIG['db_logs'], lots of reworked log code and limited sorting added)
+Fixed up GM add account (fixed email fields, fixed redirection to other reg page on fail, added level field so GMs can reg new GM accounts - default for admins)
+Added default gm level for registration (new users are given gm powers at the level if set, useful for testing and some servers do this, No Aegis support again)
+Added redirect scripts in sub folders to redirect people if they try to browse the folders (won't stop people from accessing files they know the path to)
+
+4.3.3 - December 18th, 2004
+
+Major security fix for money transfer. Please upgrade ASAP. Please be sure to update the query folder.
+Fixed passwords from becoming MD5'd again if they are not changed when editing accounts.
+Fixed the SQL error when trying to view item database by item for Aegis servers.
+
+4.3.2 - November 14th, 2004
+
+Fixed editing castles in guild_manage.php. (Thanks to kantier)
+Fixed CP database issues with item search.
+
+4.3.1 - October 27th, 2004
+
+Fixed item deletion logging for items with ' in the name. (Thanks to RodneyJ)
+Fixed install.sql for Athena/Freya Servers (Thanks to Devilwalk)
+Fixed email limits in pending table. (Thanks to serra)
+
+4.3.0 - October 25th, 2004
+
+Fixed foreach error when renaming guilds. (Thanks to GamemasterX)
+Added bold to GM account when viewing GM interactions in view_server_log. (Aegis Only)
+Added support for Freya Servers (3 in server_type in config.php)
+
+4.2.4 - October 23rd 2004
+
+Fixed genders being forced as female for Aegis servers.
+Fixed email limits for registration. (Thanks to JiGGaWHO)
+Added sorting to monsters/items by letter in view_db.php.
+Added code to ensure that displays if config.php is outdated, and what variables are missing.
+
+4.2.3 - October 18th, 2004
+
+Fixed duplicate class declarations in functions.php. (Thanks to daxiong123)
+Fixed failed auth for usernames with exactly 4 letters. (Thanks to serra)
+Fixed Who's Online option from appearing in user menu for GMs and above in Aegis servers.
+Fixed some issues due to the instructions in register.php. (Thanks to serra)
+Fixed backup_server.php when it tries to read `char` table. (Thanks to Ajarn)
+
+4.2.2 - October 14th, 2004
+
+Fixed registration where it would not delete pending entries. (Thanks to JiGGaWHO)
+Fixed double md5 bug. (Thanks to JiGGaWHO)
+Fixed some issues with guild emblem display. (Thanks to JiGGaWHO)
+
+4.2.1 - October 11th, 2004
+
+Fixed Invalid Guild message when uploading emblem.
+Fixed skin changer at bottom of page.
+Added max_per_email to config.php, limits total accounts that can be registered with an email.
+Added ip column to pending table. Be sure to check the upgrade folder for query update.
+Added IP/Email limits to pending table, same as limits on server, defined in config.php.
+Be sure to update config.php and conf.def.
+
+4.2.0 - October 9th, 2004
+
+Fixed CHECK_SEX query for Aegis.
+Fixed registration conflicts with skin menu.
+Fixed uploading emblems.
+Fixed item deletion (reported by Lotus)
+Fixed server status misalignment for Internet Explorer users (Thanks to hoshi)
+Fixed clear_account.php, clear_all_banned.php (reported by Lotus)
+Added girl and secks skin to download pack. Be sure to download the new skin folder.
+Added support for SMTP Authentication in email. 
+	-Be sure to extract phpmailer folder as well as update config.php and conf.def.
+Removed password from being shown after email is verified. Make sure you update your lang folder.
+Emblem folder will be automatically created if it does not already exist.
+Slowly adding PHPDoc comments into the source. Work in progress.
+
+4.1.3 - October 5th, 2004
+
+Fixed pending registration for Aegis users.
+Fixed money transfer logging query error. (Athena Only)
+Fixed money transfer exploit errors when choosing a character. (Thanks to Master_Vivi)
+Fixed a typo that resulted in failed honour sort in ladder. (Aegis Only)
+Improved GM Interactions in view_server_log.php to include trades only. (Aegis Only)
+Updated text filters to ignore blank text.
+
+4.1.2 - September 29th, 2004
+
+Fixed guild emblem uploading.
+Fixed CHECK_SEX query for Aegis.
+Fixed pending bug for Athena users (Thanks to spira)
+Fixed typo in query.php (Thanks to Doraemon)
+Fixed problems in drop-down list of item_search.php
+
+4.1.1 - September 7th, 2004
+
+Fixed a few small problems in account.php. (Thanks to equinoz)
+Fixed exp/jexp given to factor adjust_rate when calculating. (Thanks to equinoz)
+Added Most Silenced Player option to ladder.php. (Aegis Only)
+Added comments to config.php, and will be automatically generated in edit_config.php.
+Improved account/character/guild editing logs, displaying each change in detail. (Example: Changed Password of azndragon: myoldpassword to mynewpassword)
+Removed slash_mode from config.php. Path handling is handled automatically.
+validchars in config.php is now set as a regular expression. Only edit if you know how it works.
+
+4.1.0 - September 2nd, 2004
+
+Important exploit fix, please update as soon as possible.
+
+Fixed a crucial security issue in money_transfer.php, be sure to update this file, along with query.php.
+Fixed a duplicated constant in query.php.
+Fixed a major bug in the query.php files.
+Fixed rebuild_mobs.php.
+Fixed HTML code from appearing when doing searches in character management.
+Fixed a bug where checking online status was not done properly in hairstyle.php. (Athena Only)
+Fixed search display of lookup.php.
+Fixed a few problems where setting $access to -1 would not disable the page from CP menus.
+Fixed query for view_money_logs.php. (Reported by JiGGaWHO)
+Added a check to $GET_char in hairstyle.php.
+Added registration type display in register.php.
+Removed gzip_header.php & gzip_footer.php, will be included in header.inc & footer.inc.
+Removed instructions relating to install.php from readme.txt.
+FAQ in readme.txt updated to include MySQL/MSSQL errors in PHP.
+Re-arranged the order of the menu options.
+Changed length of cp.pending.user_pass to 32 for Athena users who require md5. Check upgrade folder for query.
+Changed money_transfer.php queries to add/subtract the specific amount, instead of setting a new value for easier tracking.
+Changed registration some more, forgot to declare a critical global variable in add_account function.
+
+4.0.6 - August 28th, 2004
+
+Fixed add_account.php and account_manage.php to support md5.
+Fixed view_db.php to enclose column names with [] or ``, to avoid SQL keyword conflicts.
+Fixed some problems with registering accounts when md5 is turned on.
+Fixed rebuild_mobs.php missing bracket.
+Fixed account editing query for Athena users.
+Fixed md5 password being emailed when email validation is set.
+Removed install.php from package.
+Removed max_messages and version from config.php, no longer needed, conf.def adjusted for this change.
+
+4.0.5 - August 25th, 2004
+
+Fixed a whole batch of queries that I forgot to convert to Athena (reported by Merysa)
+Fixed more issues with character deletion, was using guild_id for some reason. Maybe fixed for sure?
+Fixed changing password to use MD5 for Aegis.
+Updated DecToBin Function in install script. (Aegis Only)
+Disabled the roster for now, until it can be fixed.
+
+4.0.4 - August 23rd, 2004
+
+Fixed more character deletion, due to ` around char table. (reported by pock)
+Fixed viewing announcements. (reported by pock)
+Added maldiablo's changes to lookup.php, functions.php, register.php for the following changes:
+	- Character names not showing up in lookup.php.
+	- Users getting thier passwords emailed to them as a MD5 hash instead of thier actual password when enabling MD5 passwords in Aegis.
+Fixed clear_temp_banned.php.
+Fixed the javascript in register.php to allow longer usernames (24 instead of 10).
+CP database name can be used for Aegis servers now.
+Resend Validation Email option in login.php will not be shown for admin auth.
+Emails will be sent to the user when account is added to database, along with basic server information.
+MVP Ladder will no longer give error on empty log.
+
+4.0.3 - August 22nd, 2004
+
+Fixed Athena Character Edit, Char Delete, View Item DB. (reported by Gustik)
+Fixed Item Search Dropdown List, lots of char_manage sorts. (reported by Merysa)
+Fixed the wrong message when deleting a character. (reported by echira)
+Fixed the editing of Admin/GM accounts by GM.
+Fixed header issues when trying to ban/add to ladder_ignore accounts. (reported by Doraemon)
+CP Database name can now be set in config.php.
+Lost passwords will be md5'd for Aegis servers if turned on.
+
+4.0.2 - August 15th, 2004
+
+Fixed announcement bugs & item deletion, hopefully for sure this time.
+Fixed character editing for Athena users.
+
+4.0.1 - August 14th, 2004
+
+Rules of the server moved to an external location (rules.txt)
+Fixed illegal inputs in the numbers generated by registration.
+Announcement bug, inventory display, item delete fixed thanks to Ajarn.
+Fixed Aegis char deletion with the invalid column name GDID.
+Various states for characters can now be edited.
+Changed the DecToBin function to allow 2 arugments, value, and length, to be compatible with state editing. (Aegis Only, check upgrade folder)
+Small change to highlight_search_term in lookup.php thanks to maldiablo.
+Login will now be case-sensitive for Aegis users.
+Aegis MD5 support added, although the account emu doesn't support that YET.
+Added insertion to user.dbo.t_user upon registration. (Aegis Only)
+Emails being sent out should appear in Inbox instead of Bulk Mail for hotmail users. Similar effects for other email users with filters.
+Fixed ladder not showing advanced classes as an option. (Athena Only)
+
+4.0.0 - August 12th, 2004
+
+Project renamed from Athena Control Panel to Ragnarok Online Control Panel.
+Aegis support added.
+
+Athena Users: Date formats changed again, as well as datatypes, drop all the CP related tables, and remake them.
+
+Droplog, edit announcements, and about.php fixed thanks to Ajarn.
+Co-ordinates of all players viewable to GMs/Admins in whosonline.php.
+Input checking done in memory.php instead of header.inc.
+Searches are more broad, highlighting the matches.
+lookup_account.php and lookup_character.php merged to lookup.php.
+Improved searches and display in lookup.php.
+Display of class breakdown in server_info.php improved.
+Hairstyle images are more updated.
+Hairstyle extracting program (in VB) for download at http://azndragon.ragonline.net/hairstyle_converter.zip
+Greatly improved security, where all ID numbers are encrypted so that no user can determine what they are.
+Item Display now compatible with eA 1.0.0 item_db.
+Got rid of frames.
+Restricted all logins to alphanumeric, no exceptions.
+Improved the edit_config.php output and use.
+config.php: All options are now expressed as single-quoted strings.
+Number of users query changed to use `char` table for Athena.
+Zeny can only be transfered when character is online in the WHERE clause, due to inconsistency with Athena's updating.
+Total zeny displayed on server_info.php, not affected by users in cp_privilege table.
+Adding accounts to ladder_ignore can be done by ladder.php for GMs and up.
+Mailbox removed, conflicts too much with the filters.
+Character Rosters changed to work with Aegis & Athena.
+2 more methods of registration added, email & admin validation.
+Pending registration can be managed in pending.php.
+Server Status check now only checks once every 5 minutes instead of each page load.
+GMs and Admins can force an update to server status through main page.
+Terms of the Control Panel added to top menu, as well as upon registration, and login.
+Online Characters will be in bold in char_manage.php (Athena Only)
+Online Accounts will be in bold in account_manage.php (Aegis Only)
+view_server_log.php can now display only GM actions (uses CP privilege table)
+install.php fixed, should be working much better.
+Register log logs email now.
+Fixed editing passwords with md5 support, thanks to devil.
+Sex changes can be enabled/disabled by config.php.
+agit_days added to config.php, a list of numbers of all applicable days.
+Guild war restriction in whosonline.php uses the list of days to block access.
+Monster & Item database improved, allows for class searching and other forms of searches.
+Added rebuild_mobs.php (Athena Only) to rebuild mob database.
+Added rebuild_items.php to rebuild item database.
+adjust_rate added to config, to compensate for the stored procedure rates (Aegis Only)
+query.php removed for security reasons.
+banned_chars removed from config, SQL will search for non alphanumeric, space, -, _ characters in names.
+
+3.2.5 - July 15th, 2004
+
+Server Log viewing added (oA Only)
+MVP Ladder added! Based off of server logs, so oA only.
+New authentication methods, allows full customization of all pages.
+
+Improved the query logging.
+Fixed display of guild castles in guild_manage.php.
+Fixed Item Deletion
+Fixed view login history.
+Fixed the installer.
+Fixed the missing strings due to HTML tags in character names.
+Fixed Character Roster.
+Fixed the missing text in item deletion, as well as optimized some queries.
+Frames removed, don't feel like having them being used.
+Added to config.php:
+	-$CONFIG['results_per_page'] = 50;
+Removed from config.php:
+	- All the access variables, moved to access.php
+
+3.2.4 - July 3rd, 2004
+
+installer script added, will not be of much value to upgrading users.
+cp_athenaitem table now depreciated, please look in the upgrade folder for a replacement (if applicable)
+
+register.php now uses Javascript for better input checking for the convenience of the user.
+Loginlog can now display the login history of an account.
+item_search.php now uses a dropdown list so that item names can be more clear.
+char_manage.php editing mode now displays if the character is online. (oA Only)
+Fixed char_manage.php to display proper account names.
+Fixed the authentication, which is now case sensitive.
+Added roster system of aegis converted for Athena! oA only, until eA supports online column.
+
+3.2.3 - June 28th, 2004
+
+Fixed the look of:
+	- money_transfer.php
+	- account.php
+	- add_announcement.php
+	- add_account.php
+money_transfer.php uses POST instead of GET, for more security.
+money_transfer.php will only display characters above level 20
+The javascript will not attempt to navagate to page when a category is clicked.
+Fixed frames mode so that it will be shown in Mozilla.
+Fixed a lot of problems with register.php, including broken skins thanks to spira.
+
+3.2.2 - June 24th, 2004
+
+Removed the version checking code, not much purpose to it.
+Packaged all the fixes together, should be working fine.
+Fixed the CSS/JavaScript to work with more browsers.
+Privilege table changed again, using numbers instead of strings. Make sure you run the SQL upgrades.
+access.def added, can be used to name the different privilege groups.
+
+Made a few changes to upload_emblem.php, should hopefully fix it.
+Query debugger will not show if no queries have been executed.
+clear.php will no longer clear the system and CP accounts when clearing accounts with 0 characters.
+Fixed the excessive useless queries in clear.php.
+Fixed the broken security codes in register.php for some versions of Apache and the flush() command.
+Fixed the announcements calling on the old tables.
+Fixed account editing.
+Fixed the look of account/character/guild editing.
+Updated the athenaitem.sql to install under the new table names.
+Announcements now support multiple lines.
+Optimized account_manage.php, char_manage.php, guild_standings.php, and view_money_log.php SQL queries.
+If too much time has passed since backup, warning will be shown in red.
+
+3.2.1 - June 23rd, 2004
+
+Fixed broken view items in account_manage.php
+Fixed broken money transfer.
+Fixed broken CP/[passphrase] login.
+Fixed privilege issues. Check the upgrade folder for a slight alteration in the data.
+
+3.2.0 - June 22nd, 2004
+
+Important Updates (Take note of the SQL updates in upgrade folder):
+
+*	All the CP tables have been renamed to avoid confusion with server tables (Usually GM)
+*	Privilege system tables and structure changed, config.php has a few entries removed.
+	- admin_privilege.php, gm_privilege.php removed, merged into privilege.php.
+	- admin, gm table removed, merged into cp_privilege table.
+	- New group added: Game GM. Accounts in this group will have the same access as users, but will be shown as	a GM in database queries.
+	- You will need to re-add CP account, and add admins/GMs/Game GMs again.
+*	A lot of queries optimized for better load on SQL servers. (ladder, guild standings, whosonline, login_log, item searching, server info)
+*	item_functions.php has been optimized in queries, as well as output.
+*	config.php now has game_gm_colour, the colour used to identify game GMs in the account table.
+*	Skin changer added! Start submitting skins, and look at the predefined skins to know how to organize it.
+*	Skin structure changed, with skin.php used to edit specific details about the skin.
+*	New SQL table needed to store member skin selections. Look in upgrade folder.
+*	Access level is no longer dependant on cookies, but looks in the SQL tables on every load.
+
+Added automatic version checking, where the footer will display a message if the CP is not the newest version.
+Item Deletion added.
+Searching by refine level now added to item_search.php.
+Can sort by level, job level, zeny, and stats in char_manage.php.
+Money cannot be transfered to a character below $minimum_transfer.
+Registration using add_account.php will be logged.
+server_info.php now shows information about PHP and MySQL Versions.
+Options that GMs cannot access will automatically be disabled in footer.inc as well as menu.php.
+
+Inactive logins are now sorted in clear.php.
+lastlogin field of register will now be inserted on registration, for better pruning of unused accounts.
+Fixed the editing of announcements with special characters like '
+Query debugger output looks a lot neater. Can only be viewed by Game GMs and above.
+Query debugger only counts queries that are generated for the page, not the pre-execution ones (skins, auth, users online).
+
+CP Protect is no longer needed.
+
+3.1.0 - June 15th, 2004
+
+config.php structure changed dramatically, as well as variables. Config variables can be viewed and changed through edit_config.php.
+
+CP Backup is now much faster, saves to the host computer for extra security, and saves the non-essential tables for better execution times.
+In config.php, set it to $access['backup_server.php'] = 2; so that GMs can backup the server as well.
+Last backup time is now displayed to all users, reading from last_backup.txt.
+
+login_log.php added. Allows analysis of IP/Accounts, such as:
+	- Number of accounts connected to IPs.
+	- All accounts connected to a specific IP
+	- All IPs connected to a specific account
+Bans can also be done when you are viewing all accounts linked to an IP, allowing for easy bot bans.
+Note: These are based off of IPs that connect to server, you should consider the possibility of things like LAN parties, but it is up to you to decide.
+
+Account names are no longer displayed in server_info.php
+The structure of $agit_start and $agit_end are slightly changed.
+Fixed the display of guild alliances/enemies.
+Admins will be in bold in server_info.php.
+Added Maintenence mode, where you can change $maintenance in config.php, and server check will automatically be disabled.
+ladder.php now sorts by base exp, in the event that multiple characters are the same level.
+ladder.php Zeny sorting and display re-added.
+Fixed the bug where if $secure_mode is disabled, it will reject registration.
+More Options in clear.php:
+	- Clear all accounts that have not been logged in $inactive_days days and have less than 5 logincount
+	- Clear all accounts that have not been logged in $inactive_days days
+	- Clear all 1/1 Novices
+	- Clear all accounts with 0 logincount
+	- Clear all accounts with 0 characters and empty storages
+	- Clear all accounts with 0 characters, ignoring storages
+Made a few changes to item management, using item_id instead of name.
+GM/Admins can view the whosonline.php, even if guild wars are on.
+Fixed money transfer.
+The login to CP is now equal to the passphrase that you have set.
+Skin system has started, start submitting skins!
+
+3.0.3 - June 12th, 2004
+
+Fixed the edit character, credits to cristof.
+Fixed a lot of messed up hidden variables where it's missing an _.
+Fixed the logging of clearing a character.
+Added the logging of clearing an account.
+$lowest_account_id removed from config.php and add_account.php. There is no use for it anymore.
+Added maximum accounts per IP, and maximum server accounts for registration.
+Added to config.php:
+	- $max_per_ip = 0;	// Max Accounts per IP, 0 for unlimited.
+	- $max_accounts = 1000;	// Max Accounts for server
+
+3.0.2 - June 11th, 2004
+
+money_transfer.php will be disabled if server status check is disabled.
+Fixed some hairstyle queries.
+Total guild members in a guild displayed in guild_standings.php.
+Guild Ladder is more accurate, along with guild_manage.php. Current Members and Max Members are now displayed in guild_standings.php.
+Guild Member list is sorted by position, and leaders will be displayed in bold.
+Fixed the broken character deletion.
+Added a function where all characters that are not linked to accounts will be cleared in clear.php.
+
+3.0.1 - June 11th, 2004
+
+Fixed removal of GM/Admin Privileges
+fclose will be used after fsockopen when checking status of server to free up resources.
+Made a small change to ladder, may possibly speed it up.
+Server Rates can now be defined in the config.php. Will affect server_info.php, as well as view_db.php.
+Added to config.php:
+	- $exp_rate = 1;
+	- $jexp_rate = 1;
+	- $drop_rate = 1;
+Updated the athenaitem tables, but will also be given an option to take the item listings from item_db table instead.
+view_db.php option added to menu.php.
+Fixed the SQL resource error in register.php.
+All accounts that register will now be logged.
+view_register_log.php added. Allows GMs and up to view the registration logs, and check IPs that registered.
+$access['view_register_log.php'] = 2; added to config.php.
+
+3.0.0 - June 10th, 2004
+
+Note: Please uninstall your old CP, and re-install, because many tables have changed, as well as the way they are stored.
+
+New style! Credits to zack from Aegis. It can be changed mostly through style.css.
+
+Uploading emblems no longer uses SQL tables, you can remove the emblem table. Uses an actual image upload instead. Should be faster than before.
+Level cookies have been encrypted using a passphrase designated in config.php. You MUST use a passphrase, or the script will not execute!
+Server status can be enabled/disabled in config.php
+Converted date format for all logs. Need to run new query to re-install them, but make sure to back up any logs if you wish to keep them.
+Players can now view guild information in the guild standings window.
+Added query.php where Admins can execute their own queries without connecting with another MySQL Tool.
+New variable in config.php:
+	- $access['query.php'] = 3;
+Added Javascript code to the drop-down list of footer.inc for automatic page redirection. The normal button can still be used for those who do not have Javascript enabled.
+Added Execution Time, Queries Executed, GZIP Enabled/Disabled in footer.inc.
+Illegal ASCII character name searching added to clear.php, where you can specify illegal characters in config.php as well. All Characters found with illegal ASCII characters can be deleted from this page. Uses REGEX expressions in SQL, so make sure your version of SQL can support them, which it should.
+Server Contact Information (Patch, Forums, IRC, guild war times), as well as rules will now be in server_info.php.
+Guild war times can be declared in config.php.
+whosonline.php is now disabled when guild wars are active.
+Added view_db.php, where normal users can view the tables that the host can set with config.php.
+	- $athena_db['table_to_show'] = true/false;
+	- Example: $athena_db['mob_db'] = true; means show users the mob_db.
+Full Mob/Item Database viewing, including monster stats, monster drops, as well as a fully SQL-powered droplist system.
+The tables are messy for now, but they might be fixed later.
+Added more advanced anti-bot registration, code courtesy of Invison Power Board.
+
+Supposedly eAthena DID NOT fix their online column, contrary to what some people have said. Therefore, money transfer is disabled for eAthena users.
+Fixed missing poster name when posting announcements.
+Fixed viewing items in char_manage.php.
+Fixed Server backups with the `` around each table/field.
+Account/Character/Guild Management options are now in drop-down boxes, instead of the old list of links.
+clear_inactive.php is now clear.php
+	- $access['clear_inactive.php'] = 2; becomes $access['clear.php'] = 2;
+clear_inactive.php will now display all accounts, as well as their last login time. It will highlight all accounts that havn't been logged in for over $inactive_days, which can be set in config.php.
+Fixed the banning/unbanning in ban.php/unban.php.
+register.php INSERT statements are more accurate now, should not conflict with auto_increment.
+Fixed clear.php, time to set an account as 'inactive' is in config.php. 
+There will be no input checking when registering an account, so characters like - and _ can be used.
+MD5 Encryption support finally added to register.php.
+Ban/Unban Logs fixed.
+Fixed hairstyle.php Javascript code. Should work fine now.
+Gender Changing should work better now, due to a problem in precedence in the SQL query.
+GM/Admin characters will be displayed in server_info.php.
+Guild castles can be managed through guild_manage.php.
+Query logs will be stored in an arbitrary text file, which is dependant on the passphrase, so users cannot access it.
+Timestamps added to query logs.
+If using oA, the email field now supports up to 100 characters in register.php.
+Fixed the missing Super Novice option in char_manage.php, as well as ladder.php.
+
+Removed the CP Online feature, there isn't much point to it.
+Removed Job Level and Zeny from showing in the ladder.
+
+2.4.0 - May 21st, 2004
+
+Improved the speed of the queries by reducing all the SQL connections. Should increase performance.
+
+2.3.9 - May 20th, 2004
+
+Install.sql creates the CP/CP login with account_id 20 now. It seemed to be causing problems with auto_increment, WHICH NOBODY BOTHERED TO TELL ME, this script is 4+ months old!
+Fixed improper users online.
+Fixed some guild issues with ' in them.
+Guild ladder limit can be set.
+Multiple Guild castle support added.
+Fixed the problems with changing the account_id of an account.
+Server backup now generates `` around each field name, or table, for better SQL queries that won't crash.
+Fixed the edit character system, with better support for weird character names.
+Character slot can be viewed/edited with char_manage.php.
+Changing password should work with MD5 support.
+OmniAthena uses md5 encryption now, change in config.php.
+Personal Messenger System added! New tables need to be installed. Still a beta version, so it may not be perfect.
+Features:
+	- View Inbox
+	- Admin can set maximum inbox size
+	- Send message to character
+	- Delete message
+
+2.3.8 - May 15th, 2004
+
+Guild emblems support has now been added! Guild masters can now upload their emblems, and it will be displayed on the guild ladder.
+Need to upgrade SQL tables to support the new emblem table.
+
+2.3.7 - May 15th, 2004
+
+Worked on Deleting Accounts some more.
+Some queries will be ignored when $debug is set to true, such as cponline, user count, and login authentication.
+Displayed the inputs that are causing invalid input errors.
+Removed cookie checking, because there isn't much point.
+
+Changes to config.php:
+	- The list of valid characters as input is now changeable.
+	- Minimum level to transfer money can be set.
+	- $cp_protect is now set to false, it's not working for some werid reason.
+
+Fixed messed up md5 login detection.
+Server Backup fixed again!
+
+2.3.6 - May 8th, 2004
+
+Fixed the menu.php where it shows all options, forgot to take them out while debugging.
+Support for MD5 hashing for logins. I have no way to test this out (like most of my features), so report any bugs about it. Use $use_md5 = true; in config.php if you want to enable it.
+
+2.3.5 - May 5th, 2004
+
+More errors with redir fixed, no point of having a timed redirect, people can just click the link to move on.
+Wrong table formats in lookup_account.php and lookup_character.php fixed.
+Registration being blocked fixed.
+Queries dealing with cponline are no longer logged.
+Deleting accounts SHOULD be fixed, not sure.
+
+2.3.4 - May 2nd, 2004
+
+User Input is checked at the start of each script, eliminating any non-alphanumerical characters from being used as input.
+UNION SELECT is filtered out of every query.
+Exploit log has been added. Be sure to check out the upgrade queries.
+view_exploit_log.php added, make sure you add $access['view_exploit_log.php'] = 3; to your config.php.
+execute_query function has been expanded tremendously to discourage malicious queries.
+Query logging was not working when $debug was set to false. This has now been fixed.
+
+2.3.3 - May 2nd, 2004
+
+Security Updates:
+
+Following security exploits have been fixed:
+	- config.inc is now depreciated, use config.php.
+	- SQL Injection has been fixed in:
+		- ladder.php
+		- whosonline.php
+		- money_transfer.php
+Logging has been fixed.
+Query logger has now been added. The query logs are directly saved onto the webspace, NOT on the SQL server as queries.txt. By default, all UPDATE and DELETE statements are logged, along with IPs. You can disable any as you wish. Logging SELECT statements will only log queries that SELECT from the login table, because it is the only table that contains sensitive data.
+
+Bug in ladder fixed, with an accidental assignment instead of a condition.
+Item Search tables have been cleaned up, as well as broken queries.
+
+GZIP support has been added, can be controlled by config.php. Make sure you have GZIP support enabled.
+
+2.3.2 - May 1st, 2004
+
+Sessions are now depreciated, cookies are back in. With the re-addition of cookies, frames are now up and running. Lots of code cleaning, I hope this version will work well with everyone.
+$save_type = 1; is in the config.inc, using 2 will use sessions instead of cookies. Use sessions at your own risk, because it takes a lot more config in the php.ini.
+Guild Standings have been added. Here, you can view the top level guilds, as well as which castles are owned, and by which guild.
+guild_castles.def added, indicates the names of each of the castles for guild standings.
+
+2.3.1 - April 30th, 2004
+
+Important: Frames are now depreciated! The new session method has made it useless. I will be trying to work on a fix for that, so in the meantime, leave frames OFF!
+Server Status now supports multiple IPs.
+Various bugs relating to money transfer fix.
+Fixed hairstyle bug where it thinks you're not logged on.
+
+2.3.0 - April 30th, 2004
+
+Added the magic_quotes settings where it will set up PHP.exe to use magic_quotes for better SQL queries.
+Removed the automatic query installers, because they can cause a lot of problems, you should now copy/paste each query into your preferred MySQL client.
+Who's Online now shows class, level, and job level.
+
+Built-in query debugger added! Using $debug = true; in config.inc, you are able to display all queries that are executed in each script execution. Very useful for bug reports, paste any error messages into the forum for better analysis. Be sure to turn them off when you open it for the rest of your server, because:
+a) Increasing down the script processing time
+b) Reveals some data that you may not want users to see.
+Query Execution can be turned on/off using $execute_query in config.inc.
+Debugging will be set to false by default. Please enable it when you are sending query-related bug reports.
+
+2.2.9 - April 29th, 2004
+
+Frames are now turned off by default, for simplicity. Enabling it is the same as before.
+More Hairstyle bugs changed, due to the new nature of some SQL queries (Dropping the joins, using more direct queries).
+Ladder and Server Information now supports Advanced Classes.
+Made a lot of changes to the CSS, a lot of tables should look a lot nicer. Tables can be customized according to the parameters listed in the CSS.
+Cookies are now gone! Implemented a new SESSION system, which will work for all browsers, even if cookies are diabled.
+Removed db_backup.php, no longer needed, the backup function was merged to backup_server.php.
+
+New Announcements system! 
+	- You can specify how many that you want to view on the main page using config.inc, and members can go to 	another page that lists all previous announcements.
+	- If you are upgrading, add $max_announce = 2; to config.inc.
+	- GM/Admin Can add/delete/edit posts. Only Admins can add/delete/edit Admin Posts.
+	- Need to add $access['edit_announcement.php'] = 2; to your config.inc as well.
+	- New announcement database system, need to upgrade the DB, check the upgrade folder.
+
+Note about announcements: A relatively new feature, so it may be buggy, I have not tested this thoroughly.
+
+2.2.8 - April 28th, 2004
+
+Major Update: Frames is now in use for the CP. You can enable/disable it through config.inc, with the variable $frames.
+New page structure:
+	- index.php: Controls what to do, based on frame settings
+	- menu.php: Contains all the links to various pages on the CP
+	- home.php: The old index.php, with the announcements, etc.
+whosonline.php search by map fixed, used the wrong table from an old mod of mine.
+
+2.2.7 - April 28th, 2004
+
+Deleting accounts in account_manage.php fixed.
+More cookie detection code fixed, still may not be 100% perfect.
+
+2.2.6c - April 27th, 2004
+
+Finally fixed the really messed up cookie settings. Should work fine. 
+Add this to your config.inc:
+	$access['view_money_log.php'] = 2;
+	- Used for permission to view money transfer log.
+
+2.2.6b - April 27th, 2004
+
+Fixed some minor security holes.
+
+2.2.6 - April 27th, 2004
+
+Advanced classes support is added in any table that lists classes.
+	- class.def - The arrays of all the normal classes.
+	- class_advanced.def - The arrays of all the advanced classes.
+	- Feel free to edit any of these files for any preferences, but keep the order proper.
+Forced the announcements table width for better appearance for long posts.
+Fixed a small type in the $athena variable. 0 = oA, 1 = everything else
+	- These might be used later on in the future, since I expect that sooner or later, the database structures 		will begin to change.
+Changed clear_all_banned.php so that it only cleared entries that started with Password error ban:
+	- This will allow server owners to reset the password hammer bans, while maintaining their perm ban lists.
+Money Transfer Re-added:
+	- Disabled when server is offline
+	- Check both char_id to make sure that they are from same account.
+	- Log any abuse of people trying to steal from other chars.
+	- Log all transactions.
+	- Need to run a new query located in the upgrade folder.
+Fixed maybe 60% of the query errors that result from character names that use the character '. If you get anymore, please note the page, and your actions leading to the error. Thanks.
+Added Security Feature: ONLY 127.0.0.1 will be able to log in with CP/CP! HIGHLY recommended to leave on. If, for some reason, you cannot access it from 127.0.0.1, you can disable it.
+MAJOR HTML code cleanup. I have finally set up my tables properly, with closing tags in proper places. The source will be more messy, but my debugger works wonders with my indentation.
+	- As a result of this, many new tables have been moved, and should be more convenient for you guys to use.
+Layout Changes:
+Current Login/Access Level & Logout feature appear at top of screen.
+User/Gm Options are nicely centered this time.
+Credits are at the very bottom of the script, unlike before.
+Not as much bug testing, please report bugs like usual.
+
+2.2.5 - April 26th, 2004
+
+New variable $athena added to config.inc. Set to 1 if you are using oA, 0 if you are not. oA has a working who's online feature, while I am not too sure if eA works. Post a message in forums when eA has this feature working.
+Changed: whosonline.php
+Finally, players can now view WHO is online and WHERE they are! It will display all characters as well as their current map. GMs will be highlighted in another colour so players will know who they can contact if needed.
+Error reporting has now been slighly changed, so the undefined_index errors will not appear anymore, but I am not sure if this is a perfect solution.
+
+2.2.4 - April 25th, 2004
+
+Added about.php, where users can get some information on what to email me about, INSTEAD OF EMAILING ME ABOUT SERVER ISSUES.
+Added the access_log.php
+	- Add $access['view_access_log.php'] = 3; to your config.inc if you are upgrading, you can customize if you wish.
+Added Server Status and Whos Online on the panel to the right.
+	- whosonline.php will be useless for now, but it will be useful in the next AA release.
+Removed the 'misc' column in view_admin_log.php and view_user_log.php, no use for them anymore.
+Fixed Missing Hairstyle bug when hairstyle.php is first loaded.
+Fixed the way access_log.php works, it was appending everytime an action was performed.
+Fixed the 'No such account' message from appearing multiple times for a valid search in lookup_character.php
+
+2.2.3 - April 17th, 2004
+
+Upgrade was kinda messed, fixed that.
+
+2.2.2 - April 17th, 2004
+
+Fixed a few SQL syntax errors thanks to Nexus.
+
+2.2.1 - April 16th, 2004
+
+Changed some stuff in the readme.txt file.
+Again, log structures are changed, please run upgrade_to_2.2.1.bat to convert the new log tables.
+Login log for Admin/GMs.
+Users/GMs attempts to access unauthorized pages will be logged.
+Fixed the missing account name in the index.php
+Redirect function is re-enabled, it was disabled for some debugging purposes previously.
+
+2.2.0 - April 14th, 2004
+
+Added PHP Version Control, where if PHP is below version 4, it will terminate.
+Changed the format of the logs, delete all old logs since they do not use the same date format.
+Something was messed with the disable of gender change for bards/dancers, this has now been fixed.
+Admins can now view the exact privilege settings for each page through the CP.
+Removing GM/Admin Privileges is now easier.
+A few item/account/character management features changed, using ID numbers, rather than names.
+
+2.1.1 - April 3rd, 2004
+
+Added class ladder, where you can view top [insert class here] on server.
+Character/Account Searches are less restrictive.
+Made a change to the structure of one of the functions. Report any weird character information to me.
+Clear Account now clears Party/Guild Information, so guild/party information will not be unlinked in the DB.
+In the SQL dump, the USE database command is included so restoration of backups are slightly easier.
+Banning can now be done via the account management.
+Fixed the ban display in account management due to typo.
+Fixed a few typos in the layout.
+
+2.1.0 - April 1st, 2004
+
+New Set of Privileges. Pages that can be accessed by Admin/GM only can now be customized.
+Fixed the bug where users would register before CP is configured, and the new accounts IDs would be very high.
+Added Ladder Ignore Option where GMs can select which IDs to remove from the ladder.
+Reorganized the Options available to GM/Admins.
+Actually implemented the disabling of registration.
+Added 2 password fields for registration.
+
+2.0.3 - March 31st, 2004
+
+Actually added the GM add account option, since I forgot to add add_account.php to the package.
+Fixed the server_status.php, should not have been using Inter/Zone.
+
+2.0.2 - March 29th, 2004
+
+Fixed the query from being displayed in the registration process.
+Added a GM add Account Option
+Fixed the '1' from showing up in the guild/character management when none exist.
+Fixed the error message when no guilds can be displayed.
+Disabled the Who's Online Table, will be added next AA release.
+
+2.0.1 - March 28th, 2004
+
+Fixed the non-working registration.
+Fixed the 'ragnarok.online table does not exist' error.
+
+2.0 - March 27th, 2004
+
+Complete Update! MANY new things added, as well as layout.
+Some new features:
+	- Admin/GM Privileges
+	- Who's online in CP
+	- Account/Character/Guild Management
+	- More clarified privilege settings.
+	- Password reset actually works.
+	- More configuration options
+Install Program included.
+
+1.2 - January 29th, 2004
+
+Fixed a lot of table issues in item search.
+Functions have been fixed, and some functions have been changed a bit.
+New config options added: IRC Channel, Forums, and Patch Location.
+
+1.1 - January 29th, 2004
+
+Fixed maintenance bug, along with many table display issues.
+
+1.0 - January 29th, 2004
+
+First released, lots of bugs present

@@ -1,0 +1,60 @@
+(Taken out of readme.txt)
+
+*********************
+* Extracting the CP *
+*********************
+
+First, you must extract the contents of the .rar file into your webhost folder, where users can access it through index.php.
+
+For those extracting the CP to a webhost, ensure that edit_config.php has read/write access.
+
+**************************************************
+* Quick and Easy Installation for Advanced Users *
+*        (Know Aegis/Athena/CP/SQL well)         *
+**************************************************
+
+Edit config.php using your basic editor, the most important ones being db_host, db_username, db_password, db_name (for athena), passphrase, and server_type (0 = Aegis, 1 = OmniAthena, 2 = eAthena).
+Note for Athena Users: db_name IS NOT cp! It is the database where your server information is stored (ragnarok by default).
+
+Create Database cp, ensure proper permissions to the cp, and ragnarok server databases. If you are using OmniAthena, and wish to use logs, give it access to log database.
+
+For Aegis Users, install the stored procedures and functions from install_functions.txt
+For Athena Users, install mob_db and item_db if you are not using the SQL item_db/mob_db.
+
+Run the following query to make an admin account:
+
+Aegis Users:
+	INSERT INTO cp.dbo.privilege SELECT AID, 4 FROM nLogin.dbo.login WHERE ID = 'your account name';
+	
+Athena Users:
+	INSERT INTO cp.privilege SELECT account_id, 4 FROM ragnarok.login WHERE userid = 'your account name';
+
+Log into the control panel, and add admins/GMs using the GM Menu Option 'Privileges'.
+
+****************************
+* Setting Up the Databases *
+****************************
+
+Aegis Users:
+
+Create a new database, called 'cp'.
+Follow instructions in install_functions.sql
+Run the queries in install/Aegis/install.sql
+Create a new login 'cp', password, your choice, default database cp with system administration privileges, and give it access to the following databases:
+
+	cp, character, itemLog, nLogin, script, user
+
+Athena Users:
+
+Open install\install.sql, copy the entire query, and execute it with your chosen SQL program. It should create a database named 'cp', and a login, with proper permissions.
+If you are using the item_db and mob_db tables for your server, skip the next step.
+However, if you are not, you are advised to install item_mob_db.sql so that item and mob conversions can be performed.
+
+*********************************
+* Configuring the Control Panel *
+*********************************
+
+Edit config.php to your liking.
+Register yourself an admin account on your server, if you havn't already.
+Log into the Control Panel with the admin account that you added previously.
+You can add more admins in the Privileges section of the drop down menu.
