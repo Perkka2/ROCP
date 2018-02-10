@@ -332,7 +332,7 @@ elseif ($GET_view == "monster") {
 		else{
 			$clientMobName = "Name Not Found";
 		}
-
+		$mobID = $mobIdTable[$line[0]];
 		$property_string = $property_type[$line[9] % 10] . " " . floor($line[9] / 20);
 		if ($GET_column == "monster" && $GET_value) {
 			$line[0] = highlight_search_term($line[0], $GET_value);
@@ -340,7 +340,7 @@ elseif ($GET_view == "monster") {
 
 		echo "
 	<tr class=contentRowHeader>
-		<td colspan=6>{$clientMobName} ({$line[0]} #{$mobIdTable[$line[0]]})</td>
+		<td colspan=6>{$clientMobName} ({$line[0]} #{$mobID})</td>
 	</tr>
 		<tr class=contentRowSubHeader>
 			<td></td>
@@ -351,7 +351,7 @@ elseif ($GET_view == "monster") {
 		</tr>
 		<tr>
 			<td rowspan=13>
-			<img class=\"mobImage\" src=\"./images/mobs/{$mobIdTable[$line[0]]}.gif\"/\">
+			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\"/\">
 		</td>
 			<td>HP: {$line[2]}</td>
 			<td>Attack: {$line[6]} - {$line[5]}</td>
