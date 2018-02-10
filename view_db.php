@@ -405,7 +405,7 @@ elseif ($GET_view == "monster") {
 	</tr>
 		";
 	}
-	echo "<tr><td colspan=3></p>";
+	echo "<tr><td colspan=6></p>";
 	$query = sprintf(COUNT_FULL_MOBS, $condition);
 	$result = execute_query($query, "view_db.php");
 	$max_pages = intval($result->RowCount() / 30) + 1;
