@@ -312,7 +312,8 @@ elseif ($GET_view == "monster") {
 			if ($line[$value] > 10000) $line[$value] = 10000;
 			if (!$line[$value]) $line[$value] = 0;
 			$percent = ($line[$value] / 10000) * 100;
-			$rate[$index] = "({$line[$value]} / 10000 - $percent%)";
+			//$rate[$index] = "({$line[$value]} / 10000 - $percent%)";
+			$rate[$index] = "($percent%)";
 		}
 		if ($CONFIG_server_type == 0) {
 			$property_col = "property";
@@ -349,7 +350,7 @@ elseif ($GET_view == "monster") {
 			<td></td>
 		</tr>
 		<tr>
-			<td rowspan=4>
+			<td rowspan=13>
 			<img class=\"mobImage\" src=\"./images/mobs/{$mobIdTable[$line[0]]}.gif\"/\">
 		</td>
 			<td>HP: {$line[2]}</td>
@@ -392,15 +393,16 @@ elseif ($GET_view == "monster") {
 				$highlight_end = "";
 			}
 			if ($line[15 + ($i * 3)] == "None") {
-				$col_value .= "<tr><td>None<br></td><td>(None ()0 / 10000 - 0%)</td></tr>";
+				$col_value .= "<tr><td>None(0%)</td></tr>";
 			}
 			else {
 				$col_value .= "
-				<tr><td><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\"/></td><td><a href=\"view_db.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a></td><td>$highlight_start{$rate[$i]}$highlight_end</td></tr>
+			<tr><td colspan=5 class=\"mobDrops\"><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\"/><a href=\"view_db.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a> $highlight_start{$rate[$i]}$highlight_end</td></tr>
 				";
 			}
 		}
-		echo "<td colspan=5 class=\"mobDropsTD\"><table class=\"mobDrops\"><tr><td colspan=4 class=contentRowHeader>Drops:</td></tr>$col_value</table>
+		echo "<tr><td colspan=5 class=\"contentRowHeader drops\">Drops:</td></tr>
+				<td></td>$col_value
 		</td>
 	</tr>
 		";

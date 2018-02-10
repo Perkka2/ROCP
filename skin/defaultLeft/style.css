@@ -6,6 +6,7 @@ body {
 	background-color: #fff;
 	background-size: cover;
 	color:#bbb;
+	min-width:600px;
 }
 
 input{
@@ -303,27 +304,24 @@ td {
 }
 
 .mobDrops img{
+	height:15px;
+	width:15px;
 	float:left;
-	margin:-1px;
+	margin:0px 10px 0px 3px;
 }
 .mobDrops td{
 	vertical-align:middle;
 }
 
-.mobDrops td:nth-child(1){
-	width:20px;
-	padding: 2px;
+.contentRowHeader.drops{
+	color:#eee;
+	padding-left: 40px;
+	font-size: 12px;
+	width:auto;
+	background: rgb(100, 100, 100); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(140, 140, 140, .2);
 }
 
-.mobDrops{
-table-layout: auto;
-	float:right;
-	width:350px !important;
-}
-
-.mobDropsTD{
-	padding: 0 !important;
-}
 
 .items{
 	font-family:Verdana;
