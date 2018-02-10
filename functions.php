@@ -1288,7 +1288,7 @@ function ParseIdNum2ItemDisplayNameTable($path)
 
 
 // Parsing function
-function ParseMobId2DBNameTable($path)
+function ParseNPCIdentityTable($path)
 {
     // Read file
     $contents = @file($path);
@@ -1296,7 +1296,7 @@ function ParseMobId2DBNameTable($path)
         die(sprintf("File missing or empty: %s", $path));
 
     // Parse lines
-    $MobId2DBNameTable = array();
+    $NPCIdentityTableTable = array();
     foreach($contents as $i => $line)
     {
         $line = str_replace("\t", "", $line);
@@ -1312,13 +1312,42 @@ function ParseMobId2DBNameTable($path)
             continue;
 
         // Add to table
-        $MobId2DBNameTable[$split[0]] = $split[1];
+        $NPCIdentityTableTable[$split[0]] = $split[1];
     }
-    return $MobId2DBNameTable;
+    return $NPCIdentityTableTable;
 }
 
 //DEBUG
-//$table = ParseMobId2DBNameTable("./dbtranslation/NPCIdentity.lua");
+//$table = ParseNPCIdentityTable("./dbtranslation/NPCIdentity.lua");
+//var_dump($table);
+
+// Parsing function
+function ParseMobNameDefTable($path)
+{
+    // Read file
+    $contents = @file($path);
+    if(!is_array($contents))
+        die(sprintf("File missing or empty: %s", $path));
+
+    // Parse lines
+    $MobNameDefTable = array();
+    foreach($contents as $i => $line)
+    {
+        if($line == "")
+            continue;
+
+        $split = explode(" ", $line);
+        if(count($split) < 2)
+            continue;
+
+        // Add to table
+        $MobNameDefTable[$split[0]] = trim($split[1]);
+    }
+    return $MobNameDefTable;
+}
+
+//DEBUG
+//$table = ParseMobNameDefTable("./dbtranslation/mobname.def");
 //var_dump($table);
 
 

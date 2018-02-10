@@ -203,7 +203,8 @@ if ($GET_view == "item") {
 }
 elseif ($GET_view == "monster") {
 	$clientMobNameTable = ParseMobDefNames("./dbtranslation/mobdef.sc");
-	$mobIdTable = ParseMobId2DBNameTable("./dbtranslation/NPCIdentity.lua");
+	//$mobIdTable = ParseNPCIdentityTable("./dbtranslation/NPCIdentity.lua");
+	$mobIdTable = ParseMobNameDefTable("./dbtranslation/mobname.def");
 	$property_type = array("Neutral", "Water", "Earth", "Fire", "Wind", "Poison",
 	"Holy", "Shadow", "Ghost", "Undead");
 	$size = array("Small", "Medium", "Large");
