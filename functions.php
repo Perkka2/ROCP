@@ -426,7 +426,7 @@ function privilege_string($access_level) {
  * @desc Returns the full class name, defined in class.def & class_advanced.def & class_baby.def
  * Baby support added by Vich
 */
-function determine_class ($class_index) {
+function determine_class_old ($class_index) {
 	if (($class_index > 4000) &&  ($class_index < 4023)) {
 		$class = explode("\r\n", file_get_contents("class_advanced.def"));
 		return $class[$class_index - 4001];
@@ -440,6 +440,35 @@ function determine_class ($class_index) {
 		return $class[$class_index];
 	}
 }
+
+
+function determine_class($class_index)
+{
+    // Read file
+    $contents = @file("class_by_id.def");
+    if(!is_array($contents))
+        die(sprintf("File missing or empty: %s", $path));
+
+    // Parse lines
+    $class = array();
+    foreach($contents as $i => $line)
+    {
+        if($line == "")
+            continue;
+
+        $split = explode("\t", $line);
+        if(count($split) < 2)
+            continue;
+
+        // Add to table
+        $class[$split[0]] = trim($split[1]);
+    }
+    return $class[$class_index];
+}
+
+//DEBUG
+//$table = ParseMapNameTable("./dbtranslation/mapnametable.txt");
+//var_dump($table);
 
 /**
  * @return string
