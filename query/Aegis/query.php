@@ -248,7 +248,7 @@ LEFT JOIN $char.GuildMInfo ON Info.GDID = $char.GuildMInfo.GDID
 WHERE [Name] LIKE '%%%s%%'
 GROUP BY Info.GDID, Info.Name, Info.MName, Info.[Level], Info.MaxUserNum, Info.Exp
 ");
-DEFINE('DELETE_ALLIANCE', "DELETE FROM $char.GuildAllyInfo 
+DEFINE('DELETE_ALLIANCE', "DELETE FROM $char.GuildAllyInfo
 WHERE GDID = %d OR OpponentGDID = %d
 ");
 DEFINE('UPDATE_GUILD', "UPDATE $char.GuildInfoDB
@@ -282,7 +282,7 @@ DEFINE('INSERT_STATUS', "INSERT INTO $cp.status VALUES(getDate(), 0, 0, 0)");
 DEFINE('USER_ANNOUNCE', "SELECT poster, message, date FROM $cp.user_announce ORDER BY post_id DESC");
 DEFINE('GM_ANNOUNCE', "SELECT poster, message, date FROM $cp.gm_announce ORDER BY post_id DESC");
 DEFINE('ADMIN_ANNOUNCE', "SELECT poster, message, date FROM $cp.admin_announce ORDER BY post_id DESC");
-DEFINE('HOME_CHARS', "SELECT charname, job, clevel, joblevel, money
+DEFINE('HOME_CHARS', "SELECT charname, job, clevel, joblevel, money, mapname
 FROM $char.charinfo
 WHERE AID = %d
 ");
@@ -396,7 +396,7 @@ AND money = %d
 
 // mvp_ladder.php
 DEFINE('GET_MVP_DATE', "SELECT logtime FROM $log.itemLog WHERE Action = 7 ORDER BY logtime");
-DEFINE('SHOW_MVP', "SELECT srcCharID, $char.charinfo.charname, $char.charinfo.job, $char.charinfo.clevel, $char.charinfo.joblevel, count(*) AS MVP 
+DEFINE('SHOW_MVP', "SELECT srcCharID, $char.charinfo.charname, $char.charinfo.job, $char.charinfo.clevel, $char.charinfo.joblevel, count(*) AS MVP
 FROM $log.itemLog
 LEFT JOIN $char.charinfo ON $char.charinfo.GID = $log.itemLog.srcCharID
 LEFT JOIN $cp.ladder_ignore ON $cp.ladder_ignore.AID = $log.itemLog.srcAccountID
@@ -563,7 +563,7 @@ ORDER BY $script.monparameter.Name
 DEFINE('SHOW_FULL_MOBS', "SELECT $script.monparameter.Name, LV, HP, exp, jexp, atk1, atk2, $script.monparameter.def, mdef,
 property, scale, race, str, agi, vit, [int], dex, luk,
 item1, percent1, ID1.ID, item2, percent2, ID2.ID, item3, percent3, ID3.ID, item4, percent4, ID4.ID,
-item5, percent5, ID5.ID, item6, percent6, ID6.ID, item7, percent7, ID7.ID, item8, percent8, ID8.ID 
+item5, percent5, ID5.ID, item6, percent6, ID6.ID, item7, percent7, ID7.ID, item8, percent8, ID8.ID
 FROM $script.monparameter
 LEFT JOIN $script.monmakingitem ON $script.monmakingitem.Name = $script.monparameter.Name
 LEFT JOIN $cp.item_db AS ID1 ON ID1.Name = $script.monmakingitem.item1
@@ -578,7 +578,7 @@ LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
 ORDER BY $script.monparameter.Name
 ");
 DEFINE('SEARCH_MONSTER', "WHERE $script.monparameter.Name LIKE '%%%s%%'");
-DEFINE('SEARCH_ITEM', "WHERE 
+DEFINE('SEARCH_ITEM', "WHERE
 (
 $script.monmakingitem.item1 LIKE '%%%s%%' OR
 $script.monmakingitem.item2 LIKE '%%%s%%' OR

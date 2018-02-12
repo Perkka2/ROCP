@@ -1,0 +1,1201 @@
+06guild_01.rsw#Guild Arena#
+06guild_02.rsw#Guild Arena#
+06guild_03.rsw#Guild Arena#
+06guild_04.rsw#Guild Arena#
+06guild_05.rsw#Guild Arena#
+06guild_06.rsw#Guild Arena#
+06guild_07.rsw#Guild Arena#
+06guild_08.rsw#Guild Arena#
+06guild_r.rsw#Guild War Arena - Waiting Room#
+1@air1.rsw#Airship#
+1@air2.rsw#Airship#
+1@cash.rsw#Octopus Cave#
+1@cata.rsw#Catacomb#
+1@def01.rsw#Wave Dungeon - Forest#
+1@def02.rsw#Wave Dungeon - Heaven#
+1@def03.rsw#Wave Dungeon - Lava#
+1@dth1.rsw#Bios Island#
+1@dth2.rsw#Bios Island#
+1@dth3.rsw#Bios Island#
+1@ecl.rsw#Eclage Interior#
+1@emd.rsw#Professor Kraton's Laboratory#
+1@eom.rsw#Former Devil#
+1@face.rsw#Faceworm's Nest#
+1@ffp.rsw#Remnant Hideout#
+1@ge_st.rsw#Geffen Magic Tournament#
+1@gef.rsw#Geffen Magic Tournament#
+1@gef_in.rsw#Geffen Magic Tournament#
+1@gl_k.rsw#Old Glast Heim Chivalry 1#
+1@gl_kh.rsw#Old Glast Heim Chivalry 1#
+1@glast.rsw#Old Glast Heim#
+1@infi.rsw#Infinite Space#
+1@jtb.rsw#Nightmare of the Jitterbug#
+1@lab.rsw#Central Laboratory#
+1@lhz.rsw#Wolfchev's Lab#
+1@ma_b.rsw#Bakonawa Hideout#
+1@ma_c.rsw#Buwaya Cave#
+1@ma_h.rsw#Bangungot Hospital 2F#
+1@mcd.rsw#Charleston Crisis#
+1@mir.rsw#Room of Awareness#
+1@mist.rsw#The Hazy Maze Forest#
+1@nyd.rsw#Nidhoggur's Nest#
+1@orcs.rsw#Subterranean Orc Cave#
+1@pop1.rsw#교황 집무실#
+1@pop2.rsw#집으로 가는 길#
+1@pop3.rsw#하늘 정원#
+1@pump.rsw#Culvert#
+1@rev.rsw#Mors Cave#
+1@sara.rsw#Remember Sara#
+1@slw.rsw#베르너연구소 중추실#
+1@spa.rsw#Ghost Palace#
+1@spx5.rsw#Sphinx#
+1@sthb.rsw#Inside Aerial Fortress#
+1@sthc.rsw#Secret Chamber of Aerial Fortress#
+1@sthd.rsw#Aerial Fortress Top Floor#
+1@swat.rsw#하트헌터 군수기지#
+1@tnm1.rsw#Top Floor of Devil Tower#
+1@tnm2.rsw#Top Floor of Devil Tower#
+1@tnm3.rsw#Morroc Castle Underground#
+1@tower.rsw#Endless Tower#
+1@uns.rsw#The Last Room#
+1@xm_d.rsw#Nightmare Toy Factory#
+11el_expl.rsw#Fhlaston Paradise#
+11el_fhl.rsw#Infinity House#
+11el_tem.rsw#Temple Mondoshaman#
+14j_maze.rsw#Repaire#
+2@cata.rsw#Sealed Shrine#
+2@gl_k.rsw#Old Glast Heim Chivalry 2#
+2@gl_kh.rsw#Old Glast Heim Chivalry 2#
+2@mir.rsw#Room of Awareness#
+2@nyd.rsw#Nidhoggur's Nest#
+2@orcs.rsw#Subterranean Orc Cave#
+2@pump.rsw#Culvert#
+2@tower.rsw#Endless Tower#
+2007rwc_01.rsw#2007 USRC Arena#
+2007rwc_02.rsw#2007 USRC Arena#
+2007rwc_03.rsw#2007 USRC Arena#
+2007rwc_04.rsw#2007 USRC Arena#
+2007rwc_05.rsw#2007 USRC Arena#
+2007rwc_06.rsw#2007 USRC Arena#
+2007rwc_07.rsw#2007 USRC Arena#
+2007rwc_08.rsw#2007 USRC Arena#
+2007rwc_r.rsw#RWC Arena#
+2009rwc_01.rsw#RWC Arena#
+2009rwc_02.rsw#RWC Arena#
+2009rwc_03.rsw#RWC Arena#
+2009rwc_04.rsw#RWC Arena#
+2009rwc_05.rsw#RWC Arena#
+2009rwc_06.rsw#RWC Arena#
+2009rwc_07.rsw#RWC Arena#
+2009rwc_08.rsw#RWC Arena#
+2009rwc_f01.rsw#RWC Arena#
+2009rwc_f02.rsw#RWC Arena#
+2009rwc_r.rsw#RWC Arena#
+2010rwc_01.rsw#RWC Arena#
+2010rwc_02.rsw#RWC Arena#
+2010rwc_03.rsw#RWC Arena#
+2010rwc_04.rsw#RWC Arena#
+2010rwc_05.rsw#RWC Arena#
+2010rwc_06.rsw#RWC Arena#
+2010rwc_07.rsw#RWC Arena#
+2010rwc_08.rsw#RWC Arena#
+2010rwc_r.rsw#RWC Arena#
+2011rwc_01.rsw#Guild Arena#
+2011rwc_02.rsw#Guild Arena#
+2011rwc_r.rsw#Guild War Arena - Waiting Room#
+22_yakushi.rsw#Labyrinthe de Kabuto#
+3@tower.rsw#Endless Tower#
+4@tower.rsw#Endless Tower#
+5@tower.rsw#Endless Tower#
+6@tower.rsw#Endless Tower(Unknown Area)#
+abbey01.rsw#Cursed Monastery#
+abbey02.rsw#Cursed Monastery#
+abbey03.rsw#Cursed Monastery#
+abbeyq1.rsw#Monastery#
+abbeyq2.rsw#Monastery#
+abbeyq3.rsw#Monastery#
+abyss_01.rsw#Abyss Lake Underground Cave#
+abyss_02.rsw#Abyss Lake Underground Cave#
+abyss_03.rsw#Abyss Lake Underground Cave#
+air_evt.rsw#Airship#
+airplane.rsw#Airship#
+airplane_01.rsw#Airship#
+airplane_evt.rsw#비공정#
+airplane_y.rsw#Airship de Veins#
+airplane_ym.rsw#Coeur de l'Airship#
+airport.rsw#Airport#
+airport_v.rsw#A?ogare de Veins#
+alb_ship.rsw#Alberta Ship#
+alb2trea.rsw#Alberta Island#
+alberta.rsw#Alberta#
+alberta_in.rsw#Inside Alberta#
+alde_alche.rsw#Alchemist Realm#
+alde_dun01.rsw#Clock Tower B1f#
+alde_dun02.rsw#Clock Tower B2f#
+alde_dun03.rsw#Clock Tower B3f#
+alde_dun04.rsw#Clock Tower B4f#
+alde_gld.rsw#Luina the satellite of Al De Baran#
+aldeba_in.rsw#Inside Al De Baran#
+aldebaran.rsw#Al De Baran#
+aldeg_cas01.rsw#Luina Guild#
+aldeg_cas02.rsw#Luina Guild#
+aldeg_cas03.rsw#Luina Guild#
+aldeg_cas04.rsw#Luina Guild#
+aldeg_cas05.rsw#Luina Guild#
+ama_dun01.rsw#Tatami Maze#
+ama_dun02.rsw#Battle Field in the Underground Forest#
+ama_dun03.rsw#Amatsu Underground Shrine#
+ama_fild01.rsw#Amatsu Field#
+ama_in01.rsw#Inside Amatsu#
+ama_in02.rsw#Inside Himezi Castle#
+ama_test.rsw#Momotaro Experience Place#
+ama_test_ev.rsw#PvP : PvP Arena lv.1 - 60 #
+amatsu.rsw#Amatsu, the Land of Destiny#
+anthell01.rsw#Ant Hell#
+anthell02.rsw#Ant Hell#
+apr_maze.rsw#Passage secret sous marin#
+arena_room.rsw#Waiting room#
+aru_gld.rsw#Valfreyja#
+arug_cas01.rsw#Valfreyja Guild#
+arug_cas02.rsw#Valfreyja Guild#
+arug_cas03.rsw#Valfreyja Guild#
+arug_cas04.rsw#Valfreyja Guild#
+arug_cas05.rsw#Valfreyja Guild#
+arug_dun01.rsw#Subterranean Guild Dungeon#
+arug_que01.rsw#Morestone Prairie#
+auction_01.rsw#Auction Hall#
+auction_02.rsw#Auction Hall#
+auction_03.rsw#Kafra Mail Annex#
+ayo_dun01.rsw#Ancient Shrine Maze#
+ayo_dun02.rsw#Inside Ancient Shrine#
+ayo_fild01.rsw#Ayotaya Field#
+ayo_fild02.rsw#Ayotaya Field#
+ayo_in01.rsw#Inside Ayotaya#
+ayo_in02.rsw#Inside Ayotaya#
+ayothaya.rsw#Ayotaya#
+ayothaya_e.rsw#Ayothaya Excavation Site#
+baby_para.rsw#랏古있蹈#
+bac_maze.rsw#Vers le correcteur#
+bat_a01.rsw#Tierra Canyon#
+bat_a02.rsw#Tierra Canyon#
+bat_b01.rsw#Flavian#
+bat_b02.rsw#Flavian#
+bat_c01.rsw#Krieger von Midgards#
+bat_c02.rsw#Krieger von Midgards#
+bat_c03.rsw#Krieger von Midgards#
+bat_room.rsw#Battle Field Waiting Room#
+bat_room2.rsw#Battle Field Waiting Room#
+beach_dun.rsw#Karu, the West cave#
+beach_dun2.rsw#Ruande the northern cave#
+beach_dun3.rsw#Mao, the East Cave#
+bif_fild01.rsw#Bifrost Bridge#
+bif_fild02.rsw#Bifrost Bridge#
+bossnia_01.rsw#Geffenia#
+bossnia_02.rsw#Geffenia#
+bossnia_03.rsw#Geffenia#
+bossnia_04.rsw#Geffenia#
+bra_dun01.rsw#Beyond the Waterfall#
+bra_dun02.rsw#Beyond the Waterfall#
+bra_fild01.rsw#Brasilis Field#
+bra_in01.rsw#Inside Brasilis#
+brasilis.rsw#Brasilis#
+c_tower1.rsw#Clock Tower 1f#
+c_tower2.rsw#Clock Tower 2f#
+c_tower2_.rsw#Nightmare Clock Tower, 2nd Floor#
+c_tower3.rsw#Clock Tower 3f#
+c_tower3_.rsw#Nightmare Clock Tower, 3rd Floor#
+c_tower4.rsw#Clock Tower 4f#
+cave.rsw#Cave Village#
+ch_house.rsw#Maison des Community Helper#
+cmd_fild01.rsw#Papuchicha Forest#
+cmd_fild02.rsw#Kokomo beach#
+cmd_fild03.rsw#Zenhai Marsh#
+cmd_fild04.rsw#Kokomo beach#
+cmd_fild05.rsw#Border of Papuchica forest#
+cmd_fild06.rsw#Fortress Saint Darmain(West)#
+cmd_fild07.rsw#Beacon Island, Pharos#
+cmd_fild08.rsw#Fortress Saint Darmain (East)#
+cmd_fild09.rsw#Fortress Saint Darmain (South)#
+cmd_in01.rsw#Inside Comodo#
+cmd_in02.rsw#Inside Comodo#
+comodo.rsw#Beach town,Comodo#
+conch_in.rsw#콘-킬리나 호 내부#
+dali.rsw#Dimensional Gap#
+dali02.rsw#Dimensional Gap#
+dew_dun01.rsw#Krakatau Volcano Island#
+dew_dun02.rsw#Istana Cave#
+dew_fild01.rsw#Dewata Field - Jaty Tribe Village#
+dew_in01.rsw#Inside of Jaty Tribe Village#
+dewata.rsw#Dewata#
+dic_dun01.rsw#Kamidal Tunnel#
+dic_dun02.rsw#Scaraba Hall#
+dic_dun03.rsw#Scaraba Hall#
+dic_fild01.rsw#Outskirts of Kamidal Mountain#
+dic_fild02.rsw#Outskirts of Kamidal Mountain#
+dic_in01.rsw#Inside of El Dicastes#
+dicastes01.rsw#El Dicastes, the Sapha Capital#
+dicastes02.rsw#Dicastes Diel#
+drp_in.rsw#Bijouterie#
+e_hugel.rsw#Hugel, the Quaint Garden Village#
+e_tower.rsw#Misty Island#
+eabyss_01h.rsw#Abyss Lake Underground Cave#
+eabyss_01l.rsw#Abyss Lake Underground Cave#
+eabyss_01m.rsw#Abyss Lake Underground Cave#
+eabyss_03h.rsw#Abyss Lake Underground Cave#
+eabyss_03l.rsw#Abyss Lake Underground Cave#
+eabyss_03m.rsw#Abyss Lake Underground Cave#
+eairplane1.rsw#Airship#
+ebeach_dunh.rsw#Karu, the West cave#
+ebeach_dunl.rsw#Karu, the West cave#
+ebeach_dunm.rsw#Karu, the West cave#
+ebif_fld01h.rsw#Bifrost Bridge#
+ebif_fld01l.rsw#Bifrost Bridge#
+ebif_fld01m.rsw#Bifrost Bridge#
+ecl_fild01.rsw#Blooming Flower Land#
+ecl_hub01.rsw#Eclage Perimeter#
+ecl_in01.rsw#Inside of Eclage#
+ecl_in02.rsw#Inside of Eclage#
+ecl_in03.rsw#Inside of Eclage#
+ecl_in04.rsw#Inside of Eclage#
+ecl_tdun01.rsw#Bifrost Floor 1#
+ecl_tdun02.rsw#Bifrost Floor 2#
+ecl_tdun03.rsw#Bifrost Floor 3#
+ecl_tdun04.rsw#Bifrost Floor 4#
+eclage.rsw#Eclage#
+edic_dun01h.rsw#Kamidal Tunnel#
+edic_dun01l.rsw#Kamidal Tunnel#
+edic_dun01m.rsw#Kamidal Tunnel#
+edic_dun02h.rsw#Scaraba Hall#
+edic_dun02l.rsw#Scaraba Hall#
+edic_dun02m.rsw#Scaraba Hall#
+edic_fld01h.rsw#Outskirts of Kamidal Mountain#
+edic_fld01l.rsw#Outskirts of Kamidal Mountain#
+edic_fld01m.rsw#Outskirts of Kamidal Mountain#
+egef_dun03h.rsw#Geffenia#
+egef_dun03l.rsw#Geffenia#
+egef_dun03m.rsw#Geffenia#
+egef_fild02.rsw#Geffen Field#
+egeffen.rsw#Geffen#
+egl_chyardh.rsw#Glast Heim Churchyard#
+egl_chyardl.rsw#Glast Heim Churchyard#
+egl_chyardm.rsw#Glast Heim Churchyard#
+ehu_fild01h.rsw#Thanatos Tower#
+ehu_fild01l.rsw#Thanatos Tower#
+ehu_fild01m.rsw#Thanatos Tower#
+ein_dun01.rsw#Mine Dungeon#
+ein_dun02.rsw#Mine Dungeon#
+ein_fild01.rsw#Einbroch Field#
+ein_fild02.rsw#Einbroch Field#
+ein_fild03.rsw#Einbroch Field#
+ein_fild04.rsw#Einbroch Field#
+ein_fild05.rsw#Einbroch Field#
+ein_fild06.rsw#Einbroch Field#
+ein_fild07.rsw#Einbroch Field#
+ein_fild08.rsw#Einbroch Field#
+ein_fild09.rsw#Einbroch Field#
+ein_fild10.rsw#Einbroch Field#
+ein_in01.rsw#Inside Einbroch#
+einbech.rsw#Einbech, the mining village#
+einbroch.rsw#Einbroch, the city of steel#
+ejob_star.rsw#The Sun, the Moon and the Stars#
+ekh_vila.rsw#Kiel Hyre's Cottage#
+elc_hub01.rsw#Eclage Walking path#
+elhz_fld01l.rsw#Lighthalzen Field#
+elhz_fld01m.rsw#Lighthalzen Field#
+emag_dun02m.rsw#Nogg Road#
+eman_fld03h.rsw#Manuk Field#
+enif_in.rsw#Inside Nifflheim#
+eque_qsch01.rsw#Okolnir#
+era_fild12h.rsw#The Plain of Ida#
+era_fild12l.rsw#The Plain of Ida#
+era_fild12m.rsw#The Plain of Ida#
+era_san04h.rsw#Holy Ground#
+era_san04l.rsw#Holy Ground#
+era_san04m.rsw#Holy Ground#
+etha_t04h.rsw#Thanatos Tower - Lower Level#
+etha_t04l.rsw#Thanatos Tower - Lower Level#
+etha_t04m.rsw#Thanatos Tower - Lower Level#
+ethana_boss.rsw#Thanatos Tower - Unknown Area#
+ethor_v02h.rsw#Thor Volcano Dungeon#
+ethor_v02l.rsw#Thor Volcano Dungeon#
+ethor_v02m.rsw#Thor Volcano Dungeon#
+etur_dun03h.rsw#Good Turtles Village#
+etur_dun03l.rsw#Good Turtles Village#
+etur_dun03m.rsw#Good Turtles Village#
+evt_bomb.rsw#이벤트 미궁#
+evt_hello.rsw#Dead Angel's landing#
+evt_swar_b.rsw#Morroc Ruins#
+evt_swar_d.rsw#Morroc Ruins#
+evt_swar_r.rsw#Morroc Ruins#
+evt_swar_s.rsw#Morroc Ruins#
+evt_swar_t.rsw#Morroc Ruins#
+evt_xmas.rsw#Toy Factory#
+evt_zombie.rsw#Run_From_Zombies#
+eyno_fld07h.rsw#El Mes Gorge (Valley of Abyss)#
+eyno_fld07l.rsw#El Mes Gorge (Valley of Abyss)#
+eyno_fld07m.rsw#El Mes Gorge (Valley of Abyss)#
+failquest.rsw#Corridor of time#
+force_1-1.rsw#Time Limit Fight#
+force_1-2.rsw#Time Limit Fight#
+force_1-3.rsw#Time Limit Fight#
+force_2-1.rsw#Time Limit Fight#
+force_2-2.rsw#Time Limit Fight#
+force_2-3.rsw#Time Limit Fight#
+force_3-1.rsw#Time Limit Fight#
+force_3-2.rsw#Time Limit Fight#
+force_3-3.rsw#Time Limit Fight#
+fro_foot.rsw#Football Championship#
+froedo.rsw#QG Adorateur du Roi Serpent#
+g_room1-1.rsw#Quiz Revolrutiona#
+g_room1-2.rsw#Quiz Revolrutiona#
+g_room1-3.rsw#Quiz Revolrutiona#
+g_room2.rsw#Quiz Revolrutiona#
+gef_dun00.rsw#Geffen Dungeon#
+gef_dun01.rsw#Geffen Dungeon#
+gef_dun02.rsw#Geffenia#
+gef_dun03.rsw#Geffenia#
+gef_fild00.rsw#Geffen Field#
+gef_fild01.rsw#Geffen Field#
+gef_fild02.rsw#Geffen Field#
+gef_fild03.rsw#Geffen Field#
+gef_fild04.rsw#Geffen Field#
+gef_fild05.rsw#Geffen Field#
+gef_fild06.rsw#Geffen Field#
+gef_fild07.rsw#Geffen Field#
+gef_fild08.rsw#Geffen Field#
+gef_fild09.rsw#Geffen Field#
+gef_fild10.rsw#Geffen Field#
+gef_fild11.rsw#Geffen Field#
+gef_fild12.rsw#Kordt Forest#
+gef_fild13.rsw#Britoniah#
+gef_fild14.rsw#West Orc Village#
+gef_tower.rsw#Geffen Tower#
+gefenia01.rsw#Geffenia#
+gefenia02.rsw#Geffenia#
+gefenia03.rsw#Geffenia#
+gefenia04.rsw#Geffenia#
+geffen.rsw#Geffen#
+geffen_in.rsw#Inside Geffen#
+gefg_cas01.rsw#Britoniah Guild#
+gefg_cas02.rsw#Britoniah Guild#
+gefg_cas03.rsw#Britoniah Guild#
+gefg_cas04.rsw#Britoniah Guild#
+gefg_cas05.rsw#Britoniah Guild#
+gl_cas01.rsw#Glast Heim 1f#
+gl_cas02.rsw#Glast Heim 2f#
+gl_cas02_.rsw#2층 회랑#
+gl_ch_evt.rsw#Glast Heim St. Abbey#
+gl_church.rsw#Glast Heim St. Abbey#
+gl_church_evt.rsw#글레스트헤임 수도원#
+gl_chyard.rsw#Glast Heim Churchyard#
+gl_chyard_.rsw#수도원 묘지#
+gl_dun01.rsw#The Lowest Cave in Glast Heim#
+gl_dun02.rsw#The Lowest Cave in Glast Heim#
+gl_in01.rsw#Inside Glast Heim#
+gl_in01_ev.rsw#Event Crazy Drops #
+gl_knt01.rsw#Inside Glast Heim Chivalry#
+gl_knt02.rsw#Inside Glast Heim Chivalry#
+gl_prison.rsw#Glast Heim Underprison#
+gl_prison1.rsw#Glast Heim Underprison#
+gl_sew01.rsw#Glast Heim Culvert#
+gl_sew02.rsw#Glast Heim Culvert#
+gl_sew03.rsw#Glast Heim Culvert#
+gl_sew04.rsw#Glast Heim Culvert#
+gl_step.rsw#Glast Heim Staircase Dungeon#
+glast_01.rsw#Glast Heim#
+gld_dun01.rsw#Guild Dungeon#
+gld_dun01_2.rsw#Guild Dungeon#
+gld_dun02.rsw#Guild Dungeon#
+gld_dun02_2.rsw#Guild Dungeon#
+gld_dun03.rsw#Guild Dungeon#
+gld_dun03_2.rsw#Guild Dungeon#
+gld_dun04.rsw#Guild Dungeon#
+gld_dun04_2.rsw#Guild Dungeon#
+gld2_ald.rsw#Corridor of the abyss: Tear of the Hero#
+gld2_gef.rsw#Corridor of the abyss: Dead men's hill#
+gld2_pay.rsw#Corridor of the abyss: The ancient wind#
+gld2_prt.rsw#Corridor of the abyss: Warrior's way#
+gon_dun01.rsw#Shrine of Gonryun Queen#
+gon_dun02.rsw#Hermit's Checkers#
+gon_dun03.rsw#Arcadia#
+gon_fild01.rsw#Gonryun Field#
+gon_in.rsw#Inside Gonryun#
+gon_test.rsw#Arena#
+gonryun.rsw#Gonryun, the Hermit Land#
+guild_room.rsw#Quiz Revolrutiona#
+guild_vs01.rsw#RWC Arena#
+guild_vs02.rsw#RWC Arena#
+guild_vs03.rsw#RWC Arena#
+guild_vs04.rsw#RWC Arena#
+guild_vs1.rsw#Guild Arena#
+guild_vs1-1.rsw#Guild Arena#
+guild_vs1-2.rsw#Guild Arena#
+guild_vs1-3.rsw#Guild Arena#
+guild_vs1-4.rsw#Guild Arena#
+guild_vs2.rsw#Guild Arena#
+guild_vs2_1.rsw#Arena Guild#
+guild_vs2_2.rsw#Arena Guild#
+guild_vs2_3.rsw#Arena Guild#
+guild_vs2_4.rsw#Arena Guild#
+guild_vs2-1.rsw#Guild Arena#
+guild_vs2-2.rsw#Guild Arena#
+guild_vs3.rsw#Guild Arena#
+guild_vs4.rsw#Guild Arena #
+guild_vs5.rsw#Guild Arena #
+hallo_mark.rsw#Chemin vers le march?de Niflheim#
+hallo_nif.rsw#March?de Nilfheim#
+himinn.rsw#Valkyrie Hall, the Hall of Honor#
+hu_fild01.rsw#Thanatos Tower#
+hu_fild02.rsw#Hugel Field#
+hu_fild03.rsw#Hugel Field#
+hu_fild04.rsw#Hugel Field#
+hu_fild05.rsw#The Abyss Lake#
+hu_fild06.rsw#Hugel Field#
+hu_fild07.rsw#Hugel Field#
+hu_in01.rsw#Inside Hugel#
+hugel.rsw#Hugel, the Quaint Garden Village#
+hunter_1-1.rsw#Hunter Guild#
+hunter_2-1.rsw#Hunter Guild#
+hunter_3-1.rsw#Hunter Guild#
+ice_dun01.rsw#Ice Cave#
+ice_dun02.rsw#Ice Cave#
+ice_dun03.rsw#Ice Cave#
+ice_dun04.rsw#Ice Cave#
+ij_hq.rsw#Repaire#
+ij_jail.rsw#Salle d'attente#
+ij_lab1.rsw#Mini-Jeu Trouve les drapeaux#
+ij_lab2.rsw#Temple cach?#
+ij_und.rsw#Passage secret#
+in_hunter.rsw#Hunter Guild#
+in_moc_16.rsw#Assassin Clan#
+in_orcs01.rsw#Orc village#
+in_rogue.rsw#Inside the Rogue Guild#
+in_sphinx1.rsw#Sphinx#
+in_sphinx2.rsw#Sphinx#
+in_sphinx3.rsw#Sphinx#
+in_sphinx4.rsw#Sphinx#
+in_sphinx5.rsw#Sphinx#
+int_land.rsw#외딴섬#
+int_land01.rsw#외딴섬#
+int_land02.rsw#외딴섬#
+int_land03.rsw#외딴섬#
+int_land04.rsw#외딴섬#
+itemmall.rsw#Auction Hall#
+itemmall_p.rsw#Item mall#
+itemmall_s.rsw#Item mall#
+iz_ac01.rsw#Academy1st floor#
+iz_ac01_a.rsw#Academy1st floor#
+iz_ac01_b.rsw#Academy1st floor#
+iz_ac01_c.rsw#Academy1st floor#
+iz_ac01_d.rsw#Academy1st floor#
+iz_ac02.rsw#Academy2nd floor#
+iz_ac02_a.rsw#Academy2nd floor#
+iz_ac02_b.rsw#Academy2nd floor#
+iz_ac02_c.rsw#Academy2nd floor#
+iz_ac02_d.rsw#Academy2nd floor#
+iz_d03_evt.rsw#Undersea Tunnel#
+iz_dun00.rsw#Undersea Tunnel#
+iz_dun00t.rsw#Overlook Water Dungeon#
+iz_dun01.rsw#Undersea Tunnel#
+iz_dun01t.rsw#Overlook Water Dungeon#
+iz_dun02.rsw#Undersea Tunnel#
+iz_dun02t.rsw#Overlook Water Dungeon#
+iz_dun03.rsw#Undersea Tunnel#
+iz_dun03_evt.rsw#이즈루드 해저동굴 던전 4층#
+iz_dun03t.rsw#Overlook Water Dungeon#
+iz_dun04.rsw#Undersea Tunnel#
+iz_dun04t.rsw#Overlook Water Dungeon#
+iz_dun05.rsw#Undersea Tunnel#
+iz_int.rsw#Intro#
+iz_int01.rsw#Intro#
+iz_int02.rsw#Intro#
+iz_int03.rsw#Intro#
+iz_int04.rsw#Intro#
+iz_ng01.rsw#Ninja Tutorial map#
+izlu2dun.rsw#Byalan Island#
+izlude.rsw#Izlude Town#
+izlude_a.rsw#Izlude Town#
+izlude_b.rsw#Izlude Town#
+izlude_c.rsw#Izlude Town#
+izlude_d.rsw#Izlude Town#
+izlude_in.rsw#Inside Izlude#
+izlude07.rsw#Izlude RIC#
+jawaii.rsw#Jawaii, the Honeymoon Island#
+jawaii_in.rsw#Inside Jawaii#
+job_cru.rsw#Priest Realm#
+job_duncer.rsw#Comodo Theatre#
+job_gun.rsw#해방의 쉼터#
+job_hunte.rsw#Hunter Job Change Place#
+job_knt.rsw#Knight Realm#
+job_ko.rsw#Hidden Place#
+job_monk.rsw#Saint Capitolina Abbey#
+job_prist.rsw#Priest Realm#
+job_sage.rsw#Wizard Realm#
+job_soul.rsw#Your Heart#
+job_star.rsw#The Sun, the Moon and the Stars#
+job_thief1.rsw#Mushroom Farm#
+job_wiz.rsw#Wizard Realm#
+job3_arch01.rsw#Waiting room for Arch Bishop Job Change#
+job3_arch02.rsw#Odin Temple#
+job3_arch03.rsw#Waiting room for Arch Bishop Job Change#
+job3_gen01.rsw#Geneticist Lab#
+job3_guil01.rsw#Secret Tavern#
+job3_guil02.rsw#Inside the Old Warehouse#
+job3_guil03.rsw#An isolated mansion#
+job3_rang01.rsw#Waiting room for Ranger Job Change#
+job3_rang02.rsw#Test room for Ranger Job Change#
+job3_rune01.rsw#Inside of Rune Knight Templar#
+job3_rune02.rsw#Test room for Rune Knight Job Change#
+job3_rune03.rsw#Test room for Rune Knight Job Change#
+job3_war01.rsw#Test room for Warlock Job Change#
+job3_war02.rsw#Test room for Warlock Job Change#
+jupe_area1.rsw#Juperos, Restricted Zone#
+jupe_area2.rsw#Juperos, Restricted Zone#
+jupe_cave.rsw#Ruins of Juperos Entrance#
+jupe_core.rsw#Center of Juperos#
+jupe_core2.rsw#Center of Juperos#
+jupe_ele.rsw#Juperos Elevator#
+jupe_ele_r.rsw#Juperos Elevator#
+jupe_gate.rsw#Juperos, Restricted Zone#
+juperos_01.rsw#Ruins of Juperos#
+juperos_02.rsw#Ruins of Juperos#
+kh_dun01.rsw#Robot Factory level 1#
+kh_dun02.rsw#Robot Factory level 2#
+kh_kiehl01.rsw#Kiehl's Room#
+kh_kiehl02.rsw#Kiehl's Room#
+kh_mansion.rsw#Kiel Hyre's Mansion#
+kh_rossi.rsw#The Rosimier's Mansion#
+kh_school.rsw#Kiel Hyre Academy#
+kh_vila.rsw#Kiel Hyre's Cottage#
+knight_1-1.rsw#The Chivalry#
+knight_2-1.rsw#The Chivalry#
+knight_3-1.rsw#The Chivalry#
+lasa_dun_q.rsw#용의 둥지#
+lasa_dun01.rsw#용의 둥지#
+lasa_dun02.rsw#용의 둥지#
+lasa_dun03.rsw#용의 둥지#
+lasa_fild01.rsw#라비올 평원 경계초소#
+lasa_fild02.rsw#Ravioli Forest#
+lasa_in01.rsw#Inside Lasagna#
+lasagna.rsw#항구도시 Lasagna#
+lhz_airport.rsw#Airport#
+lhz_cu_evt.rsw#Cube Room#
+lhz_cube.rsw#Cube Room#
+lhz_cube_1.rsw#Cube Room#
+lhz_cube_evt.rsw#큐브 룸#
+lhz_dun_n.rsw#Nightmare Somatology Laboratory#
+lhz_dun01.rsw#Somatology Laboratory#
+lhz_dun02.rsw#Somatology Laboratory#
+lhz_dun03.rsw#Somatology Laboratory#
+lhz_dun04.rsw#Laboratorium Somatology B4F#
+lhz_fild01.rsw#Lighthalzen Field#
+lhz_fild02.rsw#Lighthalzen Field (Grim Reaper's Valley)#
+lhz_fild03.rsw#Lighthalzen Field#
+lhz_in01.rsw#Rekenber Corporation Headquarters#
+lhz_in02.rsw#Inside Lighthalzen#
+lhz_in03.rsw#Inside Lighthalzen#
+lhz_que01.rsw#Inside Lighthalzen#
+lighthalzen.rsw#Lightharlzen, the City-State of Prosperity#
+lou_dun01.rsw#The Royal Tomb#
+lou_dun02.rsw#Inside the Royal Tomb#
+lou_dun03.rsw#Suei Long Gon#
+lou_fild01.rsw#Louyang Field#
+lou_in01.rsw#Inside Louyang#
+lou_in02.rsw#Inside Louyang#
+louyang.rsw#Louyang, the highland#
+louyang_e.rsw#Louyang Excavation Site#
+ma_dun01.rsw#Bangungot Hospital 1F#
+ma_fild01.rsw#Baryo Mahiwaga#
+ma_fild02.rsw#Forest#
+ma_in01.rsw#Inside of Malaya#
+ma_scene01.rsw#Bakonawa Lake#
+ma_zif01.rsw#Inside of Jeepney#
+ma_zif02.rsw#Inside of Jeepney#
+ma_zif03.rsw#Inside of Jeepney#
+ma_zif04.rsw#Inside of Jeepney#
+ma_zif05.rsw#Inside of Jeepney#
+ma_zif06.rsw#Inside of Jeepney#
+ma_zif07.rsw#Inside of Jeepney#
+ma_zif08.rsw#Inside of Jeepney#
+ma_zif09.rsw#Inside of Jeepney#
+mag_dun01.rsw#Nogg Road#
+mag_dun02.rsw#Nogg Road#
+mal_dun01.rsw#Starry Coral Area#
+mal_in01.rsw#Inside Malangdo#
+mal_in02.rsw#Inside Malangdo Ship#
+malangdo.rsw#Malangdo#
+malaya.rsw#Port Malaya#
+man_fild01.rsw#Manuk Field#
+man_fild02.rsw#Manuk Field#
+man_fild03.rsw#Manuk Field#
+man_in01.rsw#Inside Manuk#
+manuk.rsw#Manuk#
+mgc_m.rsw#Salle d'attente#
+mgc_s.rsw#Salle de jeux#
+mid_camp.rsw#Rune Midgard Allied Forces Post#
+mid_campin.rsw#Inside of the Rune Midgard Allied Forces Post#
+mjo_dun01.rsw#Mjolnir Dead Pit#
+mjo_dun02.rsw#Mjolnir Dead Pit#
+mjo_dun03.rsw#Mjolnir Dead Pit#
+mjolnir_01.rsw#Mt.Mjolnir#
+mjolnir_02.rsw#Mt.Mjolnir#
+mjolnir_03.rsw#Mt.Mjolnir#
+mjolnir_04.rsw#Mt.Mjolnir#
+mjolnir_05.rsw#Mt.Mjolnir#
+mjolnir_06.rsw#Mt.Mjolnir#
+mjolnir_07.rsw#Mt.Mjolnir#
+mjolnir_08.rsw#Mt.Mjolnir#
+mjolnir_09.rsw#Mt.Mjolnir#
+mjolnir_10.rsw#Mt.Mjolnir#
+mjolnir_11.rsw#Mt.Mjolnir#
+mjolnir_12.rsw#Mt.Mjolnir#
+moc_castle.rsw#Morroc Castle#
+moc_fild01.rsw#Sograt Desert#
+moc_fild02.rsw#Sograt Desert#
+moc_fild03.rsw#Sograt Desert#
+moc_fild04.rsw#Sograt Desert#
+moc_fild05.rsw#Sograt Desert#
+moc_fild06.rsw#Sograt Desert#
+moc_fild07.rsw#Sograt Desert#
+moc_fild08.rsw#Sograt Desert#
+moc_fild09.rsw#Sograt Desert#
+moc_fild10.rsw#Sograt Desert#
+moc_fild11.rsw#Sograt Desert#
+moc_fild12.rsw#Sograt Desert#
+moc_fild13.rsw#Sograt Desert#
+moc_fild14.rsw#Sograt Desert#
+moc_fild15.rsw#Sograt Desert#
+moc_fild16.rsw#Sograt Desert#
+moc_fild17.rsw#Sograt Desert#
+moc_fild18.rsw#Sograt Desert#
+moc_fild19.rsw#Sograt Desert#
+moc_fild20.rsw#Sograt Desert - Continental Guard Quarantine#
+moc_fild21.rsw#Dimensional Gorge#
+moc_fild22.rsw#Dimensional Gorge#
+moc_fild22b.rsw#Dimensional Gorge#
+moc_para01.rsw#Inside of Paradise Group Building in Morroc#
+moc_paraup.rsw#Inside of Paradise Group Building in Morroc 2nd floor#
+moc_pryd01.rsw#Inside Pyramid#
+moc_pryd02.rsw#Inside Pyramid#
+moc_pryd03.rsw#Inside Pyramid#
+moc_pryd04.rsw#Inside Pyramid#
+moc_pryd05.rsw#Inside Pyramid#
+moc_pryd06.rsw#Inside Pyramid#
+moc_prydb1.rsw#Thief Guild#
+moc_prydn1.rsw#Morocc Pyramid Underground 1st Floor - Challenge#
+moc_prydn2.rsw#Morocc Pyramid Underground 2nd Floor - Challenge#
+moc_ruins.rsw#Morroc Ruins#
+monk_in.rsw#Inside St. Abbey#
+monk_test.rsw#Saint Capitolina Abbey#
+mora.rsw#Mora Village#
+moro_cav.rsw#Fiery Cave#
+moro_vol.rsw#Fiery Basin#
+morocc.rsw#Morroc Town#
+morocc_in.rsw#Inside Morroc#
+morocc_mem.rsw#Memory of Morroc#
+moscovia.rsw#Moscovia#
+mosk_dun01.rsw#Les Forest#
+mosk_dun02.rsw#Temny Forest#
+mosk_dun03.rsw#Dremuci Forest#
+mosk_fild01.rsw#somewhere in Moscovia#
+mosk_fild02.rsw#Okrestnosti of Moscovia#
+mosk_in.rsw#Inside Moscovia#
+mosk_que.rsw#Marozka's Cave#
+mosk_ship.rsw#Charabel#
+n_castle.rsw#Alfheim#
+nameless_i.rsw#Nameless Island#
+nameless_in.rsw#Inside Nameless Island#
+nameless_n.rsw#Nameless Island#
+new_1-1.rsw#Training Ground#
+new_1-1_evt.rsw#초보자 수련장#
+new_1-2.rsw#Training Ground#
+new_1-2_evt.rsw#초보자 수련장#
+new_1-3.rsw#Training Ground#
+new_1-4.rsw#Training Ground#
+new_2-1.rsw#Training Ground#
+new_2-2.rsw#Training Ground#
+new_2-3.rsw#Training Ground#
+new_2-4.rsw#Training Ground#
+new_3-1.rsw#Training Ground#
+new_3-2.rsw#Training Ground#
+new_3-3.rsw#Training Ground#
+new_3-4.rsw#Training Ground#
+new_4-1.rsw#Training Ground#
+new_4-2.rsw#Training Ground#
+new_4-3.rsw#Training Ground#
+new_4-4.rsw#Training Ground#
+new_5-1.rsw#Training Ground#
+new_5-2.rsw#Training Ground#
+new_5-3.rsw#Training Ground#
+new_5-4.rsw#Training Ground#
+nguild_alde.rsw#Luina Guild#
+nguild_gef.rsw#Britoniah Guild#
+nguild_pay.rsw#Greenwood Lake Guild#
+nguild_prt.rsw#Valkyrie Realm Guild#
+nif_fild01.rsw#Skellington, a Solitary Village in Nifflheim#
+nif_fild02.rsw#Vally of Gyoll#
+nif_in.rsw#Inside Nifflheim#
+niflheim.rsw#Nifflheim, Realm of the Dead#
+niflxmas.rsw#Deadman's land Nifflheim#
+nyd_dun01.rsw#Yggdrasil Root#
+nyd_dun02.rsw#Yggdrasil Root#
+odin_tem01.rsw#Odin Shirine#
+odin_tem02.rsw#Odin Shirine#
+odin_tem03.rsw#Odin Shirine#
+orcsdun01.rsw#Orc Dungeon#
+orcsdun02.rsw#Orc Dungeon#
+ordeal_1-1.rsw#Battle Ordeal Mode#
+ordeal_1-2.rsw#Battle Ordeal Mode#
+ordeal_1-3.rsw#Battle Ordeal Mode#
+ordeal_1-4.rsw#Battle Ordeal Mode#
+ordeal_2-1.rsw#Battle Ordeal Mode#
+ordeal_2-2.rsw#Battle Ordeal Mode#
+ordeal_2-3.rsw#Battle Ordeal Mode#
+ordeal_2-4.rsw#Battle Ordeal Mode#
+ordeal_3-1.rsw#Battle Ordeal Mode#
+ordeal_3-2.rsw#Battle Ordeal Mode#
+ordeal_3-3.rsw#Battle Ordeal Mode#
+ordeal_3-4.rsw#Battle Ordeal Mode#
+p_track01.rsw#Monster Race Arena#
+p_track02.rsw#Monster Race Arena#
+paramk.rsw#파라마켓#
+pay_arche.rsw#Archer Village#
+pay_d00_evt.rsw#Payon Cave#
+pay_dun00.rsw#Payon Cave#
+pay_dun00_evt.rsw#페이욘 동굴 1층#
+pay_dun01.rsw#Payon Cave#
+pay_dun02.rsw#Payon Cave#
+pay_dun03.rsw#Payon Cave#
+pay_dun04.rsw#Payon Cave#
+pay_fild01.rsw#Payon Forest#
+pay_fild02.rsw#Payon Forest#
+pay_fild03.rsw#Payon Forest#
+pay_fild04.rsw#Sograt Desert#
+pay_fild05.rsw#Payon Forest#
+pay_fild06.rsw#Payon Forest#
+pay_fild07.rsw#Payon Forest#
+pay_fild08.rsw#Payon Forest#
+pay_fild09.rsw#Payon Forest#
+pay_fild10.rsw#Payon Forest#
+pay_fild11.rsw#Payon Forest#
+pay_gld.rsw#Greenwood Lake#
+payg_cas01.rsw#Greenwood Lake Guild#
+payg_cas02.rsw#Greenwood Lake Guild#
+payg_cas03.rsw#Greenwood Lake Guild#
+payg_cas04.rsw#Greenwood Lake Guild#
+payg_cas05.rsw#Greenwood Lake Guild#
+payon.rsw#Payon Town#
+payon_in01.rsw#Inside Payon#
+payon_in02.rsw#Inside Payon#
+payon_in03.rsw#Inside Payon #
+payon_mem.rsw#Memory of Payon#
+pirate_ship.rsw#Navire de p?he d'Alberta#
+pol_test.rsw#Marchez avec ??ance#
+poring_w01.rsw#Poring War - Waiting Room#
+poring_w02.rsw#Poring War#
+pri_z1.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z2.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z3.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z4.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z5.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z6.rsw#Salle de la m?itation (Prison du Valhalla)#
+pri_z7.rsw#Salle de la m?itation (Prison du Valhalla)#
+priest_1-1.rsw#The Sanctum#
+priest_2-1.rsw#The Sanctum#
+priest_3-1.rsw#The Sanctum#
+prontera.rsw#Prontera City, Capitol of Rune-Midgarts#
+prt_are_in.rsw#Waiting room#
+prt_are01.rsw#ARENA#
+prt_arena01.rsw#ARENA#
+prt_cas.rsw#프론테라 중앙궁#
+prt_cas_evt.rsw#Prontera Castle#
+prt_cas_q.rsw#프론테라 별궁#
+prt_castle.rsw#Prontera Castle#
+prt_castle_evt.rsw#프론테라 성 내부#
+prt_ch_evt.rsw#the Sanctuary#
+prt_church.rsw#the Sanctuary#
+prt_church_evt.rsw#프론테라 성당 내부#
+prt_evt.rsw#Prontera City, Capitol of Rune-Midgarts#
+prt_fild00.rsw#Prontera Field#
+prt_fild01.rsw#Prontera Field#
+prt_fild02.rsw#Prontera Field#
+prt_fild03.rsw#Prontera Field#
+prt_fild04.rsw#Prontera Field#
+prt_fild05.rsw#Prontera Field#
+prt_fild06.rsw#Prontera Field#
+prt_fild07.rsw#Prontera Field#
+prt_fild08.rsw#Prontera Field#
+prt_fild08a.rsw#Prontera Field#
+prt_fild08b.rsw#Prontera Field#
+prt_fild08c.rsw#Prontera Field#
+prt_fild08d.rsw#Prontera Field#
+prt_fild09.rsw#Prontera Field#
+prt_fild10.rsw#Prontera Field#
+prt_fild11.rsw#Prontera Field#
+prt_gld.rsw#Valkyrie Realm#
+prt_in.rsw#Inside Prontera#
+prt_in_1.rsw#Dalam Prontera#
+prt_in_2.rsw#Dalam Prontera#
+prt_in_3.rsw#Dalam Prontera#
+prt_in_4.rsw#Dalam Prontera#
+prt_in_evt.rsw#Inside Prontera#
+prt_in01.rsw#Maison de Shirou#
+prt_lib.rsw#왕가의 기억#
+prt_lib_q.rsw#과거 왕가의 기억#
+prt_maze01.rsw#Labyrinth Forest#
+prt_maze02.rsw#Labyrinth Forest#
+prt_maze03.rsw#Labyrinth Forest#
+prt_monk.rsw#St. Capitolina Abbey#
+prt_pri00.rsw#프론테라 감옥#
+prt_prison.rsw#프론테라 지하감옥#
+prt_q.rsw#침공당한 프론테라#
+prt_sewb1.rsw#Prontera Culvert#
+prt_sewb2.rsw#Prontera Culvert#
+prt_sewb3.rsw#Prontera Culvert#
+prt_sewb4.rsw#Prontera Culvert#
+prtg_cas01.rsw#Valkyrie Realm Guild#
+prtg_cas02.rsw#Valkyrie Realm Guild#
+prtg_cas03.rsw#Valkyrie Realm Guild#
+prtg_cas04.rsw#Valkyrie Realm Guild#
+prtg_cas05.rsw#Valkyrie Realm Guild#
+pvp_2vs2.rsw#PvP : Event Coliseum#
+pvp_2vs2_ev.rsw#PvP : PvP Arena lv.61 - 99 #
+pvp_c_room.rsw#PvP : Waiting Room#
+pvp_flo.rsw#Ile du Printemps#
+pvp_n_1-1.rsw#Labyrinth Forest#
+pvp_n_1-2.rsw#PvP : Room Rock On#
+pvp_n_1-3.rsw#PvP : Four Room#
+pvp_n_1-4.rsw#PvP : Room Undercross#
+pvp_n_1-5.rsw#PvP : Room Copass#
+pvp_n_2-1.rsw#Labyrinth Forest#
+pvp_n_2-2.rsw#PvP : Room Rock On#
+pvp_n_2-3.rsw#PvP : Four Room#
+pvp_n_2-4.rsw#PvP : Room Undercross#
+pvp_n_2-5.rsw#PvP : Room Copass#
+pvp_n_3-1.rsw#Labyrinth Forest#
+pvp_n_3-2.rsw#PvP : Room Rock On#
+pvp_n_3-3.rsw#PvP : Four Room#
+pvp_n_3-4.rsw#PvP : Room Undercross#
+pvp_n_3-5.rsw#PvP : Room Copass#
+pvp_n_4-1.rsw#Labyrinth Forest#
+pvp_n_4-2.rsw#PvP : Room Rock On#
+pvp_n_4-3.rsw#PvP : Four Room#
+pvp_n_4-4.rsw#PvP : Room Undercross#
+pvp_n_4-5.rsw#PvP : Room Copass#
+pvp_n_5-1.rsw#Labyrinth Forest#
+pvp_n_5-2.rsw#PvP : Room Rock On#
+pvp_n_5-3.rsw#PvP : Four Room#
+pvp_n_5-4.rsw#PvP : Room Undercross#
+pvp_n_5-5.rsw#PvP : Room Copass#
+pvp_n_6-1.rsw#Labyrinth Forest#
+pvp_n_6-2.rsw#PvP : Room Rock On#
+pvp_n_6-3.rsw#PvP : Four Room#
+pvp_n_6-4.rsw#PvP : Room Undercross#
+pvp_n_6-5.rsw#PvP : Room Copass#
+pvp_n_7-1.rsw#Labyrinth Forest#
+pvp_n_7-2.rsw#PvP : Room Rock On#
+pvp_n_7-3.rsw#PvP : Four Room#
+pvp_n_7-4.rsw#PvP : Room Undercross#
+pvp_n_7-5.rsw#PvP : Room Copass#
+pvp_n_8-1.rsw#Labyrinth Forest#
+pvp_n_8-2.rsw#PvP : Room Rock On#
+pvp_n_8-3.rsw#PvP : Four Room#
+pvp_n_8-4.rsw#PvP : Room Undercross#
+pvp_n_8-5.rsw#PvP : Room Copass#
+pvp_n_room.rsw#PvP : Waiting Room#
+pvp_room.rsw#PvP : Waiting Room#
+pvp_y_1-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_1-2.rsw#Izlude Town#
+pvp_y_1-3.rsw#Payon Town#
+pvp_y_1-4.rsw#Alberta#
+pvp_y_1-5.rsw#Morroc Town#
+pvp_y_2-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_2-2.rsw#Izlude Town#
+pvp_y_2-3.rsw#Payon Town#
+pvp_y_2-4.rsw#Alberta#
+pvp_y_2-5.rsw#Morroc Town#
+pvp_y_3-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_3-2.rsw#Izlude Town#
+pvp_y_3-3.rsw#Payon Town#
+pvp_y_3-4.rsw#Alberta#
+pvp_y_3-5.rsw#Morroc Town#
+pvp_y_4-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_4-2.rsw#Izlude Town#
+pvp_y_4-3.rsw#Payon Town#
+pvp_y_4-4.rsw#Alberta#
+pvp_y_4-5.rsw#Morroc Town#
+pvp_y_5-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_5-2.rsw#Izlude Town#
+pvp_y_5-3.rsw#Payon Town#
+pvp_y_5-4.rsw#Alberta#
+pvp_y_5-5.rsw#Morroc Town#
+pvp_y_6-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_6-2.rsw#Izlude Town#
+pvp_y_6-3.rsw#Payon Town#
+pvp_y_6-4.rsw#Alberta#
+pvp_y_6-5.rsw#Morroc Town#
+pvp_y_7-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_7-2.rsw#Izlude Town#
+pvp_y_7-3.rsw#Payon Town#
+pvp_y_7-4.rsw#Alberta#
+pvp_y_7-5.rsw#Morroc Town#
+pvp_y_8-1.rsw#Prontera City, Capitol of Rune-Midgarts#
+pvp_y_8-2.rsw#Izlude Town#
+pvp_y_8-3.rsw#Payon Town#
+pvp_y_8-4.rsw#Alberta#
+pvp_y_8-5.rsw#Morroc Town#
+pvp_y_room.rsw#PvP : Waiting Room#
+que_avan01.rsw#Avant's Laboratory#
+que_bingo.rsw#Bingo Game Room#
+que_dan01.rsw#Hugel Field#
+que_dan02.rsw#Inside of the Abandoned House in Juno#
+que_god01.rsw#Quest Map#
+que_god01t.rsw#Quest Map#
+que_god02.rsw#Quest Map#
+que_house_s.rsw#Strange House#
+que_hugel.rsw#Odin Shrine's Underground#
+que_job01.rsw#Private Pub#
+que_lhz.rsw#Laboratorium Somatology B4F#
+que_moc_16.rsw#Assassin Clan#
+que_moon.rsw#The Sun, the Moon and the Stars#
+que_qaru01.rsw#Fallacious Okolnir#
+que_qaru02.rsw#Fallacious Okolnir#
+que_qaru03.rsw#Fallacious Okolnir#
+que_qaru04.rsw#Fallacious Okolnir#
+que_qaru05.rsw#Fallacious Okolnir#
+que_qsch01.rsw#Fallacious Okolnir#
+que_qsch02.rsw#Fallacious Okolnir#
+que_qsch03.rsw#Fallacious Okolnir#
+que_qsch04.rsw#Fallacious Okolnir#
+que_qsch05.rsw#Fallacious Okolnir#
+que_rachel.rsw#Inside Temple#
+que_san04.rsw#Holy Ground#
+que_sign02.rsw#Vally of Gyoll#
+que_swat.rsw#하트헌터 군수기지#
+que_temsky.rsw#Pope's Office - The Garden of Heaven#
+que_thor.rsw#Thor Volcano Dungeon#
+quiz_00.rsw#Quiz Revolrution#
+quiz_00_1.rsw#Panggung Kuis#
+quiz_00_2.rsw#Panggung Kuis#
+quiz_00_3.rsw#Panggung Kuis#
+quiz_00_4.rsw#Panggung Kuis#
+quiz_01.rsw#Quiz Revolrutiona#
+quiz_01_1.rsw#Panggung Kuis#
+quiz_01_2.rsw#Panggung Kuis#
+quiz_01_3.rsw#Panggung Kuis#
+quiz_01_4.rsw#Panggung Kuis#
+quiz_02.rsw#Quiz Arena#
+quiz_test.rsw#Saint Capitolina Abbey#
+ra_fild01.rsw#Audhumbla Grassland#
+ra_fild02.rsw#Od Canyon#
+ra_fild03.rsw#The Plain of Ida#
+ra_fild04.rsw#Audhumbla Grassland#
+ra_fild05.rsw#Audhumbla Grassland#
+ra_fild06.rsw#Portus Luna#
+ra_fild07.rsw#Od Canyon#
+ra_fild08.rsw#The Plain of Ida#
+ra_fild09.rsw#Audhumbla Grassland#
+ra_fild10.rsw#Od Canyon#
+ra_fild11.rsw#The Plain of Ida#
+ra_fild12.rsw#The Plain of Ida#
+ra_fild13.rsw#Shore of Tears#
+ra_in01.rsw#Inside Rachel#
+ra_san01.rsw#Holy Ground#
+ra_san02.rsw#Holy Ground#
+ra_san03.rsw#Holy Ground#
+ra_san04.rsw#Holy Ground#
+ra_san05.rsw#Holy Ground#
+ra_temin.rsw#Inside Temple#
+ra_temple.rsw#Freya Grand Temple - Cheshrumnir#
+ra_temsky.rsw#Pope's Office - The Garden of Heaven#
+rachel.rsw#Capital of Arunafeltz States, Rachel#
+rebel_in.rsw#클라나 네미에리#
+rst_main.rsw#Esprit de Kayleb#
+rst_s1.rsw#Souvenir de Kayleb#
+rst_s2.rsw#Souvenir de Kayleb#
+rst_s3.rsw#Souvenir de Kayleb#
+rst_s4.rsw#Souvenir de Kayleb#
+rst_warp.rsw#Couloir Spirituel#
+rwc01.rsw#Training Ground: Eveil au Valhalla #
+rwc03.rsw#championship5#
+s_atelier.rsw#Shadow Workshop#
+sch_gld.rsw#Nidhoggur#
+schg_cas01.rsw#Nidhoggur Guild#
+schg_cas02.rsw#Nidhoggur Guild#
+schg_cas03.rsw#Nidhoggur Guild#
+schg_cas04.rsw#Nidhoggur Guild#
+schg_cas05.rsw#Nidhoggur Guild#
+schg_dun01.rsw#Subterranean Guild Dungeon#
+schg_que01.rsw#Morestone Prairie#
+sec_in01.rsw#Inside Valhalla#
+sec_in02.rsw#Inside Valhalla#
+sec_pri.rsw#Room of Meditation (Valhalla Prison)#
+silk_lair.rsw#Octopus Cave#
+slabw01.rsw#베르너 연구소#
+spl_fild01.rsw#Splendide Field#
+spl_fild02.rsw#Splendide Field#
+spl_fild03.rsw#Splendide Field#
+spl_in01.rsw#Inside Splendide#
+spl_in02.rsw#Inside Splendide#
+splendide.rsw#Splendide#
+sva_en.rsw#The Gods Hallways#
+sva_fild01.rsw#The Stone Desert#
+sva_fild02.rsw#The Autumn Hills#
+sva_fild03.rsw#The Winter Plains#
+sva_fild04.rsw#The Luxurious Mountain#
+sva_fild05.rsw#The Magical Trees Woods#
+sva_fild06.rsw#The Gods Blessing#
+sva_god1.rsw#The Gods Trial#
+sva_her.rsw#Hermod Headquarter#
+sva_ull.rsw#Ull Headquarter#
+sword_1-1.rsw#Swordman Test Hall#
+sword_2-1.rsw#Swordman Test Hall#
+sword_3-1.rsw#Swordman Test Hall#
+tak_run.rsw#King Baz-Ton: Challenge#
+tak_swd.rsw#King Baz-Ton: Challenge#
+tak_wait.rsw#Fhlaston Paradise#
+tak_warp.rsw#King Baz-Ton: Challenge#
+tak1_pil.rsw#King Baz-Ton: Challenge#
+tak1_run.rsw#King Baz-Ton: Challenge#
+tak1_top.rsw#King Baz-Ton: Challenge#
+te_alde_gld.rsw#Luina the satellite of Al De Baran#
+te_aldecas01.rsw#글라리스#
+te_aldecas02.rsw#디포르테#
+te_aldecas03.rsw#소린#
+te_aldecas04.rsw#비닛#
+te_aldecas05.rsw#더블류#
+te_aldecas1.rsw#Luina Guild#
+te_aldecas2.rsw#Luina Guild#
+te_aldecas3.rsw#Luina Guild#
+te_aldecas4.rsw#Luina Guild#
+te_aldecas5.rsw#Luina Guild#
+te_prt_gld.rsw#Valkyrie Realm#
+te_prtcas01.rsw#Valkyrie Realm Guild#
+te_prtcas02.rsw#Valkyrie Realm Guild#
+te_prtcas03.rsw#Valkyrie Realm Guild#
+te_prtcas04.rsw#Valkyrie Realm Guild#
+te_prtcas05.rsw#Valkyrie Realm Guild#
+teg_dun01.rsw#Guild Dungeon#
+teg_dun02.rsw#Guild Dungeon#
+tha_rwc01.rsw#Arena 9#
+tha_rwc02.rsw#Arena 10#
+tha_rwc03.rsw#Arena 11#
+tha_rwc04.rsw#Arena 12#
+tha_scene01.rsw#Thanatos Tower Entrance#
+tha_t01.rsw#Thanatos Tower - Lower Level#
+tha_t02.rsw#Thanatos Tower - Lower Level#
+tha_t03.rsw#Thanatos Tower - Lower Level#
+tha_t04.rsw#Thanatos Tower - Lower Level#
+tha_t05.rsw#Thanatos Tower - Upper Level#
+tha_t06.rsw#Thanatos Tower - Upper Level#
+tha_t07.rsw#Thanatos Tower - Upper Level#
+tha_t08.rsw#Thanatos Tower - Upper Level#
+tha_t09.rsw#Thanatos Tower - Upper Level#
+tha_t10.rsw#Thanatos Tower - Upper Level#
+tha_t11.rsw#Thanatos Tower - Upper Level#
+tha_t12.rsw#Thanatos Tower - Upper Level#
+thana_boss.rsw#Thanatos Tower - Unknown Area#
+thana_scene01.rsw#Thanatos Tower Entrance#
+thana_step.rsw#Thanatos Tower - Upper Level#
+thief_1-1.rsw#Mushroom Farm#
+thief_2-1.rsw#Mushroom Farm#
+thief_3-1.rsw#Mushroom Farm#
+thor_camp.rsw#Thor Volcano Camp#
+thor_v01.rsw#Thor Volcano Dungeon#
+thor_v02.rsw#Thor Volcano Dungeon#
+thor_v03.rsw#Thor Volcano Dungeon#
+tr_check.rsw#Training Ground: Mini Epreuve #
+tr_eveil.rsw#Training Ground: Couloir initiatique #
+tr_exp.rsw#Training Ground: Experience et statistique #
+tr_fight.rsw#Training Ground: Combat, achat et card #
+tr_fight1.rsw#Training Ground: Combat, achat et card #
+tr_fight2.rsw#Training Ground: Combat, achat et card #
+tr_fight3.rsw#Training Ground: Combat, achat et card #
+tr_fight4.rsw#Training Ground: Combat, achat et card #
+tr_interfac.rsw#Training Ground: Interface #
+tr_item.rsw#Training Ground: Item et equipement #
+tr_rules.rsw#Training Ground: Regles #
+tr_skill.rsw#Training Ground: Classe, job et skill #
+tr_test.rsw#Training Ground: Test de personnalite #
+treasure_n1.rsw#Sunken Ship#
+treasure_n2.rsw#Sunken Ship#
+treasure01.rsw#Sunken Ship#
+treasure02.rsw#Sunken Ship#
+tur_dun01.rsw#Turtle Island#
+tur_dun02.rsw#Turtle Island Dungeon#
+tur_dun03.rsw#Good Turtles Village#
+tur_dun04.rsw#Turtle Palace#
+tur_dun05.rsw#Underground swamp zone#
+tur_dun06.rsw#Underground swamp zone#
+turbo_e_16.rsw#Turbo Track Stadium#
+turbo_e_4.rsw#Turbo Track Stadium#
+turbo_e_8.rsw#Turbo Track Stadium#
+turbo_n_1.rsw#Turbo Track Stadium#
+turbo_n_16.rsw#Turbo Track Stadium#
+turbo_n_4.rsw#Turbo Track Stadium#
+turbo_n_8.rsw#Turbo Track Stadium#
+turbo_room.rsw#Waiting Room#
+um_dun01.rsw#Carpenter's Shop in the Tree#
+um_dun02.rsw#Passage to a Foreign World#
+um_fild01.rsw#Luluka Forest#
+um_fild02.rsw#Hoomga Forest#
+um_fild03.rsw#Kalala Swamp#
+um_fild04.rsw#Hoomga Jungle#
+um_in.rsw#Inside Umbala#
+umbala.rsw#Wootan Tribe's Village, Umbala#
+un_bk_q.rsw#지하 벙커#
+un_bunker.rsw#지하 벙커#
+un_myst.rsw#지하 터널#
+valkyrie.rsw#Valkyrie Hall, the Hall of Honor#
+ve_fild01.rsw#Veins Field#
+ve_fild02.rsw#Veins Field#
+ve_fild03.rsw#Veins Field#
+ve_fild04.rsw#Veins Field#
+ve_fild05.rsw#Veins Field#
+ve_fild06.rsw#Veins Field#
+ve_fild07.rsw#Veins Field#
+ve_in.rsw#Inside Veins#
+ve_in02.rsw#Inside Veins#
+veins.rsw#Veins, the Canyon Village#
+ver_eju.rsw#유페로스 동쪽폐허#
+ver_tunn.rsw#베루스 외곽 터널#
+verus01.rsw#실험동-OPTATIO#
+verus02.rsw#연구동-WISH#
+verus03.rsw#베루스 중앙 광장#
+verus04.rsw#베루스 발굴지#
+waiting1.rsw#Ascenceur vers l'ar?e ''Tombeau''#
+waiting2.rsw#Ascenceur vers l'ar?e ''Tombeau''#
+waiting3.rsw#Ascenceur vers l'ar?e ''Ruines''#
+waiting4.rsw#Ascenceur vers l'ar?e ''Ruines''#
+waiting5.rsw#Salle d'attente#
+waiting6.rsw#Are Spirit Extractor#
+wizard_1-1.rsw#Wizard Academy#
+wizard_2-1.rsw#Wizard Academy#
+wizard_3-1.rsw#Wizard Academy#
+xmas.rsw#Lutie, Snow Village#
+xmas_dun01.rsw#Toy Factory Warehouse#
+xmas_dun02.rsw#Toy Monitoring Room#
+xmas_fild01.rsw#Lutie Field#
+xmas_in.rsw#Inside Lutie#
+y_airport.rsw#Airport#
+yggdrasil01.rsw#Hvergelmir's Fountain (Trunk of Yggdrasil)#
+yuno.rsw#Juno, the capital of Schwarzwald Republic#
+yuno_fild01.rsw#Border Posts#
+yuno_fild02.rsw#Kiel Hyre's Cottage#
+yuno_fild03.rsw#El Mes Plateau#
+yuno_fild04.rsw#El Mes Plateau#
+yuno_fild05.rsw#El Mes Plateau#
+yuno_fild06.rsw#El Mes Plateau#
+yuno_fild07.rsw#El Mes Gorge (Valley of Abyss)#
+yuno_fild08.rsw#Kiel Hyre's Academy#
+yuno_fild09.rsw#Schwaltzwald Guards Camp#
+yuno_fild10.rsw#Juno Field#
+yuno_fild11.rsw#Juno Field#
+yuno_fild12.rsw#Border Checkpoint#
+yuno_in01.rsw#Inside Juno#
+yuno_in02.rsw#Inside the Sage Castle#
+yuno_in03.rsw#Inside Juno#
+yuno_in04.rsw#Republic Library#
+yuno_in05.rsw#Power Plant of Ymir's Heart#
+yuno_pre.rsw#Schwaltzvalt Government Buildings#
+z_agit.rsw#Priest Realm#

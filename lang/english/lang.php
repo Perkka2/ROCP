@@ -108,6 +108,7 @@ $lang = array(
 'yourbase' => "Base Level",
 'yourjob' => "Job Level",
 'yourzeny' => "Zeny",
+'yourmap' => "Map",
 
 // ladder.php
 'ladderheader' => "%s Player Ladder Top %d",

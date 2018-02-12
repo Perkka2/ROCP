@@ -224,10 +224,11 @@ else {
 </table>
 		";
 	}
+	$mapName = ParseMapNameTable("./dbtranslation/mapnametable.txt");
 	EchoHead(80);
 	echo "
 	<tr class=mytitle>
-		<td colspan=5>
+		<td colspan=6>
 			{$lang['yourchars']}
 		</td>
 	</tr>
@@ -237,6 +238,7 @@ else {
 		<td>{$lang['yourbase']}</td>
 		<td>{$lang['yourjob']}</td>
 		<td>{$lang['yourzeny']}</td>
+		<td>{$lang['yourmap']}</td>
 	</tr>
 	";
 
@@ -255,6 +257,9 @@ else {
 			foreach ($line as $display_index => $col_value) {
 				if ($display_index == 1) {
 					$col_value = determine_class($col_value);
+				}
+				if ($display_index == 5) {
+					$col_value = $mapName[$col_value];
 				}
 				echo "<td>$col_value</td>";
 			}

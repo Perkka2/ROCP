@@ -1350,5 +1350,33 @@ function ParseMobNameDefTable($path)
 //$table = ParseMobNameDefTable("./dbtranslation/mobname.def");
 //var_dump($table);
 
+function ParseMapNameTable($path)
+{
+    // Read file
+    $contents = @file($path);
+    if(!is_array($contents))
+        die(sprintf("File missing or empty: %s", $path));
+
+    // Parse lines
+    $MapNameTable = array();
+    foreach($contents as $i => $line)
+    {
+        if($line == "")
+            continue;
+
+        $split = explode("#", $line);
+        if(count($split) < 2)
+            continue;
+
+        // Add to table
+        $MapNameTable[str_replace(".rsw", ".gat", $split[0])] = trim($split[1]);
+    }
+    return $MapNameTable;
+}
+
+//DEBUG
+//$table = ParseMapNameTable("./dbtranslation/mapnametable.txt");
+//var_dump($table);
+
 
 ?>
