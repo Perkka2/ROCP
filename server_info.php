@@ -141,11 +141,38 @@ echo "
 $query = GET_CLASS_COUNT;
 $result = execute_query($query, "server_info.php");
 
-$class_max = $CONFIG_server_type == 0? 23 : 4046;
+$class_max = $CONFIG_server_type == 0? 4239 : 4046;
 
 for ($i = 0; $i < $class_max; $i++) {
-	if ($i == 24) {
-		$i = 4000;
+	if ($i == 26) {
+		$i = 4001;
+	}
+	if ($i == 4113) {
+		$i = 4190;
+	}
+	if ($i == 4088) {
+		$i = 4096;
+	}
+	if ($i == 4053) {
+		$i = 4054;
+	}
+	if ($i == 4213) {
+		$i = 4215;
+	}
+	if ($i == 4192) {
+		$i = 4211;
+	}
+	if ($i == 4216) {
+		$i = 4218;
+	}
+	if ($i == 4219) {
+		$i = 4220;
+	}
+	if ($i == 4221) {
+		$i = 4222;
+	}
+	if ($i == 4230) {
+		$i = 4238;
 	}
 	$total_class_count[$i] = 0;
 }
@@ -210,8 +237,35 @@ for ($i = 0; $i < $class_max; $i++) {
 			$i2 = $i;
 			break;
 	}
-	if ($i == 24) {
+	if ($i == 26) {
 		$i = 4001;
+	}
+	if ($i == 4113) {
+		$i = 4190;
+	}
+	if ($i == 4088) {
+		$i = 4096;
+	}
+	if ($i == 4053) {
+		$i = 4054;
+	}
+	if ($i == 4213) {
+		$i = 4215;
+	}
+	if ($i == 4192) {
+		$i = 4211;
+	}
+	if ($i == 4216) {
+		$i = 4218;
+	}
+	if ($i == 4219) {
+		$i = 4220;
+	}
+	if ($i == 4221) {
+		$i = 4222;
+	}
+	if ($i == 4230) {
+		$i = 4238;
 	}
 	if ($i == 13 or $i == 21 or $i == 4014 or $i == 4022 or $i == 4044 or $i == 4036) {
 		continue;
