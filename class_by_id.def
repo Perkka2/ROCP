@@ -20,7 +20,7 @@
 19	Bard
 20	Dancer
 21	Crusader (Peco)
-22	Wedding
+22	22: Wedding
 23	Super Novice
 24	Gunslinger
 25	Ninja
@@ -46,9 +46,9 @@
 4020	Clown
 4021	Gypsy
 4022	Paladin (Peco)
-4023	Baby
+4023	Baby Novice
 4024	Baby Swordman
-4025	Baby Mage
+4025	Baby Magician
 4026	Baby Archer
 4027	Baby Acolyte
 4028	Baby Merchant
@@ -64,177 +64,82 @@
 4038	Baby Monk
 4039	Baby Sage
 4040	Baby Rogue
-4041	Baby Alchem
+4041	Baby Alchemist
 4042	Baby Bard
 4043	Baby Dancer
 4044	Baby Crusader (Peco)
-4045	Super Baby
+4045	Baby Super Novice
 4046	Taekwon
-4047	Star
-4048	Star2
-4049	Linker
-4050	Gangsi
-4051	Deathknight
-4052	Collector
-4053	?
-4054	Rune Knight
-4055	Warlock
-4056	Ranger
-4057	Archbishop
-4058	Mechanic
-4059	Guillotine Cross
-4060	Rune Knight High
-4061	Warlock High
-4062	Ranger High
-4063	Archbishop High
-4064	Mechanic High
-4065	Guillotine Cross High
-4066	Royal Guard
-4067	Sorcerer
-4068	Mistrel
-4069	Wanderer
-4070	Sura
-4071	Genetic
-4072	Shadow Chaser
-4073	Royal Guard High
-4074	Sorcerer High
-4075	Mistrel High
-4076	Wanderer High
-4077	Sura High
-4078	Genetic High
-4079	Shadow Chaser High
-4080	Rune Knight (Peco)
-4081	Rune Knight Hich (Peco)
-4082	Royal Knight (Peco)
-4083	Royal Knight High (Peco)
-4084	Ranger (Wolf)
-4085	Ranger High (Wolf)
-4086	Mechanic (Madogear)
-4087	Mechanic High (Madogear)
-4088	Rune Knight 2 (Peco)
-4089	Rune Knight High 2 (Peco)
-4090	Rune Knight 3 (Peco)
-4091	Rune Knight High 3 (Peco)
-4092	Rune Knight 4 (Peco)
-4093	Rune Knight High 4 (Peco)
-4094	Rune Knight 5 (Peco)
-4095	Rune Knight High 5 (Peco)
+4047	Star Gladiator
+4048	Star Gladiator (Union)
+4049	Soul Linker
+4050	Gangsi (Bongun/Munak)
+4051	Death Knight
+4052	Dark Collector
+4054	Rune Knight (Regular)
+4055	Warlock (Regular)
+4056	Ranger (Regular)
+4057	Arch Bishop (Regular)
+4058	Mechanic (Regular)
+4059	Guillotine Cross (Regular)
+4060	Rune Knight (Transcendent)
+4061	Warlock (Transcendent)
+4062	Ranger (Transcendent)
+4063	Arch Bishop (Transcendent)
+4064	Mechanic (Transcendent)
+4065	Guillotine Cross (Transcendent)
+4066	Royal Guard (Regular)
+4067	Sorcerer (Regular)
+4068	Minstrel (Regular)
+4069	Wanderer (Regular)
+4070	Sura (Regular)
+4071	Genetic (Regular)
+4072	Shadow Chaser (Regular)
+4073	Royal Guard (Transcendent)
+4074	Sorcerer (Transcendent)
+4075	Minstrel (Transcendent)
+4076	Wanderer (Transcendent)
+4077	Sura (Transcendent)
+4078	Genetic (Transcendent)
+4079	Shadow Chaser (Transcendent)
+4080	Rune Knight (Dragon) (Regular)
+4081	Rune Knight (Dragon) (Transcendent)
+4082	Royal Guard (Gryphon) (Regular)
+4083	Royal Guard (Gryphon) (Transcendent)
+4084	Ranger (Warg) (Regular)
+4085	Ranger (Warg) (Transcendent)
+4086	Mechanic (Madogear) (Regular)
+4087	Mechanic (Madogear) (Transcendent)
 4096	Baby Rune Knight
 4097	Baby Warlock
 4098	Baby Ranger
-4099	Baby Archbishop
+4099	Baby Arch Bishop
 4100	Baby Mechanic
 4101	Baby Guillotine Cross
 4102	Baby Royal Guard
 4103	Baby Sorcerer
-4104	Baby Mistrel
+4104	Baby Minstrel
 4105	Baby Wanderer
 4106	Baby Sura
 4107	Baby Genetic
 4108	Baby Shadow Chaser
-4109	Baby Rune Knight (Peco)
-4110	Baby Royal Knight (Peco)
-4111	Baby Ranger (Wolf)
+4109	Baby Rune Knight (Dragon)
+4110	Baby Royal Guard (Gryphon)
+4111	Baby Ranger (Warg)
 4112	Baby Mechanic (Madogear)
-4113	?
-4114	Ninja (Frog)
-4115	Gunner (Peco)
-4116
-4117
-4118
-4119
-4120
-4121
-4122
-4123
-4124
-4125
-4126
-4127
-4128
-4129
-4130
-4131
-4132
-4133
-4134
-4135
-4136
-4137
-4138
-4139
-4140
-4141
-4142
-4143
-4144
-4145
-4146
-4147
-4148
-4149
-4150
-4151
-4152
-4153
-4154
-4155
-4156
-4157
-4158
-4159
-4160
-4161
-4162
-4163
-4164
-4165
-4166
-4167
-4168
-4169
-4170
-4171
-4172
-4173
-4174
-4175
-4176
-4177
-4178
-4179
-4180
-4181
-4182
-4183
-4184
-4185
-4186
-4187
-4188
-4189
-4190
-4191
-4192
-4193
-4194
-4195
-4196
-4197
-4198
-4199
-4200
-4201
-4202
-4203
-4204
-4205
-4206
-4207
-4208
-4209
-4210
+4190	Super Novice (Expanded)
+4191	Super Baby (Expanded)
 4211	Kagerou
 4212	Oboro
-4213	Kagerou (Frog)
-4214	Oboro (Frog)
+4215	Rebellion
+4218	Summoner
+4220	Baby Summoner
+4222	Baby Ninja
+4223	Baby Kagerou
+4224	Baby Oboro
+4225	Baby Taekwon
+4226	Baby Star Gladiator
+4227	Baby Soul Linker
+4228	Baby Gunslinger
+4229	Baby Rebellion
+4238	Baby Star Gladiator (Union)
