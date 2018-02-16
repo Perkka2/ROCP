@@ -133,7 +133,7 @@ if ($GET_view == "item") {
 	<tr class=items>
 
 		<td>
-		<img src=\"./images/items/images/{$line[0]}.png\"/ alt=\"{$clientItemName}\">
+		<img src=\"./images/items/images/{$line[0]}.png\"/ \">
 			Type: <a href=\"view_db.php?view=item&col=type&val={$line[2]}\">{$item_type[$line[2]]}</a><br>
 			Buy From NPC: {$line[3]}<br>
 			Weight: {$line[4]}<br>
