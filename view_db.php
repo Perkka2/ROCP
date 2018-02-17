@@ -15,7 +15,7 @@ $start = ($page * $display_size) - $display_size;
 if ($GET_view == "item") {
 	$clientItemNameTable = ParseIdNum2ItemDisplayNameTable("./dbtranslation/idnum2itemdisplaynametable.txt");
 	if ($CONFIG_server_type == 0) {
-		$item_type = array("Armor", "Arrow", "Weapon", "Card", "Event", "Guest", "Heal", "Special");
+		$item_type = array("Armor", "Arrow", "Weapon", "Card", "Event", "Guest", "Heal", "Special", "ThrowWeapon");
 	}
 	else {
 		$item_type = array("Heal", "", "Usable", "Misc", "Weapon", "Armor", "Card",

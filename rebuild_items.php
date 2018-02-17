@@ -4,7 +4,8 @@ require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 set_time_limit(0);
 $armor_tables = array("armor", "armorTM", "armorTB", "armorMB", "armorTMB");
-$weapon_tables = array("weapon", "bothhand", "bow");
+$weapon_tables = array("weapon", "bothhand", "bow", "gun");
+$ammo_tables = array("ammo", "arrow", "cannonball");
 $non_equip_tables = array("heal", "special", "event");
 		
 if ($CONFIG_server_type > 0) {
@@ -43,14 +44,27 @@ if ($CONFIG_server_type == 0) {
 		
 	}
 	
-	// arrow DB
-	$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel FROM script.dbo.arrow";
+	// ammo DBs
+	foreach ($ammo_tables as $table_name) {
+		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel FROM script.dbo.$table_name";
+		$result = execute_query($query, "rebuild_items.php");
+		while ($line = $result->FetchRow()) {
+			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+			$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[5]);
+			$link->Execute($query2);
+		}
+	}
+	
+	
+	//ThrowWeapon
+	$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel, EQUIP FROM script.dbo.ThrowWeapon";
 	$result = execute_query($query, "rebuild_items.php");
 	while ($line = $result->FetchRow()) {
-		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
-		$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[5]);
+		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
+		$line[3], $line[4], "NULL", "NULL", "NULL", $line[6], 2, "NULL", "NULL", $line[5]);
 		$link->Execute($query2);
 	}
+	
 	
 	// card DB
 	$query = "SELECT ID, Name, PRICE, WEIGHT, compositionPos FROM script.dbo.card";

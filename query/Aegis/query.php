@@ -537,7 +537,7 @@ DEFINE('VIEW_USER_LOG', "SELECT * FROM $cp.user_log");
 DEFINE('SHOW_FULL_ITEMS', "SELECT id, NAME, type, price, weight, ATK, DEF,
 range, Slots, Equip_jobs, Equip_genders, Equip_location, weapon_level, equipableLevel
 FROM $cp.item_db
-%s AND (Type < 4 OR Type = 6)
+%s AND (Type < 4 OR Type = 6 OR Type = 8)
 ORDER BY NAME
 ");
 DEFINE('COUNT_FULL_ITEMS', "SELECT id
