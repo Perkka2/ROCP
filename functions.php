@@ -134,6 +134,7 @@ function del_escape($input_string) {
 
 function highlight_search_term($input_string, $search_term) {
 	// Changed by Maldiablo
+	$search_term = str_replace("%", "", $search_term);
 	if ($input_string && $search_term) {
 		$position = strpos(strtolower($input_string), strtolower($search_term));
 	}

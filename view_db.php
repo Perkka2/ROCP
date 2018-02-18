@@ -64,7 +64,7 @@ if ($GET_view == "item") {
 		}
 		else {
 			if ($CONFIG_server_type == 0) {
-				$condition = "WHERE [Name] LIKE '%$GET_value%'";
+				$condition = "WHERE [Name] LIKE '%$GET_value%' OR [ID] LIKE '$GET_value'";
 			}
 			else {
 				$condition = "WHERE name_english LIKE '%$GET_value%'";
@@ -114,9 +114,6 @@ if ($GET_view == "item") {
 			<td>$job_string</td>
 			";
 		}
-		if ($GET_col == "item" && $GET_value) {
-			$line[1] = highlight_search_term($line[1], $GET_value);
-		}
 		if($clientItemNameTable[$line[0]]){
 			$clientItemName = $clientItemNameTable[$line[0]];
 			//$moreReadableItemName = ucwords(str_replace("_", " ", preg_replace('/[0-9]+/', '', strtolower($line[0]))));
@@ -125,10 +122,15 @@ if ($GET_view == "item") {
 		else{
 			$clientItemName = "Name Not Found";
 		}
+		$itemTitle = "{$clientItemName} ({$line[1]} #{$line[0]})";
+		if ($GET_col == "item" && $GET_value) {
+			$itemTitle = highlight_search_term($itemTitle, $GET_value);
+		}
+
 		EchoHead(80);
 		echo "
 	<tr class=mytitle>
-		<td colspan=3>{$clientItemName} ({$line[1]})</td>
+		<td colspan=3>{$itemTitle}</td>
 	</tr>
 	<tr class=items>
 
@@ -191,7 +193,7 @@ if ($GET_view == "item") {
 				<td colspan=20>
 					Search:
 					<select name=\"col\" class=\"myctl\" size=\"1\">
-						<option value=\"item\">Item Name</option>
+						<option value=\"item\">Item Name or ID</option>
 					</select>
 					<input type=\"text\" name=\"value\" class=\"myctl\">
 					<input type=\"submit\" class=\"myctl\" value=\"Search\">
