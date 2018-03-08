@@ -335,6 +335,79 @@ function execute_query($input_query, $page_source = 'none.php', $limit = 0, $off
 	return $result;
 }
 
+
+function execute_query_union($input_query, $page_source = 'none.php', $limit = 0, $offset = 0, $skip_log = false) {
+	global $debug_message, $queries, $link, $CONFIG_log_select, $CONFIG_log_insert,
+	$CONFIG_log_update, $CONFIG_log_delete, $CONFIG_debug, $CONFIG_passphrase,
+	$total_execution, $STORED_login;
+
+	$start_time = getmicrotime();
+	$analyze_query = strtolower(htmlspecialchars($input_query)); // analyzes the query for illegal inputs
+	// disables the use of UNION SELECT
+	$banned_combos = array(
+	"xp_stored procedure" => "xp_",
+	"comment" => "--"
+	);
+	foreach ($banned_combos as $index => $value) {
+		if (strstr($analyze_query, $value) == true) {
+			add_exploit_entry("Attempted to inject a $index into a query!");
+			redir("index.php", "Invalid query to be executed!");
+		}
+	}
+	$queries++;
+	$debug_message .= "\n\t<tr>\n\t\t<td><b>$queries</b></td>\n\t\t<td>";
+	if (!$skip_log) {
+		if (strstr($analyze_query, 'select') !== false && $CONFIG_log_select) {
+			$debug_message .= "Logging: ";
+			$log_query = true;
+		}
+		if (strstr($analyze_query, 'insert') !== false && $CONFIG_log_insert) {
+			$debug_message .= "Logging: ";
+			$log_query = true;
+		}
+		elseif (strstr($analyze_query, 'update') !== false && $CONFIG_log_update) {
+			$debug_message .= "Logging: ";
+			$log_query = true;
+		}
+		elseif (strstr($analyze_query, 'delete') !== false && $CONFIG_log_delete) {
+			$debug_message .= "Logging: ";
+			$log_query = true;
+		}
+		else {
+			$debug_message .= "Executing: ";
+			$log_query = false;
+		}
+	}
+	else {
+		$debug_message .= "Executing: ";
+		$log_query = false;
+	}
+	if ($limit == 0 && $offset == 0) {
+		$result = $link->Execute($input_query) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+	}
+	else {
+		$result = $link->SelectLimit($input_query, $limit, $offset) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+	}
+
+	// Displays each query (SELECT, INSERT, UPDATE, DELETE)
+	$debug_message .= "</td>\n\t\t<td>";
+	$execute_time = (getmicrotime() - $start_time);
+	$total_execution += $execute_time;
+
+	if ($CONFIG_debug) {
+		$rows = $result->RowCount();
+		$debug_message .= "$page_source</td>\n\t\t<td width=50%>";
+		$debug_message .= "$input_query</td>\n\t\t<td>$execute_time</td>\n\t\t</tr>";
+	}
+
+	if ($log_query) {
+		// replaces each line break with a space
+		$input_query = str_replace("\r\n", " ", $input_query);
+		add_query_entry($page_source, $input_query);
+	}
+	return $result;
+}
+
 function is_server_online() {
 	global $CONFIG_check_server, $CONFIG_maintenance;
 	if (!$CONFIG_check_server or $CONFIG_maintenance) {
@@ -1406,6 +1479,287 @@ function ParseMapNameTable($path)
 
 //DEBUG
 //$table = ParseMapNameTable("./dbtranslation/mapnametable.txt");
+//var_dump($table);
+
+
+
+
+function ParseAllItems($ItemsFromDB)
+{
+
+    // Parse lines
+    $ItemTable = array();
+    while ($line = $ItemsFromDB->FetchRow()){
+        // Add to table
+        $ItemTable[$line[0]]['name'] = $line[1];
+        $ItemTable[$line[0]]['table'] = $line[2];
+        $ItemTable[$line[0]]['slots'] = $line[3];
+    }
+    return $ItemTable;
+}
+
+
+function reverse_bytes($hex)
+{
+	for($i = strlen($hex); $i > 0; $i = $i - 2)
+	{
+		$revstr = $revstr.substr($hex, $i-2, 2);
+	}
+	return $revstr;
+}
+
+
+
+//Get character items
+
+function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
+			$query = sprintf(GET_CHARACTER_ITEMS, $characterID);
+			$result = execute_query($query, "functions.php");
+			$charitems = $result->FetchRow();
+			$itemBinaryString = $charitems[0];
+			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
+			$itemBinaryString = bin2hex(gzuncompress($itemBinaryString));
+			while($itemBinaryString){
+				$itemID = hexdec(reverse_bytes(substr($itemBinaryString, 0,4)));
+				if($itemTable[$itemID]['table']){
+					$clientItemName = getClientItemName($clientItemNameTable,$itemID,$itemTable);
+					$amount = 1;
+					$socketsUsed = NULL;
+					$socket1 = NULL;
+					$socket1Name = NULL;
+					$socket2 = NULL;
+					$socket2Name = NULL;
+					$socket3 = NULL;
+					$socket3Name = NULL;
+					$socket4 = NULL;
+					$socket4Name = NULL;
+					$identified = NULL;
+					$bound = NULL;
+					$favourite = NULL;
+					$haxExpireDate = NULL;
+					$hasUuid = NULL;
+					$uuid = NULL;
+					$equipped = NULL;
+					$damaged = NULL;
+					$refinelvl = NULL;
+					if(in_array($itemTable[$itemID]['table'], array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun'))){
+						$item_settings = substr($itemBinaryString, 4,2); //get item flags
+						$sockets = substr($itemBinaryString, 18,16); //get sockets
+						$equip_byte = substr($itemBinaryString, 6,2); //get equipped bit
+						$damaged = substr($itemBinaryString, 12,2); //get damaged bit
+						$refinelvl = substr($itemBinaryString, 14,2); //get refined bit
+						$socket1 = hexdec(reverse_bytes(substr($sockets, 0,4)));
+						$socket2 = hexdec(reverse_bytes(substr($sockets, 4,4)));
+						$socket3 = hexdec(reverse_bytes(substr($sockets, 8,4)));
+						$socket4 = hexdec(reverse_bytes(substr($sockets, 12,4)));
+						if($item_settings & (1 << 1-1)){$identified = 1;}
+						if($item_settings & (1 << 2-1)){$bound = 1;}
+						if($item_settings & (1 << 3-1)){$favourite = 1;}
+						if($item_settings & (1 << 7-1)){$hasUuid = 1;}
+						if($item_settings & (1 << 8-1)){$haxExpireDate = 1;}
+						if($equip_byte > '0'){$equipped = 1;}
+						if($damaged > '0'){$damaged = 1;}
+						if($refinelvl > '0'){$refinelvl = $refinelvl;}
+						if($itemTable[$itemID]['slots']){
+							if($socket1 > '0'){$socketsUsed = 1;}else{$socketsUsed = 0;}
+							if($socket2 > '0'){$socketsUsed = 2;}
+							if($socket3 > '0'){$socketsUsed = 3;}
+							if($socket4 > '0'){$socketsUsed = 4;}}
+						$itemBinaryString = substr($itemBinaryString, 50);
+					}
+					else if($itemTable[$itemID]['table'] == 'guest') {
+						$itemBinaryString = substr($itemBinaryString, 8);
+					}
+					else if(in_array($itemTable[$itemID]['table'], array('arrow','cannonball','ammo'))) {
+						$amount = substr($itemBinaryString, 6,2); //get amount
+						$itemBinaryString = substr($itemBinaryString, 18);
+					}
+					else {
+						$amount = hexdec(substr($itemBinaryString, 6,2)); //get amount
+						$itemBinaryString = substr($itemBinaryString, 26);
+					}
+
+					//store data to array
+				$characterItems[] = [
+				'id' => $itemID,
+				'db_name' => $itemTable[$itemID]['name'],
+				'name' => $clientItemName,
+				'type' => $itemTable[$itemID]['table'],
+				'amount' => $amount,
+				'slots' => $itemTable[$itemID]['slots'],
+				'slotsUsed' => $socketsUsed,
+				'slot1' => $socket1,
+				'slot1fName' => getClientItemName($clientItemNameTable,$socket1,$itemTable),
+				'slot2' => $socket2,
+				'slot2fName' => getClientItemName($clientItemNameTable,$socket2,$itemTable),
+				'slot3' => $socket3,
+				'slot3fName' => getClientItemName($clientItemNameTable,$socket3,$itemTable),
+				'slot4' => $socket4,
+				'slot4fName' => getClientItemName($clientItemNameTable,$socket4,$itemTable),
+				'identified' => $identified,
+				'bound' => $bound,
+				'favourite' => $favourite,
+				'expire_date' => $haxExpireDate,
+				'has_uuid' => $hasUuid,
+				'uuid' => null,
+				'equipped' => $equipped,
+				'damaged' => $damaged,
+				'refinelvl' => $refinelvl];
+				}
+				else {
+				$itemBinaryString = substr($itemBinaryString, 1);
+				//echo $itemID . "<br/>";
+				}
+		}
+		return $characterItems;
+}
+
+function getClientItemName($clientItemNameTable,$itemID,$itemTable){
+if($clientItemNameTable[$itemID]){
+		$clientItemName = $clientItemNameTable[$itemID];
+		//$moreReadableItemName = ucwords(str_replace("_", " ", preg_replace('/[0-9]+/', '', strtolower($line[0]))));
+		$clientItemName = str_replace("_", " ", $clientItemName);
+	}
+	else{
+		if($itemTable[$itemID]['table'] == 'guest') {
+			$clientItemName = "Quest Item";
+		}
+		else if($itemID == 0){
+		$clientItemName = "Empty";
+		}
+		else{
+		$clientItemName = "Name Not Found (" . $itemTable[$itemID]['name'] . ")";
+		}
+	}
+	return $clientItemName;
+}
+
+function filterItems($items, $types) {
+  //$result = [];
+  for($i=0; $i < count($items); $i++) {
+    if(in_array($items[$i]['type'], $types)) {
+     //array_push($items[$i], $result);
+		 $result[] = $items[$i];
+    }
+  }
+return $result;
+}
+
+function htmldescription($description) {
+	/* replace charage return to <br /> */
+	$description = str_replace("\n", "<br />", $description);
+	/* replace ^FFFFFF_^000000 by "" */
+	$description = str_replace("^FFFFFF_^000000", "", $description);
+	/* replace ^000000 by </span> */
+	$description = str_replace("^000000", "</span>", $description);
+
+	/* replace ^RRGGBB by <span style="color:#RRGGBB;"> */
+
+	$offset = 0;
+
+	$rgbs = [];
+	while (($pos = strpos($description, "^", $offset)) !== FALSE) {
+		$offset   = $pos + 1;
+		$rgbs[] = substr($description, ($pos + 1), 6);
+	}
+
+
+	for($i= 0; $i < count($rgbs); $i++) {
+		$description = str_replace("^" . $rgbs[$i], "<span style=\"color: #{$rgbs[$i]};\">", $description);
+	}
+
+	return $description;
+}
+
+function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
+	$sort_col = array();
+	foreach ($arr as $key=> $row) {
+		$sort_col[$key] = $row[$col];
+	}
+
+	array_multisort($sort_col, $dir, $arr);
+}
+
+function GetTooltipText($characterItems){
+							if($characterItems['slots'] > '0'){$socketsui = "<box>&boxv;</box>";}
+							else {$socketsui = "";}
+							if($characterItems['identified'] > '0'){
+							$printout .= "$socketsui<b> Is Identified</b> <br/>";
+							}
+							if($characterItems['bound'] > '0'){
+							$printout .= "$socketsui<b> Is Bound</b> <br/>";
+							}
+							if($characterItems['favourite'] > '0'){
+							$printout .= "$socketsui<b> Is Favourite</b> <br/>";
+							}
+							if($characterItems['hasUuid'] > '0'){
+							$printout .= "$socketsui<b> Had Unique ID</b> <br/>";
+							//stored in int64
+							}
+							if($characterItems['expire_date'] > '0'){
+							$printout .= "$socketsui<b> Has Expiration Date</b> <br/>";
+							//stored in int32
+							}
+							if($characterItems['equipped'] > '0'){
+							$printout .= "$socketsui<b> Is equipped</b> <br/>";
+							}
+							if($characterItems['damaged'] > '0'){
+							$printout .= "$socketsui<b> Is damaged</b> <br/>";
+							$equippedClass = " damaged";
+							}
+							if($characterItems['refinelvl'] > '0'){
+							$printout .= "$socketsui<b> Is refined lvl $refinelvl</b> <br/>";
+							}
+							if($characterItems['slots'] > '0'){
+								if($characterItems['slot1'] > '0'){$socketsUsed = 1;}else{$socketsUsed = 0;}
+								if($characterItems['slot2'] > '0'){$socketsUsed = 2;}
+								if($characterItems['slot3'] > '0'){$socketsUsed = 3;}
+								if($characterItems['slot4'] > '0'){$socketsUsed = 4;}
+								$printout .=  "$socketsui<b> Has " . $characterItems['slotsUsed'] . " of " . $characterItems['slots'] . " slots used</b><br/>";
+								if($characterItems['slots'] >= '1'){if($characterItems['slots'] > '1'){$printout .=  "<box>&boxvr;</box>";}else {$printout .=  "<box>&boxur;</box>";} $printout .=  " Slot 1: <b>". $characterItems['slot1fName'] . "</b> <br/>";}
+								if($characterItems['slots'] >= '2'){if($characterItems['slots'] > '2'){$printout .=  "<box>&boxvr;</box>";}else {$printout .=  "<box>&boxur;</box>";} $printout .=  " Slot 2: <b>". $characterItems['slot2fName'] . "</b> <br/>";}
+								if($characterItems['slots'] >= '3'){if($characterItems['slots'] > '3'){$printout .=  "<box>&boxvr;</box>";}else {$printout .=  "<box>&boxur;</box>";} $printout .=  " Slot 3: <b>". $characterItems['slot3fName'] . "</b> <br/>";}
+								if($characterItems['slots'] >= '4'){$printout .=  "<box>&boxur;</box> Slot 4: <b>". $characterItems['slot4fName'] . "</b> <br/>";}
+							}
+	return $printout;
+}
+
+
+// Parsing function
+function ParseIdNum2ItemDescTable($path)
+{
+    // Read file
+    $contents = @file($path);
+    if(!is_array($contents))
+        die(sprintf("File missing or empty: %s", $path));
+
+    // Parse lines
+    $IdNum2ItemDescTable = array();
+	$j = 0;
+    foreach($contents as $i => $line)
+    {
+		if ((strpos($line, '#') !== false)&& ($j == 0)){
+			$line = str_replace("#", "", $line);
+			$id = trim($line);
+			$i = 1;
+		}
+
+		elseif ((strpos($line, '#') !== false)){
+			$j = 0;
+		}
+
+		else {
+			$IdNum2ItemDescTable[$id] .= $line;
+		}
+
+
+        // Add to table
+    }
+    return $IdNum2ItemDescTable;
+}
+
+//DEBUG
+//$table = ParseIdNum2ItemDisplayNameTable("./dbtranslation/idnum2itemdisplaynametable.txt");
 //var_dump($table);
 
 

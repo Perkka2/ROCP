@@ -602,4 +602,51 @@ WHERE tu_state = 1
 %s
 %s
 ");
+
+//equipment.php
+DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
+WHERE GID = %d");
+DEFINE('GET_ALL_ITEMS', "USE [Script]
+SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
+UNION
+SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+UNION
+SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+UNION
+SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+UNION
+SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+UNION
+SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+UNION
+SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+UNION
+SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+UNION
+SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+UNION
+SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT] FROM [cannonball]
+UNION
+SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+UNION
+SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
+UNION
+SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+UNION
+SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
+UNION
+SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+UNION
+SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+UNION
+SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
+UNION
+SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+UNION
+SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+// roster.php
+DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money
+FROM $char.charinfo
+WHERE AID = %d ORDER BY charname
+");
 ?>

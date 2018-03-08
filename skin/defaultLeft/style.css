@@ -351,3 +351,157 @@ td {
 	background:#fff;
 	margin-bottom:-100px;
 }
+
+/* equipment stuff */
+
+.tooltipright img{
+	height:15px;
+	width:15px;
+	#float:left;
+	margin:0px 10px 0px 3px;
+}
+
+
+box{
+font-family: "Courier New", monospace;
+font-size: 13px;
+}
+
+.equipmentList{
+	width:30px;
+	height:30px;
+	padding:2px !important;
+	margin:2px;
+	border:1px solid #777777;
+	float:left;
+	border-radius: 3px;
+}
+
+.equipment{
+	/*white-space: nowrap;
+	table-layout: auto;*/
+}
+
+.contentRowHeader.charlist{
+	color:#eee;
+	padding-left: 40px;
+	font-size: 12px;
+	width:auto;
+	background: rgb(100, 100, 100); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(140, 140, 140, .2);
+}
+
+.equipmentList.equipped{
+	border:1px solid #00DD00;
+}
+
+.equipmentList.damaged{
+	border:1px solid #DD0000;
+}
+
+.equipmentList.unidentified{
+	border:1px solid #AAAAAA;
+}
+
+.tooltiptext.equipped{
+	color: #007700 !important;
+}
+
+.tooltiptext.damaged{
+	color: #550000 !important;
+}
+
+.tooltiptext.unidentified{
+	color: #AAAAAA !important;
+}
+
+
+/* Tooltip text */
+.equipmentList .tooltiptext {
+	margin:5px;
+	//width: 120px;
+	background: rgba(240, 240, 240, .8);
+	color: #000;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+.tooltipcontainer{
+	visibility: hidden;
+	margin-top: 25px;
+	position: absolute;
+	z-index: 1;
+}
+
+.amountInfo{
+	margin-top: 16px;
+	margin-left: -2px;
+	padding-left: 2px;
+	width:28px;
+	background: rgba(0, 0, 0, .5);
+	font-size: 8px;
+	position: absolute;
+	border-radius: 0 0 2px 2px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.equipmentList:hover .tooltiptext {
+    visibility: visible;
+}
+
+.equipmentList .tooltiptext .tooltipleft{
+  	display: table-cell;
+		margin:5px;
+}
+
+.tooltipleft img{
+		margin:5px;
+		background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
+		background: rgba(40, 40, 40, .6);
+		height:100px;
+		width:75px;
+		box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.8);
+}
+
+.equipmentList .tooltiptext .tooltipright{
+  	display: table-cell;
+		padding-left: 10px;
+    vertical-align: top;
+}
+
+.charstats{
+	float:left;
+	padding-right: 10px;
+	width:150px;
+	height:100%;
+}
+
+.charstats img{
+	margin:0 auto;
+	display:block
+}
+
+.charitems{
+	display:table-row;
+}
+
+.charitems td{
+  height:35px;
+  vertical-align:middle;
+}
+
+.charitems td.equipped{
+	width:80px;
+	padding:5px;
+	height:35px;
+	vertical-align:middle;
+}
+
+.contentRowHeader div{
+	width:250px;
+}
+
+.contentRowHeader td{
+	display: flex;
+  justify-content: space-between;
+}
