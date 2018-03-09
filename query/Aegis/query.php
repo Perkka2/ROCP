@@ -290,8 +290,9 @@ WHERE AID = %d
 // item_functions.php
 DEFINE('SEARCH_ITEMS', "EXEC $cp.%s %s");
 DEFINE('SHOW_SOURCE_ITEMS', "SELECT %s FROM $char.%s WHERE %s = %d");
-DEFINE('IS_EQUIP', "SELECT * FROM $script.%s WHERE ID = %d");
-DEFINE('IS_ARROW', "SELECT * FROM $script.arrow where ID = %d");
+DEFINE('IS_IN_ITEMDB', "SELECT * FROM $script.%s WHERE ID = %d");
+//DEFINE('IS_ARROW', "SELECT * FROM $script.arrow where ID = %d");
+//DEFINE('IS_QUEST', "SELECT * FROM $script.guest where ID = %d");
 
 // item_search.php
 DEFINE('LIST_ITEMS', "SELECT ID, Name FROM $cp.item_db ORDER BY Name");

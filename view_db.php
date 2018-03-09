@@ -23,6 +23,30 @@ if ($GET_view == "item") {
 	}
 	$na_cols = array(3, 4, 5, 6, 7, 8, 10, 11, 12, 13);
 
+			echo "
+			<form action=\"view_db.php\" method=\"GET\">
+				<input type=\"hidden\" name=\"view\" value=\"item\">
+				<table border=0 align=\"center\">
+					<tr class=mycell>
+						<td colspan=20>
+							Search:
+							<select name=\"type\" class=\"myctl\" size=\"1\">
+								<option value=\"all\">All Items</option>
+								<option value=\"zero\">{$item_type['0']}</option>
+								<option value=\"1\">{$item_type['1']}</option>
+								<option value=\"2\">{$item_type['2']}</option>
+								<option value=\"3\">{$item_type['3']}</option>
+								<option value=\"6\">{$item_type['6']}</option>
+								<option value=\"8\">{$item_type['8']}</option>
+							</select>
+							<input type=\"hidden\" name=\"col\" value=\"item\">
+							<input type=\"text\" name=\"value\" class=\"myctl\">
+							<input type=\"submit\" class=\"myctl\" value=\"Search\">
+						</td>
+					</tr>
+				</table>
+			</form>
+			";
 	// Aegis and Athena use different orders for classes, for some strange reason
 	if ($CONFIG_server_type == 0) {
 		$equip_class = array("Novice",
@@ -52,6 +76,7 @@ if ($GET_view == "item") {
 	elseif (IsSet($GET_class) && $GET_class != "") {
 		$condition = sprintf(SEARCH_CLASS, $GET_class);
 	}
+
 	elseif ($GET_value && strlen($GET_value) < 30) {
 		if ($GET_col == "letter") {
 			$letter = chr($GET_value);
@@ -64,10 +89,10 @@ if ($GET_view == "item") {
 		}
 		else {
 			if ($CONFIG_server_type == 0) {
-				$condition = "WHERE [Name] LIKE '%$GET_value%' OR [ID] LIKE '$GET_value'";
+				$condition = "WHERE ([Name] LIKE '%$GET_value%' OR [ID] LIKE '$GET_value')";
 			}
 			else {
-				$condition = "WHERE name_english LIKE '%$GET_value%'";
+				$condition = "WHERE (name_english LIKE '%$GET_value%')";
 			}
 		}
 	}
@@ -85,6 +110,36 @@ if ($GET_view == "item") {
 			$condition = "WHERE 1 = 1";
 		}
 	}
+	if(IsSet($GET_type) && $GET_type != 'all'){
+		if($GET_type == 'zero'){$GET_type = '0';}
+		if ($CONFIG_server_type == 0) {
+			$condition .= " AND ([type] = $GET_type)";
+		}
+		else {
+			$condition .= " AND `type` = $GET_type";
+		}
+	}
+
+
+	echo "<br/><table class=\"pageing\"><tr>";
+	$query = sprintf(COUNT_FULL_ITEMS, $condition);
+	$result = execute_query($query, "view_db.php");
+	$max_pages = intval($result->RowCount() / 30) + 1;
+	for ($i = 1; $i < $max_pages; $i++) {
+		echo "<td><a href=\"view_db.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a></td>";
+		if ($i % 26 == 0) {
+			echo "</tr><tr>";
+		}
+	}
+	echo "<td><a href=\"view_db.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a></td></tr><tr>";
+
+	for ($i = 1; $i < 27; $i++) {
+		$code = $i + 64;
+		$letter = chr($code);
+		echo "<td><a href=\"view_db.php?view=item&page=1&col=letter&value=$code\">$letter</a></td>";
+	}
+	echo "</tr></table><br/>";
+
 	$query = sprintf(SHOW_FULL_ITEMS, $condition);
 	$result = execute_query($query, "view_db.php", $display_size, $start);
 	while ($line = $result->FetchRow()) {
@@ -162,38 +217,18 @@ if ($GET_view == "item") {
 </table>
 		";
 	}
-	$query = sprintf(COUNT_FULL_ITEMS, $condition);
-	$result = execute_query($query, "view_db.php");
-	$max_pages = intval($result->RowCount() / 30) + 1;
-	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<a href=\"view_db.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a>";
-		if ($i % 50 == 0) {
-			echo "<br>";
-		}
-		else {
-			echo "-";
-		}
-	}
-	echo "<a href=\"view_db.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a><br />";
-
-	for ($i = 1; $i < 27; $i++) {
-		$code = $i + 64;
-		$letter = chr($code);
-		echo "<a href=\"view_db.php?view=item&page=1&col=letter&value=$code\">$letter</a>";
-		if ($i != 26) {
-			echo "-";
-		}
-	}
-
+}
+elseif ($GET_view == "monster") {
 	echo "
 	<form action=\"view_db.php\" method=\"GET\">
-		<input type=\"hidden\" name=\"view\" value=\"item\">
+		<input type=\"hidden\" name=\"view\" value=\"monster\">
 		<table border=0 align=\"center\">
 			<tr class=mycell>
 				<td colspan=20>
 					Search:
-					<select name=\"col\" class=\"myctl\" size=\"1\">
-						<option value=\"item\">Item Name or ID</option>
+					<select name=\"column\" class=\"myctl\" size=\"1\">
+						<option value=\"monster\">Monster Name</option>
+						<option value=\"item\">Item Name</option>
 					</select>
 					<input type=\"text\" name=\"value\" class=\"myctl\">
 					<input type=\"submit\" class=\"myctl\" value=\"Search\">
@@ -202,8 +237,7 @@ if ($GET_view == "item") {
 		</table>
 	</form>
 	";
-}
-elseif ($GET_view == "monster") {
+	echo "<tr><td colspan=6></p>";
 	$clientMobNameTable = ParseMobDefNames("./dbtranslation/mobdef.sc");
 	//$mobIdTable = ParseNPCIdentityTable("./dbtranslation/NPCIdentity.lua");
 	$mobIdTable = ParseMobNameDefTable("./dbtranslation/mobname.def");
@@ -286,6 +320,25 @@ elseif ($GET_view == "monster") {
 			$item[$line[0]] = $line[1];
 		}
 	}
+	echo "<table class=\"pageing\"><tr>";
+	$query = sprintf(COUNT_FULL_MOBS, $condition);
+	$result = execute_query($query, "view_db.php");
+	$max_pages = intval($result->RowCount() / 30) + 1;
+	for ($i = 1; $i < $max_pages; $i++) {
+		echo "<td><a href=\"view_db.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a></td>";
+		if ($i % 26 == 0) {
+			echo "</tr><tr>";
+		}
+	}
+	echo "<td><a href=\"view_db.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a></td></tr><tr>";
+
+	for ($i = 1; $i < 27; $i++) {
+		$code = $i + 64;
+		$letter = chr($code);
+		echo "<td><a href=\"view_db.php?view=monster&page=0&column=letter&value=$code\">$letter</a></td>";
+	}
+	echo "</tr></table><br/>";
+
 	$query = sprintf(SHOW_FULL_MOBS, $condition);
 	$result = execute_query($query, "view_db.php", $display_size, $start);
 
@@ -410,49 +463,8 @@ elseif ($GET_view == "monster") {
 	</tr>
 		";
 	}
-	echo "<tr><td colspan=6></p>";
-	$query = sprintf(COUNT_FULL_MOBS, $condition);
-	$result = execute_query($query, "view_db.php");
-	$max_pages = intval($result->RowCount() / 30) + 1;
-	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<a href=\"view_db.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a>";
-		if ($i % 50 == 0) {
-			echo "<br>";
-		}
-		else {
-			echo "-";
-		}
-	}
-	echo "<a href=\"view_db.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a><br />";
-
-	for ($i = 1; $i < 27; $i++) {
-		$code = $i + 64;
-		$letter = chr($code);
-		echo "<a href=\"view_db.php?view=monster&page=0&column=letter&value=$code\">$letter</a>";
-		if ($i != 26) {
-			echo "-";
-		}
-	}
 
 	echo "</td></tr></table>";
-	echo "
-	<form action=\"view_db.php\" method=\"GET\">
-		<input type=\"hidden\" name=\"view\" value=\"monster\">
-		<table border=0 align=\"center\">
-			<tr class=mycell>
-				<td colspan=20>
-					Search:
-					<select name=\"column\" class=\"myctl\" size=\"1\">
-						<option value=\"monster\">Monster Name</option>
-						<option value=\"item\">Item Name</option>
-					</select>
-					<input type=\"text\" name=\"value\" class=\"myctl\">
-					<input type=\"submit\" class=\"myctl\" value=\"Search\">
-				</td>
-			</tr>
-		</table>
-	</form>
-	";
 }
 else {
 	EchoHead(50);

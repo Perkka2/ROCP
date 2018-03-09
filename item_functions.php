@@ -25,6 +25,7 @@ function display_aegis_item($item_id) {
 		false finds.
 		</td>
 	</tr>
+	<tr class=mycell><td><font color=\"#ff0000\">Due to the new gzipped save format on aegis servers item search is no longer avaiable and will return empty results</font></td></tr>
 	</table>
 	";
 	foreach ($procedures as $exec_index => $exec_proc) {
@@ -89,9 +90,9 @@ function display_item ($condition) {
 			<td>Card 4</td>
 		</tr>
 		";
-			
+
 		// Searches for the item in the specified table (GMs/Admins)
-		$search_query = 
+		$search_query =
 		array ("
 		SELECT {$table[$a]}.id, {$name_table[$a]}.{$name_column[$a]}, {$table[$a]}.{$reference_column[$a]}, amount, nameid, name0.name_japanese, refine,
 		name1.name_japanese, card0, name2.name_japanese, card1, name3.name_japanese, card2, name4.name_japanese, card3
@@ -108,8 +109,8 @@ function display_item ($condition) {
 		",
 		// Searches for the item in in the specified table (Everyone else)
 		"
-		SELECT {$table[$a]}.id, {$name_table[$a]}.{$name_column[$a]}, {$table[$a]}.{$reference_column[$a]}, amount, nameid, name0.name_japanese, refine, 
-		name1.name_japanese, card0, name2.name_japanese, card1, name3.name_japanese, card2, name4.name_japanese, card3 
+		SELECT {$table[$a]}.id, {$name_table[$a]}.{$name_column[$a]}, {$table[$a]}.{$reference_column[$a]}, amount, nameid, name0.name_japanese, refine,
+		name1.name_japanese, card0, name2.name_japanese, card1, name3.name_japanese, card2, name4.name_japanese, card3
 		FROM `{$table[$a]}`, `{$reference_table[$a]}`
 		LEFT JOIN $cp_db.privilege ON {$reference_table[$a]}.account_id = $cp_db.privilege.account_id
 		LEFT JOIN $cp_db.item_db AS name0 ON {$table[$a]}.nameid = name0.ID
@@ -122,7 +123,7 @@ function display_item ($condition) {
 		AND {$reference_table[$a]}.{$reference_column[$a]} = {$table[$a]}.{$reference_column[$a]}
 		"
 		);
-		
+
 		for ($i = 0; $i < 2; $i++) {
 			$result = execute_query($search_query[$i], "item_functions.php");
 			while ($line = $result->FetchRow()) {
@@ -215,8 +216,11 @@ function display_source_id_items ($source_type, $name_id) {
 		</tr>
 			";
 			$line = $result->FetchRow();
-			$item_data = substr(bin2hex($line[0]), 4);
-			
+			$itemBinaryString = $line[0];
+			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
+			$item_data = bin2hex(gzuncompress($itemBinaryString));
+			//$item_data = substr(bin2hex($line[0]), 4);
+
 			while (strlen($item_data) > 0) {
 				echo "<tr class=mycell>";
 				$item_code = hexdec(substr($item_data,2,2) . substr($item_data,0,2));
@@ -224,27 +228,34 @@ function display_source_id_items ($source_type, $name_id) {
 				$full_code = "";
 				if (IsEquip($item_code)) {
 					echo "<td>1</td>";
-					$full_code .= substr($item_data,0,38);
-					$refined = hexdec(substr($item_data,20,2));
-					$card_id[1] = hexdec(substr($item_data,24,2) . substr($item_data,22,2));
-					$card_id[2] = hexdec(substr($item_data,28,2) . substr($item_data,26,2));
-					$card_id[3] = hexdec(substr($item_data,32,2) . substr($item_data,30,2));
-					$card_id[4] = hexdec(substr($item_data,36,2) . substr($item_data,34,2));
+					//$full_code .= substr($item_data,0,38); //oldfullcode
+					$full_code .= substr($item_data,0,50);
+					//$refined = hexdec(substr($item_data,20,2)); //old refinepos
+					$refined = hexdec(substr($item_data,14,2));
+					//$card_id[1] = hexdec(substr($item_data,24,2) . substr($item_data,22,2));
+					//$card_id[2] = hexdec(substr($item_data,28,2) . substr($item_data,26,2));
+					//$card_id[3] = hexdec(substr($item_data,32,2) . substr($item_data,30,2));
+					//$card_id[4] = hexdec(substr($item_data,36,2) . substr($item_data,34,2));
+					$card_id[0] = hexdec(substr($full_code,20,2) . substr($full_code,18,2));
+					$card_id[1] = hexdec(substr($full_code,24,2) . substr($full_code,22,2));
+					$card_id[2] = hexdec(substr($full_code,28,2) . substr($full_code,26,2));
+					$card_id[3] = hexdec(substr($full_code,32,2) . substr($full_code,30,2));
 					for ($i = 0; $i < 5; $i++) {
-						$card[$i] = ItemID_To_ItemName($card_id[$i]);	
+						$card[$i] = ItemID_To_ItemName($card_id[$i]);
 					}
-	
-					$item_data = substr($item_data,38);
-					if ($equipped > 0) { 
-						$color = "#AA0000"; 
+
+					//$item_data = substr($item_data,38); //olditemdata
+					$item_data = substr($item_data,50);
+					if ($equipped > 0) {
+						$color = "#AA0000";
 					}
-					if ($refined > 0) { 
-						$refined = "+" . $refined; 
+					if ($refined > 0) {
+						$refined = "+" . $refined;
 					}
-					else { 
+					else {
 						$refined = "";
 					}
-	
+
 					echo "<td><a href=\"item_manage.php?item=$item_code\">$refined $item_name</a></td>";
 					foreach ($card as $card_index => $col_value) {
 						if ($col_value) {
@@ -263,15 +274,27 @@ function display_source_id_items ($source_type, $name_id) {
 					$quantity = hexdec(substr($item_data,8,2) . substr($item_data,6,2));
 					echo "<td>$quantity</td>";
 					echo "<td><a href=\"item_manage.php?item=$item_code\">$item_name</a>";
-		
-					$item_data = substr($item_data,14);
+
+					//$item_data = substr($item_data,14); //olditemdata
+					$item_data = substr($item_data,18);
+					//echo "<td></td><td></td><td></td><td></td><td>$full_code</td>";
+				}
+				elseif(IsQuest($item_code)) {
+					$full_code .= substr($item_data,0,8);
+					$quantity = hexdec(substr($item_data,6,2) . substr($item_data,4,2));
+					echo "<td>$quantity</td>";
+					echo "<td><a href=\"item_manage.php?item=$item_code\">$item_name</a>";
+
+					//$item_data = substr($item_data,14); //olditemdata
+					$item_data = substr($item_data,8);
 					//echo "<td></td><td></td><td></td><td></td><td>$full_code</td>";
 				}
 				else {
 					$full_code .= substr($item_data,0,10);
 					$quantity = hexdec(substr($item_data,8,2) . substr($item_data,6,2));
 					echo "<td>$quantity</td>";
-					$item_data = substr($item_data,10);
+					$item_data = substr($item_data,26);
+					//$item_data = substr($item_data,10); //olditemdata
 					echo "<td><a href=\"item_manage.php?item=$item_code\">$item_name</a>";
 					//echo "<td></td><td></td><td></td><td></td><td>$full_code</td>";
 				}
@@ -298,12 +321,12 @@ function display_source_id_items ($source_type, $name_id) {
 			$delete[1] = "delete_cart";
 			$stop = 2;
 		}
-		
+
 		for ($i = 0; $i < $stop; $i++) {
-			// Selects the items in character's inventory		
+			// Selects the items in character's inventory
 			$query = "
-			SELECT {$table[$i]}.id, amount, nameid, name0.name_japanese, refine, 
-			name1.name_japanese, card0, name2.name_japanese, card1, name3.name_japanese, card2, name4.name_japanese, card3 
+			SELECT {$table[$i]}.id, amount, nameid, name0.name_japanese, refine,
+			name1.name_japanese, card0, name2.name_japanese, card1, name3.name_japanese, card2, name4.name_japanese, card3
 			FROM `{$table[$i]}`
 			LEFT JOIN $cp_db.item_db AS name0 ON {$table[$i]}.nameid = name0.ID
 			LEFT JOIN $cp_db.item_db AS name1 ON {$table[$i]}.card0 = name1.ID
@@ -312,7 +335,7 @@ function display_source_id_items ($source_type, $name_id) {
 			LEFT JOIN $cp_db.item_db AS name4 ON {$table[$i]}.card3 = name4.ID
 			WHERE $source_type = $name_id
 			";
-			
+
 			$result = execute_query($query, "item_functions.php");
 			/* Printing results in HTML */
 			EchoHead(100);
@@ -333,7 +356,7 @@ function display_source_id_items ($source_type, $name_id) {
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>\n";
 				foreach ($line as $display_index => $col_value) {
-					if ($display_index == 0) { 
+					if ($display_index == 0) {
 						$col_value = "<a href=\"item_manage.php?{$delete[$i]}=$col_value\">Delete</a>";
 					}
 					elseif ($display_index == 1) {
@@ -383,7 +406,7 @@ function convert_equip ($weapon_name, $refine, $card0, $card1) {
 		}
 		return $final_expression .= $weapon_name;	//return the standard item name
 	}
-	
+
 	// determine if there are any VVS in them
 	$star_crumb_level = intval($card1 / 1280);		// Athena uses card1 \ 1280 for level of star crumbs
 	if ($star_crumb_level > 0) {
@@ -427,12 +450,24 @@ function convert_equip ($weapon_name, $refine, $card0, $card1) {
 }
 
 function IsEquip($ID) {
-
-	$db = array("armor", "armorMB", "armorTB", "armorTM", "armorTMB", "bothhand", "weapon",
-	"bow");
+	$db = array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun');
 
 	foreach ($db as $query_table) {
-		$query = sprintf(IS_EQUIP, $query_table, $ID);
+		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
+		$result = execute_query($query, "item_functions.php");
+		if ($result->RowCount() > 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function IsQuest($ID) {
+
+	$db = array('guest');
+
+	foreach ($db as $query_table) {
+		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
 		$result = execute_query($query, "item_functions.php");
 		if ($result->RowCount() > 0) {
 			return true;
@@ -442,14 +477,17 @@ function IsEquip($ID) {
 }
 
 function IsArrow($ID) {
-	$query = sprintf(IS_ARROW, $ID);
-	$result = execute_query($query, "item_functions.php");
-	if ($result->RowCount() > 0) {
-		return true;
+
+	$db = array('arrow','cannonball','ammo');
+
+	foreach ($db as $query_table) {
+		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
+		$result = execute_query($query, "item_functions.php");
+		if ($result->RowCount() > 0) {
+			return true;
+		}
 	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 ?>

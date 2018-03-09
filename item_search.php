@@ -16,14 +16,17 @@ echo "
 		<form action=\"item_manage.php\" method=\"GET\">
 		<td>Search Character:</td>
 		<td><input type=\"text\" class=\"myctl\" name=\"char\" size=20></td>
-		<td><input type=\"submit\" class=\"myctl\" name=\"s_action\" value=\"Search Character\"
+		<td><input type=\"submit\" class=\"myctl\" name=\"s_action\" value=\"Search Character\"></td>
 		</form>
-	</tr>
-	<tr class=mycell>
-		<form action=\"item_manage.php\" method=\"GET\">
-		<td>Search Item:</td>
-		<td>
-			<select name=\"item\" class=\"myctl\" size=1\">
+	</tr>";
+if ($CONFIG_server_type == 0) {
+	echo "<tr class=mycell><td colspan=3><font color=\"#ff0000\">Due to the new gzipped save format on aegis servers item search is no longer avaiable and will return empty results</font></td></tr>";
+}
+	echo	"
+<tr class=mycell>
+	<form action=\"item_manage.php\" method=\"GET\">
+	<td>Search Item:</td>
+	<td><select name=\"item\" class=\"myctl\" size=1\">
 ";
 $query = LIST_ITEMS;
 $result = execute_query($query, "item_search.php");
@@ -64,6 +67,9 @@ if ($CONFIG_server_type > 0) {
 	</tr>
 	";
 }
+
+
+
 
 echo "
 </table>	

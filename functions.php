@@ -1559,7 +1559,7 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 						if($item_settings & (1 << 8-1)){$haxExpireDate = 1;}
 						if($equip_byte > '0'){$equipped = 1;}
 						if($damaged > '0'){$damaged = 1;}
-						if($refinelvl > '0'){$refinelvl = $refinelvl;}
+						if($refinelvl > '0'){$refinelvl = hexdec($refinelvl);}
 						if($itemTable[$itemID]['slots']){
 							if($socket1 > '0'){$socketsUsed = 1;}else{$socketsUsed = 0;}
 							if($socket2 > '0'){$socketsUsed = 2;}
@@ -1568,14 +1568,15 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 						$itemBinaryString = substr($itemBinaryString, 50);
 					}
 					else if($itemTable[$itemID]['table'] == 'guest') {
+						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 4,4))); //get amount
 						$itemBinaryString = substr($itemBinaryString, 8);
 					}
 					else if(in_array($itemTable[$itemID]['table'], array('arrow','cannonball','ammo'))) {
-						$amount = substr($itemBinaryString, 6,2); //get amount
+						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 6,4))); //get amount
 						$itemBinaryString = substr($itemBinaryString, 18);
 					}
 					else {
-						$amount = hexdec(substr($itemBinaryString, 6,2)); //get amount
+						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 6,4))); //get amount
 						$itemBinaryString = substr($itemBinaryString, 26);
 					}
 

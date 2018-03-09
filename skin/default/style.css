@@ -526,7 +526,11 @@ font-size: 13px;
 	width:250px;
 }
 
-.contentRowHeader td{
+.contentRowHeader.charlist td{
 	display: flex;
   justify-content: space-between;
+}
+
+.pageing{
+	text-align: center;
 }
