@@ -245,15 +245,15 @@ else {
 	}
 	echo "
 <form action=\"register.php\"  name=\"register\" method=\"POST\" onSubmit=\"return checkData()\">
-	<table align=\"center\" class=mytable width=80% border=\"0\">
+	<table align=\"center\" class=contentTable  border=\"0\">
 		<tr class=mytitle>
-			<td colspan=3>Registration for $CONFIG_server_name</td>
+			<td colspan=2>Registration for $CONFIG_server_name</td>
 		</tr>
 		<tr class=myheader>
-			<td colspan=3>Note: Please click register ONLY ONCE!</td>
+			<td colspan=2>Note: Please click register ONLY ONCE!</td>
 		</tr>
 		<tr class=mycell>
-			<td colspan=3>Registration Type: <b>$type_string</b></td>
+			<td colspan=2>Registration Type: <b>$type_string</b></td>
 		</tr>
 		<tr class=mycell>
 			<td>Account Name: (Only Alphanumeric, no spaces allowed)</td>
@@ -292,7 +292,7 @@ else {
 	</table>
 	";
 	require 'terms.php';
-	
+	echo "<table class=contentTable><tr class=mycell><td>";
 	if ($CONFIG_secure_mode) {
 		// Anti-bot registration
 		
@@ -310,14 +310,16 @@ else {
 		$result = execute_query($query, "register.php", 0, 0, true);
 		
 		echo "<p>Please enter the numbers of the image below into the text box.<br>\n";
-		echo "Note: They are all numbers, there are no letters.<p>\n";
+		echo "Note: They are all numbers, there are no letters.<p>
+		<div class=\"securityCodeBox\">\n";
 		generate_random_number($reg_id);
-		echo "<p>Security Code: <input type=\"text\" class=\"myctl\" name=\"code\"><p>";
+		echo "</div><p>Security Code: <input type=\"text\" class=\"myctl\" name=\"code\"><p>
+		</td></tr><tr class=mycell><td>";
 	}
 	echo "
 	<p>
 	<input type=\"submit\" class=\"myctl\" name=\"action\" value=\"Register Account!\">
-	";
+	</td></tr></table>";
 } ?>
 <SCRIPT LANGUAGE="JavaScript">
 <!--

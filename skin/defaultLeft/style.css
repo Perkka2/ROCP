@@ -509,3 +509,12 @@ font-size: 13px;
 .pageing{
 	text-align: center;
 }
+
+
+.securityCodeBox{
+	margin:auto;
+	padding:10px;
+	width: 130px;
+	background:#fff;
+	text-align: center;
+}

@@ -28,33 +28,22 @@ if (!$POST_action && !$GET_action) {
 	<tr>
 		<td>
 			<form action=\"login.php\" method=\"post\">
-				<table align=\"center\" border=\"0\">
+				<table border=\"0\">
 					<tr>
-						<td class=\"mytext\">User:</td>
-						<td><input type=\"text\" class=\"myctl\" name=\"login_user\" /></td>
+						<td class=\"mytext\">User: <input type=\"text\" class=\"myctl\" name=\"login_user\" />
+						Password: <input type=\"password\" class=\"myctl\" name=\"login_pass\" /></td>
+						
 					</tr>
 					<tr>
-						<td class=\"mytext\">Password:</td>
-						<td><input type=\"password\" class=\"myctl\" name=\"login_pass\" /></td>
-					</tr>
-					<tr>
-						<td colspan=\"2\">
-							<table align=\"center\" border=\"0\">
-								<tr>
-									<td colspan=\"2\">
-										<center><input type=\"submit\" class=\"myctl\" value=\"login\" /></center>
-										<input type=\"hidden\" name=\"action\" value=\"login\" />
-									</td>
-								</tr>
-								<tr>
-									<td class=\"mytext\">
-										<a href=\"register.php\"><img src=\"skin/$STORED_skin/images/register.gif\" border=\"0\" alt=\"Register!\" /></a>
-										&nbsp;&nbsp;
-										<a href=\"lost_pass.php\"><img src=\"skin/$STORED_skin/images/lost.gif\" border=\"0\" alt=\"Lost Password?\" /></a>
-									</td>
-								</tr>
-							</table>
+						<td>
+							<center><input type=\"submit\" class=\"myctl\" value=\"login\" /></center>
+							<input type=\"hidden\" name=\"action\" value=\"login\" />
 						</td>
+						
+					</tr>
+					<tr>
+						<td class=\"mytext\"><a href=\"lost_pass.php\"><img src=\"skin/$STORED_skin/images/lost.gif\" border=\"0\" alt=\"Lost Password?\" /></a>
+						<a href=\"register.php\"><img src=\"skin/$STORED_skin/images/register.gif\" border=\"0\" alt=\"Register!\" /></a></td>
 					</tr>
 				</table>
 			</form>

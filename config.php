@@ -1,11 +1,11 @@
 <?php
-$CONFIG['db_host'] 			=			'10.2.0.209';		// SQL Host
-$CONFIG['db_username'] 			=			'sa';			// SQL User
-$CONFIG['db_password'] 			=			'Start123';			// SQL Password
+$CONFIG['db_host'] 			=			'127.0.0.1';		// SQL Host
+$CONFIG['db_username'] 			=			'';			// SQL User
+$CONFIG['db_password'] 			=			'';			// SQL Password
 $CONFIG['cp_db_name'] 			=			'cp';			// SQL CP Database name
 $CONFIG['db_name'] 			=			'';			// SQL Ragnarok Database name (Athena Only)
 $CONFIG['db_logs']			=			'';			// SQL Log Database name (Athena SVN only)
-$CONFIG['passphrase'] 			=			'wolololo';			// Passphrase to encrypt various strings (Will render current emblems useless if changed.)
+$CONFIG['passphrase'] 			=			'';			// Passphrase to encrypt various strings (Will render current emblems useless if changed.)
 $CONFIG['server_type'] 			=			'0';			// Server Type (0 = Aegis (MSSQL), 1 = oAthena (MySQL), 2 = eAthena(MySQL), 3 = Freya(MySQL))
 $CONFIG['server_db_conn'] 			=			'1';			// Server DB Connection (Aegis Only) 0 = mssql_connect, 1 = odbc_connect, 2 = sqlsrv_connect
 $CONFIG['odbc_datasource'] 			=			'Aegis';			// ODBC Datasource (Needed if Server Database Connection is set to 1)
@@ -15,11 +15,11 @@ $CONFIG['backup_interval'] 		=			'24';			// Backup interval reminder (Hours)
 $CONFIG['default_skin'] 		=			'default';		// Default skin to users.
 $CONFIG['check_server'] 		=			'1';			// Check Server?
 $CONFIG['maintenance'] 			=			'0';			// Maintenance?
-$CONFIG['accip'] 			=			'37.123.157.44';		// Account/Login Server IP
+$CONFIG['accip'] 			=			'127.0.0.1';		// Account/Login Server IP
 $CONFIG['accport'] 			=			'6900';			// Account/Login Server Port
-$CONFIG['charip'] 			=			'37.123.157.44';		// Char Server IP
+$CONFIG['charip'] 			=			'127.0.0.1';		// Char Server IP
 $CONFIG['charport'] 			=			'7000';			// Char Server Port
-$CONFIG['mapip'] 			=			'37.123.157.44';		// Zone/Map Server IP
+$CONFIG['mapip'] 			=			'127.0.0.1';		// Zone/Map Server IP
 $CONFIG['mapport'] 			=			'4500';			// Zone/Map Server Port Start (Needs consecutive ports for multiple zones)
 $CONFIG['mapcount'] 			=			'5';			// Zone/Map Server Count
 $CONFIG['server_name'] 			=			'RO';			// Server Name
