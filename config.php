@@ -1,23 +1,25 @@
 <?php
-$CONFIG['db_host'] 			=			'127.0.0.1';		// SQL Host
-$CONFIG['db_username'] 			=			'';			// SQL User
-$CONFIG['db_password'] 			=			'';			// SQL Password
-$CONFIG['cp_db_name'] 			=			'';			// SQL CP Database name
+$CONFIG['db_host'] 			=			'10.2.0.209';		// SQL Host
+$CONFIG['db_username'] 			=			'sa';			// SQL User
+$CONFIG['db_password'] 			=			'Start123';			// SQL Password
+$CONFIG['cp_db_name'] 			=			'cp';			// SQL CP Database name
 $CONFIG['db_name'] 			=			'';			// SQL Ragnarok Database name (Athena Only)
 $CONFIG['db_logs']			=			'';			// SQL Log Database name (Athena SVN only)
-$CONFIG['passphrase'] 			=			'';			// Passphrase to encrypt various strings (Will render current emblems useless if changed.)
+$CONFIG['passphrase'] 			=			'wolololo';			// Passphrase to encrypt various strings (Will render current emblems useless if changed.)
 $CONFIG['server_type'] 			=			'0';			// Server Type (0 = Aegis (MSSQL), 1 = oAthena (MySQL), 2 = eAthena(MySQL), 3 = Freya(MySQL))
+$CONFIG['server_db_conn'] 			=			'1';			// Server DB Connection (Aegis Only) 0 = mssql_connect, 1 = odbc_connect, 2 = sqlsrv_connect
+$CONFIG['odbc_datasource'] 			=			'Aegis';			// ODBC Datasource (Needed if Server Database Connection is set to 1)
 $CONFIG['panel_name']			=			'Ragnarok Online Control Panel'; 	// Page title replaced with server type
 $CONFIG['language'] 			=			'english';		// Language
 $CONFIG['backup_interval'] 		=			'24';			// Backup interval reminder (Hours)
 $CONFIG['default_skin'] 		=			'default';		// Default skin to users.
 $CONFIG['check_server'] 		=			'1';			// Check Server?
 $CONFIG['maintenance'] 			=			'0';			// Maintenance?
-$CONFIG['accip'] 			=			'127.0.0.1';		// Account/Login Server IP
+$CONFIG['accip'] 			=			'37.123.157.44';		// Account/Login Server IP
 $CONFIG['accport'] 			=			'6900';			// Account/Login Server Port
-$CONFIG['charip'] 			=			'127.0.0.1';		// Char Server IP
+$CONFIG['charip'] 			=			'37.123.157.44';		// Char Server IP
 $CONFIG['charport'] 			=			'7000';			// Char Server Port
-$CONFIG['mapip'] 			=			'127.0.0.1';		// Zone/Map Server IP
+$CONFIG['mapip'] 			=			'37.123.157.44';		// Zone/Map Server IP
 $CONFIG['mapport'] 			=			'4500';			// Zone/Map Server Port Start (Needs consecutive ports for multiple zones)
 $CONFIG['mapcount'] 			=			'5';			// Zone/Map Server Count
 $CONFIG['server_name'] 			=			'RO';			// Server Name
@@ -65,7 +67,7 @@ $CONFIG['admin_colour'] 		=			'FF0000';		// Colour used for Admin
 $CONFIG['gm_colour'] 			=			'0000FF';		// Colour used for GM
 $CONFIG['game_gm_colour'] 		=			'00FFFF';		// Colour used for Game GM
 $CONFIG['adjust_rate'] 			=			'0';			// 1 if you are using Stored Procedure to increase rates, otherwise 0. (Aegis Only)
-$CONFIG['exp_rate'] 			=			'6';			// EXP Rate
-$CONFIG['jexp_rate'] 			=			'6';			// JEXP Rate
-$CONFIG['drop_rate'] 			=			'6';			// Drop Rate
+$CONFIG['exp_rate'] 			=			'1';			// EXP Rate
+$CONFIG['jexp_rate'] 			=			'1';			// JEXP Rate
+$CONFIG['drop_rate'] 			=			'1';			// Drop Rate
 ?>

@@ -46,8 +46,18 @@ include_once 'adodb/adodb.inc.php';
 switch ($CONFIG_server_type) {
 	// Aegis
 	case 0:
+		if($CONFIG_server_db_conn == 0){
 		$link = &ADONewConnection('mssql');
 		$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin");
+		}
+		elseif($CONFIG_server_db_conn == 1){
+		$link = &ADONewConnection('odbc_mssql');
+		$link->Connect($CONFIG_odbc_datasource, $CONFIG_db_username, $CONFIG_db_password);
+		}
+		if($CONFIG_server_db_conn == 2){
+		$link = &ADONewConnection('mssqlnative');
+		$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin");
+		}
 		$link->SetFetchMode(ADODB_FETCH_NUM);
 		break;
 	// MySQL Athena/Freya
