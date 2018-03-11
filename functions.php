@@ -1542,8 +1542,9 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 					$equipped = NULL;
 					$damaged = NULL;
 					$refinelvl = NULL;
+					//echo $itemBinaryString . "<br>" . $clientItemName . "<br>" . $itemTable[$itemID]['table'] . " " . $itemTable[$itemID]['name'] . "<br>"; //debug
 					if(in_array($itemTable[$itemID]['table'], array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun'))){
-						$item_settings = substr($itemBinaryString, 4,2); //get item flags
+						$item_settings = hexdec(substr($itemBinaryString, 4,2)); //get item flags
 						$sockets = substr($itemBinaryString, 18,16); //get sockets
 						$equip_byte = substr($itemBinaryString, 6,2); //get equipped bit
 						$damaged = substr($itemBinaryString, 12,2); //get damaged bit
@@ -1565,7 +1566,7 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 							if($socket2 > '0'){$socketsUsed = 2;}
 							if($socket3 > '0'){$socketsUsed = 3;}
 							if($socket4 > '0'){$socketsUsed = 4;}}
-						$itemBinaryString = substr($itemBinaryString, 50);
+						$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 50 : 34);
 					}
 					else if($itemTable[$itemID]['table'] == 'guest') {
 						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 4,4))); //get amount
@@ -1578,6 +1579,7 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 					else {
 						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 6,4))); //get amount
 						$itemBinaryString = substr($itemBinaryString, 26);
+						
 					}
 
 					//store data to array
@@ -1608,7 +1610,9 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 				'refinelvl' => $refinelvl];
 				}
 				else {
-				$itemBinaryString = substr($itemBinaryString, 1);
+					//echo $itemBinaryString . "<br>";  //debug
+					//echo "error";		//debug
+				$itemBinaryString = substr($itemBinaryString, 2);
 				//echo $itemID . "<br/>";
 				}
 		}
@@ -1693,7 +1697,7 @@ function GetTooltipText($characterItems){
 							if($characterItems['favourite'] > '0'){
 							$printout .= "$socketsui<b> Is Favourite</b> <br/>";
 							}
-							if($characterItems['hasUuid'] > '0'){
+							if($characterItems['has_uuid'] > '0'){
 							$printout .= "$socketsui<b> Had Unique ID</b> <br/>";
 							//stored in int64
 							}

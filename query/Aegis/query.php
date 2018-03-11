@@ -14,7 +14,7 @@ DEFINE('CHECK_SEX', "SELECT sex FROM $login.account WHERE [Name] = '%s'");
 DEFINE('CHECK_OLD_PASS', "SELECT * FROM $login.login WHERE ID = '%s' AND passwd = '%s'");
 DEFINE('CHECK_OLD_MD5_PASS', "SELECT * FROM login WHERE ID = '%s' AND passwd = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', '%s')), 3, 32)");
 DEFINE('UPDATE_NEW_PASS', "UPDATE $login.login SET passwd = '%s' WHERE AID = %d");
-DEFINE('UPDATE_NEW_MD5_PASS', "UPDATE $login.login SET passwd = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', '%s')) WHERE AID = %d");
+DEFINE('UPDATE_NEW_MD5_PASS', "UPDATE $login.login SET passwd = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', '%s')), 3, 32) WHERE AID = %d");
 DEFINE('UPDATE_SEX', "UPDATE $login.account SET sex = %d WHERE AID = %d");
 DEFINE('UPDATE_EMAIL', "UPDATE $login.account SET Email = '%s' WHERE AID = '%s'");
 
@@ -163,7 +163,7 @@ WHERE $char.charinfo.AID = $login.login.AID AND $login.login.AID = %d
 ");
 DEFINE('ACCOUNT_OF_CHAR', "SELECT AID FROM $char.charinfo WHERE charname = '%s'");
 DEFINE('SHOW_GUILD_INFO', "SELECT GDID, [Name] FROM $char.GuildInfoDB
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GDID AS varchar(6))) + '%s') = '%s'
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GDID AS varchar(6)) + '%s')), 3, 32) = '%s'
 COLLATE SQL_Latin1_General_CP1_CI_AS
 ");
 DEFINE('SHOW_GUILD_ALLIANCE', "SELECT Relation, GuildName FROM $char.GuildAllyInfo
@@ -183,7 +183,7 @@ DEFINE('ADD_ADMIN_ENTRY', "INSERT INTO $cp.admin_log ([Date], [User], Action) VA
 DEFINE('ADD_BAN_ENTRY', "INSERT INTO $cp.ban_log (Date, set_ID, ban_ID, reason) VALUES(getDate(), '%s', '%s', '%s')");
 DEFINE('ADD_EXPLOIT_ENTRY', "INSERT INTO $cp.exploit_log ([Date], [User/IP], Action) VALUES(getDate(), '%s', '%s')");
 DEFINE('CHECK_LOG_CHAR_ID', "SELECT GID FROM $char.charinfo
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6))), 3, 32) + '%s') LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 ");
 DEFINE('ADD_MONEY_ENTRY', "INSERT INTO $cp.money_log ([Date], [From], [To], Action) VALUES(getDate(), %d, %d, '%s')");
 DEFINE('ADD_QUERY_ENTRY', "INSERT INTO $cp.query_log ([Date], [User], [IP], [Page], [Query]) VALUES(getDate(), '%s', '%s', '%s', '%s')");
@@ -380,18 +380,18 @@ ORDER BY CharNum
 DEFINE('MONEY_GET_SECOND', "SELECT GID, CharNum, charname, job, clevel, joblevel, money FROM $char.charinfo
 WHERE AID = %d
 AND clevel >= 20
-AND SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6))) + '%s') NOT LIKE '%s'
+AND SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) NOT LIKE '%s'
 COLLATE SQL_Latin1_General_CP1_CI_AS
 ORDER BY CharNum
 ");
 DEFINE('GET_TRANSFER_INFO', "SELECT charname, money FROM $char.charinfo
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6))) + '%s') LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 ");
 DEFINE('CHECK_TRANSFER_INFO', "SELECT AID, charname, clevel, money FROM $char.charinfo
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6))) + '%s') LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 ");
 DEFINE('FINAL_TRANSFER', "UPDATE $char.charinfo SET money = money %s %d
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6))) + '%s') LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 AND money = %d
 ");
 
@@ -499,7 +499,7 @@ WHERE AID = %d
 
 // upload_emblem.php
 DEFINE('CHECK_MASTER', "SELECT MName FROM $char.GuildInfoDB
-WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GDID AS varchar(6))) + '%s') LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GDID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 ");
 
 // view_access_log.php
@@ -646,8 +646,10 @@ SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
 UNION
 SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
 // roster.php
-DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money
+DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money, bodypalette, head, headpalette, accessory, accessory2, accessory3, weapon, shield, effectstate
 FROM $char.charinfo
 WHERE AID = %d ORDER BY charname
 ");
+DEFINE('CHECK_SEX_AID', "SELECT sex FROM $login.account WHERE [AID] = '%s'");
+
 ?>

@@ -407,6 +407,7 @@ elseif ($GET_view == "monster") {
 		</tr>
 		<tr>
 			<td rowspan=13>
+			" /*<img class=\"mobImage\" src=\"/ROChargenPHP/index.php/monster/{$mobID}\"/\">"*/ . "
 			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\"/\">
 		</td>
 			<td>HP: {$line[2]}</td>

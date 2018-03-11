@@ -18,7 +18,13 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 
 
 
-
+	$query = sprintf(CHECK_SEX_AID, $STORED_id);
+	$result = execute_query($query, "equipment.php");
+	if ($result->RowCount() != 0) {
+		$line = $result->FetchRow();
+		if($line[0] == 0){$sex = 'F';}
+		else{$sex = 'M';}
+	}
 
 	$query = sprintf(GET_CHARACTER_FROM_USER, $STORED_id);
 	$result = execute_query($query, "equipment.php");
@@ -27,7 +33,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 	}
 	while ($line = $result->FetchRow()) {
 		echo "<tr class=\"contentRowHeader charlist\">\n";
-				echo "<td><b>$line[1]</b></td></tr>\n
+				echo "<td><b>$line[1]</b>$line[0]</td></tr>\n
 								<tr class=\"contentRowHeader charlist\">\n
 									<td><div>Base Lvl:<b> $line[3]</b></div>\n
 										<div>Class: <b>" . determine_class($line[2])."</b></div>\n
@@ -35,7 +41,10 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 										<div>Zeny:<b> $line[5]</b></div>\n
 									</td>\n
 								</tr>\n
-							<tr valign=top><td><div class=\"charstats\"><img src=\"./images/classes/{$line[2]}.png\"/ \"><br/>\n
+							<tr valign=top><td><div class=\"charstats\">
+							<img src=\"./images/classes/{$line[2]}.png\"/ \">
+							" /*<img src=\"/ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-{$line[6]}/hair={$line[7]}-{$line[8]}-0/hats={$line[9]}-{$line[10]}-{$line[11]}/equip={$line[12]}-{$line[13]}-{$line[14]}/option=1/actdir=7-1-5\"/ \">*/ . "
+							<br/>\n
 									</div><table class=\"charitems\">\n";
 				$characterItems = GetCharacterItems($clientItemNameTable,$line[0],$itemTable);
 				$wearable = filterItems($characterItems, array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun','ThrowWeapon'));

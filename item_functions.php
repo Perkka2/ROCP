@@ -222,6 +222,7 @@ function display_source_id_items ($source_type, $name_id) {
 			//$item_data = substr(bin2hex($line[0]), 4);
 
 			while (strlen($item_data) > 0) {
+				$hasUuid = 0;
 				echo "<tr class=mycell>";
 				$item_code = hexdec(substr($item_data,2,2) . substr($item_data,0,2));
 				$item_name = ItemID_To_ItemName($item_code);
@@ -243,9 +244,13 @@ function display_source_id_items ($source_type, $name_id) {
 					for ($i = 0; $i < 5; $i++) {
 						$card[$i] = ItemID_To_ItemName($card_id[$i]);
 					}
+					
+					
+					//$item_data = substr($item_data,38); //olditemdata					
+					$item_settings = hexdec(substr($item_data, 4,2)); //get item flags
+					if($item_settings & (1 << 7-1)){$hasUuid = 1;}
+					$item_data = substr($item_data, ($hasUuid) ? 50 : 34);
 
-					//$item_data = substr($item_data,38); //olditemdata
-					$item_data = substr($item_data,50);
 					if ($equipped > 0) {
 						$color = "#AA0000";
 					}
