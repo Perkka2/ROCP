@@ -481,7 +481,7 @@ function display_edit_table($input_query) {
 				<td>
 					<select class=\"myctl\" name=\"var[4]\">
 	";
-	for ($i = 0; $i < 4023; $i++) {
+	for ($i = 0; $i < 4123; $i++) {
 		if ($i == 13 or $i == 21 or $i == 4014 or $i == 4022) {
 			continue;
 		}

@@ -19,7 +19,8 @@ Account/Login Server Port
 Char Server IP
 Char Server Port
 Zone/Map Server IP
-Zone/Map Server Port
+Zone/Map Server Port Start (Needs consecutive ports for multiple zones)
+Zone/Map Server Count
 Server Name
 Use GZIP Compression?
 Use MD5 Encryption? (Athena Only)

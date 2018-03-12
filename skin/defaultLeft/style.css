@@ -518,3 +518,13 @@ font-size: 13px;
 	background:#fff;
 	text-align: center;
 }
+
+.contentRowHeader.exptable td{
+	color:#eee;
+	padding-left: 10px !important;
+	font-size: 12px;
+}
+.contentRowHeader.exptable{
+	background: rgb(100, 100, 100); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(140, 140, 140, .2);
+}
