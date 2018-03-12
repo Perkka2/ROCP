@@ -107,11 +107,11 @@ background: rgba(40, 40, 40, .9);
 	border-collapse:collapse;
 }
 .serverinfo {
-	position:absolute;
 	float:left;
+	width:auto;
 	top:0px;
 	overflow:hidden;
-	margin:20px;
+	margin:20px -150px 20px 20px;
 	padding:10px;
 	background: rgb(20, 20, 20); /* Fall-back for browsers that don't       support rgba */
 	background: rgba(20, 20, 20, .9);
@@ -119,6 +119,10 @@ background: rgba(40, 40, 40, .9);
 }
 
 .serverinfo font{
+	float:right;
+}
+
+.serverinfo .tooltip font{
 	float:right;
 }
 
@@ -445,7 +449,7 @@ font-size: 13px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.equipmentList:hover .tooltiptext {
+.equipmentList:hover .tooltipcontainer {
     visibility: visible;
 }
 
@@ -527,4 +531,18 @@ font-size: 13px;
 .contentRowHeader.exptable{
 	background: rgb(100, 100, 100); /* Fall-back for browsers that don't	support rgba */
 	background: rgba(140, 140, 140, .2);
+}
+
+
+.tooltip .tooltipcontainer {
+	margin:5px;
+	background: rgba(40, 40, 40, .8);
+	color: #bbb;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipcontainer {
+    visibility: visible;
 }

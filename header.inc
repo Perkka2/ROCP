@@ -65,7 +65,7 @@ if ($CONFIG_check_server) {
 			$char = @fsockopen ($CONFIG_charip, $CONFIG_charport, $errno, $errstr, 1);
 			for ($i = 1; $i <= $CONFIG_mapcount; $i++) {
 				$maptest = @fsockopen ($CONFIG_mapip, $CONFIG_mapport+$i-1, $errno, $errstr, 1);
-				if ($maptest > 1) $map = $map+1;
+				if ($maptest > 1) $map = $map + (1 << $i-1);
 			}
 			if ($acc > 1) $acc = 1;
 			if ($char > 1) $char = 1;
@@ -97,8 +97,21 @@ if ($CONFIG_check_server) {
 			$mapsrv = "<font color=\"#ff0000\">Offline</font>";
 		}
 		else {
-			if($map < $CONFIG_mapcount){
-			$mapsrv = "<font color=\"#bb6600\"> {$map}/{$CONFIG_mapcount} Online</font>";
+			$maponline = 0;
+			if ($CONFIG_server_type == 0) {
+				$lang['mapserv'] = "Zone Server";
+			}
+			for ($i = 1; $i <= $CONFIG_mapcount; $i++) {
+				if ($map & (1 << $i-1)){
+					$maponline++;
+					$maptooltip .= "{$lang['mapserv']} $i<font color=\"#00ff00\"> Online</font><br>";
+				}
+				else {
+					$maptooltip .= "{$lang['mapserv']} $i <font color=\"#ff0000\">Offline</font><br>";
+				}
+			}
+			if($maponline < $CONFIG_mapcount){
+			$mapsrv = "<font color=\"#bb6600\"> {$maponline}/{$CONFIG_mapcount} Online</font>";
 			}
 			else{
 			$mapsrv = "<font color=\"#00ff00\">Online</font>";
@@ -121,7 +134,9 @@ if ($CONFIG_server_type == 0) {
 echo "{$lang['current']}</br>
 			{$lang['accserv']} $accsrv</br>
 			{$lang['charserv']}	$charsrv</br>
-			{$lang['mapserv']} $mapsrv</br>
+			<div class=\"tooltip\">{$lang['mapserv']} $mapsrv
+		  	<span class=\"tooltipcontainer\">$maptooltip</span>
+			</div>
 			$total_online
 
 	</div>
