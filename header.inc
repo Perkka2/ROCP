@@ -104,17 +104,17 @@ if ($CONFIG_check_server) {
 			for ($i = 1; $i <= $CONFIG_mapcount; $i++) {
 				if ($map & (1 << $i-1)){
 					$maponline++;
-					$maptooltip .= "{$lang['mapserv']} $i<font color=\"#00ff00\"> Online</font><br>";
+					$maptooltip .= "{$lang['mapserv']} $i <font color=\"#00ff00\">&nbsp; Online</font><br>";
 				}
 				else {
-					$maptooltip .= "{$lang['mapserv']} $i <font color=\"#ff0000\">Offline</font><br>";
+					$maptooltip .= "{$lang['mapserv']} $i <font color=\"#ff0000\">&nbsp; Offline</font><br>";
 				}
 			}
 			if($maponline < $CONFIG_mapcount){
-			$mapsrv = "<font color=\"#bb6600\"> {$maponline}/{$CONFIG_mapcount} Online</font>";
+			$mapsrv = "<font color=\"#ff9900\">&nbsp; {$maponline}/{$CONFIG_mapcount} Online</font>";
 			}
 			else{
-			$mapsrv = "<font color=\"#00ff00\">Online</font>";
+			$mapsrv = "<font color=\"#00ff00\">&nbsp; Online</font>";
 			}
 		}
 	}
