@@ -712,4 +712,9 @@ left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.
 left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
 left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
 left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
+
+// maplist.php
+DEFINE('GET_ALL_MAPS', "USE [IPInfo]
+SELECT * FROM Mapinfo ORDER BY ZSID");
+
 ?>

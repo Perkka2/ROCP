@@ -27,6 +27,7 @@ $access['char_manage.php'] = 3;
 $access['change_skin.php'] = 1;
 $access['equipment.php'] = 1;
 $access['exptable.php'] = 1;
+$access['maplist.php'] = 1;
 if ($CONFIG_server_type == 0) {
 	$access['clear_all_banned.php'] = 4;
 	$access['clear_banned.php'] = 4;

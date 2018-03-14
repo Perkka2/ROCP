@@ -24,6 +24,7 @@ $lang = array(
 	'roster.php' => "Roster",
 	'equipment.php' => "Inventory",
 	'exptable.php' => "Experience Table",
+	'maplist.php' => "Maplist",
 	'money_transfer.php' => "Transfer Money",
 	'hairstyle.php' => "Edit %s's Hairstyle",
 	'upload_emblem.php' => "Upload %s Emblem"
