@@ -190,7 +190,7 @@ if ($GET_view == "item") {
 	<tr class=items>
 
 		<td>
-		<img src=\"./images/items/images/{$line[0]}.png\"/ \">
+		<img src=\"./images/items/images/{$line[0]}.png\"  onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\" />
 			Type: <a href=\"view_db.php?view=item&col=type&val={$line[2]}\">{$item_type[$line[2]]}</a><br>
 			Buy From NPC: {$line[3]}<br>
 			Weight: {$line[4]}<br>
@@ -408,7 +408,7 @@ elseif ($GET_view == "monster") {
 		<tr>
 			<td rowspan=13>
 			" /*<img class=\"mobImage\" src=\"/ROChargenPHP/index.php/monster/{$mobID}\"/\">"*/ . "
-			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\"/\">
+			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>
 		</td>
 			<td>HP: {$line[2]}</td>
 			<td>Attack: {$line[6]} - {$line[5]}</td>
@@ -454,7 +454,7 @@ elseif ($GET_view == "monster") {
 			}
 			else {
 				$col_value .= "
-			<tr><td colspan=5 class=\"mobDrops\"><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\"/><a href=\"view_db.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a> $highlight_start{$rate[$i]}$highlight_end</td></tr>
+			<tr><td colspan=5 class=\"mobDrops\"><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/><a href=\"view_db.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a> $highlight_start{$rate[$i]}$highlight_end</td></tr>
 				";
 			}
 		}

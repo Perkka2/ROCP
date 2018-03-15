@@ -14,7 +14,7 @@ if ($CONFIG_server_type == 0) {
       $mapcheck = $line[0];
     }
     if (($GET_zone == $mapnumber)|| (!isset($GET_zone) && $mapnumber == 1)){
-    $showmaps .= "<tr><td>Zone Server $mapnumber</td><td><img src=\"images/maps/".str_replace(".gat", "", $line[1]).".png\"</td><td>".$mapName[$line[1]]." ($line[1])</td></tr>";
+    $showmaps .= "<tr><td>Zone Server $mapnumber</td><td><img src=\"images/maps/".str_replace(".gat", "", $line[1]).".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/></td><td>".$mapName[$line[1]]." ($line[1])</td></tr>";
   }
   }
 }

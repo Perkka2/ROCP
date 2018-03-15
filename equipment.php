@@ -58,7 +58,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 						$equippedClass = " equipped";
 						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
 										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($characterItems[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $characterItems[$i]['id'] .".png\"/ \">") ."</div>
+											<div class=\"tooltipleft\">".($characterItems[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $characterItems[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
 											<div class=\"tooltipright\"><b>" . $characterItems[$i]['name'] . "</b> (". $characterItems[$i]['db_name'] . ")<br/>" . GetTooltipText($characterItems[$i]) . htmldescription($itemdesctable[$characterItems[$i]['id']]) . "</div></div></span>
 										<div class=\"amountInfo\">".$characterItems[$i]['amount']."</div>".($characterItems[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $characterItems[$i]['id'] .".png\"/ \">") ."
 									</div>\n";
@@ -75,7 +75,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 						$equippedClass = "";
 						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
 										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($consumables[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $consumables[$i]['id'] .".png\"/ \">") ."</div>
+											<div class=\"tooltipleft\">".($consumables[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $consumables[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
 											<div class=\"tooltipright\"><b>" . $consumables[$i]['name'] . "</b> (". $consumables[$i]['db_name'] . ")<br/>" . GetTooltipText($consumables[$i]) . htmldescription($itemdesctable[$consumables[$i]['id']]) . "</div></div></span>
 										<div class=\"amountInfo\">".$consumables[$i]['amount']."</div>".($consumables[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $consumables[$i]['id'] .".png\"/ \">") ."
 									</div>\n";
@@ -87,7 +87,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 						$equippedClass = "";
 						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
 										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($wearable[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $wearable[$i]['id'] .".png\"/ \">") ."</div>
+											<div class=\"tooltipleft\">".($wearable[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $wearable[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
 											<div class=\"tooltipright\"><b>" . $wearable[$i]['name'] . "</b> (". $wearable[$i]['db_name'] . ")<br/>" . GetTooltipText($wearable[$i]) . htmldescription($itemdesctable[$wearable[$i]['id']]) . "</div></div></span>
 										<div class=\"amountInfo\">".$wearable[$i]['amount']."</div>".($wearable[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $wearable[$i]['id'] .".png\"/ \">") ."
 									</div>\n";
@@ -99,7 +99,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 							$equippedClass = "";
 							echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
 											<div class=\"tooltiptext$equippedClass\">
-												<div class=\"tooltipleft\">".($misc[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $misc[$i]['id'] .".png\"/ \">") ."</div>
+												<div class=\"tooltipleft\">".($misc[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $misc[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
 												<div class=\"tooltipright\"><b>" . $misc[$i]['name'] . "</b> (". $misc[$i]['db_name'] . ")<br/>" . GetTooltipText($misc[$i]) . htmldescription($itemdesctable[$misc[$i]['id']]) . "</div></div></span>
 											<div class=\"amountInfo\">".$misc[$i]['amount']."</div>".($misc[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $misc[$i]['id'] .".png\"/ \">") ."
 										</div>\n";
@@ -111,7 +111,7 @@ $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt
 							$equippedClass = "";
 							echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
 											<div class=\"tooltiptext$equippedClass\">
-												<div class=\"tooltipleft\">".($quests[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $quests[$i]['id'] .".png\"/ \">") ."</div>
+												<div class=\"tooltipleft\">".($quests[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $quests[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
 												<div class=\"tooltipright\"><b>" . $quests[$i]['name'] . "</b> (". $quests[$i]['db_name'] . ")<br/>" . GetTooltipText($quests[$i]) . htmldescription($itemdesctable[$quests[$i]['id']]) . "</div></div></span>
 											<div class=\"amountInfo\">".$quests[$i]['amount']."</div>".($quests[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $quests[$i]['id'] .".png\"/ \">") ."
 										</div>\n";
