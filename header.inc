@@ -201,7 +201,7 @@ if ($STORED_level > 0)	{
 
 	if ($STORED_level >= $access['hairstyle.php'] && $access['hairstyle.php'] != -1) {
 		$query = sprintf(SHOW_HAIRSTYLE, $STORED_id);
-		$result = execute_query($query, 'footer.inc');
+		$result = execute_query($query, 'header.inc');
 		while ($line = $result->FetchRow()) {
 			$char_name = $line[0];
 			$char_num = $line[1];
@@ -211,12 +211,12 @@ if ($STORED_level > 0)	{
 
 	if ($STORED_level >= $access['upload_emblem.php'] && $access['upload_emblem.php'] != -1) {
 		$query = sprintf(CHARS_ON_ACCOUNT, $STORED_id);
-		$result = execute_query($query, "footer.inc");
+		$result = execute_query($query, "header.inc");
 		while ($line = $result->FetchRow()) {
 			$char = CharID_To_CharName($line[0]);
 			if ($char != "") {
 				$query = sprintf(SHOW_GUILD_MASTER, $char);
-				$master = execute_query($query, 'footer.inc');
+				$master = execute_query($query, 'header.inc');
 				$name = $master->FetchRow();
 				if ($master->RowCount() == 1) {
 					printf("<a href=upload_emblem.php?guild_id=%s>{$lang['page']['upload_emblem.php']}</a>", md5($name[0] . $CONFIG_passphrase), $name[1]);
