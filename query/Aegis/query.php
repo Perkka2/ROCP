@@ -453,7 +453,7 @@ DEFINE('CHECK_MAX_ACCOUNTS_EMAIL', "SELECT count(*) FROM $login.account WHERE Em
 DEFINE('CHECK_MAX_PENDING_ACCOUNTS_IP', "SELECT count(*) FROM $cp.pending WHERE ip = '%s'");
 DEFINE('CHECK_MAX_PENDING_ACCOUNTS_EMAIL', "SELECT count(*) FROM $cp.pending WHERE email = '%s'");
 DEFINE('ADD_ACCOUNT', "INSERT INTO $login.login (ID, passwd, grade, isConfirmed) VALUES('%s', '%s', 2, 3)");
-DEFINE('ADD_ACCOUNT2', "INSERT INTO $login.account (AID, [Name], RegNum, zipcode, sex, Email, News, nation) VALUES(%d, '%s', '', '', %d, '%s', '', '')");
+DEFINE('ADD_ACCOUNT2', "INSERT INTO $login.account (AID, [Name], Address, Phone, RegNum, zipcode, sex, Email, News, nation) VALUES(%d, '%s', '', '', '', '', %d, '%s', '', '')");
 DEFINE('INSERT_T_USER', "INSERT INTO $user.t_user VALUES (0, 0, %d, '%s', 0, '%s', %d, 0, -1, 0)");
 DEFINE('ADD_PENDING', "INSERT INTO $cp.pending VALUES(getDate(), '%s', '%s', '%s', '%s', '%s', '%s')");
 DEFINE('ADD_REGISTER_ENTRY', "INSERT INTO $cp.register_log (account_name, [ip], reg_time, Email) VALUES('%s', %d, getDate(), '%s')");
