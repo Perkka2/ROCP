@@ -200,7 +200,7 @@ $start = ($page * $display_size) - $display_size;
 		</tr>
 		<tr>
 			<td rowspan=13>
-			<img class=\"mobImage\" src=\"/ROChargenPHP/index.php/monster/{$mobID}\"/\">
+			" /*<img class=\"mobImage\" src=\"/ROChargenPHP/index.php/monster/{$mobID}\"/\">*/ ."
 			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>
 		</td>
 			<td>HP: {$line[2]}</td>
