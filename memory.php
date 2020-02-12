@@ -49,19 +49,19 @@ switch ($CONFIG_server_type) {
 		if($CONFIG_server_db_conn == 0){
 		$link = &ADONewConnection('mssql');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
-				$error = "Failed to connect to database";
+			$error = "Failed to connect to database";
 		}
 		}
 		elseif($CONFIG_server_db_conn == 1){
 		$link = &ADONewConnection('odbc_mssql');
 		if(!$link->Connect($CONFIG_odbc_datasource, $CONFIG_db_username, $CONFIG_db_password)){
-				$error = "Failed to connect to database";
+			$error = "Failed to connect to database";
 		}
 		}
 		if($CONFIG_server_db_conn == 2){
 		$link = &ADONewConnection('mssqlnative');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
-				$error = "Failed to connect to database";
+			$error = "Failed to connect to database";
 		}
 		}
 		$link->SetFetchMode(ADODB_FETCH_NUM);
@@ -138,7 +138,7 @@ if ($error) {
 	echo "
 	<html>
 		<head>
-			<title>Athena CP Coded by Azndragon</title>
+			<title>Athena CP Coded by Azndragon and Perkka</title>
 		</head>
 		<body>
 			<link href=\"skin/$CONFIG_default_skin/style.css\" TYPE=text/css REL=stylesheet>
