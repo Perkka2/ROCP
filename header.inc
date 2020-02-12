@@ -65,10 +65,10 @@ if ($CONFIG_check_server) {
 			$char = @fsockopen ($CONFIG_charip, $CONFIG_charport, $errno, $errstr, 1);
 			for ($i = 1; $i <= $CONFIG_mapcount; $i++) {
 				$maptest = @fsockopen ($CONFIG_mapip, $CONFIG_mapport+$i-1, $errno, $errstr, 1);
-				usleep(100);
+				usleep(200);
 				if ($maptest > 1){if(!feof($maptest)){$map = $map + (1 << $i-1);}}
 			}
-			usleep(100);
+			usleep(200);
 			if ($acc > 1){if(!feof($acc)){$acc = 1;} else {$acc = 0;}}
 			if ($char > 1){if(!feof($char)){$char = 1;} else {$char = 0;}}
 			//if ($maptest > 1) $map = 1;
