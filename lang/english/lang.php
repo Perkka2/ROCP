@@ -15,8 +15,8 @@ $lang = array(
 'page' => array(
 	'index.php' => "Home",
 	'server_info.php' => "Server Information",
-	'view_db.php?view=item' => "Item Database",
-	'view_db.php?view=monster' => "Monster Database",
+	'view_items.php' => "Item Database",
+	'view_mobs.php' => "Monster Database",
 	'whosonline.php' => "Who's Online",
 	'ladder.php' => "Ladder",
 	'mvp_ladder.php' => "MVP Ladder",
