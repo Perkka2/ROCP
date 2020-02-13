@@ -271,7 +271,7 @@ DEFINE('GET_HAIR_NUMBER', "SELECT head FROM $char.charinfo
 WHERE CharNum = %d
 AND AID = %d
 ");
-DEFINE('UPDATE_HAIR', "UPDATE $char.charinfo SET head = %d WHERE CharNum = %d AND AID = %d");
+DEFINE('UPDATE_HAIR', "UPDATE $char.charinfo SET head = %d WHERE GID = %d AND AID = %d");
 
 // header.inc
 DEFINE('CHECK_STATUS', "SELECT * FROM $cp.status");
@@ -558,7 +558,7 @@ LEFT JOIN $cp.item_db AS ID5 ON ID5.Name = $script.monmakingitem.item5
 LEFT JOIN $cp.item_db AS ID6 ON ID6.Name = $script.monmakingitem.item6
 LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
 LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
-%s AND exp > 0
+%s AND LV > 0
 ORDER BY $script.monparameter.Name
 ");
 DEFINE('SHOW_FULL_MOBS', "SELECT $script.monparameter.Name, LV, HP, exp, jexp, atk1, atk2, $script.monparameter.def, mdef,
@@ -575,7 +575,7 @@ LEFT JOIN $cp.item_db AS ID5 ON ID5.Name = $script.monmakingitem.item5
 LEFT JOIN $cp.item_db AS ID6 ON ID6.Name = $script.monmakingitem.item6
 LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
 LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
-%s AND exp > 0
+%s AND LV > 0
 ORDER BY $script.monparameter.Name
 ");
 DEFINE('SEARCH_MONSTER', "WHERE $script.monparameter.Name LIKE '%%%s%%'");

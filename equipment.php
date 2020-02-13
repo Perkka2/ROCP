@@ -13,7 +13,9 @@ $headgearId = array(
 	"F" => array( 2,2,4,7,1,5,3,6,12,10,9,11,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27),
 	"M" => array( 2,2,1,7,5,4,3,6,8,9,10,12,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
 );
+?>
 
+<?php
 	echo "
 	<tr class=\"contentRowHeader\">
 		<td>Characters</td>
@@ -35,6 +37,17 @@ $headgearId = array(
 	if ($result->RowCount() == 0) {
 		redir("index.php", "You do not have any characters");
 	}
+	if ($GET_action) {
+		$query = sprintf(UPDATE_HAIR, $GET_Style, $GET_char, $STORED_id);
+		$result = execute_query($query, "hairstyle.php");
+		if ($link->Affected_Rows() > 0) {
+			redir("equipment.php", "Hair Style Change successful!");
+		}
+		else {
+			redir("equipment.php", "Something went wrong with the hairstyle change!");
+		}
+	}
+	
 	while ($line = $result->FetchRow()) {
 		echo "<tr class=\"contentRowHeader charlist\">\n";
 				echo "<td><b>$line[1]</b>$line[0]</td></tr>\n
@@ -45,10 +58,29 @@ $headgearId = array(
 										<div>Zeny:<b> $line[5]</b></div>\n
 									</td>\n
 								</tr>\n
-							<tr valign=top><td><div class=\"charstats\">
-							" /*<img src=\"./images/classes/{$line[2]}.png\"/ \">*/ ."
-							<img src=\"/ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-{$line[6]}-0/hair={$headgearId[$sex][$line[7]]}-{$line[8]}-0/hats={$line[9]}-{$line[10]}-{$line[11]}/equip={$line[12]}-{$line[13]}-{$line[14]}/option=1/actdir=0-0-5\"/ \">
+							<tr valign=top><td><div class=\"charstats\">"
+							/*<img src=\"./images/classes/{$line[2]}.png\"/ \">*/ ."
+							<img id=\"$line[0]\" src=\"/ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-{$line[6]}-0/hair={$headgearId[$sex][$line[7]]}-{$line[8]}-0/hats={$line[9]}-{$line[10]}-{$line[11]}/equip={$line[12]}-{$line[13]}-{$line[14]}/option=1/actdir=0-0-5\"/ \">
 							<br/>\n
+					<table><form name=\"Hair\" method=\"GET\">
+							<tr><td><select name=\"Style\" class=\"myctl\" size=\"1\" onchange=\"document.getElementById('$line[0]').src = this.options[this.selectedIndex].getAttribute('data-value');\">
+					";
+					$max = 28;
+					for ($b = 1; $b < $max; $b++) {
+						if ($b == $line[7]) {
+							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-{$line[6]}-0/hair={$headgearId[$sex][$b]}-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\" selected>Style $b</option>";
+						}
+						else {
+							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-{$line[6]}-0/hair={$headgearId[$sex][$b]}-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\">Style $b</option>";
+						}
+						echo "\n";
+					}
+					echo "</select></td>
+							<td><input type=\"submit\" class=\"myctl\" name=\"action\" value=\"Change Hairstyle\">
+							<input type=\"hidden\" class=\"myctl\" name=\"char\" value=\"$line[0]\">
+							</td></tr>
+							</table>
+						</form>
 									</div><table class=\"charitems\">\n";
 				$characterItems = GetCharacterItems($clientItemNameTable,$line[0],$itemTable);
 				$wearable = filterItems($characterItems, array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun','ThrowWeapon'));
