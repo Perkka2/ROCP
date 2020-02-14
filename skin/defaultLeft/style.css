@@ -322,6 +322,10 @@ td {
     margin: auto;
 }
 
+.levelField{
+	width:100%;
+}
+
 .contentRowHeader.drops{
 	color:#eee;
 	padding-left: 40px;

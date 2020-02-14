@@ -193,9 +193,7 @@ $start = ($page * $display_size) - $display_size;
 	</tr>
 		<tr class=contentRowSubHeader>
 			<td></td>
-			<td style='width:100%;' colspan=4>Level: {$line[1]}</td>
-			<td></td>
-			<td></td>
+			<td class=levelField colspan=4>Level: {$line[1]}</td>
 			<td></td>
 		</tr>
 		<tr>
