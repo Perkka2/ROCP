@@ -342,6 +342,11 @@ td {
 	vertical-align:middle;
 }
 
+.mobImage{
+	display: block;
+    margin: auto;
+}
+
 .contentRowHeader.drops{
 	color:#eee;
 	padding-left: 40px;

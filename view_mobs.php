@@ -193,7 +193,7 @@ $start = ($page * $display_size) - $display_size;
 	</tr>
 		<tr class=contentRowSubHeader>
 			<td></td>
-			<td>Level: {$line[1]}</td>
+			<td style='width:100%;' colspan=4>Level: {$line[1]}</td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -202,6 +202,7 @@ $start = ($page * $display_size) - $display_size;
 			<td rowspan=13>
 			" /*<img class=\"mobImage\" src=\"/ROChargenPHP/index.php/monster/{$mobID}\"/\">*/ ."
 			<img class=\"mobImage\" src=\"./images/mobs/{$mobID}.gif\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>
+			" /*<img class=\"mobImage\" src=\"./php-ro/test.php?mob=" . $mobID . "\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>*/ . "
 		</td>
 			<td>HP: {$line[2]}</td>
 			<td>Attack: {$line[6]} - {$line[5]}</td>
