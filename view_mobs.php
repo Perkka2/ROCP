@@ -24,6 +24,7 @@ $start = ($page * $display_size) - $display_size;
 						<option value=\"item\">Item Name</option>
 					</select>
 					<input type=\"text\" name=\"value\" class=\"myctl\">
+					<input type=\"checkbox\" name=\"MVP\" /> MVP
 					<input type=\"submit\" class=\"myctl\" value=\"Search\">
 				</td>
 			</tr>
@@ -40,7 +41,7 @@ $start = ($page * $display_size) - $display_size;
 	$race = array("None", "Undead", "Brute", "Plant", "Insect", "Fish", "Demon", "Demi-Human",
 	"Angel", "Dragon");
 	$item_drop = array(18, 21, 24, 27, 30, 33, 36, 39);
-	$item_rate = array(0, 19, 22, 25, 28, 31, 34, 37, 40);
+	$item_rate = array(0, 19, 22, 25, 28, 31, 34, 37, 40, 44, 47, 50);
 
 	if (!$GET_col && !$GET_value) {
 		$condition = "WHERE 1 = 1";
@@ -84,7 +85,7 @@ $start = ($page * $display_size) - $display_size;
 					$GET_value = $condition_string;
 				}
 				if ($GET_value) {
-					$condition = sprintf(SEARCH_ITEM, $GET_value, $GET_value,
+					$condition = sprintf(SEARCH_ITEM, $GET_value, $GET_value, $GET_value, $GET_value, $GET_value,
 					$GET_value, $GET_value, $GET_value, $GET_value, $GET_value,
 					$GET_value);
 				}
@@ -103,6 +104,9 @@ $start = ($page * $display_size) - $display_size;
 			$condition = "WHERE 1 = 1";
 		}
 	}
+	if (isset($GET_MVP)) {
+		$condition .= "AND itemName1 IS NOT NULL ";
+	}
 
 	if ($CONFIG_server_type > 0) {
 		$query = "SELECT * FROM $CONFIG_cp_db_name.item_db";
@@ -117,18 +121,21 @@ $start = ($page * $display_size) - $display_size;
 	$query = sprintf(COUNT_FULL_MOBS, $condition);
 	$result = execute_query($query, "view_mobs.php");
 	$max_pages = intval($result->RowCount() / 30) + 1;
+	if (isset($GET_MVP)) {
+		$MVPPageing = "&MVP";
+	}
 	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a></td>";
+		echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value$MVPPageing\">$i</a></td>";
 		if ($i % 26 == 0) {
 			echo "</tr><tr>";
 		}
 	}
-	echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value\">$i</a></td></tr><tr>";
+	echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value$MVPPageing\">$i</a></td></tr><tr>";
 
 	for ($i = 1; $i < 27; $i++) {
 		$code = $i + 64;
 		$letter = chr($code);
-		echo "<td><a href=\"view_mobs.php?view=monster&page=0&column=letter&value=$code\">$letter</a></td>";
+		echo "<td><a href=\"view_mobs.php?view=monster&page=0&column=letter&value=$code$MVPPageing\">$letter</a></td>";
 	}
 	echo "</tr></table><br/>";
 
@@ -210,7 +217,7 @@ $start = ($page * $display_size) - $display_size;
 		</tr>
 		<tr>
 			<td>Def: {$line[7]}</td>
-			<td>EXP: {$line[3]}</td>
+			<td>EXP: {$line[3]} MVP: " . ($line[42]*$line[3]/10000). "</td>
 			<td>AGI:{$line[13]}</td>
 			<td>INT:{$line[15]}</td>
 			<td>Size: {$size[$line[10]]}</td>
@@ -226,12 +233,15 @@ $start = ($page * $display_size) - $display_size;
 		for ($i = 1; $i < 9; $i++) {
 			if ($CONFIG_server_type == 0) {
 				$item_name = $line[15 + ($i * 3)];
+				if($i <= 3){$MVPitem_name = $line[40 + ($i * 3)];}
 			}
 			else {
 				$item_name = $item[$line[15 + ($i * 3)]];
+				$MVPitem_name = $item[$line[43 + ($i * 3)]];
 			}
 			if ($GET_column == "item" && $GET_value) {
 				$item_name = highlight_search_term($item_name, $search_term);
+				$MVPitem_name = highlight_search_term($MVPitem_name, $search_term);
 			}
 			if (($GET_val == $line[17 + ($i * 3)] && $GET_val > 0)) {
 				$highlight_start = "<font color=green>";
@@ -242,15 +252,26 @@ $start = ($page * $display_size) - $display_size;
 				$highlight_end = "";
 			}
 			if ($line[15 + ($i * 3)] == "None") {
-				$col_value .= "<tr><td>None(0%)</td></tr>";
+				$col_value .= "<tr><td>None(0%)</td>";
 			}
 			else {
 				$col_value .= "
-			<tr><td colspan=5 class=\"mobDrops\"><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/><a href=\"view_mobs.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a> $highlight_start{$rate[$i]}$highlight_end</td></tr>
+			<tr><td class=\"mobDrops\"><img src=\"./images/items/icons/{$line[17 + ($i * 3)]}.png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/><a href=\"view_mobs.php?view=monster&col=item&val={$line[17 + ($i * 3)]}\">$highlight_start$item_name$highlight_end</a> $highlight_start{$rate[$i]}$highlight_end</td>";
+			}
+			
+			if($i <= 3){
+				if($line[42]){$MVPrate = $rate[$i+8];}
+				else {$MVPrate = '';}
+				$col_value .= "<td colspan=4 class=\"mobDrops\"><img src=\"./images/items/icons/{$line[42 + ($i * 3)]}.png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/><a href=\"view_mobs.php?view=monster&col=item&val={$line[42 + ($i * 3)]}\">$highlight_start$MVPitem_name$highlight_end</a> $highlight_start{$MVPrate}$highlight_end</td></tr>
 				";
 			}
+			if ($i > 3){
+				$col_value .= "<td></td>";
+			}
 		}
-		echo "<tr><td colspan=5 class=\"contentRowHeader drops\">Drops:</td></tr>
+		if($line[42]){$MVPDrops = "MVP Drops:";}
+		else {$MVPDrops = '';}
+		echo "<tr><td class=\"contentRowHeader drops\">Drops:</td><td colspan=4 class=\"contentRowHeader drops\">$MVPDrops</td></tr>
 				<td></td>$col_value
 		</td>
 	</tr>

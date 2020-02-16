@@ -549,6 +549,24 @@ ORDER BY NAME
 DEFINE('SEARCH_CLASS', "WHERE SUBSTRING($cp.DecToBin(Equip_jobs, 20) COLLATE SQL_Latin1_General_CP1_CI_AS, 20 - %d, 1) = '1' AND Equip_jobs IS NOT NULL");
 DEFINE('COUNT_FULL_MOBS', "SELECT $script.monparameter.Name
 FROM $script.monparameter
+LEFT JOIN $script.MVP ON $script.MVP.Name = $script.monparameter.Name 
+LEFT JOIN $script.monmakingitem ON $script.monmakingitem.Name = $script.monparameter.Name
+LEFT JOIN $cp.item_db AS ID1 ON ID1.Name = $script.monmakingitem.item1
+LEFT JOIN $cp.item_db AS ID2 ON ID2.Name = $script.monmakingitem.item2
+LEFT JOIN $cp.item_db AS ID3 ON ID3.Name = $script.monmakingitem.item3
+LEFT JOIN $cp.item_db AS ID4 ON ID4.Name = $script.monmakingitem.item4
+LEFT JOIN $cp.item_db AS ID5 ON ID5.Name = $script.monmakingitem.item5
+LEFT JOIN $cp.item_db AS ID6 ON ID6.Name = $script.monmakingitem.item6
+LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
+LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
+LEFT JOIN $cp.item_db AS MVPID1 ON MVPID1.Name = $script.MVP.itemName1
+LEFT JOIN $cp.item_db AS MVPID2 ON MVPID2.Name = $script.MVP.itemName2
+LEFT JOIN $cp.item_db AS MVPID3 ON MVPID3.Name = $script.MVP.itemName3
+%s AND LV > 0
+ORDER BY $script.monparameter.Name
+");
+/*DEFINE('COUNT_FULL_MOBS', "SELECT $script.monparameter.Name
+FROM $script.monparameter
 LEFT JOIN $script.monmakingitem ON $script.monmakingitem.Name = $script.monparameter.Name
 LEFT JOIN $cp.item_db AS ID1 ON ID1.Name = $script.monmakingitem.item1
 LEFT JOIN $cp.item_db AS ID2 ON ID2.Name = $script.monmakingitem.item2
@@ -560,8 +578,32 @@ LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
 LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
 %s AND LV > 0
 ORDER BY $script.monparameter.Name
+");*/
+DEFINE('SHOW_FULL_MOBS', "SELECT $script.monparameter.Name, LV, HP, exp, jexp, atk1, atk2, $script.monparameter.def, mdef, 
+property, scale, race, str, agi, vit, [int], dex, luk, 
+item1, percent1, ID1.ID, item2, percent2, ID2.ID, item3, percent3, ID3.ID, item4, percent4, ID4.ID, 
+item5, percent5, ID5.ID, item6, percent6, ID6.ID, item7, percent7, ID7.ID, item8, percent8, ID8.ID, 
+$script.MVP.expPercent ,$script.MVP.itemName1 ,$script.MVP.itemPercent1, MVPID1.ID, 
+$script.MVP.itemName2 ,$script.MVP.itemPercent2, MVPID2.ID, 
+$script.MVP.itemName3 ,$script.MVP.itemPercent3, MVPID3.ID 
+FROM $script.monparameter
+LEFT JOIN $script.MVP ON $script.MVP.Name = $script.monparameter.Name 
+LEFT JOIN $script.monmakingitem ON $script.monmakingitem.Name = $script.monparameter.Name
+LEFT JOIN $cp.item_db AS ID1 ON ID1.Name = $script.monmakingitem.item1
+LEFT JOIN $cp.item_db AS ID2 ON ID2.Name = $script.monmakingitem.item2
+LEFT JOIN $cp.item_db AS ID3 ON ID3.Name = $script.monmakingitem.item3
+LEFT JOIN $cp.item_db AS ID4 ON ID4.Name = $script.monmakingitem.item4
+LEFT JOIN $cp.item_db AS ID5 ON ID5.Name = $script.monmakingitem.item5
+LEFT JOIN $cp.item_db AS ID6 ON ID6.Name = $script.monmakingitem.item6
+LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
+LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
+LEFT JOIN $cp.item_db AS MVPID1 ON MVPID1.Name = $script.MVP.itemName1
+LEFT JOIN $cp.item_db AS MVPID2 ON MVPID2.Name = $script.MVP.itemName2
+LEFT JOIN $cp.item_db AS MVPID3 ON MVPID3.Name = $script.MVP.itemName3
+%s AND LV > 0 
+ORDER BY $script.monparameter.Name
 ");
-DEFINE('SHOW_FULL_MOBS', "SELECT $script.monparameter.Name, LV, HP, exp, jexp, atk1, atk2, $script.monparameter.def, mdef,
+/*DEFINE('SHOW_FULL_MOBS', "SELECT $script.monparameter.Name, LV, HP, exp, jexp, atk1, atk2, $script.monparameter.def, mdef,
 property, scale, race, str, agi, vit, [int], dex, luk,
 item1, percent1, ID1.ID, item2, percent2, ID2.ID, item3, percent3, ID3.ID, item4, percent4, ID4.ID,
 item5, percent5, ID5.ID, item6, percent6, ID6.ID, item7, percent7, ID7.ID, item8, percent8, ID8.ID
@@ -577,8 +619,19 @@ LEFT JOIN $cp.item_db AS ID7 ON ID7.Name = $script.monmakingitem.item7
 LEFT JOIN $cp.item_db AS ID8 ON ID8.Name = $script.monmakingitem.item8
 %s AND LV > 0
 ORDER BY $script.monparameter.Name
-");
+");*/
 DEFINE('SEARCH_MONSTER', "WHERE $script.monparameter.Name LIKE '%%%s%%'");
+/*DEFINE('SEARCH_ITEM', "WHERE
+(
+$script.monmakingitem.item1 LIKE '%%%s%%' OR
+$script.monmakingitem.item2 LIKE '%%%s%%' OR
+$script.monmakingitem.item3 LIKE '%%%s%%' OR
+$script.monmakingitem.item4 LIKE '%%%s%%' OR
+$script.monmakingitem.item5 LIKE '%%%s%%' OR
+$script.monmakingitem.item6 LIKE '%%%s%%' OR
+$script.monmakingitem.item7 LIKE '%%%s%%' OR
+$script.monmakingitem.item8 LIKE '%%%s%%' 
+)");*/
 DEFINE('SEARCH_ITEM', "WHERE
 (
 $script.monmakingitem.item1 LIKE '%%%s%%' OR
@@ -588,7 +641,10 @@ $script.monmakingitem.item4 LIKE '%%%s%%' OR
 $script.monmakingitem.item5 LIKE '%%%s%%' OR
 $script.monmakingitem.item6 LIKE '%%%s%%' OR
 $script.monmakingitem.item7 LIKE '%%%s%%' OR
-$script.monmakingitem.item8 LIKE '%%%s%%'
+$script.monmakingitem.item8 LIKE '%%%s%%' OR
+$script.MVP.itemName1 LIKE '%%%s%%' OR
+$script.MVP.itemName2 LIKE '%%%s%%' OR
+$script.MVP.itemName3 LIKE '%%%s%%'
 )");
 
 // whosonline.php
