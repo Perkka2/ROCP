@@ -1,0 +1,760 @@
+body {
+	font: 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding:0;
+	margin:0;
+	background:url(images/bg.png) no-repeat fixed;
+	background-color: #fff;
+	background-size: cover;
+	color:#000;
+	min-width:600px;
+}
+
+input{
+  height: 30px;
+	padding: 0px 15px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  color: #333;
+
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+  border-radius: 20px;
+  box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+	            inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+
+
+.charstats input{
+	height: 15px;
+	padding: 0px 15px;
+	font-size: 10px;
+}
+
+.charstats select {
+	position: relative;
+	top:-1px;
+	height: 15px;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	line-height: 40px;
+	text-align: center;
+	color: #333;
+	font-size: 10px;
+	border:0px;
+	box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+				inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.charstats table{
+	padding:0px;
+	margin:0px;
+	box-shadow:none;
+}
+.charstats table td{
+	padding:5px;
+	margin:5px;
+}
+
+input[type=submit]{
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3),
+	            -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  position: relative;
+	top:12px;
+  width: 30px;
+  height: 30px;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+  line-height: 40px;
+  text-align: center;
+  color: #6f6f6f;
+  font-size: 16px;
+  border-radius: 50%;
+	  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3),
+		            -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+input[type=checkbox]:hover {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3),
+							-3px -3px 5px rgba(255, 255, 255, 0.4),
+		inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+		            inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+input[type=checkbox]:checked {
+	  box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+		            inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+select {
+  position: relative;
+	top:-1px;
+  height: 30px;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+  line-height: 40px;
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+	border:0px;
+	  box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+		            inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+A:link {
+	COLOR: #333;
+	TEXT-DECORATION: none;
+}
+A:visited {
+	COLOR: #333;
+	TEXT-DECORATION: none;
+}
+A:active {
+	COLOR: #333;
+	TEXT-DECORATION: none;
+}
+A:hover {
+	COLOR: #fff;
+	TEXT-DECORATION: underline;
+}
+.myctl {
+}
+
+.mytext {
+	FONT: 10px/16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+.mytext2 {
+	FONT: 10px/16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: right;
+}
+.mytext3 {
+	FONT: 9px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+table {
+	table-layout: fixed;
+	background:none !important;
+	width:100% !important;
+	padding:2px 10px;
+	margin-bottom:15px;
+}
+th{
+	margin-top:10px;
+}
+
+table{
+  border-spacing: 0;
+  text-align: center;
+  table-layout:auto;
+	border-radius: 20px;
+	box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+	             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+table th{
+  box-shadow: 3px 3px 5px rgba(255, 255, 255, 0.4);
+}
+table th{
+  padding: 7px;
+}
+
+table tr>td {
+  padding: 5px;
+  font-size: 10px;
+  position: relative;
+}
+
+.mytable {
+	border-collapse:collapse;
+}
+.mytitle {
+	color:#333;
+	padding-left: 40px;
+	font-size: 20px;
+	width:100%;
+}
+
+.mytitle td{
+	padding:2px 10px;
+	vertical-align:top;
+	padding-left: 40px;
+}
+
+.myheader {
+	font-family:Verdana;
+	font-size:9pt;
+	font-weight:bold;
+	text-align:center;
+}
+.mycell {
+	font-family:Verdana;
+	font-size:8pt;
+	text-align:center;
+}
+.dashed {
+	font-family:Verdana;
+	font-size:7pt;
+	text-align:center;
+	border-collapse:collapse;
+}
+.serverinfo {
+	float:left;
+	width:auto;
+	top:0px;
+	color:#eee;
+	overflow:hidden;
+	margin:20px -150px 20px 20px;
+	padding:10px;
+	background: rgb(20, 20, 20); /* Fall-back for browsers that don't       support rgba */
+	background: rgba(20, 20, 20, .9);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.serverinfo font{
+	float:right;
+}
+
+.serverinfo .tooltip font{
+	float:right;
+}
+
+.redir {
+	font-family:Verdana;
+	font-size:9pt;
+	text-align:center;
+	border-collapse:collapse;
+}
+td {
+	border-collapse:collapse;
+}
+
+
+
+.header{
+	box-sizing: border-box;
+	padding:0px;
+	margin:15px auto 15px auto;
+	width:90%;
+	overflow:hidden;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+	background-size: cover !important;
+	background-repeat: no-repeat;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+
+.loginstatus{
+	box-sizing: border-box;
+	padding:20px;
+	margin:auto;
+	width:90%;
+	text-align: center;
+	margin-bottom:15px;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+
+.content{
+	float:left;
+	width:100%;
+	padding-top:15px;
+	color:#000;
+}
+
+.main{
+	box-sizing: border-box;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	width:90%;
+	margin:auto;
+	overflow: hidden;
+	display:table;
+	padding:10px;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.debuginfo{
+	box-sizing: border-box;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	width:90%;
+	margin:10px auto;
+	overflow: hidden;
+	display:table;
+	padding:10px;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+.footerinfo{
+	width:33%;
+	float: left;
+}
+
+.menu{
+	float:left;
+	padding:0;
+	width:100%;
+	font-size:10pt;
+	text-align: center;
+	border-radius: 20px;
+	border-radius: 20px;
+	box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+.menu a{
+	padding:5px;
+	color:black;
+	text-decoration: none;
+	text-align: left;
+	display: block;
+	width:200px;
+	border-radius: 20px;
+	margin:10px;
+}
+
+.menu a[href="#"]{
+	border-radius: 0;
+box-shadow:  none;
+text-align: center;
+}
+
+.menuheader{
+	padding:0;
+	color:black;
+	font-weight: bold;
+	width:220px;
+	padding:5px;
+}
+
+.menuheader a{
+	padding: 5px 0;
+	background:none;
+	color:black;
+	margin:0;
+	text-align:center;
+}
+
+
+
+.menusubheader{
+	color:black;
+	font-weight: bold;
+	width:200px;
+}
+
+.menu a:hover{
+	border-radius: 20px;
+box-shadow:  5px 5px 10px rgba(0, 0, 0, 0.3),
+             -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+.menu a:hover[href="#"]{
+	border-radius: 0;
+box-shadow:  none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdownmenu {
+    display: none;
+    position: absolute;
+    z-index: 1;border-radius: 20px;
+	background-color: #ccc;
+box-shadow:  5px 5px 10px rgba(0, 0, 0, 0.3),
+             -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+.dropdowncontainer{
+	float:left;
+	padding:0;border-radius: 20px;
+margin:12px;
+box-shadow:  5px 5px 10px rgba(0, 0, 0, 0.3),
+             -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+.dropdowncontainer:hover{
+	float:left;
+	padding:0;border-radius: 20px;
+margin:12px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3),
+							-3px -3px 5px rgba(255, 255, 255, 0.4),
+		inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+		            inset -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+/* Show the dropdown menu on hover */
+.dropdowncontainer:hover .dropdownmenu {
+    display: block;border-radius: 20px;
+box-shadow:  5px 5px 10px rgba(0, 0, 0, 0.3),
+             -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+.footer{
+	box-sizing: border-box;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't	support rgba */
+	background: rgba(200, 200, 200, .95);
+	width:90%;
+	margin:10px auto;
+	overflow: hidden;
+	display:table;
+	padding:10px;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+
+
+.skinselection{
+	width:33%;
+	overflow: hidden;
+	float: left;
+}
+
+.skinselection select{
+	font-size:10px;
+	height:50px;
+	}
+
+.servername{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100px;
+	color:#eee;
+	text-align:center;
+	text-shadow: 2px 3px 4px rgb(0, 0, 0);
+	text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+
+.servername{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100px;
+	color:#eee;
+	text-align:center;
+	text-shadow: 2px 3px 4px rgb(0, 0, 0);
+	text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+.contentTable{
+	text-align:left;
+	//table-layout: auto;
+	width:100%;
+	font-family:Verdana;
+	font-size:8pt;
+	border-radius: 20px;
+	margin-bottom:15px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.contentTable.mobList{
+	table-layout: auto;
+	white-space:nowrap;
+}
+
+.contentTable td{
+	padding:2px 10px;
+	vertical-align:top;
+}
+.contentRowHeader{
+	color:#333;
+	padding-left: 40px;
+	font-size: 20px;
+	width:100%;
+	margin:15px;
+}
+
+.contentRowHeader td{
+	padding-left: 40px;
+}
+
+.contentRowSubHeader{
+	font-family:Verdana;
+	font-size:9pt;
+	font-weight:bold;
+	width:100%;
+}
+
+.mobDrops img{
+	height:15px;
+	width:15px;
+	float:left;
+	margin:0px 10px 0px 3px;
+}
+.mobDrops td{
+	vertical-align:middle;
+}
+
+.mobImage{
+	display: block;
+    margin: auto;
+}
+
+.levelField{
+	width:100%;
+}
+
+.contentRowHeader.drops{
+	color:#333;
+	padding-left: 40px;
+	font-size: 12px;
+	width:auto;
+}
+
+
+.items{
+	font-family:Verdana;
+	font-size:8pt;
+	text-align:center;
+}
+
+
+.items img{
+	margin:5px;
+	height:100px;
+	width:75px;
+	float:left;
+	border-radius: 10px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.items img:before {
+  content: "?";
+	height:100px;
+	width:75px;
+	font-size: 80px;
+	position:relative;
+	display: block;
+	top:0;
+	background:#fff;
+	margin-bottom:-100px;
+}
+
+/* equipment stuff */
+
+.tooltipright img{
+	height:15px;
+	width:15px;
+	#float:left;
+	margin:0px 10px 0px 3px;
+}
+
+
+box{
+font-family: "Courier New", monospace;
+font-size: 13px;
+}
+
+.equipmentList{
+	width:30px;
+	height:30px;
+	padding:2px !important;
+	margin:2px;
+	border:1px solid #777777;
+	float:left;
+	border-radius: 3px;
+}
+
+.equipment{
+	table-layout: fixed;
+}
+
+.contentRowHeader.charlist{
+	color:#333;
+	padding-left: 40px;
+	font-size: 12px;
+	width:auto;
+}
+
+.equipmentList.equipped{
+	border:1px solid #00DD00;
+}
+
+.equipmentList.damaged{
+	border:1px solid #DD0000;
+}
+
+.equipmentList.unidentified{
+	border:1px solid #AAAAAA;
+}
+
+.tooltiptext.equipped{
+	color: #007700 !important;
+}
+
+.tooltiptext.damaged{
+	color: #550000 !important;
+}
+
+.tooltiptext.unidentified{
+	color: #AAAAAA !important;
+}
+
+
+/* Tooltip text */
+.equipmentList .tooltiptext {
+	margin:5px;
+	//width: 120px;
+	color: #000;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+.tooltipcontainer{
+	visibility: hidden;
+	margin-top: 25px;
+	position: absolute;
+	z-index: 1;
+	background: rgb(200, 200, 200); /* Fall-back for browsers that don't       support rgba */
+	background: rgba(200, 200, 200, .9);
+	border-radius: 20px;
+	box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+.amountInfo{
+	margin-top: 16px;
+	margin-left: -2px;
+	padding-left: 2px;
+	width:28px;
+	font-size: 8px;
+	position: absolute;
+	border-radius: 0 0 2px 2px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.equipmentList:hover .tooltipcontainer {
+    visibility: visible;
+}
+
+.equipmentList .tooltiptext .tooltipleft{
+  	display: table-cell;
+		margin:5px;
+}
+
+.tooltipleft img{
+		margin:5px;
+		height:100px;
+		width:75px;
+		box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.8);
+}
+
+.equipmentList .tooltiptext .tooltipright{
+  	display: table-cell;
+		padding-left: 10px;
+    vertical-align: top;
+}
+
+.charstats{
+	float:left;
+	padding-right: 10px;
+	width:200px;
+	height:100%;
+}
+
+.charstats img{
+	margin:0 auto;
+	display:block
+}
+
+.charitems{
+	display:table-row;
+}
+
+.charitems td{
+  height:35px;
+  vertical-align:middle;
+}
+
+.charitems td.equipped{
+	width:80px;
+	padding:5px;
+	height:35px;
+	vertical-align:middle;
+}
+
+.contentRowHeader div{
+	width:250px;
+}
+
+.contentRowHeader.charlist td{
+	display: flex;
+  justify-content: space-between;
+}
+
+.pageing{
+	text-align: center;
+	border-radius: 20px;
+box-shadow:  3px 3px 5px rgba(0, 0, 0, 0.3),
+             -3px -3px 5px rgba(255, 255, 255, 0.4);
+}
+
+
+.securityCodeBox{
+	margin:auto;
+	padding:10px;
+	width: 130px;
+	text-align: center;
+}
+
+.contentRowHeader.exptable td{
+	color:#333;
+	padding-left: 10px !important;
+	font-size: 12px;
+}
+.contentRowHeader.exptable{
+}
+
+
+.tooltip .tooltipcontainer {
+	margin:5px;
+	color: #bbb;
+	padding: 10px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipcontainer {
+    visibility: visible;
+}
+
+
+.contentTable.maplist{
+	table-layout: auto !important;
+}
+.contentTable.maplist img{
+	width:100px;
+	height:100px;
+	background:#000;
+	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.8);
+}

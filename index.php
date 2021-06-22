@@ -2,7 +2,6 @@
 // Accessed when the user goes to the home page
 require 'memory.php';	// calls memory functions
 require 'header.inc';	// brings in header
-echo "<table>";
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 
 if ($STORED_login == 'CP') {
@@ -266,7 +265,8 @@ else {
 			echo "</tr>";
 		}
 	}
+	echo "</table>";
 }
-echo "</table>";
+
 require 'footer.inc';   // displays the header
 ?>
