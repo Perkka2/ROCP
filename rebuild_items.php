@@ -3,11 +3,19 @@ require 'memory.php';
 require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 set_time_limit(0);
-$armor_tables = array("armor", "armorTM", "armorTB", "armorMB", "armorTMB");
-$weapon_tables = array("weapon", "bothhand", "bow", "gun");
-$ammo_tables = array("ammo", "arrow", "cannonball");
-$non_equip_tables = array("heal", "special", "event");
-		
+if($CONFIG['aegis_version'] == 0){
+	$armor_tables = array("armor", "armorTM", "armorTB", "armorMB", "armorTMB");
+	$weapon_tables = array("weapon", "bothhand", "bow", "gun");
+	$ammo_tables = array("ammo", "arrow", "cannonball");
+	$non_equip_tables = array("heal", "special", "event");
+}
+else {
+	$armor_tables = array("armor", "armorTM", "armorTB", "armorMB", "armorTMB");
+	$weapon_tables = array("weapon", "bothhand", "bow");
+	$ammo_tables = array("arrow");
+	$non_equip_tables = array("heal", "special", "event");
+}
+
 if ($CONFIG_server_type > 0) {
 	$query = "SELECT count(*) FROM item_db";
 	$result = $link->Execute($query);
@@ -20,52 +28,89 @@ $query = CLEAR_ITEM_TABLE;
 $link->Execute($query);
 
 if ($CONFIG_server_type == 0) {
-	// armor DBs
-	foreach ($armor_tables as $table_name) {
-		$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA, minLevel FROM script.dbo.$table_name";
-		$result = execute_query($query, "rebuild_items.php");
-		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
-			$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", $line[9]);
-			$link->Execute($query2);
+	if($CONFIG['aegis_version'] == 0){
+		// armor DBs
+		foreach ($armor_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA, minLevel FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", $line[9]);
+				$link->Execute($query2);
+			}
+			
 		}
 		
-	}
-	
-	// weapon DBs
-	foreach ($weapon_tables as $table_name) {
-		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level], minLevel FROM script.dbo.$table_name";
-		$result = execute_query($query, "rebuild_items.php");
-		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
-			$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], $line[11]);
-			$link->Execute($query2);
+		// weapon DBs
+		foreach ($weapon_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level], minLevel FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], $line[11]);
+				$link->Execute($query2);
+			}
+			
 		}
 		
-	}
-	
-	// ammo DBs
-	foreach ($ammo_tables as $table_name) {
-		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel FROM script.dbo.$table_name";
+		// ammo DBs
+		foreach ($ammo_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[5]);
+				$link->Execute($query2);
+			}
+		}
+		
+		
+		//ThrowWeapon
+		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel, EQUIP FROM script.dbo.ThrowWeapon";
 		$result = execute_query($query, "rebuild_items.php");
 		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
-			$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[5]);
+			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
+			$line[3], $line[4], "NULL", "NULL", "NULL", $line[6], 2, "NULL", "NULL", $line[5]);
 			$link->Execute($query2);
 		}
 	}
-	
-	
-	//ThrowWeapon
-	$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel, EQUIP FROM script.dbo.ThrowWeapon";
-	$result = execute_query($query, "rebuild_items.php");
-	while ($line = $result->FetchRow()) {
-		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
-		$line[3], $line[4], "NULL", "NULL", "NULL", $line[6], 2, "NULL", "NULL", $line[5]);
-		$link->Execute($query2);
+	else{
+		// armor DBs
+		foreach ($armor_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", "NULL");
+				$link->Execute($query2);
+			}
+			
+		}
+		
+		// weapon DBs
+		foreach ($weapon_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level] FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], "NULL");
+				$link->Execute($query2);
+			}
+			
+		}
+		
+		// ammo DBs
+		foreach ($ammo_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
+				$link->Execute($query2);
+			}
+		}
 	}
-	
-	
+
 	// card DB
 	$query = "SELECT ID, Name, PRICE, WEIGHT, compositionPos FROM script.dbo.card";
 	$result = execute_query($query, "rebuild_items.php");

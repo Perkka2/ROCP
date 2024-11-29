@@ -663,44 +663,76 @@ WHERE tu_state = 1
 //equipment.php
 DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
 WHERE GID = %d");
-DEFINE('GET_ALL_ITEMS', "USE [Script]
-SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
-UNION
-SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
-UNION
-SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
-UNION
-SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
-UNION
-SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
-UNION
-SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
-UNION
-SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
-UNION
-SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
-UNION
-SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
-UNION
-SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT] FROM [cannonball]
-UNION
-SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
-UNION
-SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
-UNION
-SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
-UNION
-SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
-UNION
-SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
-UNION
-SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
-UNION
-SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
-UNION
-SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
-UNION
-SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+if($CONFIG['aegis_version'] == 0){
+	DEFINE('GET_ALL_ITEMS', "USE [Script]
+	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
+	UNION
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	UNION
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	UNION
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	UNION
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	UNION
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	UNION
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	UNION
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	UNION
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+	UNION
+	SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT] FROM [cannonball]
+	UNION
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	UNION
+	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
+	UNION
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	UNION
+	SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
+	UNION
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	UNION
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	UNION
+	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
+	UNION
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	UNION
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+}
+else{
+	DEFINE('GET_ALL_ITEMS', "USE [Script]
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	UNION
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	UNION
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	UNION
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	UNION
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	UNION
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	UNION
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	UNION
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+	UNION
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	UNION
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	UNION
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	UNION
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	UNION
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	UNION
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+}
 // roster.php
 DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money, bodypalette, head, headpalette, accessory, accessory2, accessory3, weapon, shield, effectstate
 FROM $char.charinfo
@@ -709,66 +741,113 @@ WHERE AID = %d ORDER BY charname
 DEFINE('CHECK_SEX_AID', "SELECT sex FROM $login.account WHERE [AID] = '%s'");
 
 // exptable.php
-DEFINE('GET_ALL_EXP', "USE [Script]
-select levels.level,
-ExpParameter.exp as ExpParameterExp,
-ExpParameter2.exp as ExpParameter2Exp,
-ExpParameter3.exp as ExpParameter3Exp,
-NoviceJobExpParameter.exp as NoviceJobExpParameterExp,
-FirstJobExpParameter.exp as FirstJobExpParameterExp,
-SecondJobExpParameter.exp as SecondJobExpParameterExp,
-NoviceJobExpParameter2.exp as NoviceJobExpParameter2Exp,
-FirstJobExpParameter2.exp as FirstJobExpParameter2Exp,
-SecondJobExpParameter2.exp as SecondJobExpParameter2Exp,
-FirstJobExpParameter3.exp as FirstJobExpParameter3Exp,
-ThirdJobExpParameter.exp as ThirdJobExpParameterExp
-from
-(
-            select [level]
-            from ExpParameter
-            union
-            select [level]
-            from ExpParameter2
-            union
-            select [level]
-            from ExpParameter3
-            union
-            select [level]
-            from FirstJobExpParameter
-            union
-            select [level]
-            from FirstJobExpParameter2
-            union
-            select [level]
-            from FirstJobExpParameter3
-            union
-            select [level]
-            from SecondJobExpParameter
-            union
-            select [level]
-            from SecondJobExpParameter2
-            union
-            select [level]
-            from NoviceJobExpParameter
-            union
-            select [level]
-            from NoviceJobExpParameter2
-            union
-            select [level]
-            from ThirdJobExpParameter
-) as levels
-left outer join ExpParameter on ExpParameter.level = levels.level
-left outer join ExpParameter2 on ExpParameter2.level = levels.level
-left outer join ExpParameter3 on ExpParameter3.level = levels.level
-left outer join FirstJobExpParameter on FirstJobExpParameter.level = levels.level
-left outer join FirstJobExpParameter2 on FirstJobExpParameter2.level = levels.level
-left outer join FirstJobExpParameter3 on FirstJobExpParameter3.level = levels.level
-left outer join SecondJobExpParameter on SecondJobExpParameter.level = levels.level
-left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.level
-left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
-left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
-left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
-
+if($CONFIG['aegis_version'] == 0){
+	DEFINE('GET_ALL_EXP', "USE [Script]
+	select levels.level,
+	ExpParameter.exp as ExpParameterExp,
+	ExpParameter2.exp as ExpParameter2Exp,
+	ExpParameter3.exp as ExpParameter3Exp,
+	NoviceJobExpParameter.exp as NoviceJobExpParameterExp,
+	FirstJobExpParameter.exp as FirstJobExpParameterExp,
+	SecondJobExpParameter.exp as SecondJobExpParameterExp,
+	NoviceJobExpParameter2.exp as NoviceJobExpParameter2Exp,
+	FirstJobExpParameter2.exp as FirstJobExpParameter2Exp,
+	SecondJobExpParameter2.exp as SecondJobExpParameter2Exp,
+	FirstJobExpParameter3.exp as FirstJobExpParameter3Exp,
+	ThirdJobExpParameter.exp as ThirdJobExpParameterExp
+	from
+	(
+				select [level]
+				from ExpParameter
+				union
+				select [level]
+				from ExpParameter2
+				union
+				select [level]
+				from ExpParameter3
+				union
+				select [level]
+				from FirstJobExpParameter
+				union
+				select [level]
+				from FirstJobExpParameter2
+				union
+				select [level]
+				from FirstJobExpParameter3
+				union
+				select [level]
+				from SecondJobExpParameter
+				union
+				select [level]
+				from SecondJobExpParameter2
+				union
+				select [level]
+				from NoviceJobExpParameter
+				union
+				select [level]
+				from NoviceJobExpParameter2
+				union
+				select [level]
+				from ThirdJobExpParameter
+	) as levels
+	left outer join ExpParameter on ExpParameter.level = levels.level
+	left outer join ExpParameter2 on ExpParameter2.level = levels.level
+	left outer join ExpParameter3 on ExpParameter3.level = levels.level
+	left outer join FirstJobExpParameter on FirstJobExpParameter.level = levels.level
+	left outer join FirstJobExpParameter2 on FirstJobExpParameter2.level = levels.level
+	left outer join FirstJobExpParameter3 on FirstJobExpParameter3.level = levels.level
+	left outer join SecondJobExpParameter on SecondJobExpParameter.level = levels.level
+	left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.level
+	left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
+	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
+	left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
+}
+else {
+	DEFINE('GET_ALL_EXP', "USE [Script]
+	select levels.level,
+	ExpParameter.exp as ExpParameterExp,
+	ExpParameter2.exp as ExpParameter2Exp,
+	NoviceJobExpParameter.exp as NoviceJobExpParameterExp,
+	FirstJobExpParameter.exp as FirstJobExpParameterExp,
+	SecondJobExpParameter.exp as SecondJobExpParameterExp,
+	NoviceJobExpParameter2.exp as NoviceJobExpParameter2Exp,
+	FirstJobExpParameter2.exp as FirstJobExpParameter2Exp,
+	SecondJobExpParameter2.exp as SecondJobExpParameter2Exp
+	from
+	(
+				select [level]
+				from ExpParameter
+				union
+				select [level]
+				from ExpParameter2
+				union
+				select [level]
+				from FirstJobExpParameter
+				union
+				select [level]
+				from FirstJobExpParameter2
+				union
+				select [level]
+				from SecondJobExpParameter
+				union
+				select [level]
+				from SecondJobExpParameter2
+				union
+				select [level]
+				from NoviceJobExpParameter
+				union
+				select [level]
+				from NoviceJobExpParameter2
+	) as levels
+	left outer join ExpParameter on ExpParameter.level = levels.level
+	left outer join ExpParameter2 on ExpParameter2.level = levels.level
+	left outer join FirstJobExpParameter on FirstJobExpParameter.level = levels.level
+	left outer join FirstJobExpParameter2 on FirstJobExpParameter2.level = levels.level
+	left outer join SecondJobExpParameter on SecondJobExpParameter.level = levels.level
+	left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.level
+	left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
+	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level");	
+}
 // maplist.php
 DEFINE('GET_ALL_MAPS', "USE [IPInfo]
 SELECT * FROM Mapinfo ORDER BY ZSID");
