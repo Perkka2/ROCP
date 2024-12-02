@@ -207,6 +207,7 @@ echo "
 		<td colspan=4>Breakdown of Each Class</td>
 	</tr>
 	<tr class=myheader>
+		<td></td>
 		<td>Class</td>
 		<td>Total</td>
 		<td>Highest Level</td>
@@ -283,6 +284,7 @@ for ($i = 0; $i < $class_max; $i++) {
 			$level = $line[1];
 			echo "
 		<tr class=mycell>
+			<td><img src='images/classes/$i.png'></td>
 			<td>$class</td>
 			<td>{$total_class_count[$i]}</td>
 			<td>$char_name</td>
@@ -293,6 +295,7 @@ for ($i = 0; $i < $class_max; $i++) {
 		else {
 			echo "
 		<tr class=mycell>
+			<td><img src='images/classes/$i.png'></td>
 			<td>$class</td>
 			<td>0</td>
 			<td>None</td>
