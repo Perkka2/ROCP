@@ -8,6 +8,7 @@ Passphrase to encrypt various strings (Will render current emblems useless if ch
 Server Type (0 = Aegis (MSSQL), 1 = oAthena (MySQL), 2 = eAthena(MySQL))
 Server DB Connection (Aegis Only) 0 = mssql_connect, 1 = odbc_connect, 2 = sqlsrv_connect
 ODBC Datasource (Needed if Server Database Connection is set to 1)
+Aegis version 1 = ep8 0 = newer
 Page title %s (optional) replaced with server type
 Language
 Backup interval reminder (Hours)

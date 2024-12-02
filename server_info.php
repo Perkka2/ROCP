@@ -273,31 +273,33 @@ for ($i = 0; $i < $class_max; $i++) {
 	if ($CONFIG_server_type == 0 && $i == 22) {
 		continue;
 	}
-	$query = sprintf(CLASS_BREAKDOWN, $i, $i2);
-	$result = execute_query($query, "server_info.php", 1, 0);
-	$class = determine_class($i);
-	if ($result->RowCount() > 0) {
-		$line = $result->FetchRow();
-		$char_name = $line[0];
-		$level = $line[1];
-		echo "
-	<tr class=mycell>
-		<td>$class</td>
-		<td>{$total_class_count[$i]}</td>
-		<td>$char_name</td>
-		<td>$level</td>
-	</tr>
-		";
-	}
-	else {
-		echo "
-	<tr class=mycell>
-		<td>$class</td>
-		<td>0</td>
-		<td>None</td>
-		<td>None</td>
-	</tr>
-		";
+	if($total_class_count[$i] > 0){ //only show classes with characters
+		$query = sprintf(CLASS_BREAKDOWN, $i, $i2);
+		$result = execute_query($query, "server_info.php", 1, 0);
+		$class = determine_class($i);
+		if ($result->RowCount() > 0) {
+			$line = $result->FetchRow();
+			$char_name = $line[0];
+			$level = $line[1];
+			echo "
+		<tr class=mycell>
+			<td>$class</td>
+			<td>{$total_class_count[$i]}</td>
+			<td>$char_name</td>
+			<td>$level</td>
+		</tr>
+			";
+		}
+		else {
+			echo "
+		<tr class=mycell>
+			<td>$class</td>
+			<td>0</td>
+			<td>None</td>
+			<td>None</td>
+		</tr>
+			";
+		}
 	}
 }
 echo "</table>";
