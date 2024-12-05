@@ -204,7 +204,7 @@ while ($line = $result->FetchRow()) {
 EchoHead(50);
 echo "
 	<tr class=mytitle>
-		<td colspan=4>Breakdown of Each Class</td>
+		<td colspan=5>Breakdown of Each Class</td>
 	</tr>
 	<tr class=myheader>
 		<td></td>

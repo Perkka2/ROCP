@@ -663,7 +663,7 @@ WHERE tu_state = 1
 //equipment.php
 DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
 WHERE GID = %d");
-if($CONFIG['aegis_version'] == 0){
+if($CONFIG['aegis_version'] == 0 || $CONFIG['aegis_version'] == 2){
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
 	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
 	UNION
@@ -793,6 +793,62 @@ if($CONFIG['aegis_version'] == 0){
 	left outer join ExpParameter on ExpParameter.level = levels.level
 	left outer join ExpParameter2 on ExpParameter2.level = levels.level
 	left outer join ExpParameter3 on ExpParameter3.level = levels.level
+	left outer join FirstJobExpParameter on FirstJobExpParameter.level = levels.level
+	left outer join FirstJobExpParameter2 on FirstJobExpParameter2.level = levels.level
+	left outer join FirstJobExpParameter3 on FirstJobExpParameter3.level = levels.level
+	left outer join SecondJobExpParameter on SecondJobExpParameter.level = levels.level
+	left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.level
+	left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
+	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
+	left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
+}
+elseif($CONFIG['aegis_version'] == 0){
+	DEFINE('GET_ALL_EXP', "USE [Script]
+	select levels.level,
+	ExpParameter.exp as ExpParameterExp,
+	ExpParameter2.exp as ExpParameter2Exp,
+	NoviceJobExpParameter.exp as NoviceJobExpParameterExp,
+	FirstJobExpParameter.exp as FirstJobExpParameterExp,
+	SecondJobExpParameter.exp as SecondJobExpParameterExp,
+	NoviceJobExpParameter2.exp as NoviceJobExpParameter2Exp,
+	FirstJobExpParameter2.exp as FirstJobExpParameter2Exp,
+	SecondJobExpParameter2.exp as SecondJobExpParameter2Exp,
+	FirstJobExpParameter3.exp as FirstJobExpParameter3Exp,
+	ThirdJobExpParameter.exp as ThirdJobExpParameterExp
+	from
+	(
+				select [level]
+				from ExpParameter
+				union
+				select [level]
+				from ExpParameter2
+				union
+				select [level]
+				from FirstJobExpParameter
+				union
+				select [level]
+				from FirstJobExpParameter2
+				union
+				select [level]
+				from FirstJobExpParameter3
+				union
+				select [level]
+				from SecondJobExpParameter
+				union
+				select [level]
+				from SecondJobExpParameter2
+				union
+				select [level]
+				from NoviceJobExpParameter
+				union
+				select [level]
+				from NoviceJobExpParameter2
+				union
+				select [level]
+				from ThirdJobExpParameter
+	) as levels
+	left outer join ExpParameter on ExpParameter.level = levels.level
+	left outer join ExpParameter2 on ExpParameter2.level = levels.level
 	left outer join FirstJobExpParameter on FirstJobExpParameter.level = levels.level
 	left outer join FirstJobExpParameter2 on FirstJobExpParameter2.level = levels.level
 	left outer join FirstJobExpParameter3 on FirstJobExpParameter3.level = levels.level

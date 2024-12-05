@@ -74,6 +74,52 @@ if ($CONFIG_server_type == 0) {
 			$link->Execute($query2);
 		}
 	}
+	elseif($CONFIG['aegis_version'] == 2){
+		// armor DBs
+		foreach ($armor_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", "NULL");
+				$link->Execute($query2);
+			}
+			
+		}
+		
+		// weapon DBs
+		foreach ($weapon_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level] FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], "NULL");
+				$link->Execute($query2);
+			}
+			
+		}
+		
+		// ammo DBs
+		foreach ($ammo_tables as $table_name) {
+			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.$table_name";
+			$result = execute_query($query, "rebuild_items.php");
+			while ($line = $result->FetchRow()) {
+				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
+				$link->Execute($query2);
+			}
+		}
+		
+		
+		//ThrowWeapon
+		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.ThrowWeapon";
+		$result = execute_query($query, "rebuild_items.php");
+		while ($line = $result->FetchRow()) {
+			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
+			$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", 2, "NULL", "NULL", "NULL");
+			$link->Execute($query2);
+		}
+	}
 	else{
 		// armor DBs
 		foreach ($armor_tables as $table_name) {
