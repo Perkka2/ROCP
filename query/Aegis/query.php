@@ -453,7 +453,7 @@ DEFINE('CHECK_MAX_ACCOUNTS_EMAIL', "SELECT count(*) FROM $login.account WHERE Em
 DEFINE('CHECK_MAX_PENDING_ACCOUNTS_IP', "SELECT count(*) FROM $cp.pending WHERE ip = '%s'");
 DEFINE('CHECK_MAX_PENDING_ACCOUNTS_EMAIL', "SELECT count(*) FROM $cp.pending WHERE email = '%s'");
 DEFINE('ADD_ACCOUNT', "INSERT INTO $login.login (ID, passwd, grade, isConfirmed) VALUES('%s', '%s', 2, 3)");
-DEFINE('ADD_ACCOUNT2', "INSERT INTO $login.account (AID, [Name], Address, Phone, RegNum, zipcode, sex, Email, News, nation) VALUES(%d, '%s', '', '', '', '', %d, '%s', '', '')");
+DEFINE('ADD_ACCOUNT2', "INSERT INTO $login.account (AID, [Name], Address, Phone, RegNum, zipcode, sex, Email, News, nation) VALUES(%d, '%s', ' ', ' ', ' ', ' ', %d, '%s', '', '')");
 DEFINE('INSERT_T_USER', "INSERT INTO $user.t_user VALUES (0, 0, %d, '%s', 0, '%s', %d, 0, -1, 0)");
 DEFINE('ADD_PENDING', "INSERT INTO $cp.pending VALUES(getDate(), '%s', '%s', '%s', '%s', '%s', '%s')");
 DEFINE('ADD_REGISTER_ENTRY', "INSERT INTO $cp.register_log (account_name, [ip], reg_time, Email) VALUES('%s', %d, getDate(), '%s')");
@@ -663,7 +663,7 @@ WHERE tu_state = 1
 //equipment.php
 DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
 WHERE GID = %d");
-if($CONFIG['aegis_version'] == 0 || $CONFIG['aegis_version'] == 2){
+if($CONFIG['aegis_version'] == 0 ){
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
 	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
 	UNION
@@ -684,6 +684,44 @@ if($CONFIG['aegis_version'] == 0 || $CONFIG['aegis_version'] == 2){
 	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
 	UNION
 	SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT] FROM [cannonball]
+	UNION
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	UNION
+	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
+	UNION
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	UNION
+	SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
+	UNION
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	UNION
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	UNION
+	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
+	UNION
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	UNION
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+}
+elseif($CONFIG['aegis_version'] == 2){
+	DEFINE('GET_ALL_ITEMS', "USE [Script]
+	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
+	UNION
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	UNION
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	UNION
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	UNION
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	UNION
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	UNION
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	UNION
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	UNION
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
 	UNION
 	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
 	UNION
