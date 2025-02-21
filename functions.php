@@ -1517,7 +1517,7 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 			$result = execute_query($query, "functions.php");
 			$charitems = $result->FetchRow();
 			$itemBinaryString = $charitems[0];
-			$itemVersion = hexdec(bin2hex(substr($itemBinaryString,0,1)));
+			$itemVersion = hexdec(reverse_bytes(bin2hex(substr($itemBinaryString,0,2))));
 			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
 			$itemBinaryString = bin2hex(gzuncompress($itemBinaryString));
 			while($itemBinaryString){
