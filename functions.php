@@ -1513,6 +1513,7 @@ function reverse_bytes($hex)
 //Get character items
 
 function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
+	include "config.php";
 			$query = sprintf(GET_CHARACTER_ITEMS, $characterID);
 			$result = execute_query($query, "functions.php");
 			$charitems = $result->FetchRow();
@@ -1566,7 +1567,8 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 							if($socket2 > '0'){$socketsUsed = 2;}
 							if($socket3 > '0'){$socketsUsed = 3;}
 							if($socket4 > '0'){$socketsUsed = 4;}}
-						$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 50 : 34);
+							if($CONFIG['aegis_version'] == 0){$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 50 : 34);}
+							else {$itemBinaryString = substr($itemBinaryString, 30);}
 					}
 					else if($itemTable[$itemID]['table'] == 'guest') {
 						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 4,4))); //get amount
@@ -1640,7 +1642,7 @@ if($clientItemNameTable[$itemID]){
 }
 
 function filterItems($items, $types) {
-  //$result = [];
+  $result = [];
   for($i=0; $i < count($items); $i++) {
     if(in_array($items[$i]['type'], $types)) {
      //array_push($items[$i], $result);
