@@ -1513,11 +1513,11 @@ function reverse_bytes($hex)
 //Get character items
 
 function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
-	include "config.php";
 			$query = sprintf(GET_CHARACTER_ITEMS, $characterID);
 			$result = execute_query($query, "functions.php");
 			$charitems = $result->FetchRow();
 			$itemBinaryString = $charitems[0];
+			$itemVersion = hexdec(bin2hex(substr($itemBinaryString,0,1)));
 			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
 			$itemBinaryString = bin2hex(gzuncompress($itemBinaryString));
 			while($itemBinaryString){
@@ -1545,11 +1545,20 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 					$refinelvl = NULL;
 					//echo $itemBinaryString . "<br>" . $clientItemName . "<br>" . $itemTable[$itemID]['table'] . " " . $itemTable[$itemID]['name'] . "<br>"; //debug
 					if(in_array($itemTable[$itemID]['table'], array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun'))){
+						if($itemVersion == 4){
+						$item_settings = hexdec(substr($itemBinaryString, 4,2)); //get item flags
+						$sockets = substr($itemBinaryString, 14,16); //get sockets
+						$equip_byte = substr($itemBinaryString, 6,4); //get equipped bit
+						$damaged = substr($itemBinaryString, 10,2); //get damaged bit
+						$refinelvl = substr($itemBinaryString, 12,2); //get refined bit
+						}
+						else{
 						$item_settings = hexdec(substr($itemBinaryString, 4,2)); //get item flags
 						$sockets = substr($itemBinaryString, 18,16); //get sockets
 						$equip_byte = substr($itemBinaryString, 6,2); //get equipped bit
 						$damaged = substr($itemBinaryString, 12,2); //get damaged bit
 						$refinelvl = substr($itemBinaryString, 14,2); //get refined bit
+						}
 						$socket1 = hexdec(reverse_bytes(substr($sockets, 0,4)));
 						$socket2 = hexdec(reverse_bytes(substr($sockets, 4,4)));
 						$socket3 = hexdec(reverse_bytes(substr($sockets, 8,4)));
@@ -1567,8 +1576,8 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 							if($socket2 > '0'){$socketsUsed = 2;}
 							if($socket3 > '0'){$socketsUsed = 3;}
 							if($socket4 > '0'){$socketsUsed = 4;}}
-							if($CONFIG['aegis_version'] == 0){$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 50 : 34);}
-							else {$itemBinaryString = substr($itemBinaryString, 30);}
+							if($itemVersion == 4){$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 46 : 30);}
+							else{$itemBinaryString = substr($itemBinaryString, ($hasUuid) ? 50 : 34);}
 					}
 					else if($itemTable[$itemID]['table'] == 'guest') {
 						$amount = hexdec(reverse_bytes(substr($itemBinaryString, 4,4))); //get amount
