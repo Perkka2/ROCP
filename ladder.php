@@ -51,7 +51,13 @@ if ($GET_action) {
 					break;
 				case 4015:
 					$search_class2 = 4022;
-					break;				case 4037:					$search_class2 = 4044;					break;				case 4030:					$search_class2 = 4036;					break;
+					break;
+				case 4037:
+					$search_class2 = 4044;
+					break;
+				case 4030:
+					$search_class2 = 4036;
+					break;
 			}
 			$query = sprintf(LADDER_SORT_MULTI_CLASS, $search_class, $search_class2,$sort_type);
 		}
@@ -72,7 +78,7 @@ require 'footer.inc';
 function display_ladder($input_query) {
 	global $STORED_level, $CONFIG_server_type, $CONFIG_server_name, $CONFIG_ladder_limit, $lang, $options;
 	// Executes the queries
-	if ($input_query == LADDER_SORT_ALL) {
+	if ($input_query == LADDER_SHOW_ALL) {
 		$result = execute_query($input_query, "ladder.php");
 	}
 	else {
