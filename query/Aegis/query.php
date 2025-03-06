@@ -840,7 +840,7 @@ if($CONFIG['aegis_version'] == 0){
 	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
 	left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
 }
-elseif($CONFIG['aegis_version'] == 0){
+elseif($CONFIG['aegis_version'] == 2){
 	DEFINE('GET_ALL_EXP', "USE [Script]
 	select levels.level,
 	ExpParameter.exp as ExpParameterExp,
@@ -851,8 +851,7 @@ elseif($CONFIG['aegis_version'] == 0){
 	NoviceJobExpParameter2.exp as NoviceJobExpParameter2Exp,
 	FirstJobExpParameter2.exp as FirstJobExpParameter2Exp,
 	SecondJobExpParameter2.exp as SecondJobExpParameter2Exp,
-	FirstJobExpParameter3.exp as FirstJobExpParameter3Exp,
-	ThirdJobExpParameter.exp as ThirdJobExpParameterExp
+	FirstJobExpParameter3.exp as FirstJobExpParameter3Exp
 	from
 	(
 				select [level]
@@ -881,9 +880,6 @@ elseif($CONFIG['aegis_version'] == 0){
 				union
 				select [level]
 				from NoviceJobExpParameter2
-				union
-				select [level]
-				from ThirdJobExpParameter
 	) as levels
 	left outer join ExpParameter on ExpParameter.level = levels.level
 	left outer join ExpParameter2 on ExpParameter2.level = levels.level
@@ -893,8 +889,7 @@ elseif($CONFIG['aegis_version'] == 0){
 	left outer join SecondJobExpParameter on SecondJobExpParameter.level = levels.level
 	left outer join SecondJobExpParameter2 on SecondJobExpParameter2.level = levels.level
 	left outer join NoviceJobExpParameter on NoviceJobExpParameter.level = levels.level
-	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level
-	left outer join ThirdJobExpParameter on ThirdJobExpParameter.level = levels.level");
+	left outer join NoviceJobExpParameter2 on NoviceJobExpParameter2.level = levels.level");
 }
 else {
 	DEFINE('GET_ALL_EXP', "USE [Script]
@@ -944,6 +939,6 @@ else {
 }
 // maplist.php
 DEFINE('GET_ALL_MAPS', "USE [IPInfo]
-SELECT * FROM Mapinfo ORDER BY ZSID");
+SELECT * FROM MapInfo ORDER BY ZSID");
 
 ?>
