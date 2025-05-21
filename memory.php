@@ -49,19 +49,19 @@ switch ($CONFIG_server_type) {
 		if($CONFIG_server_db_conn == 0){
 		$link = &ADONewConnection('mssql');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
-			$error = "Failed to connect to database";
+			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
 		}
 		elseif($CONFIG_server_db_conn == 1){
 		$link = &ADONewConnection('odbc_mssql');
 		if(!$link->Connect($CONFIG_odbc_datasource, $CONFIG_db_username, $CONFIG_db_password)){
-			$error = "Failed to connect to database";
+			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
 		}
 		if($CONFIG_server_db_conn == 2){
 		$link = &ADONewConnection('mssqlnative');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
-			$error = "Failed to connect to database";
+			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
 		}
 		$link->SetFetchMode(ADODB_FETCH_NUM);
