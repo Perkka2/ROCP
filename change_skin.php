@@ -29,9 +29,5 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 		}
 	}
 }
-// Absolute URL, some very old browsers only follow absolute redirects
-$https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off';
-$folder = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
-header("Location: " . ($https ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . "$folder/$return_page");
-exit();
+redirect_to($return_page);
 ?>

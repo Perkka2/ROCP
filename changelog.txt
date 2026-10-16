@@ -1,3 +1,7 @@
+5.0.1 - October 16th, 2026 [Pierre Althinsson]
+
+Login goes straight to the start page, without a "You are now logged in" page in between.
+
 5.0.0 - October 16th, 2026 [Pierre Althinsson]
 
 Security:

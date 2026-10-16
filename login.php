@@ -78,13 +78,12 @@ elseif ($POST_action == "login") {
 		$_SESSION['login'] = $POST_login_user;
 		$_SESSION['password'] = md5($POST_login_pass);
 		$_SESSION['last_activity'] = time();
-		$STORED_login = $POST_login_user;
-		require 'header.inc';
 		if ($access_level > 1) {
 			// Adds to the login log
 			add_access_entry("Logged in as $POST_login_user");
 		}
-		redir("index.php", "You are now logged in");
+		// Straight to the start page, no "You are now logged in" page in between
+		redirect_to("index.php");
 	}
 	else {
 		add_access_entry("Failed login");
