@@ -94,7 +94,7 @@ else {
 	<tr class=mycell>
 		";
 		foreach ($line as $display_index => $col_value) {
-			$col_value = safe_message(del_escape($col_value));
+			$col_value = safe_message($col_value);
 			if ($display_index == 2) {
 				$col_value = convert_date($col_value);
 			}
@@ -143,7 +143,7 @@ else {
 		<tr class=mycell>
 			";
 			foreach ($line as $display_index => $col_value) {
-				$col_value = safe_message(del_escape($col_value));
+				$col_value = safe_message($col_value);
 				if ($display_index == 2) {
 					$col_value = convert_date($col_value);
 				}
@@ -193,7 +193,7 @@ else {
 		<tr class=mycell>
 			";
 			foreach ($line as $display_index => $col_value) {
-				$col_value = safe_message(del_escape($col_value));
+				$col_value = safe_message($col_value);
 				if ($display_index == 2) {
 					$col_value = convert_date($col_value);
 				}

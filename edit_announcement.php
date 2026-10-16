@@ -201,7 +201,7 @@ else {
 		$line = $result->FetchRow();
 		$post_id = $line[0];
 		$date = $line[1];
-		$message = html_escape(del_escape($line[2]));
+		$message = html_escape($line[2]);
 		$poster = html_escape($line[3]);
 		$date = html_escape($date);
 		echo "

@@ -1,4 +1,13 @@
 <?php
+// Buffer all output so headers (session id renewal, redirects) still work after early warnings,
+// and add the CSRF token to forms and action links (csrf_add_tokens() in functions.php).
+// Only once: some pages (terms.php) require memory.php a second time.
+if (!defined('CSRF_OUTPUT_FILTER')) {
+	define('CSRF_OUTPUT_FILTER', true);
+	ob_start(function ($buffer) {
+		return function_exists('csrf_add_tokens') ? csrf_add_tokens($buffer) : $buffer;
+	});
+}
     //Extra Security layer for traverse exploits
     // Get called URL
     $URL = "http://";
@@ -47,19 +56,19 @@ switch ($CONFIG_server_type) {
 	// Aegis
 	case 0:
 		if($CONFIG_server_db_conn == 0){
-		$link = &ADONewConnection('mssql');
+		$link = ADONewConnection('mssql');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
 			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
 		}
 		elseif($CONFIG_server_db_conn == 1){
-		$link = &ADONewConnection('odbc_mssql');
+		$link = ADONewConnection('odbc_mssql');
 		if(!$link->Connect($CONFIG_odbc_datasource, $CONFIG_db_username, $CONFIG_db_password)){
 			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
 		}
 		if($CONFIG_server_db_conn == 2){
-		$link = &ADONewConnection('mssqlnative');
+		$link = ADONewConnection('mssqlnative');
 		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, "nLogin")){
 			$error = "Failed to connect to database: " . $link->ErrorMsg();
 		}
@@ -68,7 +77,7 @@ switch ($CONFIG_server_type) {
 		break;
 	// MySQL Athena/Freya
 	case 1: case 2: case 3:
-		$link = &ADONewConnection('mysql');
+		$link = ADONewConnection('mysql');
 		$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, $CONFIG_db_name);
 		$link->SetFetchMode(ADODB_FETCH_NUM);
 		break;
@@ -95,9 +104,8 @@ if (!preg_match('/^[A-Za-z0-9_-]+$/', $CONFIG_language) || !is_file("lang/$CONFI
 }
 include_once "lang/$CONFIG_language/lang.php"; // imports lang file
 
-// Adds the CSRF token to forms and action links in everything this page outputs
+// Token that csrf_add_tokens() adds to forms and action links
 $csrf_token_value = csrf_token();
-ob_start('csrf_add_tokens');
 
 ini_set('magic_quotes_gpc', 'On');
 

@@ -161,17 +161,6 @@ function query_format($template) {
 	return $output;
 }
 
-function del_escape($input_string) {
-	global $CONFIG_server_type;
-	if ($CONFIG_server_type == 0) {
-		$input_string = str_replace("\\", "", $input_string);
-		return str_replace("''","'",$input_string);
-	}
-	else {
-		return stripslashes($input_string);
-	}
-}
-
 /**
  * @return string
  * @param string $input_string
@@ -1087,7 +1076,7 @@ function CharID_To_CharName ($input_char_id) {
 		return "";
 	}
 	else {
-		return del_escape($result->fields[0]);
+		return $result->fields[0];
 	}
 }
 /**
@@ -1106,7 +1095,7 @@ function AccountID_To_UserID($input_account_id) {
 		return "";
 	}
 	else {
-		return del_escape($result->fields[0]);
+		return $result->fields[0];
 	}
 }
 
@@ -1130,7 +1119,7 @@ function GuildID_To_GuildName($input_guild_id) {
 		return "";
 	}
 	else {
-		return del_escape($result->fields[0]);
+		return $result->fields[0];
 	}
 }
 
