@@ -35,7 +35,7 @@ if (!defined('CSRF_OUTPUT_FILTER')) {
 
 
 $php_version = phpversion();
-$cp_version = "5.0.5";
+$cp_version = "5.0.6";
 // Checks PHP Versions, will be used when PHP5 is mandatory
 /*
 if (!version_compare($version, "5.0.0", ">=")) {
