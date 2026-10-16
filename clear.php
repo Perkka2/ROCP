@@ -141,6 +141,7 @@ if ($CONFIG_server_type > 0 && $CONFIG_inactive_days > 0) {
 	}
 
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		$list_account = $line[0];
 		$list_account_name = $line[1];
 		$last_login = $line[2];

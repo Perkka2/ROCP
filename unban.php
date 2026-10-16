@@ -48,6 +48,7 @@ if (!$GET_action && !$POST_action) {
 	}
 	else {
 		while ($line = $result->FetchRow()) {
+			$line = array_map('html_escape', $line); // values from the database are shown as text
 			echo "
 	<tr class=mycell>
 		<td>{$line[0]}</td>

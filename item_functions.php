@@ -39,6 +39,7 @@ function display_aegis_item($item_id) {
 		</tr>
 		";
 		while ($line = $result->FetchRow()) {
+			$line = array_map('html_escape', $line); // values from the database are shown as text
 			echo "<tr class=mycell>";
 			if ($line[2] > 0) {
 				$bold_start = "<b>";
@@ -128,6 +129,7 @@ function display_item ($condition) {
 		for ($i = 0; $i < 2; $i++) {
 			$result = execute_query($search_query[$i], "item_functions.php");
 			while ($line = $result->FetchRow()) {
+				$line = array_map('html_escape', $line); // values from the database are shown as text
 				if ($i == 0) {
 					$bold_start = "<b>";
 					$bold_end = "</b>";
@@ -361,6 +363,7 @@ function display_source_id_items ($source_type, $name_id) {
 		</tr>
 			";
 			while ($line = $result->FetchRow()) {
+				$line = array_map('html_escape', $line); // values from the database are shown as text
 				echo "<tr class=mycell>\n";
 				foreach ($line as $display_index => $col_value) {
 					if ($display_index == 0) {

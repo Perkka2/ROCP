@@ -27,6 +27,7 @@ if (!$POST_action) {
 		redir("index.php", "You must have at least 1 character to use the roster!");
 	}
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>\n";
 		foreach ($line as $display_index => $col_value) {
 			if ($display_index == 0) {

@@ -25,6 +25,7 @@ if ($result->RowCount() == 0) {
 }
 else {
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>\n";
 		foreach ($line as $display_index => $col_value) {
 			if ($display_index == 1) {

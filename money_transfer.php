@@ -234,17 +234,4 @@ elseif ($POST_step == "4") {
 
 require 'footer.inc';
 
-function MoneyOnChar($input_char_id) {
-	global $CONFIG_passphrase;
-	$query = sprintf(MONEY_ON_CHAR, $CONFIG_passphrase, $input_char_id);
-	$result = execute_query($query, "money_transfer.php");
-	return $result->fields[0];
-}
-
-function LevelOfChar($input_char_id) {
-	global $CONFIG_passphrase;
-	$query = sprintf(LEVEL_OF_CHAR, $CONFIG_passphrase, $input_char_id);
-	$result = execute_query($query, "money_transfer.php");
-	return $result->fields[0];
-}
 ?>
