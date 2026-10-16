@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Phones and other small screens, for every skin.
+   header.inc loads this after the skin's style.css with
+   media="screen and (max-width: 760px)", so desktops keep the normal layout,
+   and old browsers that do not know media queries never load it.
+   Skins keep their own colours; a skin can add its own phone rules in an
+   @media screen and (max-width: 760px) block in its style.css.
+   ========================================================================== */
+
+/* Page and header */
+table, input, select, textarea {
+	box-sizing: border-box; /* not every skin sets this, 100% wide fields must fit their cell */
+}
+body {
+	min-width: 0 !important;
+	font-size: 14px;
+}
+.header, .main, .loginstatus, .footer, .debuginfo {
+	width: auto !important;
+	margin-left: 6px !important;
+	margin-right: 6px !important;
+}
+.header {
+	height: auto !important;
+	padding: 8px !important;
+}
+.servername {
+	font-size: 44px !important;
+	line-height: 1.2;
+}
+.serverinfo {
+	position: static !important;
+	float: none !important;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 0 6px 0 !important;
+	font-size: 12px;
+}
+.loginstatus {
+	padding: 10px !important;
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+/* Menu: above the content (the *Left skins put it in a column next to it),
+   full width rows that are easy to tap, each section opens on tap */
+.main, .menu, .dropdowncontainer, .content {
+	display: block !important;
+	float: none !important;
+	width: 100% !important;
+}
+.menu {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.menuheader, .menusubheader, .menu a {
+	width: 100% !important;
+}
+.menuheader a {
+	padding: 12px 0 !important;
+	font-size: 16px;
+}
+.menu a {
+	padding: 11px 14px !important;
+	font-size: 15px;
+}
+.dropdownmenu {
+	display: none !important;
+	position: static !important;
+	box-shadow: none !important;
+}
+.dropdowncontainer:hover .dropdownmenu, .dropdowncontainer:focus-within .dropdownmenu {
+	display: block !important;
+}
+
+/* Tables: wide ones scroll sideways inside the page instead of squeezing */
+.contentTable, .mytable {
+	display: block;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+table {
+	table-layout: auto !important;
+}
+.mytitle td, .contentRowHeader td {
+	padding-left: 12px !important;
+	white-space: normal;
+}
+.mytitle, .contentRowHeader {
+	font-size: 18px !important;
+}
+.mycell, .mytext {
+	font-size: 13px;
+}
+
+/* Forms: readable, tappable and never wider than the screen
+   (16px also stops iOS zooming into a field) */
+input, select, textarea, .myctl {
+	font-size: 16px !important;
+	min-height: 32px;
+}
+input[type=text], input[type=password], select, textarea {
+	max-width: 100%;
+}
+/* Login: User and Password on their own full-width lines */
+form[action="login.php"] input[type=text], form[action="login.php"] input[type=password] {
+	display: block;
+	width: 100%;
+	margin: 4px 0 10px 0;
+}
+
+/* Page numbers and the A-Z letters (item and monster lists) wrap instead of running off the side */
+.pageing, .pageing tbody, .pageing tr {
+	display: block;
+}
+.pageing td {
+	display: inline-block;
+	padding: 4px 6px !important;
+}
+
+/* Monster list: the stat columns wrap two per line, picture and titles full width */
+.contentTable.mobList, .contentTable.mobList tbody, .contentTable.mobList tr {
+	display: block;
+	white-space: normal;
+}
+.contentTable.mobList td {
+	display: inline-block;
+	width: 49%;
+	vertical-align: top;
+	padding: 2px 6px !important;
+}
+.contentTable.mobList td:empty {
+	display: none;
+}
+.contentTable.mobList tr.contentRowHeader td, .contentTable.mobList tr.contentRowSubHeader td,
+.contentTable.mobList td[rowspan], .contentTable.mobList td[colspan] {
+	display: block;
+	width: auto;
+}
+
+/* Inventory: character picture, hairstyle and item rows below each other */
+.contentRowHeader.charlist td {
+	display: block !important;
+}
+.contentRowHeader.charlist b {
+	margin-right: 10px;
+}
+.contentRowHeader div {
+	width: auto !important;
+}
+.charstats {
+	float: none !important;
+	width: auto !important;
+	height: auto !important;
+	padding: 0 0 8px 0 !important;
+}
+.charitems, .charitems tbody, .charitems tr, .charitems td {
+	display: block !important;
+	width: auto !important;
+	height: auto !important;
+}
+.charitems td {
+	padding: 4px 0 !important;
+	overflow: hidden; /* each row holds its own floating item slots, so labels stay above them */
+}
+/* Item details: tap a slot (the pointer cursor makes iOS treat a tap as hover),
+   the details are shown across the screen */
+.equipmentList {
+	cursor: pointer;
+	width: 40px !important;
+	height: 40px !important;
+}
+.equipmentList .tooltipcontainer {
+	position: fixed !important;
+	left: 8px;
+	right: 8px;
+	top: 15%;
+	margin: 0 !important;
+	z-index: 10;
+}
+
+/* Footer columns below each other */
+.footerinfo, .skinselection {
+	float: none !important;
+	width: 100% !important;
+	margin-bottom: 8px;
+}
+
+/* Debug output (admins with debug on) scrolls sideways */
+.debuginfo {
+	overflow-x: auto;
+}
