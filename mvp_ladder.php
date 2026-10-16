@@ -97,6 +97,7 @@ if (!$GET_id && !$GET_mob_id) {
 		";
 	}
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>";
 		foreach ($line as $display_index => $col_value) {
 			if ($display_index == 0) {
@@ -124,6 +125,7 @@ elseif ($GET_id) {
 </tr>
 	";
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>";
 		foreach ($line as $display_index => $col_value) {
 			if ($display_index == 0) {
@@ -145,6 +147,7 @@ else {
 </tr>
 	";
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>";
 		foreach ($line as $display_index => $col_value) {
 			if ($display_index == 0) {

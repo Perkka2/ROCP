@@ -29,6 +29,7 @@ if ($result->RowCount() == 0) {
 }
 else {
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		$display_emblem_id = md5($line[0] . $CONFIG_passphrase);
 		echo "
 		<tr class=mycell>
@@ -94,6 +95,7 @@ if ($result->RowCount() == 0) {
 }
 else {
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		$display_emblem_id = md5($line[1] . $CONFIG_passphrase);
 		echo "<tr class=mycell>\n";
 		foreach ($line as $display_index => $col_value) {

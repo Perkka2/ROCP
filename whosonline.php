@@ -134,6 +134,7 @@ function display_online($input_query, $input_query2) {
 		}
 		for ($i = 0; $i < 2; $i++) {
 			while ($line = $result[$i]->FetchRow()) {
+				$line = array_map('html_escape', $line); // values from the database are shown as text
 				echo "
 		<tr class=mycell>
 				";

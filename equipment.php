@@ -49,6 +49,7 @@ $headgearId = array(
 	}
 	
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=\"contentRowHeader charlist\">\n";
 				echo "<td><b>$line[1]</b>$line[0]</td></tr>\n
 								<tr class=\"contentRowHeader charlist\">\n

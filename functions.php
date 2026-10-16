@@ -257,8 +257,10 @@ function csrf_protected_actions() {
 		'edit_announcement.php' => array('del'),
 		'equipment.php' => array('action'),
 		'guild_manage.php' => array('delete', 'option=emptycastle'),
+		'index.php' => array('act=updatestatus'),
 		'item_manage.php' => array('delete_inv', 'delete_stor', 'delete_cart'),
 		'ladder_ignore.php' => array('add', 'del', 'account_name'),
+		'login.php' => array('action=logout'),
 		'pending.php' => array('auth', 'del', 'action'),
 		'privileges.php' => array('add', 'del', 'saveedit'),
 		'rebuild_items.php' => array('*'),
@@ -273,6 +275,10 @@ function csrf_protected_actions() {
 */
 function csrf_required($page) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		return true;
+	}
+	// header.inc refreshes the server status on every page that gets ?act=updatestatus
+	if (isset($_GET['act']) && $_GET['act'] == 'updatestatus') {
 		return true;
 	}
 	$protected = csrf_protected_actions();
@@ -1447,7 +1453,7 @@ function ShowGuildInfo($guild_id) {
 	echo "
 <table class=\"mytable\" cellpadding=0 width=80% align=center>
 	<tr class=mytitle>
-		<td colspan=5>Guild Information for: $guild_name</td>
+		<td colspan=5>Guild Information for: " . html_escape($guild_name) . "</td>
 	</tr>
 	<tr class=mytitle>
 		<td colspan=5>Alliances/Enemies</td>
@@ -1459,6 +1465,7 @@ function ShowGuildInfo($guild_id) {
 	";
 	if ($result->RowCount() > 0) {
 		while ($line = $result->FetchRow()) {
+			$line = array_map('html_escape', $line); // values from the database are shown as text
 			echo "<tr class=mycell>";
 			$current_row = 0;
 			foreach ($line as $col_value) {
@@ -1500,6 +1507,7 @@ function ShowGuildInfo($guild_id) {
 		</tr>
 	";
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>\n";
 		$current_row = 0;
 		foreach ($line as $col_value) {

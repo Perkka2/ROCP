@@ -324,6 +324,7 @@ echo "
 $query = SHOW_ADMIN;
 $result = execute_query($query, "server_info.php");
 while ($line = $result->FetchRow()) {
+	$line = array_map('html_escape', $line); // values from the database are shown as text
 	if ($line[1] == 4) {
 		$bold_start = "<b>";
 		$bold_end = "</b>";

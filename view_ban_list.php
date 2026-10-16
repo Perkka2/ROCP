@@ -28,6 +28,7 @@ if ($CONFIG_server_type > 0) {
 	}
 	else {
 		while ($line = $result->FetchRow()) {
+			$line = array_map('html_escape', $line); // values from the database are shown as text
 			echo "<tr class=mycell>\n";
 			foreach ($line as $col_value) {
 				echo "<td>$col_value</td>\n";
@@ -60,6 +61,7 @@ if ($result->RowCount() == 0) {
 }
 else {
 	while ($line = $result->FetchRow()) {
+		$line = array_map('html_escape', $line); // values from the database are shown as text
 		echo "<tr class=mycell>\n";
 		foreach ($line as $col_value) {
 			echo "<td><a href=\"account_manage.php?search=$col_value\">$col_value</a></td>\n";
