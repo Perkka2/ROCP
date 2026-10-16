@@ -176,8 +176,8 @@ else {
 		if (!in_array($POST_table, array("user_announce", "gm_announce", "admin_announce"), true)) {
 			redir("index.php", "Invalid announcement type!");
 		}
-		$new_message = add_escape(generate_breaks($POST_message));
-		$query = sprintf(SAVE_ANNOUNCEMENT, $POST_table, $POST_date, $new_message, $POST_poster, $POST_post_id);
+		$new_message = generate_breaks($POST_message);
+		$query = query_format(SAVE_ANNOUNCEMENT, $POST_table, $POST_date, $new_message, $POST_poster, $POST_post_id);
 		$result = execute_query($query, "edit_announcement.php");
 		add_admin_entry("Edited an Announcement");
 		redir("index.php", "Announcement Edited!");
@@ -196,7 +196,7 @@ else {
 		<td>Poster</td>
 	</tr>
 		";
-		$query = sprintf(SHOW_EDIT_MESSAGE, $table, $GET_edit);
+		$query = query_format(SHOW_EDIT_MESSAGE, $table, $GET_edit);
 		$result = execute_query($query, "edit_announcement.php");
 		$line = $result->FetchRow();
 		$post_id = $line[0];
@@ -230,7 +230,7 @@ else {
 		";	
 	}
 	if ($GET_del != "") {
-		$query = sprintf(DELETE_ANNOUNCEMENT, $table, $GET_del);
+		$query = query_format(DELETE_ANNOUNCEMENT, $table, $GET_del);
 		$result = execute_query($query, "edit_announcement.php");
 		if ($link->Affected_Rows() > 0) {
 			add_admin_entry("Deleted an announcement");

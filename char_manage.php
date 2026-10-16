@@ -20,17 +20,17 @@ if ($GET_option == "search") {
 }
 // Searches for character if requested
 if ($GET_search != "") {
-	$query = sprintf(CHAR_COUNT, sprintf(CHAR_COUNT_CONDITION_NAME, $GET_search));
+	$query = query_format(CHAR_COUNT, query_format(CHAR_COUNT_CONDITION_NAME, $GET_search));
 	$result = execute_query($query, "char_manage.php");
 	$line = $result->FetchRow();
 	$total_results = $line[0];
-	$query = sprintf(CHAR_LIST, sprintf(CHAR_SEARCH, $GET_search));
+	$query = query_format(CHAR_LIST, query_format(CHAR_SEARCH, $GET_search));
 	display_char_table($query, $total_results, "search", $GET_search, false, $size, $start, true);
-	$query = sprintf(CHAR_COUNT, "");
+	$query = query_format(CHAR_COUNT, "");
 	$result = execute_query($query, "char_manage.php");
 	$line = $result->FetchRow();
 	$total_results = $line[0];
-	$query = sprintf(CHAR_LIST, CHAR_SHOW_LIST);
+	$query = query_format(CHAR_LIST, CHAR_SHOW_LIST);
 	echo "<p>";
 	display_char_table($query, $total_results, "none", "none", false, $size, $start);
 }
@@ -66,7 +66,7 @@ elseif ($POST_finishedit == "Edit This Character!") {
 	"Base Level", "Job Level", "Zeny", "STR", "AGI", "VIT", "INT", "DEX", "LUK", "Max HP",
 	"Max SP", "Stat Points", "Skill Points", "Position", "Po-X", "Po-Y", "Save Position",
 	"Sv-X", "Sv-Y");
-	$query = sprintf(CHAR_SHOW_EDIT, $POST_var[0]);
+	$query = query_format(CHAR_SHOW_EDIT, $POST_var[0]);
 	$result = execute_query($query, "account_manage.php");
 	$line = $result->FetchRow();
 	foreach ($line as $index => $col_value) {
@@ -98,14 +98,14 @@ elseif ($POST_finishedit == "Edit This Character!") {
 	}
 	
 	if ($CONFIG_server_type == 0) {
-		$query = sprintf(CHAR_EDIT, $POST_var[2], $POST_var[3], $POST_var[4], $POST_var[5],
+		$query = query_format(CHAR_EDIT, $POST_var[2], $POST_var[3], $POST_var[4], $POST_var[5],
 		$POST_var[6], $POST_var[7], $POST_var[8], $POST_var[9], $POST_var[10], $POST_var[11], 
 		$POST_var[12], $POST_var[13], $POST_var[14], $POST_var[15], $POST_var[16], $POST_var[17],
 		$POST_var[18], $POST_var[19], $POST_var[20], $POST_var[21], $POST_var[22], $POST_var[23],
 		$effect_value, $body_value, $health_value, $POST_var[0]);
 	}
 	else {
-		$query = sprintf(CHAR_EDIT, $POST_var[2], $POST_var[3], $POST_var[4], $POST_var[5],
+		$query = query_format(CHAR_EDIT, $POST_var[2], $POST_var[3], $POST_var[4], $POST_var[5],
 		$POST_var[6], $POST_var[7], $POST_var[8], $POST_var[9], $POST_var[10], $POST_var[11], 
 		$POST_var[12], $POST_var[13], $POST_var[14], $POST_var[15], $POST_var[16], $POST_var[17],
 		$POST_var[18], $POST_var[19], $POST_var[20], $POST_var[21], $POST_var[22], $POST_var[23],
@@ -121,31 +121,35 @@ elseif ($GET_delete == "Delete") {
 	redir("char_manage.php", "Deleted Character $char_name");
 }
 elseif ($GET_option == "editchar" && $GET_char_id != "") {
-	$query = sprintf(CHAR_SHOW_EDIT, $GET_char_id);
+	$query = query_format(CHAR_SHOW_EDIT, $GET_char_id);
 	display_edit_table($query);
 }
 elseif ($GET_class != "") {
-	$query = sprintf(CHAR_COUNT, sprintf(CHAR_COUNT_CONDITION_CLASS, $GET_class));
+	$query = query_format(CHAR_COUNT, query_format(CHAR_COUNT_CONDITION_CLASS, $GET_class));
 	$result = execute_query($query, "char_manage.php");
 	$line = $result->FetchRow();
 	$total_results = $line[0];
-	$query = sprintf(CHAR_LIST, sprintf(CHAR_SORT_CLASS, $GET_class));
+	$query = query_format(CHAR_LIST, query_format(CHAR_SORT_CLASS, $GET_class));
 	display_char_table($query, $total_results, "class", $GET_class, true, $size, $start);
 }
 elseif ($GET_sort != "") {
-	$query = sprintf(CHAR_COUNT, "");
+	$query = query_format(CHAR_COUNT, "");
 	$result = execute_query($query, "char_manage.php");
 	$line = $result->FetchRow();
 	$total_results = $line[0];
-	$query = sprintf(CHAR_LIST, sprintf(CHAR_SORT, $GET_sort));
+	// Only plain column names can be used for sorting
+	if (!preg_match('/^[A-Za-z0-9_]+$/', $GET_sort)) {
+		redir("char_manage.php", "Invalid sort column!");
+	}
+	$query = query_format(CHAR_LIST, query_format(CHAR_SORT, $GET_sort));
 	display_char_table($query, $total_results, "sort", $GET_sort, true, $size, $start);
 }
 else {
-	$query = sprintf(CHAR_COUNT, "");
+	$query = query_format(CHAR_COUNT, "");
 	$result = execute_query($query, "char_manage.php");
 	$line = $result->FetchRow();
 	$total_results = $line[0];
-	$query = sprintf(CHAR_LIST, CHAR_SHOW_LIST);
+	$query = query_format(CHAR_LIST, CHAR_SHOW_LIST);
 	display_char_table($query, $total_results, "none", "none", true, $size, $start);
 }
 

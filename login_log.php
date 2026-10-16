@@ -4,7 +4,7 @@ require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 set_time_limit(0);
 if ($GET_login != "") {
-	$query = "SELECT ip FROM `loginlog` WHERE ip <> '' AND user = '$GET_login' GROUP BY ip ORDER BY ip DESC";
+	$query = "SELECT ip FROM `loginlog` WHERE ip <> '' AND user = '" . add_escape($GET_login) . "' GROUP BY ip ORDER BY ip DESC";
 	$header = "IPs that have accessed $GET_login";
 	$display_type = 1;
 }
@@ -15,7 +15,7 @@ elseif ($GET_ip != "") {
 	$display_type = 2;
 }
 elseif ($GET_history != "") {
-	$query = "SELECT time, ip, user, log FROM `loginlog` WHERE user = '$GET_history'";
+	$query = "SELECT time, ip, user, log FROM `loginlog` WHERE user = '" . add_escape($GET_history) . "'";
 	$header = "Time</td><td>IP</td><td>User</td><td>Log";
 	$display_type = 3;
 }

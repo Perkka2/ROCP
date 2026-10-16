@@ -6,13 +6,13 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 $query = SHOW_IGNORED;
 $result = execute_query($query, "ladder_ignore.php");
 if ($GET_del > 0) {
-	$query = sprintf(DEL_IGNORED, $GET_del);
+	$query = query_format(DEL_IGNORED, $GET_del);
 	$result = execute_query($query, "ladder_ignore.php");
 	add_admin_entry("Removed Account $GET_del to Ladder Ignored List");
 	redir("ladder_ignore.php", "Removed account $GET_del from ladder ignore!");
 }
 elseif ($GET_add > 0) {
-	$query = sprintf(ADD_IGNORED, $GET_add);
+	$query = query_format(ADD_IGNORED, $GET_add);
 	$result = execute_query($query, "ladder_ignore.php");
 	add_admin_entry("Added Account $GET_add to Ladder Ignored List");
 	redir("ladder_ignore.php", "Added account $GET_add to ladder ignore!");
@@ -20,7 +20,7 @@ elseif ($GET_add > 0) {
 elseif ($GET_account_name) {
 	$id = UserID_To_AccountID($GET_account_name);
 	if ($id) {
-		$query = sprintf(ADD_IGNORED, $id);
+		$query = query_format(ADD_IGNORED, $id);
 		$result = execute_query($query, "ladder_ignore.php");
 		add_admin_entry("Added Account $id to Ladder Ignored List");
 		redir("ladder_ignore.php", "Added account $id to ladder ignore!");

@@ -4,8 +4,8 @@ require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 echo "<table class=\"contentTable\">";
 if ($CONFIG_server_type == 0) {
-  $query = sprintf(GET_ALL_EXP);
-  //$query = sprintf(GET_CHARACTER_ITEMS, 100012);
+  $query = query_format(GET_ALL_EXP);
+  //$query = query_format(GET_CHARACTER_ITEMS, 100012);
   //echo $query;
   $result = execute_query_union($query, "exptable.php");
   $i = 1;

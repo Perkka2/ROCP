@@ -35,7 +35,7 @@ if (!$GET_action && !$POST_action) {
 elseif ($POST_action == "Ban This Account!") {
 	$ban_id = UserID_To_AccountID($POST_account_name);
 	$reason = $POST_reason;
-	$query = sprintf(BAN_ACCOUNT, $ban_id);
+	$query = query_format(BAN_ACCOUNT, $ban_id);
 	$result = execute_query($query, "ban.php");
 	add_admin_entry('Banned ' . $POST_account_name, $reason);
 	add_ban_entry($POST_account_name, $reason);

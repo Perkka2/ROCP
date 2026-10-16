@@ -115,7 +115,7 @@ elseif ($GET_action == "nochar_ignorestorage") {
 
 if ($CONFIG_server_type > 0 && $CONFIG_inactive_days > 0) {
 	// Selects all users, besides GMs, and selects their last login time
-	$query = sprintf(SHOW_INACTIVE_ACCOUNTS, $CONFIG_inactive_days);
+	$query = query_format(SHOW_INACTIVE_ACCOUNTS, $CONFIG_inactive_days);
 	$result = execute_query($query, "clear.php");
 	EchoHead(80);
 	echo "

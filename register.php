@@ -8,7 +8,7 @@ require 'memory.php';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 if ($GET_rc != "" && $GET_p >= 0 ) {
 	// Displays the image, based on the arguements in the image
-	$query = sprintf(GET_CODE, $GET_rc);
+	$query = query_format(GET_CODE, $GET_rc);
 	$result = execute_query($query, "register.php");
 	$line = $result->FetchRow();
 	$this_number = substr($line[0], $GET_p - 2, 1);
@@ -32,7 +32,7 @@ if ($GET_rc != "" && $GET_p >= 0 ) {
 require 'header.inc';
 
 if (strlen($GET_auth) == 32 && strlen($GET_user) >= 4) {
-	$query = sprintf(CONFIRM_AUTH, $GET_auth, $GET_user);
+	$query = query_format(CONFIRM_AUTH, $GET_auth, $GET_user);
 	$result = execute_query($query, "register.php");
 	if ($result->RowCount() == 0) {
 		redir("login.php", "Sorry, the auth code and/or username entered does not match the records in the database.");
@@ -40,7 +40,7 @@ if (strlen($GET_auth) == 32 && strlen($GET_user) >= 4) {
 	else {
 		$line = $result->FetchRow();
 		add_account($line[2], $line[3], $line[4], $line[5],$CONFIG_default_level, true);
-		$query = sprintf(DEL_PENDING, $GET_auth);
+		$query = query_format(DEL_PENDING, $GET_auth);
 		$result = execute_query($query, "register.php", 0, 0, true);
 		redir("login.php", "Account Verification successful! You can log into the CP, as well as the server now.");
 	}
@@ -87,12 +87,12 @@ if ($POST_action == "Register Account!") {
 	if (!isalphanumeric($register_user) or !isalphanumeric($register_password)) {
 		display_error("Illegal characters detected. Please use A-Z, a-z, 0-9 only.");
 	}
-	$query = sprintf(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
+	$query = query_format(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
 	$result = execute_query($query, "register.php");
 	if ($result->RowCount() > 0) {
 		display_error("Account Already Exists, please choose another one.");
 	}
-	$query = sprintf(CHECK_DUPE_PENDING_ACCOUNT, $register_user);	// searches if account already exists
+	$query = query_format(CHECK_DUPE_PENDING_ACCOUNT, $register_user);	// searches if account already exists
 	$result = execute_query($query, "register.php");
 	if ($result->RowCount() > 0) {
 		if ($CONFIG_register_type == 1) {
@@ -104,13 +104,13 @@ if ($POST_action == "Register Account!") {
 	}
 	if ($CONFIG_secure_mode) {
 		// Checks that security code entered is the same as code in DB
-		$query = sprintf(CHECK_CODE, $POST_reg_id, $POST_code);
+		$query = query_format(CHECK_CODE, $POST_reg_id, $POST_code);
 		$result = execute_query($query, "register.php");
 		if ($result->RowCount() == 0) {
 			display_error("You did not enter the correct security code!");
 		}
 		// There is a match, delete the entry from the DB
-		$query = sprintf(DELETE_CODE, $POST_reg_id);
+		$query = query_format(DELETE_CODE, $POST_reg_id);
 		$result = execute_query($query, "register.php", 0, 0, true);
 	}
 	// Next line added by Maldiablo
@@ -135,7 +135,7 @@ if ($POST_action == "Register Account!") {
 	
 	if ($CONFIG_max_per_ip > 0) {
 		// Checks that max accounts per IP has not been exceeded
-		$query = sprintf(CHECK_MAX_ACCOUNTS_IP, $ip);
+		$query = query_format(CHECK_MAX_ACCOUNTS_IP, $ip);
 		$result = execute_query($query, "register.php");
 		if ($result->fields[0] >= $CONFIG_max_per_ip) {
 			display_error("You cannot sign up for more accounts!");
@@ -144,7 +144,7 @@ if ($POST_action == "Register Account!") {
 	
 	if ($CONFIG_max_per_email > 0) {
 		// Checks that max accounts by email has not been exceeded
-		$query = sprintf(CHECK_MAX_ACCOUNTS_EMAIL, $register_email);
+		$query = query_format(CHECK_MAX_ACCOUNTS_EMAIL, $register_email);
 		$result = execute_query($query, "register.php");
 		if ($result->fields[0] >= $CONFIG_max_per_email) {
 			display_error("You cannot have more than $CONFIG_max_per_email accounts on $register_email!");
@@ -155,7 +155,7 @@ if ($POST_action == "Register Account!") {
 	if ($CONFIG_register_type > 0) {
 		if ($CONFIG_max_per_ip > 0) {
 			// Checks that max accounts per IP in pending list has not been exceeded
-			$query = sprintf(CHECK_MAX_PENDING_ACCOUNTS_IP, $ip);
+			$query = query_format(CHECK_MAX_PENDING_ACCOUNTS_IP, $ip);
 			$result = execute_query($query, "register.php");
 			$line = $result->FetchRow();
 			if ($result->fields[0] >= $CONFIG_max_per_ip) {
@@ -165,7 +165,7 @@ if ($POST_action == "Register Account!") {
 		
 		if ($CONFIG_max_per_email > 0) {
 			// Checks that max accounts by email has not been exceeded
-			$query = sprintf(CHECK_MAX_PENDING_ACCOUNTS_EMAIL, $register_email);
+			$query = query_format(CHECK_MAX_PENDING_ACCOUNTS_EMAIL, $register_email);
 			$result = execute_query($query, "register.php");
 			if ($result->fields[0] >= $CONFIG_max_per_email) {
 				display_error("You cannot have more than $CONFIG_max_per_email accounts on $register_email in pending list!");
@@ -182,7 +182,7 @@ if ($POST_action == "Register Account!") {
 			// Inserts the user to pending table
 			$reg_id = md5(uniqid(microtime()) ); // generate a unique session id
 			// Adds the account, with encrypted password to pending table
-			$query = sprintf(ADD_PENDING, $reg_id, $register_user, $register_password, $register_gender, $register_email, $ip);
+			$query = query_format(ADD_PENDING, $reg_id, $register_user, $register_password, $register_gender, $register_email, $ip);
 			$result = execute_query($query, "register.php", 0, 0, true);
 			break;
 	}
@@ -297,7 +297,7 @@ else {
 		// Anti-bot registration
 		
 		// Clear out old register IDs older than 1 hour old.
-		$query = sprintf(CLEAR_CODES, time() - (60*60));
+		$query = query_format(CLEAR_CODES, time() - (60*60));
 		$result = execute_query($query, 'register.php', 0, 0, true);
 		
 		$reg_id = md5(uniqid(microtime()) ); // set a unique session id
@@ -306,7 +306,7 @@ else {
 		$reg_code = mt_rand(100000, 999999);
 		
 		// Stores the security code into the DB
-		$query = sprintf(INSERT_CODE, $reg_id, $reg_code, time());
+		$query = query_format(INSERT_CODE, $reg_id, $reg_code, time());
 		$result = execute_query($query, "register.php", 0, 0, true);
 		
 		echo "<p>Please enter the numbers of the image below into the text box.<br>\n";

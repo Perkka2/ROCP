@@ -18,7 +18,7 @@ if ($GET_option == "infoguild") {
 // Searches for character if requested
 if ($GET_search != "") {
 	$search_guild = $GET_search;
-	$query = sprintf(GUILD_SEARCH, $search_guild);
+	$query = query_format(GUILD_SEARCH, $search_guild);
 	display_guild_table($query, true, $search_guild);
 	$query = DISPLAY_GUILD_MANAGE;
 	display_guild_table($query);
@@ -37,7 +37,7 @@ elseif ($GET_option == "deleteguild") {
 elseif ($POST_finishedit == "Edit This Guild!") {
 	// Compare every value with the database value
 	$edit_variables = array("Guild ID", "Guild Name", "Master", "Guild Level", "Guild EXP");
-	$query = sprintf(GUILD_SHOW_EDIT, $POST_var[0]);
+	$query = query_format(GUILD_SHOW_EDIT, $POST_var[0]);
 	$result = execute_query($query, "guild_manage.php");
 	$line = $result->FetchRow();
 	foreach ($line as $index => $col_value) {
@@ -47,12 +47,12 @@ elseif ($POST_finishedit == "Edit This Guild!") {
 		}
 	}
 	
-	$query = sprintf(UPDATE_GUILD, $POST_var[1], $POST_var[3], $POST_var[4], $POST_var[0]);
+	$query = query_format(UPDATE_GUILD, $POST_var[1], $POST_var[3], $POST_var[4], $POST_var[0]);
 	$result = execute_query($query, "guild_manage.php");
 	redir("guild_manage.php", "Guild Updated! Bringing you to Guild Management");
 }
 elseif ($POST_finishedit == "Edit This Castle!") {
-	$query = sprintf(UPDATE_GUILD_CASTLE, $POST_guild_id, $POST_economy, $POST_defense, 
+	$query = query_format(UPDATE_GUILD_CASTLE, $POST_guild_id, $POST_economy, $POST_defense, 
 	$POST_visibleC, $POST_visibleG0, $POST_visibleG1, $POST_visibleG2, $POST_visibleG3, 
 	$POST_visibleG4, $POST_visibleG5, $POST_visibleG6, $POST_visibleG7, $POST_editcastle
 	);
@@ -67,15 +67,15 @@ elseif ($GET_delete == "Delete") {
 	redir("guild_manage.php", "Guild $guild_name Deleted!");
 }
 elseif ($GET_option == "editguild") {
-	$query = sprintf(GUILD_SHOW_EDIT, $GET_guild_id);
+	$query = query_format(GUILD_SHOW_EDIT, $GET_guild_id);
 	display_edit_table($query);
 }
 elseif ($GET_option == "editcastle") {
-	$query = sprintf(CASTLE_SHOW_EDIT, $GET_castle_id);
+	$query = query_format(CASTLE_SHOW_EDIT, $GET_castle_id);
 	display_edit_castle($query, $GET_castle_id);
 }
 elseif ($GET_option == "emptycastle") {
-	$query = sprintf(EMPTY_GUILD_CASTLE, $GET_castle_id);
+	$query = query_format(EMPTY_GUILD_CASTLE, $GET_castle_id);
 	$result = execute_query($query, "guild_manage.php");
 	add_admin_entry("Cleared Castle $GET_castle_id");
 	redir("guild_manage.php", "Castle Cleared! Bringing you to Guild Management");

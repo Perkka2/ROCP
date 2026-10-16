@@ -41,17 +41,17 @@ if ($STORED_level < 2 && $CONFIG_server_type > 0) {
 //Who's Online
 if (!$GET_map) {
 	if ($CONFIG_server_type == 0) {
-		$query = sprintf(SHOW_ONLINE, "", ONLINE_WITH_GM, "");
-		$query2 = sprintf(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, "");
+		$query = query_format(SHOW_ONLINE, "", ONLINE_WITH_GM, "");
+		$query2 = query_format(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, "");
 	}
 	else {
 		if ($STORED_level > 2) {
-			$query = sprintf(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITH_GM, "");
-			$query2 = sprintf(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITHOUT_GM, "");
+			$query = query_format(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITH_GM, "");
+			$query2 = query_format(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITHOUT_GM, "");
 		}
 		else {
-			$query = sprintf(SHOW_ONLINE, "", ONLINE_WITH_GM, "");
-			$query2 = sprintf(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, "");
+			$query = query_format(SHOW_ONLINE, "", ONLINE_WITH_GM, "");
+			$query2 = query_format(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, "");
 		}
 	}
 	EchoHead(80);
@@ -79,12 +79,12 @@ else {
 		add_user_entry("Possible SQL injection attempt in whosonline.php");
 	}
 	if ($STORED_level > 2) {
-		$query = sprintf(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITH_GM, sprintf(CONDITION_MAP, $GET_map));
-		$query2 = sprintf(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITHOUT_GM, sprintf(CONDITION_MAP, $GET_map));
+		$query = query_format(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITH_GM, query_format(CONDITION_MAP, $GET_map));
+		$query2 = query_format(SHOW_ONLINE, SHOW_POSITION, ONLINE_WITHOUT_GM, query_format(CONDITION_MAP, $GET_map));
 	}
 	else {
-		$query = sprintf(SHOW_ONLINE, "", ONLINE_WITH_GM, sprintf(CONDITION_MAP, $GET_map));
-		$query2 = sprintf(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, sprintf(CONDITION_MAP, $GET_map));
+		$query = query_format(SHOW_ONLINE, "", ONLINE_WITH_GM, query_format(CONDITION_MAP, $GET_map));
+		$query2 = query_format(SHOW_ONLINE, "", ONLINE_WITHOUT_GM, query_format(CONDITION_MAP, $GET_map));
 	}
 	display_online($query, $query2);
 }

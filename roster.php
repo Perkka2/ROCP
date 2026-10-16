@@ -21,7 +21,7 @@ if (!$POST_action) {
 	</tr>
 	";
 	
-	$query = sprintf(GET_ROSTER_CHARS, $STORED_id);
+	$query = query_format(GET_ROSTER_CHARS, $STORED_id);
 	$result = execute_query($query, "roster.php");
 	if ($result->RowCount() == 0) {
 		redir("index.php", "You must have at least 1 character to use the roster!");
@@ -87,7 +87,7 @@ elseif ($POST_action == "Swap!") {
 		redir("roster.php", "Invalid character slots selected");
 	}
 	//Check for GID of first char
-	$query = sprintf(GET_ROSTER_GID, $POST_slot1, $STORED_id);
+	$query = query_format(GET_ROSTER_GID, $POST_slot1, $STORED_id);
 	$result = execute_query($query, "roster.php");
 	if ($result->RowCount() > 0) {
 		$GID1 = $result->fields[0];
@@ -96,7 +96,7 @@ elseif ($POST_action == "Swap!") {
 		$GID1 = 0;
 	}
 	//Check for GID of second char
-	$query = sprintf(GET_ROSTER_GID, $POST_slot2, $STORED_id);
+	$query = query_format(GET_ROSTER_GID, $POST_slot2, $STORED_id);
 	$result = execute_query($query, "roster.php");
 	if ($result->RowCount() > 0) {
 		$GID2 = $result->fields[0];
@@ -111,23 +111,23 @@ elseif ($POST_action == "Swap!") {
 	}
 	elseif ($GID1 > 0 AND $GID2 == 0) {
 		// Swapping active character to blank spot
-		$query = sprintf(MOVE_ROSTER, $POST_slot2, $GID1, $STORED_id);
+		$query = query_format(MOVE_ROSTER, $POST_slot2, $GID1, $STORED_id);
 		$result = execute_query($query, "roster.php");
 		add_user_entry("Switched Slot $POST_slot1 with $POST_slot2");
 		redir("roster.php", "Character moved from active to reserve roster successfully");
 	}
 	elseif ($GID1 == 0 AND $GID2 > 0) {
 		// Swapping inactive character to blank spot
-		$query = sprintf(MOVE_ROSTER, $POST_slot1, $GID2, $STORED_id);
+		$query = query_format(MOVE_ROSTER, $POST_slot1, $GID2, $STORED_id);
 		$result = execute_query($query, "roster.php");
 		add_user_entry("Switched Slot $POST_slot1 with $POST_slot2");
 		redir("roster.php", "Character moved from reserve to active roster successfully");
 	}
 	elseif ($GID1 > 0 AND $GID2 > 0) {
 		// Swapping active character with another active character
-		$query = sprintf(MOVE_ROSTER, $POST_slot2, $GID1, $STORED_id);
+		$query = query_format(MOVE_ROSTER, $POST_slot2, $GID1, $STORED_id);
 		$result = execute_query($query, "roster.php");
-		$query = sprintf(MOVE_ROSTER, $POST_slot1, $GID2, $STORED_id);
+		$query = query_format(MOVE_ROSTER, $POST_slot1, $GID2, $STORED_id);
 		$result = execute_query($query, "roster.php");
 		add_user_entry("Switched Slot $POST_slot1 with $POST_slot2");
 		redir("roster.php", "Characters swapped between active and reserve successfully");

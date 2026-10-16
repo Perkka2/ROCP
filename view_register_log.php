@@ -7,7 +7,7 @@ if (!$GET_ip) {
 	$query = VIEW_REGISTER_LOG;
 }
 else {
-	$query = sprintf(VIEW_SORT_REGISTER_LOG, $GET_ip);
+	$query = query_format(VIEW_SORT_REGISTER_LOG, $GET_ip);
 }
 
 EchoHead(80);

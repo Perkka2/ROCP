@@ -17,7 +17,7 @@ if ($POST_saveedit != "") {
 		$edit_message = "Changed \$CONFIG['$POST_edit'] to " . htmlspecialchars($CONFIG[$POST_edit]);
 	}
 	// Adds to log
-	add_admin_entry(add_escape($edit_message));
+	add_admin_entry($edit_message);
 	redir("edit_config.php", $edit_message);
 }
 if (!$GET_edit) {

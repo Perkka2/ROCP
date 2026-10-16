@@ -44,7 +44,7 @@ if (!$POST_action) {
 	if ($CONFIG_sex_change) {
 		echo "<tr class=mycell>";
 		// Determine if there is bard/dancer in account
-		$query = sprintf(CHECK_BARD, $STORED_id);
+		$query = query_format(CHECK_BARD, $STORED_id);
 		$result = execute_query($query, "account.php");
 		if ($result->RowCount() == 0) {
 			$disable_gender = false;
@@ -52,7 +52,7 @@ if (!$POST_action) {
 		else {
 			$disable_gender = true;
 		}
-		$query = sprintf(CHECK_SEX, $STORED_id);
+		$query = query_format(CHECK_SEX, $STORED_id);
 		$result = execute_query($query, "account.php");
 		$line = $result->FetchRow();
 		$current_gender = $line[0];
@@ -100,10 +100,10 @@ elseif ($POST_action == "Change Password") {
 	$new_password2 = $POST_new_pass2;
 	// Confirm Old Password
 	if ($CONFIG_use_md5) {
-		$query = sprintf(CHECK_OLD_MD5_PASS, $STORED_login, $old_password);
+		$query = query_format(CHECK_OLD_MD5_PASS, $STORED_login, $old_password);
 	}
 	else {
-		$query = sprintf(CHECK_OLD_PASS, $STORED_login, $old_password);
+		$query = query_format(CHECK_OLD_PASS, $STORED_login, $old_password);
 	}
 	$result = execute_query($query, "account.php");
 	if ($result->RowCount() == 0) {
@@ -119,10 +119,10 @@ elseif ($POST_action == "Change Password") {
 			else {
 				//All checks have been passed, updating new password
 				if ($CONFIG_use_md5) {
-					$query = sprintf(UPDATE_NEW_MD5_PASS, $new_password, $STORED_id);
+					$query = query_format(UPDATE_NEW_MD5_PASS, $new_password, $STORED_id);
 				}
 				else {
-					$query = sprintf(UPDATE_NEW_PASS, $new_password, $STORED_id);
+					$query = query_format(UPDATE_NEW_PASS, $new_password, $STORED_id);
 				}
 				$result = execute_query($query, "account.php");
 				if ($link->Affected_Rows() > 0) {
@@ -141,7 +141,7 @@ elseif ($POST_action == "Change Password") {
 }
 elseif ($POST_action == "Change Gender") {
 	// Checks that you do not have bard/dancer on account
-	$query = sprintf(CHECK_BARD, $STORED_id);
+	$query = query_format(CHECK_BARD, $STORED_id);
 	$result = execute_query($query, "account.php");
 	
 	if ($CONFIG_server_type == 0) {
@@ -153,7 +153,7 @@ elseif ($POST_action == "Change Gender") {
 	}
 		
 	if ($result->RowCount() == 0) {
-		$query = sprintf(UPDATE_SEX, $POST_gender, $STORED_id);
+		$query = query_format(UPDATE_SEX, $POST_gender, $STORED_id);
 		$result = execute_query($query, "account.php");
 		add_user_entry("Changed Account to $log_gender");
 		redir("index.php", "Account Updated! Bringing you to Home Page");
@@ -163,7 +163,7 @@ elseif ($POST_action == "Change Gender") {
 	}
 }
 elseif ($POST_action == "Change Email") {
-	$query = sprintf(UPDATE_EMAIL, $POST_new_email, $STORED_id);
+	$query = query_format(UPDATE_EMAIL, $POST_new_email, $STORED_id);
 	$result = execute_query($query, "account.php");
 	add_user_entry("Changed Email to $POST_new_email");
 	redir("index.php", "Email Changed! Bringing you to Home Page");

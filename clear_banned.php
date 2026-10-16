@@ -56,7 +56,7 @@ if (!$GET_action) {
 }
 elseif ($GET_action == "Clear Account") {
 	$clear_id = UserID_To_AccountID($GET_account_name);
-	$query = sprintf(CHECK_IF_UNBANNED, $clear_id);
+	$query = query_format(CHECK_IF_UNBANNED, $clear_id);
 	$result = execute_query($query, "clear_banned.php");
 	if ($result->RowCount() == 0) {
 		redir("clear_banned.php", "$account_search is not banned!");

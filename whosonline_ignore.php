@@ -6,13 +6,13 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 $query = SHOW_OIGNORED;
 $result = execute_query($query, "whosonline_ignore.php");
 if ($GET_del > 0) {
-	$query = sprintf(DEL_OIGNORED, $GET_del);
+	$query = query_format(DEL_OIGNORED, $GET_del);
 	$result = execute_query($query, "whosonline_ignore.php");
 	add_admin_entry("Removed Account $GET_del to Who\'s Online Ignored List");
 	redir("whosonline_ignore.php", "Removed account $GET_del from Who's Online ignore!");
 }
 elseif ($GET_add > 0) {
-	$query = sprintf(ADD_OIGNORED, $GET_add);
+	$query = query_format(ADD_OIGNORED, $GET_add);
 	$result = execute_query($query, "whosonline_ignore.php");
 	add_admin_entry("Added Account $GET_add to Who\'s Online Ignored List");
 	redir("whosonline_ignore.php", "Added account $GET_add to Who's Online ignore!");
@@ -20,7 +20,7 @@ elseif ($GET_add > 0) {
 elseif ($GET_account_name) {
 	$id = UserID_To_AccountID($GET_account_name);
 	if ($id) {
-		$query = sprintf(ADD_OIGNORED, $id);
+		$query = query_format(ADD_OIGNORED, $id);
 		$result = execute_query($query, "whosonline_ignore.php");
 		add_admin_entry("Added Account $id to Who\'s Online Ignored List");
 		redir("whosonline_ignore.php", "Added account $id to Who's Online ignore!");

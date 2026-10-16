@@ -19,7 +19,7 @@ if (!$POST_action) {
 		redir("index.php", "Invalid Guild");
 	}
 	// Makes sure that the user is on the right guild page, otherwise, kicks them out
-	$query = sprintf(CHECK_MASTER, $CONFIG_passphrase, $GET_guild_id);
+	$query = query_format(CHECK_MASTER, $CONFIG_passphrase, $GET_guild_id);
 	$result = execute_query($query, "upload_emblem.php");
 	if ($result->RowCount() > 0) {
 		$line = $result->FetchRow();

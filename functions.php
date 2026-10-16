@@ -33,28 +33,28 @@ function add_account($login, $password, $sex, $email, $level, $skip_encrypt = fa
 	if ($CONFIG_server_type == 0) {
 		$sex = strtoupper($sex) == "F"? 0 : 1;
 		// Add to login table
-		$query = sprintf(ADD_ACCOUNT, $login, $password);
+		$query = query_format(ADD_ACCOUNT, $login, $password);
 		$result = execute_query($query, "functions.php");
 		// Get last AID added
-		$query = "SELECT AID FROM nLogin.dbo.login WHERE ID = '$login'";
+		$query = "SELECT AID FROM nLogin.dbo.login WHERE ID = '" . add_escape($login) . "'";
 		$result = execute_query($query, "functions.php");
 		$line = $result->FetchRow();
 		$register_aid = $line[0];
 		// Add to account table
-		$query = sprintf(ADD_ACCOUNT2, $register_aid, $login, $sex, $email);
+		$query = query_format(ADD_ACCOUNT2, $register_aid, $login, $sex, $email);
 		$result = execute_query($query, "functions.php");
 		// Insert to user.dbo.t_user
-		$query = sprintf(INSERT_T_USER, $register_aid, $login, $email, $sex);
+		$query = query_format(INSERT_T_USER, $register_aid, $login, $email, $sex);
 		$result = execute_query($query, "functions.php");
 	}
 	else {
 		// Add to login table
-		$query = sprintf(ADD_ACCOUNT, $login, $password, $sex, $email, $level);
+		$query = query_format(ADD_ACCOUNT, $login, $password, $sex, $email, $level);
 		$result = execute_query($query, "functions.php");
 	}
 	// Inserts the ip, time, as well as account that was registered into register log.
 	$ip = ip2long($_SERVER['REMOTE_ADDR']);
-	$query = sprintf(ADD_REGISTER_ENTRY, $login, $ip, $email,$level);
+	$query = query_format(ADD_REGISTER_ENTRY, $login, $ip, $email,$level);
 	$result = execute_query($query, "functions.php", 0, 0, true);
 	$message = sprintf($lang['accountadded'], $CONFIG_server_name, $login,
 	$CONFIG_website, $CONFIG_forums_location, $CONFIG_patch_location, $CONFIG_irc_channel,
@@ -107,18 +107,58 @@ function SendMail($contactname, $contactemail, $subject, $message) {
 /**
  * @return string
  * @param string $input_string
- * @desc Escapes the string, using ' for MSSQL, and \ for MySQL
+ * @desc Escapes a value with the database driver's own escaping, for use between quotes in a query
 */
 function add_escape($input_string) {
-	global $CONFIG_server_type;
-	if ($CONFIG_server_type == 0) {
-		// Eliminates the need for magic_quotes to be disabled
-		$input_string = str_replace("\\", "", $input_string);
-		return str_replace("'","''",$input_string);
+	global $link;
+	$quoted = $link->qstr((string)$input_string);
+	return substr($quoted, 1, strlen($quoted) - 2);
+}
+
+/**
+ * @return string
+ * @param string $template Query constant with %s, %d and %% placeholders, like sprintf()
+ * @desc Builds a query like sprintf(), but every %s between quotes is escaped and every %d is an integer.
+ * A %s outside quotes (table/column names, conditions built in code) is inserted as is,
+ * so only values from code or allow-lists may be passed there.
+*/
+function query_format($template) {
+	$args = func_get_args();
+	$arg_index = 1;
+	$in_quotes = false;
+	$output = "";
+	$length = strlen($template);
+	for ($i = 0; $i < $length; $i++) {
+		$char = $template[$i];
+		if ($char == "'") {
+			$in_quotes = !$in_quotes;
+		}
+		elseif ($char == '%' && $i + 1 < $length) {
+			$type = $template[$i + 1];
+			if ($type == '%') {
+				$output .= '%';
+				$i++;
+				continue;
+			}
+			if ($type == 's' || $type == 'd') {
+				$value = isset($args[$arg_index]) ? $args[$arg_index] : "";
+				$arg_index++;
+				if ($type == 'd') {
+					$output .= sprintf('%d', $value);
+				}
+				elseif ($in_quotes) {
+					$output .= add_escape($value);
+				}
+				else {
+					$output .= $value;
+				}
+				$i++;
+				continue;
+			}
+		}
+		$output .= $char;
 	}
-	else {
-		return addslashes($input_string);
-	}
+	return $output;
 }
 
 function del_escape($input_string) {
@@ -312,7 +352,7 @@ function csrf_add_link_token($match) {
  * @desc Returns true if this IP has logged $log_action at least $max_attempts times in the last $minutes
 */
 function too_many_attempts($log_action, $max_attempts, $minutes) {
-	$query = sprintf(COUNT_RECENT_ACCESS, add_escape($_SERVER['REMOTE_ADDR']), add_escape($log_action), $minutes);
+	$query = query_format(COUNT_RECENT_ACCESS, $_SERVER['REMOTE_ADDR'], $log_action, $minutes);
 	$result = execute_query($query, "functions.php", 0, 0, true);
 	return $result->fields[0] >= $max_attempts;
 }
@@ -640,7 +680,7 @@ function is_server_online() {
 }
 
 function get_level($account_id) {
-	$query = sprintf(GET_LEVEL, $account_id);
+	$query = query_format(GET_LEVEL, $account_id);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
 		// Clamp to the known levels (-1 Disabled ... 4 Admin)
@@ -652,7 +692,7 @@ function get_level($account_id) {
 }
 
 function get_gmlevel($account_id) {
-	$query = sprintf(GET_GMLEVEL, $account_id);
+	$query = query_format(GET_GMLEVEL, $account_id);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
 		return $result->fields[0];
@@ -686,10 +726,10 @@ function authenticate ($login_username, $login_password) {
 		}
 	}
 	if ($CONFIG_use_md5) {
-		$query = sprintf(AUTH_MD5, $login_username, $login_password);
+		$query = query_format(AUTH_MD5, $login_username, $login_password);
 	}
 	else {
-		$query = sprintf(AUTH, $login_username, $login_password);
+		$query = query_format(AUTH, $login_username, $login_password);
 	}
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
@@ -845,7 +885,7 @@ function add_access_entry($log_action) {
 	// 2: Logged in as a GM/Admin
 	global $STORED_login;
 	$log_source = $_SERVER['REMOTE_ADDR'];
-	$query = sprintf(ADD_ACCESS_ENTRY, $log_source, $log_action);
+	$query = query_format(ADD_ACCESS_ENTRY, $log_source, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
@@ -857,7 +897,7 @@ function add_access_entry($log_action) {
 function add_admin_entry($log_action) {
 	global $STORED_login;
 	$log_account = $STORED_login;
-	$query = sprintf(ADD_ADMIN_ENTRY, $log_account, $log_action);
+	$query = query_format(ADD_ADMIN_ENTRY, $log_account, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
@@ -871,7 +911,7 @@ function add_ban_entry($banned_account, $log_reason) {
 	global $STORED_login;
 	$log_account = $STORED_login;
 	$log_reason = "Banned: " . $log_reason;
-	$query = sprintf(ADD_BAN_ENTRY, $log_account, $banned_account, $log_reason);
+	$query = query_format(ADD_BAN_ENTRY, $log_account, $banned_account, $log_reason);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
@@ -881,21 +921,21 @@ function add_exploit_entry($log_action) {
 	if ($log_account == "") {
 		$log_account = $_SERVER['REMOTE_ADDR'];
 	}
-	$query = sprintf(ADD_EXPLOIT_ENTRY, $log_account, $log_action);
+	$query = query_format(ADD_EXPLOIT_ENTRY, $log_account, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
 function add_money_entry($from, $to, $log_action) {
 	global $CONFIG_passphrase;
-	$query = sprintf(CHECK_LOG_CHAR_ID, $CONFIG_passphrase, $from);
+	$query = query_format(CHECK_LOG_CHAR_ID, $CONFIG_passphrase, $from);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 	$from = $result->fields[0];
 
-	$query = sprintf(CHECK_LOG_CHAR_ID, $CONFIG_passphrase, $to);
+	$query = query_format(CHECK_LOG_CHAR_ID, $CONFIG_passphrase, $to);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 	$to = $result->fields[0];
 
-	$query = sprintf(ADD_MONEY_ENTRY, $from, $to, $log_action);
+	$query = query_format(ADD_MONEY_ENTRY, $from, $to, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
@@ -903,8 +943,7 @@ function add_query_entry($source, $log_query) {
 	global $STORED_login, $link;
 	$log_account = $STORED_login;
 	$log_ip = $_SERVER['REMOTE_ADDR'];
-	$log_query = add_escape($log_query);
-	$query = sprintf(ADD_QUERY_ENTRY, $log_account, $log_ip, $source, $log_query);
+	$query = query_format(ADD_QUERY_ENTRY, $log_account, $log_ip, $source, $log_query);
 	$result = $link->Execute($query) or die("Query ($query) failed: " . $link->ErrorMsg());
 }
 
@@ -912,14 +951,14 @@ function add_unban_entry($unbanned_account, $log_reason) {
 	global $STORED_login;
 	$log_account = $STORED_login;
 	$log_reason = "Unbanned: " . $log_reason;
-	$query = sprintf(ADD_UNBAN_ENTRY, $log_account, $unbanned_account, $log_reason);
+	$query = query_format(ADD_UNBAN_ENTRY, $log_account, $unbanned_account, $log_reason);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
 function add_user_entry($log_action) {
 	global $STORED_login;
 	$log_account = $STORED_login;
-	$query = sprintf(ADD_USER_ENTRY, $log_account, $log_action);
+	$query = query_format(ADD_USER_ENTRY, $log_account, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
 
@@ -958,7 +997,7 @@ function GetZenyCount() {
 */
 function is_online ($input_account_id) {
 	// returns whether or not account is online
-	$query = sprintf(IS_ONLINE, $input_account_id);
+	$query = query_format(IS_ONLINE, $input_account_id);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
 		return true;
@@ -985,7 +1024,7 @@ function GetGuildCount() {
 function ItemName_To_ItemID ($input_item_name) {
 	global $athena_db;
 	// Converts Item Name to Item #
-	$query = sprintf(ITEMNAME_TO_ITEMID, $input_item_name);
+	$query = query_format(ITEMNAME_TO_ITEMID, $input_item_name);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return 0;
@@ -1001,7 +1040,7 @@ function ItemID_To_ItemName ($input_item_ID) {
 		return "";
 	}
 	// Converts Item # to Item Name
-	$query = sprintf(ITEMID_TO_ITEMNAME, $input_item_ID);
+	$query = query_format(ITEMID_TO_ITEMNAME, $input_item_ID);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		if ($input_item_ID == 0 or $input_item_ID == 2 or $input_item_ID == 255) {
@@ -1022,7 +1061,7 @@ function ItemID_To_ItemName ($input_item_ID) {
 
 function CharName_To_CharID ($input_char_name) {
 	// Converts Char Name to Char ID
-	$query = sprintf(CHARNAME_TO_CHARID, add_escape($input_char_name));
+	$query = query_format(CHARNAME_TO_CHARID, $input_char_name);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return 0;
@@ -1042,7 +1081,7 @@ function CharID_To_CharName ($input_char_id) {
 		return "";
 	}
 	// Converts Char ID to Char Name
-	$query = sprintf(CHARID_TO_CHARNAME, $input_char_id);
+	$query = query_format(CHARID_TO_CHARNAME, $input_char_id);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return "";
@@ -1061,7 +1100,7 @@ function AccountID_To_UserID($input_account_id) {
 		return "";
 	}
 	// Converts Account ID to Account Name
-	$query = sprintf(ACCOUNTID_TO_USERID, $input_account_id);
+	$query = query_format(ACCOUNTID_TO_USERID, $input_account_id);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return "";
@@ -1073,8 +1112,7 @@ function AccountID_To_UserID($input_account_id) {
 
 function UserID_To_AccountID($input_user_id) {
 	// Converts Account Name to Account ID
-	$input_user_id = add_escape($input_user_id);
-	$query = sprintf(USERID_TO_ACCOUNTID, $input_user_id);
+	$query = query_format(USERID_TO_ACCOUNTID, $input_user_id);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return 0;
@@ -1086,7 +1124,7 @@ function UserID_To_AccountID($input_user_id) {
 
 function GuildID_To_GuildName($input_guild_id) {
 	// Converts Account ID to Account Name
-	$query = sprintf(GUILDID_TO_GUILDNAME, $input_guild_id);
+	$query = query_format(GUILDID_TO_GUILDNAME, $input_guild_id);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return "";
@@ -1098,8 +1136,7 @@ function GuildID_To_GuildName($input_guild_id) {
 
 function GuildName_To_GuildID($input_guild_name) {
 	// Converts Account Name to Account ID
-	$input_guild_name = add_escape($input_guild_name);
-	$query = sprintf(GUILDNAME_TO_GUILDID, $input_guild_name);
+	$query = query_format(GUILDNAME_TO_GUILDID, $input_guild_name);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return 0;
@@ -1116,8 +1153,7 @@ function GuildName_To_GuildID($input_guild_name) {
 */
 function account_of_character ($input_character_name) {
 	// character name, returns account name
-	$input_character_name = add_escape($input_character_name);
-	$query = sprintf(ACCOUNT_OF_CHAR, $input_character_name);
+	$query = query_format(ACCOUNT_OF_CHAR, $input_character_name);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		return "";
@@ -1128,9 +1164,10 @@ function account_of_character ($input_character_name) {
 }
 
 function clear_account($account_id) {
+	$account_id = intval($account_id);
 	global $CONFIG_server_type;
 	// input account #, clears everything associated with account
-	$query = sprintf(DISPLAY_ACCOUNT_ITEMS, $account_id);
+	$query = query_format(DISPLAY_ACCOUNT_ITEMS, $account_id);
 	$result = execute_query($query, 'functions.php');
 	while ($line = $result->FetchRow()) {
 		$delete_char_id = $line[0];
@@ -1154,6 +1191,7 @@ function clear_account($account_id) {
 }
 
 function clear_character($delete_char_id) {
+	$delete_char_id = intval($delete_char_id);
 	global $CONFIG_server_type, $CONFIG_passphrase;
 	// input char #, clears everything associated with character
 	// Following Sections clean the database of any trace of the account.
@@ -1166,7 +1204,7 @@ function clear_character($delete_char_id) {
 	// Check if that character is guild master
 	# fix?
 
-	$query = sprintf(CHARID_TO_CHARNAME, $delete_char_id );
+	$query = query_format(CHARID_TO_CHARNAME, $delete_char_id );
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
 			$delete_char = $result->fields[0];
@@ -1176,7 +1214,7 @@ function clear_character($delete_char_id) {
 
 	# end fix?
 
-	$query = sprintf(CHECK_GUILD_MASTER, $delete_char);
+	$query = query_format(CHECK_GUILD_MASTER, $delete_char);
 	$result = execute_query($query, "functions.php");
 	$line = $result->FetchRow();
 	if ($result->RowCount() > 0) {
@@ -1194,7 +1232,7 @@ function clear_character($delete_char_id) {
 			$result = execute_query($query, "functions.php");
 		}
 		// Character leaves the guild
-		$query = sprintf(LEAVE_GUILD, $delete_char_id);
+		$query = query_format(LEAVE_GUILD, $delete_char_id);
 		$result = execute_query($query, "functions.php");
 	}
 	// End Guild clearing
@@ -1202,7 +1240,7 @@ function clear_character($delete_char_id) {
 	// Start Party Clear
 
 	// Check if character is party master
-	$query = sprintf(CHECK_PARTY_MASTER, $delete_char_id);
+	$query = query_format(CHECK_PARTY_MASTER, $delete_char_id);
 	$result = execute_query($query, "functions.php");
 	$line = $result->FetchRow();
 	$delete_party_id = $line[0];
@@ -1219,10 +1257,10 @@ function clear_character($delete_char_id) {
 		}
 
 		// Delete party
-		$query = sprintf(DELETE_PARTY, $delete_party_id);
+		$query = query_format(DELETE_PARTY, $delete_party_id);
 		$result = execute_query($query, "functions.php");
 		if ($CONFIG_server_type == 0) {
-			$query = sprintf(DELETE_PARTY2, $delete_party_id);
+			$query = query_format(DELETE_PARTY2, $delete_party_id);
 			$result = execute_query($query, "functions.php");
 		}
 	}
@@ -1257,14 +1295,15 @@ function clear_character($delete_char_id) {
 		);
 	}
 	foreach ($delete_table as $table_name) {
-		$query = sprintf(DELETE_CHAR, $table_name, $delete_char_id);
+		$query = query_format(DELETE_CHAR, $table_name, $delete_char_id);
 		$result = execute_query($query, "functions.php");
 	}
 }
 
 function clear_guild($delete_guild_id) {
+	$delete_guild_id = intval($delete_guild_id);
 	global $CONFIG_server_type;
-	$query = sprintf(DELETE_ALLIANCE, $delete_guild_id, $delete_guild_id);
+	$query = query_format(DELETE_ALLIANCE, $delete_guild_id, $delete_guild_id);
 	$result = execute_query($query, "functions.php");
 
 	if ($CONFIG_server_type == 0) {
@@ -1282,7 +1321,7 @@ function clear_guild($delete_guild_id) {
 		);
 	}
 	foreach ($delete_table as $table_name) {
-		$query = sprintf(DELETE_GUILD, $table_name, $delete_guild_id);
+		$query = query_format(DELETE_GUILD, $table_name, $delete_guild_id);
 		$result = execute_query($query, "functions.php");
 	}
 }
@@ -1306,14 +1345,14 @@ function display_ban ($account_search) {
 		$first = $account_search;
 	}
 	// displays the ban confirmation
-	$query = sprintf(CHECK_BAN_ACCOUNT, $first, $account_search);
+	$query = query_format(CHECK_BAN_ACCOUNT, $first, $account_search);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() == 0) {
 		redir("index.php", "Account $account_search doesn't exist!");
 	}
 	else {
 		$ban_id = $result->fields[0];
-		$query = sprintf(CHECK_IF_BANNED, $ban_id);
+		$query = query_format(CHECK_IF_BANNED, $ban_id);
 		$result = execute_query($query, "functions.php");
 		if ($result->RowCount() == 0) {
 			redir("index.php", "$account_search is already banned!");
@@ -1356,14 +1395,14 @@ function display_unban ($account_search) {
 	else {
 		$first = $account_search;
 	}
-	$query = sprintf(CHECK_BAN_ACCOUNT, $first, $account_search);
+	$query = query_format(CHECK_BAN_ACCOUNT, $first, $account_search);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() == 0) {
 		redir("index.php", "Account $account_search doesn't exist!");
 	}
 	else {
 		$ban_id = $result->fields[0];
-		$query = sprintf(CHECK_IF_UNBANNED, $ban_id);
+		$query = query_format(CHECK_IF_UNBANNED, $ban_id);
 		$result = execute_query($query, "functions.php");
 		if ($result->RowCount() == 0) {
 			redir("unban.php", "$account_search is not banned!");
@@ -1405,7 +1444,7 @@ function display_unban ($account_search) {
 function ShowGuildInfo($guild_id) {
 	global $CONFIG_passphrase;
 	if (strlen($guild_id) == 32) {
-		$query = sprintf(SHOW_GUILD_INFO, $CONFIG_passphrase, $guild_id);
+		$query = query_format(SHOW_GUILD_INFO, $CONFIG_passphrase, $guild_id);
 		$result = execute_query($query, "functions.php");
 		$guild_id = $result->fields[0];
 		$guild_name = $result->fields[1];
@@ -1414,7 +1453,7 @@ function ShowGuildInfo($guild_id) {
 		$guild_name = GuildID_To_GuildName($guild_id);
 	}
 	// Looks at Alliances/Antagonists
-	$query = sprintf(SHOW_GUILD_ALLIANCE, $guild_id);
+	$query = query_format(SHOW_GUILD_ALLIANCE, $guild_id);
 	$result = execute_query($query, "functions.php");
 	echo "
 <table class=\"mytable\" cellpadding=0 width=80% align=center>
@@ -1456,7 +1495,7 @@ function ShowGuildInfo($guild_id) {
 		";
 	}
 	// Looks at Member List
-	$query = sprintf(SHOW_GUILD_MEMBERS, $guild_id);
+	$query = query_format(SHOW_GUILD_MEMBERS, $guild_id);
 	$result = execute_query($query, "functions.php");
 	echo "
 	<tr>
@@ -1731,7 +1770,7 @@ function reverse_bytes($hex)
 //Get character items
 
 function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
-			$query = sprintf(GET_CHARACTER_ITEMS, $characterID);
+			$query = query_format(GET_CHARACTER_ITEMS, $characterID);
 			$result = execute_query($query, "functions.php");
 			$charitems = $result->FetchRow();
 			$itemBinaryString = $charitems[0];

@@ -18,7 +18,7 @@ elseif (is_online($transfer_account_id)) {
 
 if (!$POST_step) { $POST_step = "1"; }
 if ($POST_step == "1") {
-	$query = sprintf(MONEY_GET_FIRST, $transfer_account_id);
+	$query = query_format(MONEY_GET_FIRST, $transfer_account_id);
 	$result = execute_query($query, "money_transfer.php");
 	if ($result->RowCount() < 2) {
 		redir("index.php", "You must have more than one character at least level 20 to transfer money");
@@ -73,7 +73,7 @@ if ($POST_step == "1") {
 	echo "</table>";
 }
 elseif ($POST_step == "2") {
-	$query = sprintf(MONEY_GET_SECOND, $transfer_account_id, $CONFIG_passphrase, $POST_GID1);
+	$query = query_format(MONEY_GET_SECOND, $transfer_account_id, $CONFIG_passphrase, $POST_GID1);
 	$result = execute_query($query, "money_transfer.php");
 	EchoHead(80);
 	echo "
@@ -126,11 +126,11 @@ elseif ($POST_step == "2") {
 	echo "</table>";
 }
 elseif ($POST_step == "3") {
-	$query = sprintf(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID1);
+	$query = query_format(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID1);
 	$result = execute_query($query, "money_transfer.php");
 	$char1 = $result->fields[0];
 	$money1 = $result->fields[1];
-	$query = sprintf(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID2);
+	$query = query_format(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID2);
 	$result = execute_query($query, "money_transfer.php");
 	$char2 = $result->fields[0];
 	$money2 = $result->fields[1];
@@ -164,7 +164,7 @@ elseif ($POST_step == "3") {
 }
 elseif ($POST_step == "4") {
 	// Get info about character from
-	$query = sprintf(CHECK_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID1);
+	$query = query_format(CHECK_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID1);
 	$result = execute_query($query, "money_transfer.php");
 	$acc1 = $result->fields[0];
 	$char1 = $result->fields[1];
@@ -172,7 +172,7 @@ elseif ($POST_step == "4") {
 	$money1 = $result->fields[3];
 	
 	// Get info about character to
-	$query = sprintf(CHECK_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID2);
+	$query = query_format(CHECK_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID2);
 	$result = execute_query($query, "money_transfer.php");
 	$acc2 = $result->fields[0];
 	$char2 = $result->fields[1];
@@ -217,9 +217,9 @@ elseif ($POST_step == "4") {
 					add_exploit_entry("Possible SQL injection attempt in money_transfer.php ($POST_amount)");
 					redir("money_transfer.php", "Invalid transfer amount!");
 				}
-				$query = sprintf(FINAL_TRANSFER, "-", $POST_amount, $CONFIG_passphrase, $POST_GID1, $money1);
+				$query = query_format(FINAL_TRANSFER, "-", $POST_amount, $CONFIG_passphrase, $POST_GID1, $money1);
 				$result = execute_query($query, "money_transfer.php");
-				$query = sprintf(FINAL_TRANSFER, "+", $POST_amount, $CONFIG_passphrase, $POST_GID2, $money2);
+				$query = query_format(FINAL_TRANSFER, "+", $POST_amount, $CONFIG_passphrase, $POST_GID2, $money2);
 				$result = execute_query($query, "money_transfer.php");
 				add_money_entry($POST_GID1, $POST_GID2, "Transferred $POST_amount zeny");
 				redir("index.php", "$POST_amount zeny has been transfered from $char1 to $char2");

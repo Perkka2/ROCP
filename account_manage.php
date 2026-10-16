@@ -14,7 +14,7 @@ $start = ($page * $size) - $size;
 if ($GET_search != "") {
 	require 'header.inc';
 	$search_account = $GET_search;
-        $query = sprintf(ACCOUNT_SEARCH, $search_account, $search_account, $search_account, $search_account);
+        $query = query_format(ACCOUNT_SEARCH, $search_account, $search_account, $search_account, $search_account);
 	display_account_table($query, $start, $size);
 	$query = ACCOUNT_SHOW_LIST;
 	display_account_table($query, $start, $size);
@@ -39,7 +39,7 @@ elseif ($POST_finishedit == "Edit This Account!") {
 	
 	// Compare every value with the database value
 	$edit_variables = array("Account ID", "Account Name", "Password", "Gender", "Email", "Status");
-	$query = sprintf(ACCOUNT_SHOW_EDIT, $POST_var[0]);
+	$query = query_format(ACCOUNT_SHOW_EDIT, $POST_var[0]);
 	$result = execute_query($query, "account_manage.php");
 	$line = $result->FetchRow();
 	foreach ($line as $index => $col_value) {
@@ -83,16 +83,16 @@ elseif ($POST_finishedit == "Edit This Account!") {
 	
 	if ($CONFIG_server_type == 0) {
 		$sex = $POST_var[3] == "F"? 0 : 1;
-		$query = sprintf(UPDATE_ACCOUNT, $POST_var[1], $new_pass,
+		$query = query_format(UPDATE_ACCOUNT, $POST_var[1], $new_pass,
 		$POST_var[5], $POST_var[0]);
 		$result = execute_query($query, "account_manage.php");
 		
-		$query = sprintf(UPDATE_ACCOUNT2, $POST_var[1], $sex, 
+		$query = query_format(UPDATE_ACCOUNT2, $POST_var[1], $sex, 
 		$POST_var[4], $POST_var[0]);
 		$result = execute_query($query, "account_manage.php");
 	}
 	else {
-		$query = sprintf(UPDATE_ACCOUNT, $POST_var[1], $new_pass,
+		$query = query_format(UPDATE_ACCOUNT, $POST_var[1], $new_pass,
 		$POST_var[3], $POST_var[4], $POST_var[5], $POST_var[0]);
 		$result = execute_query($query, "account_manage.php");
 	}
@@ -110,7 +110,7 @@ elseif ($GET_delete == "Delete") {
 }
 elseif ($GET_option == "editaccount") {
 	require 'header.inc';
-        $query = sprintf(ACCOUNT_SHOW_EDIT, $GET_account_id);
+        $query = query_format(ACCOUNT_SHOW_EDIT, $GET_account_id);
 	display_edit_table($query);
 }
 elseif ($GET_option == "addignore") {
@@ -130,7 +130,7 @@ elseif ($GET_option == "unban") {
 elseif ($GET_option == "itemsearch") {
 	require 'header.inc';
 	require 'item_functions.php';
-	$query = sprintf(DISPLAY_ACCOUNT_ITEMS, $GET_account_id);
+	$query = query_format(DISPLAY_ACCOUNT_ITEMS, $GET_account_id);
 	$result = execute_query($query, 'functions.php');
 	while ($line = $result->FetchRow()) {
 		$char_id = $line[0];

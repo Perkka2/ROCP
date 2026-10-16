@@ -12,13 +12,13 @@ if ($GET_add != "") {
 	$level_string = privilege_string($GET_level);
 	$insert_id = UserID_To_AccountID($GET_account_name);
 	if ($insert_id > 0) {
-		$query = sprintf(CHECK_PREV_PRIVILEGE, $GET_account_name);
+		$query = query_format(CHECK_PREV_PRIVILEGE, $GET_account_name);
 		$result = execute_query($query, "privileges.php");
 		if ($result->RowCount() > 0) {
 			redir("privileges.php", "That account is already in the privilege table!");
 		}
 		else {
-			$query = sprintf(ADD_PRIVILEGE, $insert_id, $GET_level);
+			$query = query_format(ADD_PRIVILEGE, $insert_id, $GET_level);
 			$result = execute_query($query, "privileges.php");
 			add_admin_entry("Added $GET_account_name to $level_string Privileges");	
 			redir("privileges.php", "Added $GET_account_name to $level_string Privileges!");
@@ -39,14 +39,14 @@ elseif ($GET_del != "") {
 				redir("privileges.php", "You cannot delete your last admin!");
 			}
 			else {
-				$query = sprintf(DEL_PRIVILEGE, $GET_del);
+				$query = query_format(DEL_PRIVILEGE, $GET_del);
 				$result = execute_query($query, "privileges.php");
 				add_admin_entry("Removed $del_name from $level_string Privileges");
 				redir("privileges.php", "$del_name Removed from $level_string Privileges!");
 			}
 		}
 		else {
-			$query = sprintf(DEL_PRIVILEGE, $GET_del);
+			$query = query_format(DEL_PRIVILEGE, $GET_del);
 			$result = execute_query($query, "privileges.php");
 			add_admin_entry("Removed $del_name from $level_string Privileges");
 			redir("privileges.php", "$del_name Removed from $level_string Privileges!");
@@ -60,7 +60,7 @@ elseif ($GET_saveedit != "") {
 	$level_string = privilege_string($GET_level);
 	$edit_name = AccountID_To_UserID($GET_account_id);
 	if ($edit_name != "") {
-		$query = sprintf(UPDATE_PRIVILEGE, $GET_level, $GET_account_id);
+		$query = query_format(UPDATE_PRIVILEGE, $GET_level, $GET_account_id);
 		$result = execute_query($query, "privileges.php");
 		if ($link->Affected_Rows() > 0) {
 			add_admin_entry("$edit_name Changed to $level_string");
@@ -119,7 +119,7 @@ if (!$GET_edit) {
 	";
 }
 else {
-	$query = sprintf(PRIVILEGE_EDIT, $GET_edit);
+	$query = query_format(PRIVILEGE_EDIT, $GET_edit);
 	$result = execute_query($query, "privileges.php");
 	$line = $result->FetchRow();
 	$select[$line[1]] = " selected";

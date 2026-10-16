@@ -1,6 +1,7 @@
 <?php
 
 function display_aegis_item($item_id) {
+	$item_id = intval($item_id);
 	$item_name = ItemID_To_ItemName($item_id);
 	$procedures = array("CartItemSearch", "CharItemSearch", "StorageItemSearch");
 	$headers = array("Carts with", "Chars with", "Storages With");
@@ -29,7 +30,7 @@ function display_aegis_item($item_id) {
 	</table>
 	";
 	foreach ($procedures as $exec_index => $exec_proc) {
-		$query = sprintf(SEARCH_ITEMS, $exec_proc, $hex);
+		$query = query_format(SEARCH_ITEMS, $exec_proc, $hex);
 		$result = execute_query($query, "item_functions.php");
 		EchoHead(80);
 		echo "
@@ -178,6 +179,7 @@ function display_item ($condition) {
 }
 
 function display_source_id_items ($source_type, $name_id) {
+	$name_id = intval($name_id);
 	global $CONFIG_server_type, $CONFIG_cp_db_name;
 	$cp_db = $CONFIG_cp_db_name;
 	if ($CONFIG_server_type == 0) {
@@ -199,7 +201,7 @@ function display_source_id_items ($source_type, $name_id) {
 			$stop = 2;
 		}
 		for ($i = 0; $i < $stop; $i++) {
-			$query = sprintf(SHOW_SOURCE_ITEMS, $column[$i], $table[$i], $source_type, $name_id);
+			$query = query_format(SHOW_SOURCE_ITEMS, $column[$i], $table[$i], $source_type, $name_id);
 			$result = execute_query($query, "item_functions.php");
 			EchoHead(100);
 			echo "
@@ -458,7 +460,7 @@ function IsEquip($ID) {
 	$db = array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun');
 
 	foreach ($db as $query_table) {
-		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
+		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
 		$result = execute_query($query, "item_functions.php");
 		if ($result->RowCount() > 0) {
 			return true;
@@ -472,7 +474,7 @@ function IsQuest($ID) {
 	$db = array('guest');
 
 	foreach ($db as $query_table) {
-		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
+		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
 		$result = execute_query($query, "item_functions.php");
 		if ($result->RowCount() > 0) {
 			return true;
@@ -486,7 +488,7 @@ function IsArrow($ID) {
 	$db = array('arrow','cannonball','ammo');
 
 	foreach ($db as $query_table) {
-		$query = sprintf(IS_IN_ITEMDB, $query_table, $ID);
+		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
 		$result = execute_query($query, "item_functions.php");
 		if ($result->RowCount() > 0) {
 			return true;

@@ -241,7 +241,7 @@ else {
 	</tr>
 	";
 
-	$query = sprintf(HOME_CHARS, $STORED_id);
+	$query = query_format(HOME_CHARS, $STORED_id);
 	$result = execute_query($query, 'home.php');
 	if ($result->RowCount() == 0) {
 		echo "

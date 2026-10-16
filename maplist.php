@@ -5,7 +5,7 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 echo "<table class=\"contentTable maplist\"><tr>";
 if ($CONFIG_server_type == 0) {
   $mapName = ParseMapNameTable("./dbtranslation/mapnametable.txt");
-  $query = sprintf(GET_ALL_MAPS);
+  $query = query_format(GET_ALL_MAPS);
   $result = execute_query($query, "exptable.php");
   $mapnumber = 0;
 	while ($line = $result->FetchRow()){

@@ -275,7 +275,7 @@ for ($i = 0; $i < $class_max; $i++) {
 		continue;
 	}
 	if($total_class_count[$i] > 0){ //only show classes with characters
-		$query = sprintf(CLASS_BREAKDOWN, $i, $i2);
+		$query = query_format(CLASS_BREAKDOWN, $i, $i2);
 		$result = execute_query($query, "server_info.php", 1, 0);
 		$class = determine_class($i);
 		if ($result->RowCount() > 0) {

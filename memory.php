@@ -177,7 +177,7 @@ if ($STORED_login != "") {
 		require 'header.inc';
 		redir("login.php", "Your session is no longer valid, please log in again.");
 	}
-	$query = sprintf(GET_SKIN, $STORED_login);
+	$query = query_format(GET_SKIN, $STORED_login);
 	$result = execute_query($query, "memory.php");
 	if ($result->RowCount() > 0) {
 		// Skin is in DB, check if skin is valid
@@ -187,14 +187,14 @@ if ($STORED_login != "") {
 		}
 		else {
 			// Illegal skin, update the DB entry
-			$query = sprintf(UPDATE_SKIN, $CONFIG_default_skin, $STORED_login);
+			$query = query_format(UPDATE_SKIN, $CONFIG_default_skin, $STORED_login);
 			$result = execute_query($query, "memory.php", 0, 0, true);
 			$STORED_skin = $CONFIG_default_skin;
 		}
 	}
 	else {
 		// Skin choice not in DB, give them the default one
-		$query = sprintf(INSERT_SKIN, $STORED_login, $CONFIG_default_skin);
+		$query = query_format(INSERT_SKIN, $STORED_login, $CONFIG_default_skin);
 		$result = execute_query($query, "memory.php", 0, 0, true);
 		$STORED_skin = $CONFIG_default_skin;
 	}
