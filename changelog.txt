@@ -1,3 +1,12 @@
+5.0.4 - October 16th, 2026 [Pierre Althinsson]
+
+MVP ladder: removed a stray empty table above the ladder, it showed as an extra line and added space at the top in the neumorphic skins.
+Inventory: item tooltips in the neumorphic skins are wide enough to read again instead of breaking after every word, and the item slots have the same size as in the other skins (they were larger, with the amount bar not filling the slot).
+Inventory: item tooltips in the neumorphic skins are no longer cut off at the bottom of the page content, and the ported 4.3.3 skins show them in the skin's own colours.
+Inventory: the item amount labels have a backdrop again in the neumorphic skins, and colours of the original skin in the ported 4.3.3 skins (the header row colour in bluuue and zack, dark blue or dark grey with white numbers in girl and secks) (black text on a dark backdrop before).
+neumorphictLeft/defaultLeft: the content column lines up with the top of the menu column on every page (it was aligned to the first line of text, so the offset changed per page), and neumorphictLeft has no extra padding above and to the right of the content.
+Skin selector: a dropdown with every installed skin (sorted) instead of a scrolling list that showed about 4 (the neumorphic skins cut off the fourth); a Change button is shown when JavaScript is off.
+
 5.0.3 - October 16th, 2026 [Pierre Althinsson]
 
 Experience table: all tables side by side in one table (one row per level) instead of below each other, numbers with thousands separators, the column headers repeated every 25 levels.

@@ -682,12 +682,17 @@ input, .myctl {
 	background: #F5E3CC !important;
 	color: #000000;
 }
+.amountInfo {
+	/* item amounts in the inventory: the header row colour of the skin, with its black text */
+	background: #F5E3CC;
+	color: #000000;
+}
 .equipmentList {
 	border-color: #E7D6C0;
 }
 .tooltip .tooltipcontainer, .equipmentList .tooltiptext {
-	/* item descriptions use the game client colours, made for a light tooltip */
-	background: #F8F8F8;
+	/* light colour of the skin, item descriptions use the game client colours made for a light tooltip */
+	background: #F7EBDB;
 	color: #000000;
 	border: 1px solid #E7D6C0;
 }
