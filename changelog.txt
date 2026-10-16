@@ -1,3 +1,7 @@
+5.0.8 - October 16th, 2026 [Pierre Althinsson]
+
+Added the Glass with leftside menu skin (glassLeft): the Glass skin with the menu as an always open frosted sidebar on the left, based on the ROCP 5 Default Skin with leftside menu.
+
 5.0.7 - October 16th, 2026 [Pierre Althinsson]
 
 Phone layout: tables with columns (account, character, roster, access log, server information and others) keep each value on one line and scroll sideways instead of squeezing the columns, column headers wrap, the roster slot boxes are big enough to tap and class pictures are smaller.
