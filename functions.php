@@ -1790,6 +1790,11 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 			$query = query_format(GET_CHARACTER_ITEMS, $characterID);
 			$result = execute_query($query, "functions.php");
 			$charitems = $result->FetchRow();
+			$characterItems = array();
+			// Characters without items have no row (or an empty blob)
+			if (!$charitems || strlen($charitems[0]) <= 2) {
+				return $characterItems;
+			}
 			$itemBinaryString = $charitems[0];
 			$itemVersion = hexdec(reverse_bytes(bin2hex(substr($itemBinaryString,0,2))));
 			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));

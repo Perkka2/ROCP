@@ -220,9 +220,12 @@ function display_source_id_items ($source_type, $name_id) {
 		</tr>
 			";
 			$line = $result->FetchRow();
-			$itemBinaryString = $line[0];
-			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
-			$item_data = bin2hex(gzuncompress($itemBinaryString));
+			$item_data = "";
+			// Characters without items have no row (or an empty blob)
+			if ($line && strlen($line[0]) > 2) {
+				$itemBinaryString = hex2bin(substr(bin2hex($line[0]), 4));
+				$item_data = bin2hex(gzuncompress($itemBinaryString));
+			}
 			//$item_data = substr(bin2hex($line[0]), 4);
 
 			while (strlen($item_data) > 0) {
