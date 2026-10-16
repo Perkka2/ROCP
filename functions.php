@@ -251,6 +251,7 @@ function csrf_protected_actions() {
 	return array(
 		'account_manage.php' => array('delete', 'option=addignore', 'option=delignore'),
 		'backup_server.php' => array('action'),
+		'change_skin.php' => array('new'),
 		'char_manage.php' => array('delete'),
 		'clear.php' => array('action'),
 		'clear_all_banned.php' => array('action'),

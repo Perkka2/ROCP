@@ -62,12 +62,12 @@ else {
 		$dump_buffer.= "# Table structure for table '$table'$crlf";
 		$dump_buffer.= "#$crlf$crlf";
 		$db = $table;
-		$dump_buffer.= get_table_def($table, $crlf,$dbname).";$crlf";
+		$dump_buffer.= get_table_def($table, $crlf).";$crlf";
 		$dump_buffer.= "$crlf#$crlf";
 		$dump_buffer.= "# Dumping data for table '$table'$crlf";
 		$dump_buffer.= "#$crlf$crlf";
 		$tmp_buffer="";
-		get_table_content($dbname, $table, 0, 0, 'my_handler', $dbname);
+		get_table_content($CONFIG_db_name, $table, 0, 0, 'my_handler');
 		$dump_buffer.=$tmp_buffer;
 		
 		$i++;

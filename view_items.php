@@ -99,10 +99,10 @@ $start = ($page * $display_size) - $display_size;
 	else {
 		if ($GET_col == "type" && strlen($GET_val) < 5) {
 			if ($CONFIG_server_type == 0) {
-				$condition = "WHERE [$GET_col] = " . intval($GET_val);
+				$condition = "WHERE [type] = " . intval($GET_val);
 			}
 			else {
-				$condition = "WHERE `$GET_col` = " . intval($GET_val);
+				$condition = "WHERE `type` = " . intval($GET_val);
 			}
 		}
 		else {
