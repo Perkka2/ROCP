@@ -18,7 +18,7 @@ function move(form) {
 $execute_queries = $queries;
 
 
-if (!$STORED_skin) {
+if (!valid_skin($STORED_skin)) {
 	$STORED_skin = $CONFIG_default_skin;
 }
 

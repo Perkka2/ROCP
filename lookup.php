@@ -111,7 +111,7 @@ function display_account_data ($input_account_id, $input_account_name, $search_t
 			if ($display_index == 0) {
 				//changed by maldiablo
 				$col_value2 = highlight_search_term($col_value, $search_term);
-				echo "<td><a href='char_manage.php?search=$col_value'>$col_value2</a></td>\n";
+				echo "<td><a href='char_manage.php?search=" . urlencode($col_value) . "'>$col_value2</a></td>\n";
 				//end of changes
 			}
 			elseif ($display_index == 1) {
@@ -119,7 +119,7 @@ function display_account_data ($input_account_id, $input_account_name, $search_t
 				echo "<td>$col_value</td>\n";
 			}
 			else {
-				echo "<td>$col_value</td>\n";
+				echo "<td>" . html_escape($col_value) . "</td>\n";
 			}
 		}
 		echo "</tr>\n";

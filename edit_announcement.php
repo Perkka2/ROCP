@@ -42,7 +42,7 @@ if (!$GET_edit && !$GET_del && $POST_finish == "") {
 				foreach ($line as $col_value) {
 					echo "
 		<td>
-			$col_value 
+			" . safe_message($col_value) . "
 		</td>
 					";
 				}
@@ -91,7 +91,7 @@ if (!$GET_edit && !$GET_del && $POST_finish == "") {
 			foreach ($line as $col_value) {
 				echo "
 		<td>
-			$col_value 
+			" . safe_message($col_value) . "
 		</td>
 				";
 			}
@@ -142,7 +142,7 @@ if (!$GET_edit && !$GET_del && $POST_finish == "") {
 				foreach ($line as $col_value) {
 					echo "
 	<td>
-		$col_value 
+		" . safe_message($col_value) . "
 	</td>
 					";
 				}
@@ -168,11 +168,14 @@ else {
 		$table = "admin_announce";
 		break;
 	}
-	if ($STORED_level == 2 && $GET_type == 3) {
+	if ($STORED_level < 4 && ($GET_type == 3 || $POST_table == "admin_announce")) {
 		// GM trying to edit admin message
 		redir("index.php", "You are trying to edit the wrong message type!");
 	}
 	if ($POST_finish == "Save Changes") {
+		if (!in_array($POST_table, array("user_announce", "gm_announce", "admin_announce"), true)) {
+			redir("index.php", "Invalid announcement type!");
+		}
 		$new_message = add_escape(generate_breaks($POST_message));
 		$query = sprintf(SAVE_ANNOUNCEMENT, $POST_table, $POST_date, $new_message, $POST_poster, $POST_post_id);
 		$result = execute_query($query, "edit_announcement.php");
@@ -198,8 +201,9 @@ else {
 		$line = $result->FetchRow();
 		$post_id = $line[0];
 		$date = $line[1];
-		$message = del_escape($line[2]);
-		$poster = $line[3];
+		$message = html_escape(del_escape($line[2]));
+		$poster = html_escape($line[3]);
+		$date = html_escape($date);
 		echo "
 	<tr class=mycell>
 	<form action=\"edit_announcement.php\" method=\"POST\">

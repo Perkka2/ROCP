@@ -135,6 +135,7 @@ if ($CONFIG_server_type == 0) {
 				while ($line = $result->FetchRow()) {
 					echo "<tr class=mycell>";
 					foreach ($line as $display_index => $col_value) {
+						$col_value = html_escape($col_value);
 						if (in_array($display_index, $skipped_columns)) {
 							continue;
 						}
@@ -145,13 +146,13 @@ if ($CONFIG_server_type == 0) {
 							$col_value = convert_date($col_value);
 						}
 						elseif ($display_index == 2) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value={$line[1]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value=" . urlencode($line[1]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 4) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=characterID&value={$line[3]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=characterID&value=" . urlencode($line[3]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 5) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=mapName&value={$line[5]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=mapName&value=" . urlencode($line[5]) . "\">$col_value</a>";
 						}
 						echo "<td>$col_value</td>";
 					}
@@ -224,6 +225,7 @@ if ($CONFIG_server_type == 0) {
 				while ($line = $result->FetchRow()) {
 					echo "<tr class=mycell>";
 					foreach ($line as $display_index => $col_value) {
+						$col_value = html_escape($col_value);
 						if ($GET_act) {
 							// GM interactions are being viewed
 							if ($line[26] != NULL) {
@@ -258,26 +260,26 @@ if ($CONFIG_server_type == 0) {
 							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=ip&value=$col_value&act=$GET_act\">$col_value</a>";
 						}
 						elseif ($display_index == 4) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=srcAccountID&value={$line[3]}&act=$GET_act\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=srcAccountID&value=" . urlencode($line[3]) . "&act=$GET_act\">$col_value</a>";
 						}
 						elseif ($display_index == 6) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=srcCharID&value={$line[5]}&act=$GET_act\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=srcCharID&value=" . urlencode($line[5]) . "&act=$GET_act\">$col_value</a>";
 						}
 						elseif ($display_index == 8) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=desAccountID&value={$line[7]}&act=$GET_act\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=desAccountID&value=" . urlencode($line[7]) . "&act=$GET_act\">$col_value</a>";
 						}
 						elseif ($display_index == 10) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=desCharID&value={$line[9]}&act=$GET_act\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=desCharID&value=" . urlencode($line[9]) . "&act=$GET_act\">$col_value</a>";
 						}
 						elseif ($display_index == 11) {
 							if ($line[24] > 0) {
 								$col_value = "
-								<a href=\"view_server_log.php?view=$GET_view&column=slot5&value={$line[24]}&act=$GET_act\">+{$line[24]}</a>
-								<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[12]}&act=$GET_act\">$col_value</a>
+								<a href=\"view_server_log.php?view=$GET_view&column=slot5&value=" . urlencode($line[24]) . "&act=$GET_act\">+{$line[24]}</a>
+								<a href=\"view_server_log.php?view=$GET_view&column=nameid&value=" . urlencode($line[12]) . "&act=$GET_act\">$col_value</a>
 								";
 							}
 							else {
-								$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[12]}&act=$GET_act\">$col_value</a>";
+								$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value=" . urlencode($line[12]) . "&act=$GET_act\">$col_value</a>";
 							}
 						}
 						elseif ($display_index == 14) {
@@ -358,6 +360,7 @@ if ($CONFIG_server_type == 0) {
 				while ($line = $result->FetchRow()) {
 					echo "<tr class=mycell>";
 					foreach ($line as $display_index => $col_value) {
+						$col_value = html_escape($col_value);
 						if (in_array($display_index, $skipped_columns)) {
 							continue;
 						}
@@ -368,10 +371,10 @@ if ($CONFIG_server_type == 0) {
 							$col_value = convert_date($col_value);
 						}
 						elseif ($display_index == 2) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value={$line[1]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value=" . urlencode($line[1]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 4) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=charID&value={$line[3]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=charID&value=" . urlencode($line[3]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 5) {
 							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=mapName&value=$col_value\">$col_value</a>";
@@ -427,6 +430,7 @@ if ($CONFIG_server_type == 0) {
 				while ($line = $result->FetchRow()) {
 					echo "<tr class=mycell>";
 					foreach ($line as $display_index => $col_value) {
+						$col_value = html_escape($col_value);
 						if (in_array($display_index, $skipped_columns)) {
 							continue;
 						}
@@ -434,10 +438,10 @@ if ($CONFIG_server_type == 0) {
 							$col_value = convert_date($col_value);
 						}
 						elseif ($display_index == 2) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value={$line[1]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=accountID&value=" . urlencode($line[1]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 4) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=characterID&value={$line[3]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=characterID&value=" . urlencode($line[3]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 5) {
 							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=mapName&value=$col_value\">$col_value</a>";
@@ -446,7 +450,7 @@ if ($CONFIG_server_type == 0) {
 							$col_value = $col_value == 1? "<font color=green>Yes</font>" : "<font color=red>No</font>";
 						}
 						elseif ($display_index == 7) {
-							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=itemID&value={$line[8]}\">$col_value</a>";
+							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=itemID&value=" . urlencode($line[8]) . "\">$col_value</a>";
 						}
 						elseif ($display_index == 9) {
 							$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=itemLevel&value=$col_value\">$col_value</a>";
@@ -627,23 +631,24 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index == 2) {
 						continue;
 					}
 					elseif ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 4) {
 						continue;
 					}
 					elseif ($display_index == 5) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value={$line[4]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 6) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[6]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[6]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 7) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=command&value={$line[7]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=command&value=" . urlencode($line[7]) . "\">$col_value</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -691,17 +696,18 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {//VICH
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 				if ($display_index == 2) {
 					continue;
 				}
 				elseif ($display_index == 3) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[2]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 4) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_name&value={$line[4]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_name&value=" . urlencode($line[4]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 5) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[5]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[5]) . "\">$col_value</a>";
 				}
 					echo "<td>$col_value</td>";
 				}
@@ -761,11 +767,12 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index % 2 == 0 && $display_index != 0 && $display_index != 22) {
 						continue;
 					}
 					if ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=kill_char_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=kill_char_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
 						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=monster_id&value={$line[$display_index - 1]}\">$col_value</a>";
@@ -774,7 +781,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=itemnameid&value={$line[$display_index - 1]}\">$col_value</a>";
 					}
 					elseif ($display_index == 22) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[24]}\">{$line[24]}</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[24]) . "\">{$line[24]}</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -807,26 +814,27 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index == 2) {
 						continue;
 					}
 					elseif ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=kill_char_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=kill_char_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 4) {
 						continue;
 					}
 					elseif ($display_index == 5) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=monster_id&value={$line[4]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=monster_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 6) {
 						continue;
 					}
 					elseif ($display_index == 7) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=prize&value={$line[6]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=prize&value=" . urlencode($line[6]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 9) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[9]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[9]) . "\">$col_value</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -858,6 +866,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index == 2) {
 						switch ($col_value) {
 							case 1:
@@ -876,28 +885,28 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 								$col_value = "WOS";
 								break;
 						}
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 3) {
 						continue;
 					}
 					elseif ($display_index == 4) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[3]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[3]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
 						continue;
 					}
 					elseif ($display_index == 6) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value={$line[5]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value=" . urlencode($line[5]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 7) {
 						continue;
 					}
 					elseif ($display_index == 8) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[7]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value=" . urlencode($line[7]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 9) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[9]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[9]) . "\">$col_value</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -934,20 +943,21 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index == 2) {
 						continue;
 					}
 					elseif ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 4) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_name&value={$line[4]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_name&value=" . urlencode($line[4]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
 						continue;
 					}
 					elseif ($display_index == 6) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.nameid&value={$line[5]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.nameid&value=" . urlencode($line[5]) . "\">$col_value</a>";
 					}
 					elseif (($display_index > 6) && ($display_index < 13)) {
 						if ($display_index % 2 == 0) {
@@ -960,7 +970,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 						$col_value = $col_value == 1? "<font color=green>Yes</font>" : "<font color=red>No</font>";
 					}
 					elseif ($display_index == 14) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[14]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[14]) . "\">$col_value</a>";
 					}				
 					echo "<td>$col_value</td>";
 				}
@@ -1002,14 +1012,15 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index % 2 == 0 && $display_index != 0 && $display_index < 16) {
 						continue;
 					}
 					elseif ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value={$line[4]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.char_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 					}
 					elseif ($display_index >= 7 && $display_index <= 15) {
 						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[$display_index - 1]}\">$col_value</a>";
@@ -1018,10 +1029,10 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 						$col_value = $col_value == 1? "<font color=green>Yes</font>" : "<font color=red>No</font>";
 					}					
 					elseif ($display_index == 17) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[17]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[17]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 18) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=item_level&value={$line[18]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=item_level&value=" . urlencode($line[18]) . "\">$col_value</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -1068,26 +1079,27 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index % 2 == 0 && $display_index != 0 && $display_index != 10 && $display_index <= 20) {
 						continue;
 					}
 					elseif ($display_index == 3) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.src_account_id&value={$line[2]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.src_account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.src_char_id&value={$line[4]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.src_char_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 7) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.des_account_id&value={$line[6]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.des_account_id&value=" . urlencode($line[6]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 9) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.des_char_id&value={$line[8]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.des_char_id&value=" . urlencode($line[8]) . "\">$col_value</a>";
 					}
 					elseif ($display_index >= 13 && $display_index <= 21) {
 						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[$display_index - 1]}\">$col_value</a>";
 					}
 					elseif ($display_index == 22) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[22]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value=" . urlencode($line[22]) . "\">$col_value</a>";
 					}
 					echo "<td>$col_value</td>";
 				}
@@ -1141,6 +1153,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			while ($line = $result->FetchRow()) {
 				echo "<tr class=mycell>";
 				foreach ($line as $display_index => $col_value) {
+					$col_value = html_escape($col_value);
 					if ($display_index == 2) {
 					switch($col_value) { case "W": $col_value = "Whisper"; break; case "P": $col_value = "Party"; break; case "G": $col_value = "Guild"; break; }
 					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=type&value={$line[$display_index]}\">$col_value</a>";
@@ -1149,17 +1162,17 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 						continue;
 					}
 					elseif ($display_index == 4) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_accountid&value={$line[3]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_accountid&value=" . urlencode($line[3]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 5) {
 						continue;
 					}
 					elseif ($display_index == 6) {
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_charid&value={$line[5]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_charid&value=" . urlencode($line[5]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 7) {
 						if ($line[2] != "W") { $col_value = ""; }
-						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=dst_charname&value={$line[7]}\">$col_value</a>";
+						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=dst_charname&value=" . urlencode($line[7]) . "\">$col_value</a>";
 					}
 					elseif ($display_index == 8) {
 						$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=src_map&value={$line[$display_index]}\">$col_value</a>";
@@ -1210,17 +1223,18 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 		while ($line = $result->FetchRow()) {
 			echo "<tr class=mycell>";
 			foreach ($line as $display_index => $col_value) {
+				$col_value = html_escape($col_value);
 				if ($display_index == 2) {
 					continue;
 				}
 				elseif ($display_index == 3) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value={$line[2]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=$GET_view.account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 4) {
 					continue;
 				}
 				elseif ($display_index == 5) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_id&value={$line[4]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=char_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 6) {
 					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=map&value={$line[$display_index]}\">$col_value</a>";
@@ -1270,23 +1284,24 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 		while ($line = $result->FetchRow()) {
 			echo "<tr class=mycell>";
 			foreach ($line as $display_index => $col_value) {
+				$col_value = html_escape($col_value);
 				if (($display_index >= 2) && ($display_index <= 10)  && ($display_index % 2 == 0)) {
 					continue;
 				}
 				elseif ($display_index == 3) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=vend_account_id&value={$line[2]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=vend_account_id&value=" . urlencode($line[2]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 5) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=vend_char_id&value={$line[4]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=vend_char_id&value=" . urlencode($line[4]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 7) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=buy_account_id&value={$line[6]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=buy_account_id&value=" . urlencode($line[6]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 9) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=buy_char_id&value={$line[8]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=buy_char_id&value=" . urlencode($line[8]) . "\">$col_value</a>";
 				}
 				elseif ($display_index == 11) {
-					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value={$line[10]}\">$col_value</a>";
+					$col_value = "<a href=\"view_server_log.php?view=$GET_view&column=nameid&value=" . urlencode($line[10]) . "\">$col_value</a>";
 				}
 				elseif (($display_index > 13)  && ($display_index < 22)) {
 					if ($display_index % 2 == 1) { continue; }

@@ -89,6 +89,10 @@ switch ($CONFIG_server_type) {
 
 
 
+// Only load language files from an existing lang/<name>/ folder
+if (!preg_match('/^[A-Za-z0-9_-]+$/', $CONFIG_language) || !is_file("lang/$CONFIG_language/lang.php")) {
+	$CONFIG_language = "english";
+}
 include_once "lang/$CONFIG_language/lang.php"; // imports lang file
 
 ini_set('magic_quotes_gpc', 'On');
@@ -174,8 +178,7 @@ if ($STORED_login != "") {
 	if ($result->RowCount() > 0) {
 		// Skin is in DB, check if skin is valid
 		$line = $result->FetchRow();
-		$dir = "skin/{$line[0]}";
-		if (is_dir($dir)) {
+		if (valid_skin($line[0])) {
 			$STORED_skin = $line[0];
 		}
 		else {
@@ -202,9 +205,9 @@ else {
 	$STORED_skin = $CONFIG_default_skin;
 }
 
-// Only validates inputs from normal users
-// Weakness? GMs/Admins can exploit this script! Who would do that anyways?
-if ($STORED_level < 2 || !IsSet($STORED_level)) {
+// Only validates inputs from users and in-game GMs.
+// GMs/Admins are skipped because announcements and config values need more characters.
+if ($STORED_level < 3 || !IsSet($STORED_level)) {
 	// Validates all values given by user, eliminates illegal inputs and logs each attempt
 	foreach ($_GET as $index => $test_value) {
 		// Skips the checking of inputs in following GET felds.
@@ -228,7 +231,7 @@ if ($STORED_level < 2 || !IsSet($STORED_level)) {
 				require 'header.inc';
 				redir("index.php", "$message");
 			}
-			if (!validate_string($test_value) && strlen($string) > 0) {
+			if (!validate_string($test_value) && strlen($test_value) > 0) {
 				$message = "Invalid Input for " . '$_GET' . "[$index] as \"$test_value\"!";
 				add_exploit_entry($message);
 				require 'header.inc';
@@ -239,7 +242,8 @@ if ($STORED_level < 2 || !IsSet($STORED_level)) {
 
 	foreach ($_POST as $index => $test_value) {
 		// Even login names can be used to inject, so all login/passwords must be alphanumeric!
-		$skipped_entries = array('option');
+		// login_pass is skipped: it is only used as md5(), and older accounts may contain other characters
+		$skipped_entries = array('option', 'login_pass');
 		if (in_array($index, $skipped_entries)) {
 			continue;
 		}
@@ -258,7 +262,7 @@ if ($STORED_level < 2 || !IsSet($STORED_level)) {
 				add_exploit_entry($message);
 				redir("index.php", "$message");
 			}
-			if (!validate_string($test_value) && strlen($string) > 0) {
+			if (!validate_string($test_value) && strlen($test_value) > 0) {
 				$message = "Invalid Input for " . '$_POST' . "[$index] as \"$test_value\"!";
 				//add_exploit_entry($message);
 				redir("index.php", "$message");

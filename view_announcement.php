@@ -39,6 +39,7 @@ else {
 	<tr class=mycell>
 		";
 		foreach ($line as $display_index => $col_value) {
+			$col_value = safe_message($col_value);
 			if ($display_index == 1) {
 				$col_value = convert_date($col_value);
 			}

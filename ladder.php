@@ -163,6 +163,7 @@ echo "
 		<td>$current_rank</td>
 			";
 			foreach ($line as $display_index => $col_value) {
+				$col_value = html_escape($col_value);
 				if ($display_index == 0 || $display_index == 1) {
 					continue;
 				}
