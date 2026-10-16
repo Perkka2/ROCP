@@ -433,6 +433,19 @@ function checkbasename($name) {
 	return (isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO']));
 }
 
+/**
+ * @return void
+ * @param string $page Page of this control panel, e.g. index.php or view_mobs.php?column=monster
+ * @desc Sends the browser straight to $page with a plain HTTP redirect and stops.
+ * The URL is absolute, some very old browsers only follow absolute redirects.
+*/
+function redirect_to($page) {
+	$https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off';
+	$folder = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
+	header("Location: " . ($https ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . "$folder/$page");
+	exit();
+}
+
 function redir($page, $msg, $time = 5) {
 	global $STORED_skin, $start_time, $STORED_level, $queries, $logged_in, $lang,
 	$debug_message, $cp_version;
