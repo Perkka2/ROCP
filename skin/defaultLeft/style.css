@@ -170,6 +170,7 @@ td {
 .content{
 	width:100%;
 	display: table-cell;
+	vertical-align: top; /* level with the menu column */
 	overflow: hidden;
 	background: rgb(40, 40, 40); /* Fall-back for browsers that don't	support rgba */
 	background: rgba(40, 40, 40, .9);

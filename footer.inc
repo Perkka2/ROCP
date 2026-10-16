@@ -41,37 +41,35 @@ $execution_time = ($end_time - $start_time);
 $gzip = $CONFIG_do_gzip_compress? $lang['gzipenabled'] : $lang['gzipdisabled'];
 $execution_time = sprintf($lang['exectime'], floor(($execution_time) * 1000 + .5) * .001);
 if ($STORED_level > 0)	{
+	// All installed skins, sorted, as a dropdown that changes the skin when one is picked
+	$skins = array();
+	$dir = "skin/";
+	if (is_dir($dir)) {
+		if ($dh = opendir($dir)) {
+			while (($file = readdir($dh)) !== false) {
+				if (is_dir("skin/$file") && $file != "." && $file != "..") {
+					$skins[] = $file;
+				}
+			}
+			closedir($dh);
+		}
+	}
+	sort($skins);
 	echo "
 <div class=\"skinselection\">
 	<form action=\"select.php\" method=\"get\">Current Skin:<br/>
-			<select multiple class=\"myctl\" name=\"option\" onchange=\"move(this.form);\">
+			<select class=\"myctl\" name=\"option\" onchange=\"move(this.form);\">
 		";
-
-		$dir = "skin/";
-		if (is_dir($dir)) {
-			if ($dh = opendir($dir)) {
-				while (($file = readdir($dh)) !== false) {
-					if (is_dir("skin/$file")) {
-						if ($file != "." && $file != "..") {
-							$skin_name = $file;
-							if ($file == $STORED_skin) {
-								$selected = " selected";
-							}
-							else {
-								$selected = "";
-							}
-							$skin_name = html_escape($skin_name);
-							echo "<option$selected value=\"change_skin.php?new=$skin_name&csrf_token=" . csrf_token() . "\"> - $skin_name</option>\n";
-						}
-					}
-				}
-				closedir($dh);
-			}
-		}
+	foreach ($skins as $file) {
+		$selected = $file == $STORED_skin ? " selected" : "";
+		$skin_name = html_escape($file);
+		echo "<option$selected value=\"change_skin.php?new=$skin_name&csrf_token=" . csrf_token() . "\"> - $skin_name</option>\n";
+	}
 
 
 		echo "
 			</select>
+			<noscript><input type=\"submit\" class=\"myctl\" value=\"Change\" /></noscript>
 	</form>
 </div>
 	";

@@ -686,13 +686,19 @@ input, .myctl {
 	background: #0072BC !important;
 	color: #000000;
 }
+.amountInfo {
+	/* item amounts in the inventory: a dark colour of the original skin (the button colour), white numbers */
+	background: #002157; /* Fall-back for browsers that don't support rgba */
+	background: rgba(0, 33, 87, .85);
+	color: #FFFFFF;
+}
 .equipmentList {
 	border-color: #000000;
 }
 .tooltip .tooltipcontainer, .equipmentList .tooltiptext {
-	/* item descriptions use the game client colours, made for a light tooltip */
-	background: #F8F8F8;
-	color: #000000;
+	/* light colour of the skin, item descriptions use the game client colours made for a light tooltip */
+	background: #FFFFFF;
+	color: #002157;
 	border: 1px solid #000000;
 }
 

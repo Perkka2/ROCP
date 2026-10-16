@@ -686,14 +686,20 @@ input, .myctl {
 	background: #626A70 !important;
 	color: #000000;
 }
+.amountInfo {
+	/* item amounts in the inventory: a dark colour of the original skin (the title and button colour), white numbers */
+	background: #626A70; /* Fall-back for browsers that don't support rgba */
+	background: rgba(98, 106, 112, .85);
+	color: #FFFFFF;
+}
 .equipmentList {
 	border-color: #ACB8BF;
 }
 .tooltip .tooltipcontainer, .equipmentList .tooltiptext {
-	/* item descriptions use the game client colours, made for a light tooltip */
-	background: #F8F8F8;
+	/* light colour of the skin, item descriptions use the game client colours made for a light tooltip */
+	background: #ACB8BF;
 	color: #000000;
-	border: 1px solid #ACB8BF;
+	border: 1px solid #626A70;
 }
 
 /* Phones (with skin/mobile.css): the banner is scaled to the screen width and the

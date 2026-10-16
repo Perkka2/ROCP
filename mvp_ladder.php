@@ -1,7 +1,6 @@
 <?php
 require 'memory.php';
 require 'header.inc';
-echo "<table>";
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 
 // Aegis doesn't log the actual MVP being killed, so this ladder cannot link to any other queries
