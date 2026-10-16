@@ -12,6 +12,19 @@ if (!$POST_action && !$GET_action) {
 		";
 	}
 	require 'terms.php';
+	// A skin can provide images for these links, otherwise buttons in the skin's own style are shown
+	$login_links = "";
+	$links = array("lost_pass.php" => array("lost.gif", "Lost Password?"), "register.php" => array("register.gif", "Register"));
+	foreach ($links as $link_page => $link) {
+		$link_image = "skin/$STORED_skin/images/{$link[0]}";
+		if (file_exists($link_image)) {
+			$login_links .= "<a href=\"$link_page\"><img src=\"$link_image\" border=\"0\" alt=\"{$link[1]}\" /></a>\n";
+		}
+		else {
+			$login_links .= "<input type=\"button\" class=\"myctl\" value=\"{$link[1]}\" onclick=\"location.href='$link_page';\" />"
+			. "<noscript><a href=\"$link_page\">{$link[1]}</a></noscript>\n";
+		}
+	}
 	EchoHead(80);
 	echo"
 	<tr class=\"mytitle\">
@@ -42,8 +55,7 @@ if (!$POST_action && !$GET_action) {
 						
 					</tr>
 					<tr>
-						<td class=\"mytext\"><a href=\"lost_pass.php\"><img src=\"skin/$STORED_skin/images/lost.gif\" border=\"0\" alt=\"Lost Password?\" /></a>
-						<a href=\"register.php\"><img src=\"skin/$STORED_skin/images/register.gif\" border=\"0\" alt=\"Register!\" /></a></td>
+						<td class=\"mytext\"><center>$login_links</center></td>
 					</tr>
 				</table>
 			</form>
