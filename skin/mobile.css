@@ -95,6 +95,37 @@ body {
 table {
 	table-layout: auto !important;
 }
+/* Data tables (they have a row of column headers): cells keep their text on one line and the
+   table scrolls sideways, instead of squeezing columns until values wrap word by word.
+   Full width cells (titles, notes) and text tables keep wrapping. */
+table:has(> tbody > tr.myheader) > tbody > tr:not(.myheader) > td:not([colspan]),
+table:has(> tbody > tr.myheader) > tbody > tr:not(.myheader) > th:not([colspan]) {
+	white-space: nowrap;
+}
+/* narrower cell padding and controls so more columns fit before the table scrolls */
+table:has(> tbody > tr.myheader) > tbody > tr > td {
+	padding-left: 4px !important;
+	padding-right: 4px !important;
+}
+table:has(> tbody > tr.myheader) select {
+	width: auto !important;
+}
+/* column headers may wrap ("Base Level" on two lines) to keep the columns narrow */
+tr.myheader td, tr.myheader th {
+	white-space: normal;
+}
+/* one character inputs (roster slots) are 10px wide on the page, too small to tap */
+input[maxlength="1"] {
+	width: 2em !important;
+}
+/* class pictures (server information) show both sexes side by side, made smaller */
+img[src*="images/classes/"] {
+	height: 56px;
+	width: auto;
+}
+table:has(> tbody > tr.myheader) > tbody > tr > td:not([colspan]) form {
+	white-space: nowrap;
+}
 /* plain layout tables (forms, the privileges page) stay within the screen and scroll if needed */
 .content table:not(.contentTable):not(.mytable):not(.charitems):not(.pageing) {
 	display: block;
