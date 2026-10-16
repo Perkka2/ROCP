@@ -114,10 +114,10 @@ elseif ($GET_option == "editaccount") {
 	display_edit_table($query);
 }
 elseif ($GET_option == "addignore") {
-	header("Location: ladder_ignore.php?add=$GET_account_id");
+	header("Location: ladder_ignore.php?add=" . intval($GET_account_id) . "&csrf_token=" . csrf_token());
 }
 elseif ($GET_option == "delignore") {
-	header("Location: ladder_ignore.php?del=$GET_account_id");
+	header("Location: ladder_ignore.php?del=" . intval($GET_account_id) . "&csrf_token=" . csrf_token());
 }
 elseif ($GET_option == "ban") {
 	$id = AccountID_To_UserID($GET_account_id);
