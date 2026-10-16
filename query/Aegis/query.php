@@ -788,6 +788,12 @@ WHERE AID = %d ORDER BY charname
 DEFINE('CHECK_SEX_AID', "SELECT sex FROM $login.account WHERE [AID] = '%s'");
 
 // exptable.php
+// Newer databases (EP16+) also have experience per job in TribeExp (base) and JobExp (job);
+// %s is a table name from exptable.php, never user input
+DEFINE('EXP_TABLE_EXISTS', "SELECT CASE WHEN OBJECT_ID('$script.%s') IS NULL THEN 0 ELSE 1 END");
+DEFINE('GET_JOB_EXP_JOBS', "SELECT DISTINCT job FROM $script.%s ORDER BY job");
+DEFINE('GET_JOB_EXP', "SELECT level, exp FROM $script.%s WHERE job = '%s' ORDER BY level");
+DEFINE('EXP_TABLE_CHARS', "SELECT charname, job, clevel, joblevel, exp, jobexp FROM $char.charinfo WHERE AID = %d ORDER BY CharNum");
 if($CONFIG['aegis_version'] == 0){
 	DEFINE('GET_ALL_EXP', "USE [Script]
 	select levels.level,

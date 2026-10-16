@@ -94,10 +94,8 @@ elseif ($POST_action == "login") {
 elseif ($GET_action == "logout") {
 	$_SESSION = array();
 	session_regenerate_id(true);
-	$STORED_login = "";
-	$STORED_level = 0;
-	require 'header.inc';
-	redir("login.php", "You are now logged out");
+	// Straight back to the login page, no "You are now logged out" page in between
+	redirect_to("login.php");
 }
 elseif ($GET_action == "resend" && $CONFIG_register_type == 1) {
 	require 'header.inc';
