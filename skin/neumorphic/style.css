@@ -124,7 +124,7 @@ A:active {
 	TEXT-DECORATION: none;
 }
 A:hover {
-	COLOR: #fff;
+	COLOR: #000;
 	TEXT-DECORATION: underline;
 }
 .myctl {
