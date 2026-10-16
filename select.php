@@ -1,7 +1,7 @@
 <?php
 // Only redirects to a page of this control panel, e.g. "change_skin.php?new=default"
 $page = isset($_GET['option']) ? $_GET['option'] : "";
-if (!is_string($page) || !preg_match('/^[A-Za-z0-9_]+\.php(\?[A-Za-z0-9_=&.-]*)?$/', $page)) {
+if (!is_string($page) || !preg_match('/^[A-Za-z0-9_]+\.php(\?[A-Za-z0-9_=&.-]*)?$/D', $page)) {
 	$page = "index.php";
 }
 if ($page == 'money_transfer.php') {
