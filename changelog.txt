@@ -1,3 +1,57 @@
+5.0.0 - October 16th, 2026 [Pierre Althinsson]
+
+Security:
+Logins are kept in server-side PHP sessions instead of cookies holding the username and MD5 password (HttpOnly, SameSite, new session id on login, 1 hour idle timeout). Disabled accounts are logged out.
+Every value in a database query is now escaped by the database driver (query_format), fixing SQL injection on many pages. Table and column names are allow-listed, numbers forced to integers.
+Input validation works again (validate_string tested the wrong variable), also for in-game GMs.
+Added CSRF protection: forms and links that change data carry a per-session token.
+Database values, search terms and messages are escaped on all pages (lists, logs, announcements, error messages, redirects).
+Edit Config can no longer be used to inject PHP code into config.php and only saves by POST.
+Fixed missing permission checks: editing/deleting accounts at or above your own level, privileges, admin announcements, guild emblem upload for other guilds.
+Lost password now emails a link valid for one hour where the user chooses a new password, instead of emailing a new password. Same answer whether or not the account exists, limited to 3 requests per hour.
+Added login rate limit: 5 failed logins per IP per 15 minutes.
+Guild emblem upload only accepts real 24x24 BMP images (size checked on the server).
+Server backups are downloaded instead of stored in the web folder, Admin only.
+Debug is off by default, failed queries no longer show SQL to visitors.
+Added .htaccess (Apache) and web.config (IIS) blocking the install/upgrade folders, .sql/.txt/.def/.inc files and scripts in the emblem folder.
+Updated PHPMailer 1.72 to 6.12.0 and ADOdb 5.20.9 to 5.20.21 (last version for PHP 5).
+
+New:
+Added the ROCP 4.3.3 skins Bluuue, girl, secks and zack (the old default), ported to the 5.0 layout with their original banners.
+Skin change goes straight back to the page, without a "continue" page in between.
+Skins can provide their own Lost Password/Register images, otherwise buttons in the skin's style are shown.
+
+Fixes:
+Fixed the pending table not being created on Aegis (missing comma in install.sql).
+Fixed the database error page title (was "Athena CP"), MySQL connection errors are now shown on it too.
+Fixed a warning on the inventory for characters without items.
+Fixed text becoming unreadable when hovering menus and links in some skins.
+Backslashes in announcements are no longer removed.
+Removed unused money transfer functions that referred to missing queries.
+Updated the copyright year and removed "best viewed using Firefox".
+
+5.0.0-beta4 - May 21st, 2025 [Perkka]
+
+Added ROChargen: character images on the inventory, with hairstyle change.
+Split the item and monster database views, added MVP search and drops to the monster database.
+Added the neumorphic skins (neumorphic and neumorphictLeft).
+Added support for EP13 databases (queries and inventory), and for older databases lacking minLevel, throw weapons, guns and 3rd jobs.
+Character items read the item version data.
+Hid unused character classes and added class images to server info.
+Zone server list tooltip is only shown when there is more than one zone server.
+Fixed the experience table between versions and the ladder.
+Database connection errors show the reason.
+Updated the dbtranslation files.
+
+5.0.0-beta3 - March 15th, 2018 [Perkka]
+
+Initial git version of the ROCP revival, based on 4.3.4a: new design, works with EP 15.2 Aegis Re databases.
+Added monster and item images.
+Parses the client's monster names, item display names and map name table, class names from class_by_id.def.
+Added ammunition, guns and throw weapons as item types, item search by ID and for the new database format.
+Added the experience table and map list, and a dropdown with the zone servers.
+Secure registration is on by default, minor changes to the login and registration pages.
+
 4.3.4 - June 12th, 2005 [Vich]
 
 Revision a (June 16th, 2005):

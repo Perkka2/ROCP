@@ -35,7 +35,7 @@ if (!defined('CSRF_OUTPUT_FILTER')) {
 
 
 $php_version = phpversion();
-$cp_version = "5.0.0-beta3";
+$cp_version = "5.0.0";
 // Checks PHP Versions, will be used when PHP5 is mandatory
 /*
 if (!version_compare($version, "5.0.0", ">=")) {
@@ -78,7 +78,9 @@ switch ($CONFIG_server_type) {
 	// MySQL Athena/Freya
 	case 1: case 2: case 3:
 		$link = ADONewConnection('mysql');
-		$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, $CONFIG_db_name);
+		if(!$link->Connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password, $CONFIG_db_name)){
+			$error = "Failed to connect to database: " . $link->ErrorMsg();
+		}
 		$link->SetFetchMode(ADODB_FETCH_NUM);
 		break;
 }
@@ -145,16 +147,17 @@ $config_file_array = array_keys($CONFIG);
 // Compares the 2 arrays, storing values in $config_array that are not in $config_file_array
 $diff = array_diff($config_array, $config_file_array);
 if (count($diff) > 0) {
-	$error = "You are missing the following config.php variables: " . implode($diff, ", ");
+	$error = "You are missing the following config.php variables: " . implode(", ", $diff);
 }
 unset($config_array);
 
 
 if ($error) {
+	$panel_name = $CONFIG_panel_name != "" ? $CONFIG_panel_name : "Ragnarok Online Control Panel";
 	echo "
 	<html>
 		<head>
-			<title>Athena CP Coded by Azndragon and Perkka</title>
+			<title>" . html_escape($panel_name) . "</title>
 		</head>
 		<body>
 			<link href=\"skin/$CONFIG_default_skin/style.css\" TYPE=text/css REL=stylesheet>
@@ -163,7 +166,7 @@ if ($error) {
 			<table border=0 class=redir width=400 height=75 cellpadding=0 cellspacing=0 align=center>
 				<tr>
 					<td>
-						<b>$error</b>
+						<b>" . nl2br(html_escape(trim($error))) . "</b>
 					</td>
 				</tr>
 			</table>

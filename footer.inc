@@ -34,7 +34,6 @@ echo "
 			$powered<br/>
 		$codedby<br />
 		$skinby<br />
-		{$lang['bestviewed']}<br/>
 		</div>
 ";
 $end_time = getmicrotime();

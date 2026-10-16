@@ -71,9 +71,8 @@ $lang = array(
 
 'menugo' => "Go",
 'poweredby' => "Powered by PHP %s and %s",
-'codedby' => "Coded by <a href='about.php'>Azndragon and Perkka</a> &#169; 2018 Version %s",
+'codedby' => "Coded by <a href='about.php'>Azndragon and Perkka</a> &#169; 2026 Version %s",
 'skinby' => "Skin: %s by <a href=\"about.php\">%s</a>",
-'bestviewed' => "Best viewed using <a href=\"http://www.mozilla.org/products/firefox/\">Firefox</a> and 1024x768",
 'exectime' => "Execution Time: %s seconds",
 'execquery' => "Queries Executed:",
 'gzipenabled' => "GZIP Enabled",
