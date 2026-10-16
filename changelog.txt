@@ -1,3 +1,7 @@
+5.0.5 - October 16th, 2026 [Pierre Althinsson]
+
+Added the Glass skin: frosted see-through panels, menus (opened from glass buttons) and form controls over the ROCP 5 background artwork (no banner image), with a light frosted box for item descriptions. Browsers without blur or transparency support get solid dark panels.
+
 5.0.4 - October 16th, 2026 [Pierre Althinsson]
 
 MVP ladder: removed a stray empty table above the ladder, it showed as an extra line and added space at the top in the neumorphic skins.
