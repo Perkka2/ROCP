@@ -48,11 +48,11 @@ $start = ($page * $display_size) - $display_size;
 	}
 	elseif ($GET_col == "item") {
 		if ($CONFIG_server_type == 0) {
-			$condition = "WHERE $GET_val IN (ID1.ID, ID2.ID, ID3.ID, ID4.ID,
+			$condition = "WHERE " . intval($GET_val) . " IN (ID1.ID, ID2.ID, ID3.ID, ID4.ID,
 			ID5.ID, ID6.ID, ID7.ID, ID8.ID)";
 		}
 		else {
-			$condition = "WHERE $GET_val IN (Drop1id, Drop2id, Drop3id, Drop4id,
+			$condition = "WHERE " . intval($GET_val) . " IN (Drop1id, Drop2id, Drop3id, Drop4id,
 			Drop5id, Drop6id, Drop7id, Drop8id)";
 		}
 	}

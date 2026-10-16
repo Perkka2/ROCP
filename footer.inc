@@ -61,7 +61,8 @@ if ($STORED_level > 0)	{
 							else {
 								$selected = "";
 							}
-							echo "<option$selected value=\"change_skin.php?new=$skin_name\"> - $skin_name</option>\n";
+							$skin_name = html_escape($skin_name);
+							echo "<option$selected value=\"change_skin.php?new=$skin_name&csrf_token=" . csrf_token() . "\"> - $skin_name</option>\n";
 						}
 					}
 				}
