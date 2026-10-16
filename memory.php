@@ -157,27 +157,17 @@ if ($error) {
 	exit();
 }
 
-if ($CONFIG_save_type == 2) {
-	ini_set('session.use_cookies' , 0);
-	ini_set('session.use_trans_sid' , 1);
-	ini_set('session.name', 'sessid');
-	ini_set('magic_quotes_gbc', 'On');
-	ini_set('magic_quotes_runtime', 'On');
-	session_start();
-	$session_id = session_id();
-}
-
-// Set access level, and skin, global variables if cookie exists
+// Set access level, and skin, global variables if logged in
 if ($STORED_login != "") {
-	// Makes sure cookie is valid, and assigns the proper privilege level
+	// Makes sure the session is still valid (password unchanged, not banned), and assigns the proper privilege level
 	$STORED_level = authenticate($STORED_login, $STORED_password);
-	if ($STORED_level == 0) {
-		setcookie("login");
-		setcookie("password");
-		setcookie("mysql");
-		setcookie("skin");
+	if ($STORED_level <= 0) {
+		$_SESSION = array();
+		session_regenerate_id(true);
+		$STORED_login = "";
+		$STORED_level = 0;
 		require 'header.inc';
-		redir("login.php", "Your cookies do not match with the database!");
+		redir("login.php", "Your session is no longer valid, please log in again.");
 	}
 	$query = sprintf(GET_SKIN, $STORED_login);
 	$result = execute_query($query, "memory.php");

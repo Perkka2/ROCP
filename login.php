@@ -56,15 +56,12 @@ if (!$POST_action && !$GET_action) {
 elseif ($POST_action == "login") {
 	$access_level = authenticate($POST_login_user, md5($POST_login_pass));
 	if ($access_level > 0) {
-		if ($CONFIG_save_type == 1) {
-			setcookie("login", $_POST['login_user'], time()+60*60*24*30);
-			setcookie("password", md5($_POST['login_pass']), time()+60*60*24*30);
-			setcookie("skin", "default", time()+60*60*24*30);
-		}
-		else {
-			$_SESSION['login'] = $_POST['user'];
-			$_SESSION['password'] = md5($_POST['pass']);
-		}
+		// New session id on login to prevent session fixation
+		session_regenerate_id(true);
+		$_SESSION['login'] = $POST_login_user;
+		$_SESSION['password'] = md5($POST_login_pass);
+		$_SESSION['last_activity'] = time();
+		$STORED_login = $POST_login_user;
 		require 'header.inc';
 		if ($access_level > 1) {
 			// Adds to the login log
@@ -78,15 +75,9 @@ elseif ($POST_action == "login") {
 	}
 }
 elseif ($GET_action == "logout") {
-	if ($CONFIG_save_type == 1) {
-		setcookie("login");
-		setcookie("password");
-		setcookie("mysql");
-		setcookie("skin");
-	}
-	else {
-		session_unset();
-	}
+	$_SESSION = array();
+	session_regenerate_id(true);
+	$STORED_login = "";
 	$STORED_level = 0;
 	require 'header.inc';
 	redir("login.php", "You are now logged out");
