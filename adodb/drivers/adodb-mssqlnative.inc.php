@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.20.10  08-Mar-2018
+@version   v5.20.21  22-Jan-2022
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   Native mssql driver. Requires mssql client. Works on Windows.
     http://www.microsoft.com/sql/technologies/php/default.mspx
@@ -63,7 +63,7 @@ if (!function_exists('sqlsrv_log_set_subsystems')) {
 //
 // Also if your month is showing as month-1,
 //   e.g. Jan 13, 2002 is showing as 13/0/2002, then see
-//     http://phplens.com/lens/lensforum/msgs.php?id=7048&x=1
+//     PHPLens Issue No: 7048&x=1
 //   it's a localisation problem.
 //----------------------------------------------------------------
 
@@ -465,14 +465,23 @@ class ADODB_mssqlnative extends ADOConnection {
 	function ErrorNo()
 	{
 		$err = sqlsrv_errors(SQLSRV_ERR_ALL);
-		if($err[0]) return $err[0]['code'];
-		else return 0;
+		if ($err && $err[0]) 
+			return $err[0]['code'];
+		else 
+			return 0;
 	}
 
 	// returns true or false
 	function _connect($argHostname, $argUsername, $argPassword, $argDatabasename)
 	{
 		if (!function_exists('sqlsrv_connect')) return null;
+		
+		if (!empty($this->port))
+			/*
+			* Port uses a comma 
+			*/
+			$argHostname .= ",".$this->port;
+
 		$connectionInfo = $this->connectionInfo;
 		$connectionInfo["Database"]=$argDatabasename;
 		$connectionInfo["UID"]=$argUsername;
@@ -525,7 +534,12 @@ class ADODB_mssqlnative extends ADOConnection {
 			$arr = $args;
 		}
 
-		array_walk($arr, create_function('&$v', '$v = "CAST(" . $v . " AS VARCHAR(255))";'));
+		array_walk(
+			$arr,
+			function(&$value, $key) {
+				$value = "CAST(" . $value . " AS VARCHAR(255))";
+			}
+		);
 		$s = implode('+',$arr);
 		if (sizeof($arr) > 0) return "$s";
 
@@ -564,7 +578,7 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		$insert = false;
 		// handle native driver flaw for retrieving the last insert ID
-		if(preg_match('/^\W*insert[\s\w()",.]+values\s*\((?:[^;\']|\'\'|(?:(?:\'\')*\'[^\']+\'(?:\'\')*))*;?$/i', $sql)) {
+		if(preg_match('/^\W*insert[\s\w()[\]",.]+values\s*\((?:[^;\']|\'\'|(?:(?:\'\')*\'[^\']+\'(?:\'\')*))*;?$/i', $sql)) {
 			$insert = true;
 			$sql .= '; '.$this->identitySQL; // select scope_identity()
 		}
@@ -889,7 +903,13 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	/* Use associative array to get fields array */
 	function Fields($colname)
 	{
-		if ($this->fetchMode != ADODB_FETCH_NUM) return $this->fields[$colname];
+		if (!is_array($this->fields))
+			/*
+			* Too early
+			*/
+			return;
+		if ($this->fetchMode != ADODB_FETCH_NUM) 
+			return $this->fields[$colname];
 		if (!$this->bind) {
 			$this->bind = array();
 			for ($i=0; $i < $this->_numOfFields; $i++) {
@@ -911,7 +931,7 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	{
 		$_typeConversion = array(
 			-155 => 'datetimeoffset',
-			-154 => 'time',
+			-154 => 'char',
 			-152 => 'xml',
 			-151 => 'udt',
 			-11 => 'uniqueidentifier',
@@ -1069,7 +1089,13 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		is running. All associated result memory for the specified result identifier will automatically be freed.	*/
 	function _close()
 	{
-		if(is_object($this->_queryID)) {
+		/*
+		* If we are closing down a failed query, collect any
+		* error messages. This is a hack fix to the "close too early"
+		* problem so this might go away later
+		*/
+		$this->connection->errorMsg();
+		if(is_resource($this->_queryID)) {
 			$rez = sqlsrv_free_stmt($this->_queryID);
 			$this->_queryID = false;
 			return $rez;

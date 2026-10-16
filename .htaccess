@@ -1,0 +1,11 @@
+# Files that are only read by the control panel itself, never by the browser:
+# SQL scripts, notes/logs, definition tables, PHP include files, temp files, archives.
+<FilesMatch "\.(?i:sql|txt|def|inc|tmp|dll|md|bak|log|zip|rar|7z)$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order allow,deny
+		Deny from all
+	</IfModule>
+</FilesMatch>

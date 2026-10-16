@@ -15,12 +15,6 @@ else {
 	add_admin_entry("Backed up Database"); // add to admin log
 	$asfile="download";
 	$crlf="\r\n";
-	$log_month = date("M");
-	$log_day = date("d");
-	$log_hour = date("H");
-	$log_minute = date("i");
-	$destination_file = "{$CONFIG_passphrase}_backup {$log_month}-{$log_day} {$log_hour}-{$log_minute}.sql";
-	$file = fopen($destination_file, "w");
 	mysql_connect($CONFIG_db_host, $CONFIG_db_username, $CONFIG_db_password);
 	mysql_select_db($CONFIG_db_name);
 	
@@ -31,15 +25,27 @@ else {
 	
 	if ($num_tables == 0)
 	{
-		echo "# No Tables Found";
-		exit;
+		require 'header.inc';
+		redir("index.php", "No tables found to back up!");
 	}
-	
+
+	// Remembers when the last backup was made, for the reminder on index.php
+	$file = fopen("last_backup.txt", "w");
+	fputs($file, time());
+	fclose($file);
+
+	// The backup is sent to the browser as a download, nothing is stored in the web folder
+	while (ob_get_level() > 0) {
+		ob_end_clean();
+	}
+	header("Content-Type: application/octet-stream");
+	header("Content-Disposition: attachment; filename=\"backup_" . date("Y-m-d_H-i") . ".sql\"");
+
 	$dump_buffer.= "# Database Backup $crlf";
 	$dump_buffer.= "# Backup made:$crlf";
 	$dump_buffer.= "# ".date("F j, Y, g:i a")."$crlf";
 	$dump_buffer.= "# Database: $CONFIG_db_name$crlf";
-	fwrite($file, $dump_buffer);
+	echo $dump_buffer;
 	$i = 0;
 	while($i < $num_tables)
 	{
@@ -66,12 +72,9 @@ else {
 		
 		$i++;
 		$dump_buffer.= "$crlf";
-		fwrite($file, $dump_buffer);
+		echo $dump_buffer;
 	}
-	require 'header.inc';
-	$file = fopen("last_backup.txt", "w");
-	fputs($file, time());
-	redir("index.php", "Backup Made!");
+	exit();
 }
 
 function get_table_def($table, $crlf)
@@ -82,18 +85,19 @@ function get_table_def($table, $crlf)
 	$result = mysql_query($query) or die("Query failed $query: " . mysql_error());
 	while($row = mysql_fetch_array($result))
 	{
-		$field = $row[Field];
-		$schema_create .= "  `$field` $row[Type]";
+		$field = $row['Field'];
+		$schema_create .= "  `$field` {$row['Type']}";
 		
 		if(isset($row["Default"]) && (!empty($row["Default"]) || $row["Default"] == "0"))
-		$schema_create .= " DEFAULT '$row[Default]'";
+		$schema_create .= " DEFAULT '" . addslashes($row['Default']) . "'";
 		if($row["Null"] != "YES")
 		$schema_create .= " NOT NULL";
 		if($row["Extra"] != "")
-		$schema_create .= " $row[Extra]";
+		$schema_create .= " {$row['Extra']}";
 		$schema_create .= ",$crlf";
 	}
-	$schema_create = ereg_replace(",".$crlf."$", "", $schema_create);
+	$schema_create = preg_replace("/," . preg_quote($crlf, "/") . "$/", "", $schema_create);
+	$index = array();
 	$query = "SHOW KEYS FROM `$table`";
 	$result = mysql_query($query) or die("Query failed : " . mysql_error());
 	while($row = mysql_fetch_array($result))
@@ -116,7 +120,7 @@ function get_table_def($table, $crlf)
 		$index[$kname][] = $row['Column_name'];
 	}
 	
-	while(list($x, $columns) = @each($index))
+	foreach ($index as $x => $columns)
 	{
 		$schema_create .= ",$crlf";
 		if($x == "PRIMARY")
@@ -128,16 +132,11 @@ function get_table_def($table, $crlf)
 		else
 		$schema_create .= "   KEY $x (";
 		
-		$schema_create .= implode($columns,", ") . ")";
+		$schema_create .= implode(", ", $columns) . ")";
 	}
 	
 	$schema_create .= "$crlf)";
-	if(get_magic_quotes_gpc()) {
-		return (stripslashes($schema_create));
-	} 
-	else {
-		return ($schema_create);
-	}
+	return $schema_create;
 }
 function get_table_content($db, $table, $limit_from = 0, $limit_to = 0,$handler)
 {
