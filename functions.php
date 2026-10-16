@@ -280,8 +280,18 @@ function csrf_required($page) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		return true;
 	}
+	return csrf_get_action($page, $_GET);
+}
+
+/**
+ * @return boolean
+ * @param string $page Page name, e.g. privileges.php
+ * @param array $params GET parameters of the request or link
+ * @desc Returns true if a GET request to $page with $params performs an action, see csrf_protected_actions()
+*/
+function csrf_get_action($page, $params) {
 	// header.inc refreshes the server status on every page that gets ?act=updatestatus
-	if (isset($_GET['act']) && $_GET['act'] == 'updatestatus') {
+	if (isset($params['act']) && $params['act'] == 'updatestatus') {
 		return true;
 	}
 	$protected = csrf_protected_actions();
@@ -294,11 +304,11 @@ function csrf_required($page) {
 		}
 		if (strpos($param, '=') !== false) {
 			list($name, $value) = explode('=', $param, 2);
-			if (isset($_GET[$name]) && $_GET[$name] == $value) {
+			if (isset($params[$name]) && $params[$name] == $value) {
 				return true;
 			}
 		}
-		elseif (isset($_GET[$param]) && $_GET[$param] != "") {
+		elseif (isset($params[$param]) && $params[$param] != "") {
 			return true;
 		}
 	}
@@ -338,6 +348,13 @@ function csrf_add_tokens($buffer) {
 function csrf_add_link_token($match) {
 	global $csrf_token_value;
 	$query = isset($match[3]) ? $match[3] : "";
+	// Only links that perform an action get the token, so it does not end up in the
+	// address bar, history or Referer of ordinary navigation
+	$params = array();
+	parse_str(html_entity_decode(substr($query, 1), ENT_QUOTES, 'ISO-8859-1'), $params);
+	if (!csrf_get_action(strtolower(basename($match[2])), $params)) {
+		return $match[0];
+	}
 	$query .= ($query == "" ? "?" : "&") . "csrf_token=" . $csrf_token_value;
 	return $match[1] . $match[2] . $query;
 }
