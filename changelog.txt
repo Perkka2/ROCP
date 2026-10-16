@@ -1,3 +1,13 @@
+5.0.3 - October 16th, 2026 [Pierre Althinsson]
+
+Experience table: all tables side by side in one table (one row per level) instead of below each other, numbers with thousands separators, the column headers repeated every 25 levels.
+Experience table: a dropdown shows a single table with the total experience needed to reach each level.
+Experience table: only the tables the server has are shown, levels follow the tables (99, or up to 260 base / 55 job levels on newer servers).
+Experience table: added the per job experience tables of newer Aegis databases (TribeExp base exp and JobExp job exp, e.g. Doram Summoner, Kagerou/Oboro, Rebellion, Star Emperor, Soul Reaper, Super Novice), selectable per job in the dropdown, including the baby classes.
+Experience table: shows your characters with their base and job level and the progress to the next level, measured against the table of their class.
+Experience table: fixed invalid HTML and PHP notices, Athena/Freya servers get a message instead of an empty page.
+Logout goes straight to the login page, without a "You are now logged out" page in between.
+
 5.0.2 - October 16th, 2026 [Pierre Althinsson]
 
 Fixed the layout on phones for all skins (skin/mobile.css): the page fits the screen instead of a shrunken desktop page, the menu is above the content with sections that open on tap, wide tables scroll sideways, and the item and monster lists and the inventory fit small screens. Desktops and old browsers keep the normal layout.
