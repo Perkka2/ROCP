@@ -75,8 +75,10 @@ function SendMail($contactname, $contactemail, $subject, $message) {
 	require 'extract.inc';
 
 	if ($CONFIG_smtp_host != "") {
-		require_once 'phpmailer/class.phpmailer.php';
-		$mail = new PHPMailer();
+		require_once 'phpmailer/src/Exception.php';
+		require_once 'phpmailer/src/PHPMailer.php';
+		require_once 'phpmailer/src/SMTP.php';
+		$mail = new \PHPMailer\PHPMailer\PHPMailer();
 
 		$mail->IsSMTP();                                   // send via SMTP
 		$mail->Host     = $CONFIG_smtp_host; // SMTP servers

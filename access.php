@@ -20,7 +20,7 @@ if ($CONFIG_server_type == 0) {
 	$access['backup_server.php'] = -1;
 }
 else {
-	$access['backup_server.php'] = 3;
+	$access['backup_server.php'] = 4; // full dump including passwords, Admin only
 }
 $access['ban.php'] = 3;
 $access['char_manage.php'] = 3;
