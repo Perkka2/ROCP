@@ -49,12 +49,25 @@ body {
 	float: none !important;
 	width: 100% !important;
 }
+.main {
+	width: auto !important; /* 100% plus its side margins ran past the right edge of the screen */
+	box-sizing: border-box;
+}
 .menu {
 	margin: 0 !important;
 	padding: 0 !important;
 }
+/* the menu is above the content, so no side padding to keep it apart from a menu column */
+.content {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
 .menuheader, .menusubheader, .menu a {
 	width: 100% !important;
+	box-sizing: border-box;
+}
+.dropdowncontainer {
+	width: auto !important; /* some skins give it side margins */
 }
 .menuheader a {
 	padding: 12px 0 !important;
@@ -81,6 +94,14 @@ body {
 }
 table {
 	table-layout: auto !important;
+}
+/* plain layout tables (forms, the privileges page) stay within the screen and scroll if needed */
+.content table:not(.contentTable):not(.mytable):not(.charitems):not(.pageing) {
+	display: block;
+	max-width: 100%;
+	overflow-x: auto;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 }
 .mytitle td, .contentRowHeader td {
 	padding-left: 12px !important;
@@ -118,57 +139,194 @@ form[action="login.php"] input[type=text], form[action="login.php"] input[type=p
 	padding: 4px 6px !important;
 }
 
-/* Monster list: the stat columns wrap two per line, picture and titles full width */
-.contentTable.mobList, .contentTable.mobList tbody, .contentTable.mobList tr {
+/* Monster list: one card per monster. Every row is a two column grid: picture,
+   title, level and drops use the full width, the stats sit two per line */
+.contentTable.mobList, .contentTable.mobList tbody {
 	display: block;
 	white-space: normal;
 }
+.contentTable.mobList tr {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
+	padding: 0 !important; /* some skins pad header rows, which counts now that rows are grids */
+}
 .contentTable.mobList td {
-	display: inline-block;
-	width: 49%;
-	vertical-align: top;
-	padding: 2px 6px !important;
+	display: block;
+	padding: 3px 10px !important;
+	font-size: 13px;
 }
 .contentTable.mobList td:empty {
 	display: none;
 }
-.contentTable.mobList tr.contentRowHeader td, .contentTable.mobList tr.contentRowSubHeader td,
-.contentTable.mobList td[rowspan], .contentTable.mobList td[colspan] {
-	display: block;
-	width: auto;
+/* full width: title, level, picture, the last stat of a row (property / size / race), drops */
+.contentTable.mobList td[colspan], .contentTable.mobList td[rowspan],
+.contentTable.mobList td:last-child, .contentTable.mobList td.mobDrops,
+.contentTable.mobList td.drops {
+	grid-column: 1 / -1;
+}
+.contentTable.mobList tr.contentRowHeader {
+	margin-top: 14px;
+}
+.contentTable.mobList tr.contentRowHeader td {
+	font-size: 17px !important;
+	padding: 8px 12px !important;
+}
+.contentTable.mobList .levelField {
+	font-weight: bold;
+	padding-top: 6px !important;
+}
+.contentTable.mobList td[rowspan] {
+	text-align: center;
+	padding: 6px !important;
+}
+.contentTable.mobList .mobImage {
+	max-width: 100%;
+}
+.contentTable.mobList td.contentRowHeader.drops {
+	font-size: 14px !important;
+	margin-top: 8px;
+}
+/* drops: one per line, the MVP drops labelled, empty MVP slots hidden */
+.contentTable.mobList td.mobDrops {
+	padding: 5px 12px !important;
+	line-height: 18px;
+}
+.contentTable.mobList td.mobDrops img {
+	margin: 1px 8px 0 0 !important;
+}
+.contentTable.mobList td.mobDrops[colspan] {
+	padding-left: 24px !important;
+}
+.contentTable.mobList td.mobDrops[colspan]:before {
+	content: "MVP ";
+	font-weight: bold;
+	font-size: 11px;
+	opacity: .8;
+}
+.contentTable.mobList td.mobDrops[colspan]:has(a[href$="val="]) {
+	display: none;
 }
 
-/* Inventory: character picture, hairstyle and item rows below each other */
+/* Inventory: one card per character */
+.contentTable:has(.charlist), .contentTable:has(.charlist) > tbody,
+.contentTable:has(.charlist) > tbody > tr, .contentTable:has(.charlist) > tbody > tr > td {
+	display: block !important;
+	width: auto !important;
+}
+.contentTable:has(.charlist) > tbody > tr {
+	padding: 0 !important;
+}
 .contentRowHeader.charlist td {
 	display: block !important;
+	padding: 4px 12px !important;
 }
 .contentRowHeader.charlist b {
 	margin-right: 10px;
+	font-size: 18px;
 }
-.contentRowHeader div {
-	width: auto !important;
+/* level, class, job level and zeny two per line */
+.contentRowHeader.charlist td div {
+	display: inline-block;
+	width: 48% !important;
+	font-size: 13px;
+	padding: 2px 0;
 }
+.contentRowHeader.charlist td div b {
+	font-size: 13px;
+}
+/* picture next to the hairstyle controls */
 .charstats {
 	float: none !important;
+	display: flex !important;
+	align-items: center;
 	width: auto !important;
 	height: auto !important;
-	padding: 0 0 8px 0 !important;
+	padding: 8px 12px !important;
 }
-.charitems, .charitems tbody, .charitems tr, .charitems td {
+.charstats img {
+	margin: 0 12px 0 0 !important;
+	flex: none;
+}
+.charstats br {
+	display: none;
+}
+.charstats table, .charstats tbody, .charstats tr, .charstats td {
+	display: block;
+	width: 100% !important;
+	padding: 3px 0 !important;
+	margin: 0 !important;
+	box-shadow: none !important;
+}
+.charstats select, .charstats input[type=submit] {
+	width: 100%;
+}
+/* item sections: a heading, then the slots in rows */
+.charitems, .charitems tbody, .charitems tr {
 	display: block !important;
 	width: auto !important;
 	height: auto !important;
+	box-shadow: none !important;
 }
 .charitems td {
-	padding: 4px 0 !important;
-	overflow: hidden; /* each row holds its own floating item slots, so labels stay above them */
+	display: block !important;
+	width: auto !important;
+	height: auto !important;
+	padding: 0 !important;
+}
+.charitems td.equipped:before {
+	content: "Equipped";
+}
+.charitems td.equipped:before, tr.charitems > td:first-child:not(.equipped) {
+	display: block;
+	margin: 0 0 8px 0;
+	font-weight: bold;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	text-align: left;
+	padding: 12px 0 4px 0 !important;
+	border-bottom: 1px solid rgba(128, 128, 128, .45);
+}
+tr.charitems > td:first-child:not(.equipped) {
+	margin: 0 0 8px 0;
+}
+.charitems {
+	margin: 0 12px !important;
+	padding: 0 !important;
+}
+/* sections without items are left out */
+tr.charitems:not(:has(.equipmentList)) {
+	display: none !important;
+}
+.charitems td.equipped, tr.charitems > td:nth-child(2) {
+	overflow: hidden; /* holds the floating item slots */
+	padding-bottom: 4px !important;
 }
 /* Item details: tap a slot (the pointer cursor makes iOS treat a tap as hover),
    the details are shown across the screen */
 .equipmentList {
+	position: relative;
 	cursor: pointer;
-	width: 40px !important;
-	height: 40px !important;
+	box-sizing: border-box;
+	width: 46px !important;
+	height: 46px !important;
+	margin: 0 6px 6px 0 !important;
+}
+.equipmentList img.equipmentImage {
+	display: block;
+	margin: 5px auto 0 auto;
+}
+.equipmentList .amountInfo {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: auto !important;
+	margin: 0 !important;
+	padding: 1px 3px !important;
+	font-size: 10px !important;
+	text-align: left;
 }
 .equipmentList .tooltipcontainer {
 	position: fixed !important;
@@ -189,5 +347,7 @@ form[action="login.php"] input[type=text], form[action="login.php"] input[type=p
 
 /* Debug output (admins with debug on) scrolls sideways */
 .debuginfo {
+	display: block !important;
+	box-sizing: border-box;
 	overflow-x: auto;
 }

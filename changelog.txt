@@ -1,3 +1,9 @@
+5.0.6 - October 16th, 2026 [Pierre Althinsson]
+
+Phone layout: the monster database shows each monster as a card (picture, stats two per line, one drop per line with MVP drops marked).
+Phone layout: the inventory shows each character as a card (name and stats, picture next to the hairstyle controls, Equipped/Item/Gear/Misc/Quest headings with bigger item slots, empty sections left out).
+Phone layout: every skin has the same margin on the right as on the left (the main panel, menus, debug output and some tables ran past the right edge), and the content of neumorphictLeft is no longer shifted to the right.
+
 5.0.5 - October 16th, 2026 [Pierre Althinsson]
 
 Added the Glass skin: frosted see-through panels, menus (opened from glass buttons) and form controls over the ROCP 5 background artwork (no banner image), with a light frosted box for item descriptions. Browsers without blur or transparency support get solid dark panels.
