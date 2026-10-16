@@ -162,6 +162,170 @@ function valid_skin($skin_name) {
 	return preg_match('/^[A-Za-z0-9_-]+$/', $skin_name) && is_file("skin/$skin_name/skin.php");
 }
 
+/**
+ * @return string
+ * @param int $length Number of random bytes
+ * @desc Returns a hex string from a cryptographically secure source when available
+*/
+function random_hex($length) {
+	if (function_exists('random_bytes')) {
+		return bin2hex(random_bytes($length));
+	}
+	if (function_exists('openssl_random_pseudo_bytes')) {
+		return bin2hex(openssl_random_pseudo_bytes($length));
+	}
+	$output = "";
+	while (strlen($output) < $length * 2) {
+		$output .= sha1(uniqid(mt_rand(), true) . microtime());
+	}
+	return substr($output, 0, $length * 2);
+}
+
+/**
+ * @return boolean
+ * @desc Compares two strings in constant time
+*/
+function safe_equals($known_string, $user_string) {
+	$known_string = (string)$known_string;
+	$user_string = (string)$user_string;
+	if (function_exists('hash_equals')) {
+		return hash_equals($known_string, $user_string);
+	}
+	if (strlen($known_string) != strlen($user_string)) {
+		return false;
+	}
+	$result = 0;
+	for ($i = 0; $i < strlen($known_string); $i++) {
+		$result |= ord($known_string[$i]) ^ ord($user_string[$i]);
+	}
+	return $result == 0;
+}
+
+/**
+ * @return string
+ * @desc Returns the CSRF token of the current session (32 hex characters, passes input validation)
+*/
+function csrf_token() {
+	if (empty($_SESSION['csrf_token'])) {
+		$_SESSION['csrf_token'] = random_hex(16);
+	}
+	return $_SESSION['csrf_token'];
+}
+
+/**
+ * @return array
+ * @desc GET parameters that perform an action, per page. 'name=value' matches a value, '*' matches every request.
+*/
+function csrf_protected_actions() {
+	return array(
+		'account_manage.php' => array('delete', 'option=addignore', 'option=delignore'),
+		'backup_server.php' => array('action'),
+		'char_manage.php' => array('delete'),
+		'clear.php' => array('action'),
+		'clear_all_banned.php' => array('action'),
+		'clear_banned.php' => array('action'),
+		'clear_temp_banned.php' => array('action'),
+		'edit_announcement.php' => array('del'),
+		'equipment.php' => array('action'),
+		'guild_manage.php' => array('delete', 'option=emptycastle'),
+		'item_manage.php' => array('delete_inv', 'delete_stor', 'delete_cart'),
+		'ladder_ignore.php' => array('add', 'del', 'account_name'),
+		'pending.php' => array('auth', 'del', 'action'),
+		'privileges.php' => array('add', 'del', 'saveedit'),
+		'rebuild_items.php' => array('*'),
+		'rebuild_mobs.php' => array('*'),
+		'whosonline_ignore.php' => array('add', 'del', 'account_name')
+	);
+}
+
+/**
+ * @return boolean
+ * @desc Returns true if the current request must carry a valid CSRF token
+*/
+function csrf_required($page) {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		return true;
+	}
+	$protected = csrf_protected_actions();
+	if (!isset($protected[$page])) {
+		return false;
+	}
+	foreach ($protected[$page] as $param) {
+		if ($param == '*') {
+			return true;
+		}
+		if (strpos($param, '=') !== false) {
+			list($name, $value) = explode('=', $param, 2);
+			if (isset($_GET[$name]) && $_GET[$name] == $value) {
+				return true;
+			}
+		}
+		elseif (isset($_GET[$param]) && $_GET[$param] != "") {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * @return boolean
+ * @desc Returns true if the request carries the CSRF token of this session
+*/
+function csrf_valid() {
+	$given_token = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : (isset($_GET['csrf_token']) ? $_GET['csrf_token'] : "");
+	return is_string($given_token) && safe_equals(csrf_token(), $given_token);
+}
+
+/**
+ * @return string
+ * @param string $buffer The page output
+ * @desc Output buffer callback, adds the CSRF token to every form and to links that perform actions
+*/
+function csrf_add_tokens($buffer) {
+	global $csrf_token_value;
+	if (!$csrf_token_value || substr($buffer, 0, 2) == "\x1f\x8b") {
+		return $buffer;
+	}
+	// Leave downloads and non-HTML output (backups, images) untouched
+	foreach (headers_list() as $header) {
+		if (stripos($header, 'Content-Disposition:') === 0 || (stripos($header, 'Content-Type:') === 0 && stripos($header, 'text/html') === false)) {
+			return $buffer;
+		}
+	}
+	$buffer = preg_replace('/<form\b[^>]*>/i', '$0<input type="hidden" name="csrf_token" value="' . $csrf_token_value . '" />', $buffer);
+	$pages = implode('|', array_map('preg_quote', array_keys(csrf_protected_actions())));
+	return preg_replace_callback('/(href\s*=\s*["\']?)((?:\.\/)?(?:' . $pages . '))(\?[^"\'\s>]*)?/i', 'csrf_add_link_token', $buffer);
+}
+
+function csrf_add_link_token($match) {
+	global $csrf_token_value;
+	$query = isset($match[3]) ? $match[3] : "";
+	$query .= ($query == "" ? "?" : "&") . "csrf_token=" . $csrf_token_value;
+	return $match[1] . $match[2] . $query;
+}
+
+/**
+ * @return boolean
+ * @param string $log_action Action text stored in the access log
+ * @param int $max_attempts
+ * @param int $minutes
+ * @desc Returns true if this IP has logged $log_action at least $max_attempts times in the last $minutes
+*/
+function too_many_attempts($log_action, $max_attempts, $minutes) {
+	$query = sprintf(COUNT_RECENT_ACCESS, add_escape($_SERVER['REMOTE_ADDR']), add_escape($log_action), $minutes);
+	$result = execute_query($query, "functions.php", 0, 0, true);
+	return $result->fields[0] >= $max_attempts;
+}
+
+/**
+ * @return string
+ * @desc Signed key for password reset links. Includes the current password, so a link stops working once used.
+*/
+function reset_key($userid, $expires, $current_password) {
+	global $CONFIG_passphrase;
+	return substr(hash_hmac('sha256', "$userid|$expires|$current_password", $CONFIG_passphrase), 0, 32);
+}
+
 function highlight_search_term($input_string, $search_term) {
 	// Changed by Maldiablo
 	$search_term = str_replace("%", "", $search_term);

@@ -366,6 +366,15 @@ DEFINE('RESET_NEW_PASS', "UPDATE $login.login
 SET passwd = '%s'
 WHERE ID = '%s'
 ");
+DEFINE('GET_RESET_ACCOUNT', "SELECT $login.login.ID, $login.account.Email, $login.login.passwd FROM $login.login
+LEFT JOIN $login.account ON $login.account.AID = $login.login.AID
+WHERE $login.login.ID = '%s'
+");
+
+// functions.php (rate limits), text columns need LIKE on MSSQL
+DEFINE('COUNT_RECENT_ACCESS', "SELECT COUNT(*) FROM $cp.access_log
+WHERE [User/IP] LIKE '%s' AND Action LIKE '%s' AND [Date] > DATEADD(minute, -%d, getDate())
+");
 
 // memory.php
 DEFINE('GET_SKIN', "SELECT skin FROM $cp.skins WHERE name = '%s'");

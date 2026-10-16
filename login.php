@@ -54,6 +54,11 @@ if (!$POST_action && !$GET_action) {
 	
 }
 elseif ($POST_action == "login") {
+	// Limit failed logins per IP
+	if (too_many_attempts("Failed login", 5, 15)) {
+		require 'header.inc';
+		redir("login.php", "Too many failed logins, please wait 15 minutes and try again.");
+	}
 	$access_level = authenticate($POST_login_user, md5($POST_login_pass));
 	if ($access_level > 0) {
 		// New session id on login to prevent session fixation
@@ -70,6 +75,7 @@ elseif ($POST_action == "login") {
 		redir("index.php", "You are now logged in");
 	}
 	else {
+		add_access_entry("Failed login");
 		require 'header.inc';
 		redir("login.php", "The username/password you entered is incorrect");
 	}

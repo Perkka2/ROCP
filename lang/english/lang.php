@@ -146,6 +146,18 @@ Thank you,
 GameMasters of %s
 ',
 
+'lost_pass_link' => '
+You have requested a password reset for %s.
+To choose a new password, open this link within one hour:
+%s
+
+If you did not request this, you can ignore this email.
+
+Thank you,
+
+GameMasters of %s
+',
+
 // mvp_ladder.php
 'mvpcantdisplay' => "MVP Logs are not available for this server.",
 

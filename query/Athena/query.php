@@ -369,6 +369,14 @@ DEFINE('RESET_NEW_PASS', "UPDATE login
 SET user_pass = '%s'
 WHERE userid = '%s'
 ");
+DEFINE('GET_RESET_ACCOUNT', "SELECT userid, email, user_pass FROM login
+WHERE userid = '%s'
+");
+
+// functions.php (rate limits)
+DEFINE('COUNT_RECENT_ACCESS', "SELECT COUNT(*) FROM $cp.access_log
+WHERE `User/IP` = '%s' AND Action = '%s' AND Date > DATE_SUB(NOW(), INTERVAL %d MINUTE)
+");
 
 // memory.php
 DEFINE('GET_SKIN', "SELECT skin FROM $cp.skins WHERE login = '%s'");

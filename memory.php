@@ -95,6 +95,10 @@ if (!preg_match('/^[A-Za-z0-9_-]+$/', $CONFIG_language) || !is_file("lang/$CONFI
 }
 include_once "lang/$CONFIG_language/lang.php"; // imports lang file
 
+// Adds the CSRF token to forms and action links in everything this page outputs
+$csrf_token_value = csrf_token();
+ob_start('csrf_add_tokens');
+
 ini_set('magic_quotes_gpc', 'On');
 
 // You REALLY should not be enabling register_globals
@@ -248,7 +252,7 @@ if ($STORED_level < 3 || !IsSet($STORED_level)) {
 			continue;
 		}
 		// Validate the email by it's own method
-		if (($index == 'register_email' || $index == 'new_email') && strlen($test_value) > 0) {
+		if (($index == 'register_email' || $index == 'new_email' || $index == 'retrieve_email') && strlen($test_value) > 0) {
 			if (!preg_match("/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]+)+/", $test_value, $test)) {
 				$message = "Invalid Input for " . '$_POST' . "[$index] as \"$test_value\"!";
 				add_exploit_entry($message);
@@ -269,5 +273,12 @@ if ($STORED_level < 3 || !IsSet($STORED_level)) {
 			}
 		}
 	}
+}
+
+// Every POST, and every GET that performs an action, must carry the CSRF token of this session
+if (csrf_required(basename($_SERVER['PHP_SELF'])) && !csrf_valid()) {
+	add_exploit_entry("Missing or invalid CSRF token for " . basename($_SERVER['PHP_SELF']));
+	require 'header.inc';
+	redir("index.php", "Your session has expired or the request did not come from this site. Please try again.");
 }
 ?>

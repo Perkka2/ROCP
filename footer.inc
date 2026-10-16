@@ -111,7 +111,7 @@ if ($CONFIG_do_gzip_compress) {
 	//
 	// Borrowed from php.net!
 	//
-	$gzip_contents = ob_get_contents();
+	$gzip_contents = csrf_add_tokens(ob_get_contents());
 	ob_end_clean();
 
 	$gzip_size = strlen($gzip_contents);
