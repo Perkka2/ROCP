@@ -172,18 +172,21 @@ function display_guild_table($input_query, $skip_castle = false, $search_term = 
 			if ($search_term) {
 				$col_value = highlight_search_term($col_value, $search_term);
 			}
+			else {
+				$col_value = html_escape($col_value);
+			}
 			if ($display_index == 1) {
 				$display_guild_id = md5($line[0] . $CONFIG_passphrase);
 				$col_value = "<a href=\"guild_standings.php?guild=$display_guild_id\">$col_value</a>";
 			}
 			elseif ($display_index == 2) {
-				$col_value = "<a href=\"char_manage.php?search=$col_value\">$col_value</a>";
+				$col_value = "<a href=\"char_manage.php?search=" . urlencode($line[2]) . "\">$col_value</a>";
 			}
 			elseif ($display_index == 4) {
-				$col_value = "{$line[4]}\n";
+				$col_value = html_escape($line[4]) . "\n";
 			}
 			elseif ($display_index == 5) {
-				$col_value = "{$line[5]}\n";
+				$col_value = html_escape($line[5]) . "\n";
 			}
 			echo "<td>$col_value</td>\n";
 		}

@@ -3,6 +3,11 @@ require 'memory.php';
 require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 
+// Only In-game GM, GM and Admin can be granted
+if (($GET_add != "" || $GET_saveedit != "") && !in_array(intval($GET_level), array(2, 3, 4), true)) {
+	redir("privileges.php", "Invalid access level!");
+}
+
 if ($GET_add != "") {
 	$level_string = privilege_string($GET_level);
 	$insert_id = UserID_To_AccountID($GET_account_name);
@@ -138,7 +143,7 @@ else {
 	echo "
 			</select>
 		</td>
-		<td width=30%>{$line[0]}</td>
+		<td width=30%>" . html_escape($line[0]) . "</td>
 		<td width=20%><input type=\"submit\" name=\"saveedit\" class=\"myctl\" value=\"Update\"></td>
 		<input type=\"hidden\" name=\"account_id\" class=\"myctl\" value=\"{$line[2]}\">
 		</form>
@@ -194,7 +199,7 @@ echo "
 		$access_string = privilege_string($line[1]);
 		echo "
 		<tr class=mycell>
-			<td>{$line[0]}</td>
+			<td>" . html_escape($line[0]) . "</td>
 			<td>$access_string</td>
 			<td><a href=\"privileges.php?edit={$line[2]}\">Edit</td>
 			<td><a href=\"privileges.php?del={$line[2]}&type={$line[1]}\">Delete</td>

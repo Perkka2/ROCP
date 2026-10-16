@@ -8,8 +8,7 @@ if ($GET_new != "") {
 	if ($GET_new == $STORED_skin) {
 		redir("index.php", "You are already using this skin!");
 	}
-	$dir = "skin/$GET_new";
-	if (is_dir($dir)) {
+	if (valid_skin($GET_new)) {
 		$query = sprintf(UPDATE_SKIN, $GET_new, $STORED_login);
 		$result = execute_query($query, "change_skin.php", 0, 0, true);
 		redir("index.php", "Skin Changed!");

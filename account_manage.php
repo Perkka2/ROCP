@@ -23,7 +23,7 @@ if ($GET_search != "") {
 elseif ($GET_option == "deleteaccount" && $GET_account_id > 0) {
 	require 'header.inc';
 	$name_of_account = AccountID_To_UserID($GET_account_id);
-	echo "Are you sure you want to delete $name_of_account?<p>";
+	echo "Are you sure you want to delete " . html_escape($name_of_account) . "?<p>";
 	echo "
 	<form action=\"account_manage.php\" method=\"GET\">
 	<input type=\"hidden\" name=\"delete_id\" class=\"myctl\" value=\"$GET_account_id\">
@@ -33,6 +33,9 @@ elseif ($GET_option == "deleteaccount" && $GET_account_id > 0) {
 }
 elseif ($POST_finishedit == "Edit This Account!") {
 	require 'header.inc';
+	if (!can_edit_account($POST_var[0])) {
+		redir("account_manage.php", "You cannot edit this account!");
+	}
 	
 	// Compare every value with the database value
 	$edit_variables = array("Account ID", "Account Name", "Password", "Gender", "Email", "Status");
@@ -97,6 +100,9 @@ elseif ($POST_finishedit == "Edit This Account!") {
 }
 elseif ($GET_delete == "Delete") {
 	require 'header.inc';
+	if (!can_edit_account($GET_delete_id)) {
+		redir("account_manage.php", "You cannot delete this account!");
+	}
 	$account_name = AccountID_To_UserID($GET_delete_id);
 	clear_account($GET_delete_id);
 	add_admin_entry("Deleted Account $account_name");
@@ -169,6 +175,16 @@ if ($display_table) {
 	";
 }
 require 'footer.inc';
+
+/**
+ * @return boolean
+ * @param int $account_id
+ * @desc GMs cannot edit/delete accounts with the same or a higher access level, except their own
+*/
+function can_edit_account($account_id) {
+	global $STORED_level, $STORED_id;
+	return !(get_level(intval($account_id)) >= $STORED_level && $STORED_id != $account_id);
+}
 
 function display_account_table($input_query, $start, $size) {
 	global $CONFIG_server_type, $CONFIG_admin_colour, $CONFIG_gm_colour, $CONFIG_game_gm_colour,
@@ -245,6 +261,9 @@ function display_account_table($input_query, $start, $size) {
                         if ($_GET['search']) {
                                 $col_value = highlight_search_term($col_value, $_GET['search']);
                         }
+                        else {
+                                $col_value = html_escape($col_value);
+                        }
 			if ($display_index == 3 && $CONFIG_server_type == 0) {
 				$col_value = $col_value == 1? "M" : "F";
 			}
@@ -306,10 +325,10 @@ function display_edit_table($input_query) {
 	}
         $line = $result->FetchRow();
 	$account_id = $line[0];
-	$userid = $line[1];
-	$user_pass = $line[2];
+	$userid = html_escape($line[1]);
+	$user_pass = html_escape($line[2]);
 	$sex = $line[3];
-	$email = $line[4];
+	$email = html_escape($line[4]);
 	$level = $line[5];
 	if ($line[6] >= $STORED_level && $STORED_id != $account_id) {
 		// Disable GM from editing admin/GM accounts

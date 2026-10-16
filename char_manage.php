@@ -250,9 +250,11 @@ $display_search = true, $size = 0, $start = 0, $highlight = false
 		";
 		$account_name = $line[2];
 		foreach ($line as $display_index => $col_value) {
-			$col_value = htmlspecialchars($col_value);
 			if ($highlight) {
 				$col_value = highlight_search_term($col_value, $_GET['search']);
+			}
+			else {
+				$col_value = htmlspecialchars($col_value);
 			}
 			if ($display_index == 1) {
 				$account_name = htmlspecialchars($account_name);

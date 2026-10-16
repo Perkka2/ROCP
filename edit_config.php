@@ -3,16 +3,18 @@ require 'memory.php';
 require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 EchoHead(100);
-if ($GET_saveedit != "") {
-	edit_config($GET_edit, $GET_new_value);
+if ($POST_saveedit != "") {
+	if (edit_config($POST_edit, $POST_new_value) === false) {
+		redir("edit_config.php", "Unknown config variable!");
+	}
 
 	// Reload the config.php file
 	require 'config.php';
-	if ($GET_edit == "server_rules") {
-		$edit_message = "Changed \$CONFIG['$GET_edit'] to $GET_new_value";
+	if ($POST_edit == "server_rules") {
+		$edit_message = "Changed \$CONFIG['$POST_edit'] to $POST_new_value";
 	}
 	else {
-		$edit_message = "Changed \$CONFIG['$GET_edit'] to " . htmlspecialchars($CONFIG[$GET_edit]);
+		$edit_message = "Changed \$CONFIG['$POST_edit'] to " . htmlspecialchars($CONFIG[$POST_edit]);
 	}
 	// Adds to log
 	add_admin_entry(add_escape($edit_message));
@@ -46,6 +48,7 @@ if (!$GET_edit) {
 		if (in_array($config_index, $hide_values)) {
 			$config_value = "*********";
 		}
+		$config_value = html_escape($config_value);
 		$config_desc = htmlspecialchars(determine_config_desc($config_num_index));
 		echo "
 		<tr class=mycell>
@@ -83,18 +86,18 @@ else {
 				$form_object = "text";
 			}
 			echo "
-			<form action=\"edit_config.php\" method=\"GET\">
+			<form action=\"edit_config.php\" method=\"POST\">
 			<input type=\"hidden\" name=\"edit\" class=\"myctl\" value=\"$config_index\">
 				<tr class=mycell>
 					<td>$config_index</td>
 			";
 			if ($form_object == "text" or $form_object == "password") {
 				echo "
-					<td><input type=\"$form_object\" name=\"new_value\" class=\"myctl\" value=\"$config_value\"></td>
+					<td><input type=\"$form_object\" name=\"new_value\" class=\"myctl\" value=\"" . html_escape($config_value) . "\"></td>
 				";
 			}
 			else {
-				$config_value = str_replace("<br>", "\r\n", $config_value);
+				$config_value = html_escape(str_replace("<br>", "\r\n", $config_value));
 				echo "
 				<td>
 				<textarea rows=10 cols=80 name=\"new_value\" class=\"myctl\">$config_value</textarea>

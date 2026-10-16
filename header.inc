@@ -169,7 +169,7 @@ else {
 	}
 	echo "
 	<div class=\"loginstatus\">
-			{$lang['loggedas']} <b>$STORED_login</b>
+			{$lang['loggedas']} <b>" . html_escape($STORED_login) . "</b>
 			{$lang['accesslevel']} <b>$privilege</b>
 		$edit_config
 			<a href=\"terms.php\">{$lang['terms']}</a>

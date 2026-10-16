@@ -132,21 +132,52 @@ function del_escape($input_string) {
 	}
 }
 
+/**
+ * @return string
+ * @param string $input_string
+ * @desc Escapes a value for output in HTML text or attributes. ISO-8859-1 keeps non-ASCII bytes untouched.
+*/
+function html_escape($input_string) {
+	return htmlspecialchars($input_string, ENT_QUOTES, 'ISO-8859-1');
+}
+
+/**
+ * @return string
+ * @param string $input_string
+ * @desc Escapes a message for HTML output, but keeps simple <br>, <b> and <p> formatting
+*/
+function safe_message($input_string) {
+	$output = html_escape($input_string);
+	$allowed_tags = array("&lt;br&gt;" => "<br>", "&lt;br /&gt;" => "<br />", "&lt;br/&gt;" => "<br />",
+	"&lt;b&gt;" => "<b>", "&lt;/b&gt;" => "</b>", "&lt;p&gt;" => "<p>");
+	return str_ireplace(array_keys($allowed_tags), array_values($allowed_tags), $output);
+}
+
+/**
+ * @return boolean
+ * @param string $skin_name
+ * @desc Returns true if $skin_name is the name of an installed skin
+*/
+function valid_skin($skin_name) {
+	return preg_match('/^[A-Za-z0-9_-]+$/', $skin_name) && is_file("skin/$skin_name/skin.php");
+}
+
 function highlight_search_term($input_string, $search_term) {
 	// Changed by Maldiablo
 	$search_term = str_replace("%", "", $search_term);
+	$position = false;
 	if ($input_string && $search_term) {
 		$position = strpos(strtolower($input_string), strtolower($search_term));
 	}
 	// End of changes
 	if ($position !== FALSE) {
-		$first_part = substr($input_string, 0, $position);
-		$middle_part = "<font color=green>" . substr($input_string, $position, strlen($search_term));
-		$final_part = "</font>" . substr($input_string, $position + strlen($search_term));
+		$first_part = html_escape(substr($input_string, 0, $position));
+		$middle_part = "<font color=green>" . html_escape(substr($input_string, $position, strlen($search_term)));
+		$final_part = "</font>" . html_escape(substr($input_string, $position + strlen($search_term)));
 		$output = $first_part . $middle_part . $final_part;
 	}
 	else {
-		$output = $input_string;
+		$output = html_escape($input_string);
 	}
 	return $output;
 }
@@ -188,6 +219,8 @@ function redir($page, $msg, $time = 5) {
 	$debug_message, $cp_version;
 	require 'config.php';
 	require 'extract.inc';
+	$safe_page = html_escape($page);
+	$safe_msg = safe_message($msg);
 	/*
 	<head>
 		<meta http-equiv=\"refresh\" content=\"$time;url=$page\">
@@ -201,7 +234,7 @@ function redir($page, $msg, $time = 5) {
 		</tr>
 		<tr align=\"center\">
 			<td class=\"mytext\">
-				<b>$msg</b><br />To continue, please <a href='$page'>click here</a><br />
+				<b>$safe_msg</b><br />To continue, please <a href='$safe_page'>click here</a><br />
 			</td>
 		</tr>
 		<tr>
@@ -235,7 +268,7 @@ function getmicrotime() {
 */
 function validate_string($test_string) {
 	global $CONFIG_validchars;
-	if (preg_match($CONFIG_validchars, $string)) {
+	if (preg_match($CONFIG_validchars, $test_string)) {
 		return true;
 	}
 	else {
@@ -310,10 +343,10 @@ function execute_query($input_query, $page_source = 'none.php', $limit = 0, $off
 		$log_query = false;
 	}
 	if ($limit == 0 && $offset == 0) {
-		$result = $link->Execute($input_query) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+		$result = $link->Execute($input_query) or die(query_error($input_query));
 	}
 	else {
-		$result = $link->SelectLimit($input_query, $limit, $offset) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+		$result = $link->SelectLimit($input_query, $limit, $offset) or die(query_error($input_query));
 	}
 
 	// Displays each query (SELECT, INSERT, UPDATE, DELETE)
@@ -335,6 +368,20 @@ function execute_query($input_query, $page_source = 'none.php', $limit = 0, $off
 	return $result;
 }
 
+
+/**
+ * @return string
+ * @param string $input_query The query that failed
+ * @desc Logs a failed query, returns the error message to display. SQL is only shown to admins in debug mode.
+*/
+function query_error($input_query) {
+	global $link, $CONFIG_debug, $STORED_level;
+	error_log("ROCP query failed: " . $link->ErrorMsg() . " in: " . str_replace(array("\r", "\n"), " ", $input_query));
+	if ($CONFIG_debug && $STORED_level >= 4) {
+		return "Query (<b>" . html_escape($input_query) . "</b>) failed: " . html_escape($link->ErrorMsg());
+	}
+	return "A database error occurred.";
+}
 
 function execute_query_union($input_query, $page_source = 'none.php', $limit = 0, $offset = 0, $skip_log = false) {
 	global $debug_message, $queries, $link, $CONFIG_log_select, $CONFIG_log_insert,
@@ -383,10 +430,10 @@ function execute_query_union($input_query, $page_source = 'none.php', $limit = 0
 		$log_query = false;
 	}
 	if ($limit == 0 && $offset == 0) {
-		$result = $link->Execute($input_query) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+		$result = $link->Execute($input_query) or die(query_error($input_query));
 	}
 	else {
-		$result = $link->SelectLimit($input_query, $limit, $offset) or die("Query (<b>$input_query</b>) failed: " . $link->ErrorMsg());
+		$result = $link->SelectLimit($input_query, $limit, $offset) or die(query_error($input_query));
 	}
 
 	// Displays each query (SELECT, INSERT, UPDATE, DELETE)
@@ -432,7 +479,8 @@ function get_level($account_id) {
 	$query = sprintf(GET_LEVEL, $account_id);
 	$result = execute_query($query, "functions.php");
 	if ($result->RowCount() > 0) {
-		return $result->fields[0];
+		// Clamp to the known levels (-1 Disabled ... 4 Admin)
+		return max(-1, min(4, intval($result->fields[0])));
 	}
 	else {
 		return 1;
@@ -491,6 +539,7 @@ function authenticate ($login_username, $login_password) {
 function privilege_string($access_level) {
 	if ($access_level == -1) return "<font color=red>Disabled</font>";
 	$access_string = explode("\r\n", file_get_contents("access.def"));
+	$access_level = max(0, min(4, intval($access_level)));
 	return $access_string[$access_level];
 }
 
@@ -561,6 +610,9 @@ function determine_config_desc ($conf_index) {
 
 function edit_config($edit_index, $edit_value) {
 	require 'config.php';
+	if (!array_key_exists($edit_index, $CONFIG)) {
+		return false;
+	}
 	// Write the current config.php
 	$write = fopen("config.php", "w");
 	fwrite($write, "<?php\r\n");
@@ -605,6 +657,8 @@ function edit_config($edit_index, $edit_value) {
 		}
 
 		$comment = determine_config_desc($comment_index);
+		// Escape \ and ' so the value can never break out of the PHP string literal
+		$write_value = addcslashes($write_value, "\\'");
 		$write_string = "\$CONFIG['$config_index'] $tabs=\t\t\t'$write_value';$comment_tabs// $comment\r\n";
 		fwrite($write, $write_string);
 		$comment_index++;
