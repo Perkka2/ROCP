@@ -62,7 +62,7 @@ if (!$GET_action && !$POST_action) {
 elseif ($POST_action == "Unban This Account!") {
 	$ban_id = UserID_To_AccountID($POST_account_name);
 	$reason = $POST_reason;
-	$query = sprintf(UNBAN_ACCOUNT, $ban_id);
+	$query = query_format(UNBAN_ACCOUNT, $ban_id);
 	$result = execute_query($query, "unban.php");
 	add_admin_entry('Unbanned ' . $POST_account_name, $reason);
 	add_unban_entry($POST_account_name, $reason);

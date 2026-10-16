@@ -16,17 +16,17 @@ else {
 if ($GET_delete_inv > 0 or $GET_delete_stor > 0 or $GET_delete_cart > 0) {
 	if ($GET_delete_inv > 0) {
 		$delete_table = "inventory";
-		$delete_value = $GET_delete_inv;
+		$delete_value = intval($GET_delete_inv);
 		$display_column = "char_id";
 	}
 	elseif ($GET_delete_stor > 0) {
 		$delete_table = "storage";
-		$delete_value = $GET_delete_stor;
+		$delete_value = intval($GET_delete_stor);
 		$display_column = "account_id";
 	}
 	elseif ($GET_delete_cart > 0) {
 		$delete_table = "cart_inventory";
-		$delete_value = $GET_delete_cart;
+		$delete_value = intval($GET_delete_cart);
 		$display_column = "char_id";
 	}
 	$query = "SELECT $delete_table.id, $display_column, nameid, amount, refine, name0.name_english, name1.name_english, name2.name_english, name3.name_english, item_db.name_english
@@ -57,7 +57,7 @@ if ($GET_delete_inv > 0 or $GET_delete_stor > 0 or $GET_delete_cart > 0) {
 	$display_msg = "Deleted {$line[3]} $display (Cards: [$card1] [$card2] [$card3] [$card4]) from $source!";
 	$query = "DELETE FROM `$delete_table` WHERE id = $delete_value LIMIT 1";
 	$result = execute_query($query, "item_manage.php");
-	add_admin_entry(add_escape($display_msg));
+	add_admin_entry($display_msg);
 	redir("char_manage.php", $display_msg);
 }
 if ($GET_s_action == "Search Character") {
@@ -71,7 +71,7 @@ if ($GET_s_action == "Search Character") {
 }
 elseif ($GET_s_action == "Search Refined") {
 	$refine_level = $GET_refine;
-	display_item("refine = $GET_refine");
+	display_item("refine = " . intval($GET_refine));
 }
 elseif ($GET_item > 0 || $GET_item2 > 0) {
 	if ($GET_item2 > 0) {
@@ -81,7 +81,7 @@ elseif ($GET_item > 0 || $GET_item2 > 0) {
 		display_aegis_item($GET_item);
 	}
 	else {
-		display_item("$GET_item IN(nameid, card0, card1, card2, card3)");
+		display_item(intval($GET_item) . " IN(nameid, card0, card1, card2, card3)");
 	}
 }
 elseif ($GET_s_action == "Search Account") {
@@ -91,7 +91,7 @@ elseif ($GET_s_action == "Search Account") {
 	else {
 		$search_id = UserID_To_AccountID($GET_account);
 	}
-	$query = sprintf(CHARS_ON_ACCOUNT, $search_id);
+	$query = query_format(CHARS_ON_ACCOUNT, $search_id);
 	$result = execute_query($query, "item_manage.php");
 	while ($line = $result->FetchRow()) {
 		if ($line[0] != "") {

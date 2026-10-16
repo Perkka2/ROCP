@@ -72,7 +72,7 @@ if ($CONFIG_check_server) {
 			if ($acc > 1){if(!feof($acc)){$acc = 1;} else {$acc = 0;}}
 			if ($char > 1){if(!feof($char)){$char = 1;} else {$char = 0;}}
 			//if ($maptest > 1) $map = 1;
-			$query = sprintf(UPDATE_STATUS, $acc, $char, $map);
+			$query = query_format(UPDATE_STATUS, $acc, $char, $map);
 			$result = execute_query($query, "header.inc", 0, 0, true);
 		}
 		else {
@@ -202,7 +202,7 @@ if ($STORED_level > 0)	{
 	}
 
 	if ($STORED_level >= $access['hairstyle.php'] && $access['hairstyle.php'] != -1) {
-		$query = sprintf(SHOW_HAIRSTYLE, $STORED_id);
+		$query = query_format(SHOW_HAIRSTYLE, $STORED_id);
 		$result = execute_query($query, 'header.inc');
 		while ($line = $result->FetchRow()) {
 			$char_name = $line[0];
@@ -212,12 +212,12 @@ if ($STORED_level > 0)	{
 	}
 
 	if ($STORED_level >= $access['upload_emblem.php'] && $access['upload_emblem.php'] != -1) {
-		$query = sprintf(CHARS_ON_ACCOUNT, $STORED_id);
+		$query = query_format(CHARS_ON_ACCOUNT, $STORED_id);
 		$result = execute_query($query, "header.inc");
 		while ($line = $result->FetchRow()) {
 			$char = CharID_To_CharName($line[0]);
 			if ($char != "") {
-				$query = sprintf(SHOW_GUILD_MASTER, $char);
+				$query = query_format(SHOW_GUILD_MASTER, $char);
 				$master = execute_query($query, 'header.inc');
 				$name = $master->FetchRow();
 				if ($master->RowCount() == 1) {

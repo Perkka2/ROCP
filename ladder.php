@@ -59,18 +59,18 @@ if ($GET_action) {
 					$search_class2 = 4036;
 					break;
 			}
-			$query = sprintf(LADDER_SORT_MULTI_CLASS, $search_class, $search_class2,$sort_type);
+			$query = query_format(LADDER_SORT_MULTI_CLASS, $search_class, $search_class2,$sort_type);
 		}
 		else {
-			$query = sprintf(LADDER_SORT_CLASS, $search_class,$sort_type);
+			$query = query_format(LADDER_SORT_CLASS, $search_class,$sort_type);
 		}
 	}
 	elseif ($GET_action == $lang['laddersort']) {
-		$query =  sprintf(LADDER_SORT_LEVEL,$sort_type);
+		$query =  query_format(LADDER_SORT_LEVEL,$sort_type);
 	}
 }
 else {
-	$query =  sprintf(LADDER_SORT_LEVEL,$sort_type);
+	$query =  query_format(LADDER_SORT_LEVEL,$sort_type);
 }
 display_ladder ($query);
 require 'footer.inc';

@@ -34,7 +34,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA, minLevel FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 0, $line[2], 
 				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", $line[9]);
 				$link->Execute($query2);
 			}
@@ -46,7 +46,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level], minLevel FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 2, $line[2], 
 				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], $line[11]);
 				$link->Execute($query2);
 			}
@@ -58,7 +58,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 1, $line[2], 
 				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[5]);
 				$link->Execute($query2);
 			}
@@ -69,7 +69,7 @@ if ($CONFIG_server_type == 0) {
 		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, minLevel, EQUIP FROM script.dbo.ThrowWeapon";
 		$result = execute_query($query, "rebuild_items.php");
 		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
+			$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 8, $line[2], 
 			$line[3], $line[4], "NULL", "NULL", "NULL", $line[6], 2, "NULL", "NULL", $line[5]);
 			$link->Execute($query2);
 		}
@@ -80,7 +80,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 0, $line[2], 
 				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", "NULL");
 				$link->Execute($query2);
 			}
@@ -92,7 +92,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level] FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 2, $line[2], 
 				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], "NULL");
 				$link->Execute($query2);
 			}
@@ -104,7 +104,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 1, $line[2], 
 				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
 				$link->Execute($query2);
 			}
@@ -115,7 +115,7 @@ if ($CONFIG_server_type == 0) {
 		$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.ThrowWeapon";
 		$result = execute_query($query, "rebuild_items.php");
 		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 8, $line[2], 
+			$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 8, $line[2], 
 			$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", 2, "NULL", "NULL", "NULL");
 			$link->Execute($query2);
 		}
@@ -126,7 +126,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, DEF, SLOT, EQUIP, SEX, LOCA FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 0, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 0, $line[2], 
 				$line[3], "NULL", $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], "NULL", "NULL");
 				$link->Execute($query2);
 			}
@@ -138,7 +138,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK, AR, SLOT, EQUIP, SEX, LOCA, [level] FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 2, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 2, $line[2], 
 				$line[3], $line[4], "NULL", $line[5], $line[6], $line[7], $line[8], $line[9], $line[10], "NULL");
 				$link->Execute($query2);
 			}
@@ -150,7 +150,7 @@ if ($CONFIG_server_type == 0) {
 			$query = "SELECT ID, Name, PRICE, WEIGHT, ATK FROM script.dbo.$table_name";
 			$result = execute_query($query, "rebuild_items.php");
 			while ($line = $result->FetchRow()) {
-				$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 1, $line[2], 
+				$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 1, $line[2], 
 				$line[3], $line[4], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
 				$link->Execute($query2);
 			}
@@ -161,7 +161,7 @@ if ($CONFIG_server_type == 0) {
 	$query = "SELECT ID, Name, PRICE, WEIGHT, compositionPos FROM script.dbo.card";
 	$result = execute_query($query, "rebuild_items.php");
 	while ($line = $result->FetchRow()) {
-		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 3, $line[2], 
+		$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 3, $line[2], 
 		$line[3], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", $line[4], "NULL", "NULL");
 		$link->Execute($query2);
 	}
@@ -171,7 +171,7 @@ if ($CONFIG_server_type == 0) {
 	$query = "SELECT ID, Name FROM script.dbo.guest";
 	$result = execute_query($query, "rebuild_items.php");
 	while ($line = $result->FetchRow()) {
-		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 5, "NULL", 
+		$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 5, "NULL", 
 		"NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
 		$link->Execute($query2);
 	}
@@ -181,7 +181,7 @@ if ($CONFIG_server_type == 0) {
 		$query = "SELECT ID, Name, PRICE, WEIGHT FROM script.dbo.$table_name";
 		$result = execute_query($query, "rebuild_items.php");
 		while ($line = $result->FetchRow()) {
-			$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), 6, $line[2], 
+			$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], 6, $line[2], 
 			$line[3], "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL");
 			$link->Execute($query2);
 		}	
@@ -197,7 +197,7 @@ else {
 				$line[$index] = "NULL";
 			}
 		}
-		$query2 = sprintf(INSERT_ITEM_TABLE, $line[0], add_escape($line[1]), $line[2],
+		$query2 = query_format(INSERT_ITEM_TABLE, $line[0], $line[1], $line[2],
 		$line[3], $line[4], $line[5], $line[6], $line[7], $line[8], $line[9], $line[10],
 		$line[11], $line[12], $line[13]);
 		$link->Execute($query2);

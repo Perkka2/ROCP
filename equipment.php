@@ -4,7 +4,7 @@ require 'memory.php';	// calls memory functions
 require 'header.inc';	// brings in header
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 echo "<table class=\"contentTable equipment\">";
-$query = sprintf(GET_ALL_ITEMS);
+$query = query_format(GET_ALL_ITEMS);
 $result = execute_query_union($query, "equipment.php");
 $itemTable = ParseAllItems($result);
 $clientItemNameTable = ParseIdNum2ItemDisplayNameTable("./dbtranslation/idnum2itemdisplaynametable.txt");
@@ -24,7 +24,7 @@ $headgearId = array(
 
 
 
-	$query = sprintf(CHECK_SEX_AID, $STORED_id);
+	$query = query_format(CHECK_SEX_AID, $STORED_id);
 	$result = execute_query($query, "equipment.php");
 	if ($result->RowCount() != 0) {
 		$line = $result->FetchRow();
@@ -32,13 +32,13 @@ $headgearId = array(
 		else{$sex = 'M';}
 	}
 
-	$query = sprintf(GET_CHARACTER_FROM_USER, $STORED_id);
+	$query = query_format(GET_CHARACTER_FROM_USER, $STORED_id);
 	$result = execute_query($query, "equipment.php");
 	if ($result->RowCount() == 0) {
 		redir("index.php", "You do not have any characters");
 	}
 	if ($GET_action) {
-		$query = sprintf(UPDATE_HAIR, $GET_Style, $GET_char, $STORED_id);
+		$query = query_format(UPDATE_HAIR, $GET_Style, $GET_char, $STORED_id);
 		$result = execute_query($query, "hairstyle.php");
 		if ($link->Affected_Rows() > 0) {
 			redir("equipment.php", "Hair Style Change successful!");

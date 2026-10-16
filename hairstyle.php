@@ -11,7 +11,7 @@ if (!$GET_action) {
 	if (is_online($STORED_id)) {
 		redir("index.php", "You cannot edit your hairstyle while logged on. Please log off and try again.");
 	}
-	$query = sprintf(CHECK_SEX, $STORED_login);
+	$query = query_format(CHECK_SEX, $STORED_login);
 	$result = execute_query($query, "hairstyle.php");
 	$line = $result->FetchRow();
 	if ($CONFIG_server_type == 0) {
@@ -20,7 +20,7 @@ if (!$GET_action) {
 	else {
 		$current_gender = strtolower($line[0]);
 	}
-	$query = sprintf(GET_HAIR_NUMBER, $character_slot, $STORED_id);
+	$query = query_format(GET_HAIR_NUMBER, $character_slot, $STORED_id);
 	$result = execute_query($query, "hairstyle.php");
 	$line = $result->FetchRow();
 	$current_hair = sprintf('%02d', $line[0]);
@@ -91,7 +91,7 @@ function na_call (str) {
 else {
 	$filename = basename($GET_Style, ".bmp");
 	$new_hair_int = substr($filename, 1, 2);
-	$query = sprintf(UPDATE_HAIR, $new_hair_int, $character_slot, $STORED_id);
+	$query = query_format(UPDATE_HAIR, $new_hair_int, $character_slot, $STORED_id);
 	$result = execute_query($query, "hairstyle.php");
 	if ($link->Affected_Rows() > 0) {
 		redir("index.php", "Hair Style Change successful!");

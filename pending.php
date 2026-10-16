@@ -3,18 +3,18 @@ require 'memory.php';
 require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 if ($GET_auth) {
-	$query = sprintf(AUTH_PENDING, $GET_auth);
+	$query = query_format(AUTH_PENDING, $GET_auth);
 	$result = execute_query($query, "pending.php");
 	$line = $result->FetchRow();
 	// Adds account, skips the encryption
 	add_account($line[2], $line[3], $line[4], $line[5], $CONFIG_default_level, true);
-	$query = sprintf(DEL_PENDING, $GET_auth);
+	$query = query_format(DEL_PENDING, $GET_auth);
 	$result = execute_query($query, "pending.php");
 	add_admin_entry("Accepted Pending Registration for {$line[2]}");
 	redir("pending.php", "Pending Account Accepted!");
 }
 elseif ($GET_del) {
-	$query = sprintf(DEL_PENDING, $GET_del);
+	$query = query_format(DEL_PENDING, $GET_del);
 	$result = execute_query($query, "pending.php");
 	add_admin_entry("Removed Pending Registration");
 	redir("pending.php", "Pending Account Removed!");

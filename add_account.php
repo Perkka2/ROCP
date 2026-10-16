@@ -29,7 +29,7 @@ if ($POST_action == "Register Account!") {
 		}
 	}
 	else {
-			$query = sprintf(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
+			$query = query_format(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
 			$result = execute_query($query, "register.php");
 			if ($result->RowCount() > 0) {
 				redir("add_account.php", "Account Already Exists, please choose another one.");

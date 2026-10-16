@@ -32,7 +32,7 @@ else {
 			<td>Poster</td>
 		</tr>
 	";
-	$query = sprintf(VIEW_ANNOUNCE, $table);
+	$query = query_format(VIEW_ANNOUNCE, $table);
 	$result = execute_query($query, "view_announcement.php");
 	while ($line = $result->FetchRow()) {
 		echo "

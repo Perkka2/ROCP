@@ -4,23 +4,23 @@ require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
 // This allows you to edit messages
 if ($POST_action == "Add Admin Message") {
-	$new_message = add_escape(generate_breaks($POST_admin_message));
+	$new_message = generate_breaks($POST_admin_message);
 	$poster = $STORED_login;
-	$query = sprintf(ANNOUNCE_ADD_ADMIN, $new_message, $poster);
+	$query = query_format(ANNOUNCE_ADD_ADMIN, $new_message, $poster);
 	$result = execute_query($query, "add_announcement.php");
 	redir("add_announcement.php", "Announcement Added!");
 }
 elseif ($POST_action == "Add GM Message") {
-	$new_message = add_escape(generate_breaks($POST_gm_message));
+	$new_message = generate_breaks($POST_gm_message);
 	$poster = $STORED_login;
-	$query = sprintf(ANNOUNCE_ADD_GM, $new_message, $poster);
+	$query = query_format(ANNOUNCE_ADD_GM, $new_message, $poster);
 	$result = execute_query($query, "add_announcement.php");
 	redir("add_announcement.php", "Announcement Added!");
 }
 elseif ($POST_action == "Add User Message") {
-	$new_message = add_escape(generate_breaks($POST_user_message));
+	$new_message = generate_breaks($POST_user_message);
 	$poster = $STORED_login;
-	$query = sprintf(ANNOUNCE_ADD_USER, $new_message, $poster);
+	$query = query_format(ANNOUNCE_ADD_USER, $new_message, $poster);
 	$result = execute_query($query, "add_announcement.php");
 	redir("add_announcement.php", "Announcement Added!");
 }

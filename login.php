@@ -120,7 +120,7 @@ elseif ($GET_action == "resend" && $CONFIG_register_type == 1) {
 }
 elseif ($GET_action == "Request Email!") {
 	require 'header.inc';
-	$query = sprintf(REQUEST_RESEND, $GET_resend_account, $GET_resend_email);
+	$query = query_format(REQUEST_RESEND, $GET_resend_account, $GET_resend_email);
 	$result = execute_query($query, "login.php");
 	if ($result->RowCount() == 0) {
 		redir("login.php", "That username & email combination was not found in the database!");

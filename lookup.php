@@ -49,21 +49,21 @@ echo "
 if ($GET_search_type == "account") {
 	if ($GET_action == "Search Account") {
 		$search_term = $GET_account;
-		$query = sprintf(SEARCH_ACCOUNT, $GET_account);
+		$query = query_format(SEARCH_ACCOUNT, $GET_account);
 	}
 	elseif ($GET_action == "Search Account ID") {
 		$search_term = $GET_account_id;
-		$query = sprintf(SEARCH_ACCOUNT_ID, $GET_account_id);
+		$query = query_format(SEARCH_ACCOUNT_ID, $GET_account_id);
 	}
 }
 elseif ($GET_search_type == "char") {
 	if ($GET_action == "Search Character") {
 		$search_term = $GET_char;
-		$query = sprintf(SEARCH_CHAR, $GET_char);
+		$query = query_format(SEARCH_CHAR, $GET_char);
 	}
 	elseif ($GET_action == "Search Character ID") {
 		$search_term = $GET_char_id;
-		$query = sprintf(SEARCH_CHAR_ID, $GET_char_id);
+		$query = query_format(SEARCH_CHAR_ID, $GET_char_id);
 	}
 }
 else {
@@ -94,7 +94,7 @@ function display_account_data ($input_account_id, $input_account_name, $search_t
 		</tr>
 	";
 	// displays the information about the characters in an account
-	$query = sprintf(DISPLAY_CHAR_DATA, $input_account_id);
+	$query = query_format(DISPLAY_CHAR_DATA, $input_account_id);
 	$result = execute_query($query, 'functions.php');
 	if ($result->RowCount() == 0) {
 		echo "

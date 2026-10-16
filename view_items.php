@@ -73,12 +73,12 @@ $start = ($page * $display_size) - $display_size;
 		$condition = "WHERE 1 = 1";
 	}
 	elseif (IsSet($GET_class) && $GET_class != "") {
-		$condition = sprintf(SEARCH_CLASS, $GET_class);
+		$condition = query_format(SEARCH_CLASS, $GET_class);
 	}
 
 	elseif ($GET_value && strlen($GET_value) < 30) {
 		if ($GET_col == "letter") {
-			$letter = chr($GET_value);
+			$letter = add_escape(chr($GET_value));
 			if ($CONFIG_server_type == 0) {
 				$condition = "WHERE SUBSTRING($CONFIG_cp_db_name.dbo.item_db.Name, 1, 1) = '$letter'";
 			}
@@ -88,10 +88,10 @@ $start = ($page * $display_size) - $display_size;
 		}
 		else {
 			if ($CONFIG_server_type == 0) {
-				$condition = "WHERE ([Name] LIKE '%$GET_value%' OR [ID] LIKE '$GET_value')";
+				$condition = "WHERE ([Name] LIKE '%" . add_escape($GET_value) . "%' OR [ID] LIKE '" . add_escape($GET_value) . "')";
 			}
 			else {
-				$condition = "WHERE (name_english LIKE '%$GET_value%')";
+				$condition = "WHERE (name_english LIKE '%" . add_escape($GET_value) . "%')";
 			}
 		}
 	}
@@ -99,10 +99,10 @@ $start = ($page * $display_size) - $display_size;
 	else {
 		if ($GET_col == "type" && strlen($GET_val) < 5) {
 			if ($CONFIG_server_type == 0) {
-				$condition = "WHERE [$GET_col] = $GET_val";
+				$condition = "WHERE [$GET_col] = " . intval($GET_val);
 			}
 			else {
-				$condition = "WHERE `$GET_col` = $GET_val";
+				$condition = "WHERE `$GET_col` = " . intval($GET_val);
 			}
 		}
 		else {
@@ -112,16 +112,16 @@ $start = ($page * $display_size) - $display_size;
 	if(IsSet($GET_type) && $GET_type != 'all'){
 		if($GET_type == 'zero'){$GET_type = '0';}
 		if ($CONFIG_server_type == 0) {
-			$condition .= " AND ([type] = $GET_type)";
+			$condition .= " AND ([type] = " . intval($GET_type) . ")";
 		}
 		else {
-			$condition .= " AND `type` = $GET_type";
+			$condition .= " AND `type` = " . intval($GET_type);
 		}
 	}
 
 
 	echo "<br/><table class=\"pageing\"><tr>";
-	$query = sprintf(COUNT_FULL_ITEMS, $condition);
+	$query = query_format(COUNT_FULL_ITEMS, $condition);
 	$result = execute_query($query, "view_items.php");
 	$max_pages = intval($result->RowCount() / 30) + 1;
 	for ($i = 1; $i < $max_pages; $i++) {
@@ -139,7 +139,7 @@ $start = ($page * $display_size) - $display_size;
 	}
 	echo "</tr></table><br/>";
 
-	$query = sprintf(SHOW_FULL_ITEMS, $condition);
+	$query = query_format(SHOW_FULL_ITEMS, $condition);
 	$result = execute_query($query, "view_items.php", $display_size, $start);
 	while ($line = $result->FetchRow()) {
 		foreach ($na_cols as $value) {

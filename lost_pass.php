@@ -13,10 +13,10 @@ if ($POST_action == "Reset My Password!") {
 		redir("index.php", "Too many password reset requests, please try again later.");
 	}
 	add_access_entry("Password reset requested");
-	$query = sprintf(CHECK_LOST_PASS, add_escape($POST_retrieve_account), add_escape($POST_retrieve_email));
+	$query = query_format(CHECK_LOST_PASS, $POST_retrieve_account, $POST_retrieve_email);
 	$result = execute_query($query, "lost_pass.php");
 	if ($result->RowCount() > 0) {
-		$query = sprintf(GET_RESET_ACCOUNT, add_escape($POST_retrieve_account));
+		$query = query_format(GET_RESET_ACCOUNT, $POST_retrieve_account);
 		$result = execute_query($query, "lost_pass.php");
 		$line = $result->FetchRow();
 		$expires = time() + $reset_link_lifetime;
@@ -42,7 +42,7 @@ elseif ($GET_reset_key != "" || $POST_reset_key != "") {
 	}
 	$line = false;
 	if ($reset_expires >= time() && $reset_expires <= time() + $reset_link_lifetime) {
-		$query = sprintf(GET_RESET_ACCOUNT, add_escape($reset_user));
+		$query = query_format(GET_RESET_ACCOUNT, $reset_user);
 		$result = execute_query($query, "lost_pass.php");
 		if ($result->RowCount() > 0) {
 			$line = $result->FetchRow();
@@ -69,9 +69,9 @@ elseif ($GET_reset_key != "" || $POST_reset_key != "") {
 		else {
 			$stored_password = $new_password;
 		}
-		$query = sprintf(RESET_NEW_PASS, $stored_password, add_escape($line[0]));
+		$query = query_format(RESET_NEW_PASS, $stored_password, $line[0]);
 		$result = execute_query($query, "lost_pass.php");
-		add_access_entry(add_escape("Password reset for {$line[0]}"));
+		add_access_entry("Password reset for {$line[0]}");
 		redir("login.php", "Your password has been changed, you can now log in.");
 	}
 
