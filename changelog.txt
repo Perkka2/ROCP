@@ -1,3 +1,7 @@
+5.0.7 - October 16th, 2026 [Pierre Althinsson]
+
+Phone layout: tables with columns (account, character, roster, access log, server information and others) keep each value on one line and scroll sideways instead of squeezing the columns, column headers wrap, the roster slot boxes are big enough to tap and class pictures are smaller.
+
 5.0.6 - October 16th, 2026 [Pierre Althinsson]
 
 Phone layout: the monster database shows each monster as a card (picture, stats two per line, one drop per line with MVP drops marked).
