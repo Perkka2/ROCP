@@ -31,8 +31,10 @@ if ($CONFIG_do_gzip_compress) {
 <?php
 echo "
 <head>
-	<title>".$CONFIG_panel_name."</title>
+	<title>" . html_escape($CONFIG_panel_name) . "</title>
+	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
 	<link rel=\"stylesheet\" type=\"text/css\" href=\"skin/$STORED_skin/style.css\" />
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"skin/mobile.css\" media=\"screen and (max-width: 760px)\" />
 	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"></meta>
 </head>
 <body>

@@ -695,3 +695,27 @@ input, .myctl {
 	color: #000000;
 	border: 1px solid #498DE8;
 }
+
+/* Phones (with skin/mobile.css): the banner is scaled to the screen width and the
+   server status box stays over the box painted in it. "html body" makes these
+   win over skin/mobile.css, which is loaded after this file. */
+@media screen and (max-width: 760px) {
+	html body .header {
+		position: relative;
+		padding: 25% 0 0 0 !important;
+		background-size: 100% auto !important;
+		background-position: left top !important;
+	}
+	html body .serverinfo {
+		position: absolute !important;
+		left: 73.333%;
+		top: 7.333%;
+		width: 25.833% !important;
+		height: 83.333% !important;
+		margin: 0 !important;
+		padding: 1vw !important;
+		font-size: 2.1vw;
+		line-height: 1.2;
+		overflow: hidden;
+	}
+}

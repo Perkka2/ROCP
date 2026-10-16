@@ -1,3 +1,9 @@
+5.0.2 - October 16th, 2026 [Pierre Althinsson]
+
+Fixed the layout on phones for all skins (skin/mobile.css): the page fits the screen instead of a shrunken desktop page, the menu is above the content with sections that open on tap, wide tables scroll sideways, and the item and monster lists and the inventory fit small screens. Desktops and old browsers keep the normal layout.
+The ported 4.3.3 skins scale their banner to the screen width on phones.
+The panel name in the page title is escaped.
+
 5.0.1 - October 16th, 2026 [Pierre Althinsson]
 
 Login goes straight to the start page, without a "You are now logged in" page in between.
