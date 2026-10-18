@@ -120,11 +120,11 @@ elseif ($GET_option == "delignore") {
 	header("Location: ladder_ignore.php?del=" . intval($GET_account_id) . "&csrf_token=" . csrf_token());
 }
 elseif ($GET_option == "ban") {
-	$id = AccountID_To_UserID($GET_account_id);
+	$id = urlencode(AccountID_To_UserID($GET_account_id));
 	header("Location: ban.php?action=Ban Account&account_name=$id");
 }
 elseif ($GET_option == "unban") {
-	$id = AccountID_To_UserID($GET_account_id);
+	$id = urlencode(AccountID_To_UserID($GET_account_id));
 	header("Location: unban.php?action=Unban Account&account_name=$id");
 }
 elseif ($GET_option == "itemsearch") {
@@ -153,8 +153,9 @@ else {
 $number_of_accounts = GetAccountCount();
 $max_pages = intval($number_of_accounts / $CONFIG_results_per_page) + 1;
 if ($display_table) {
+	$safe_search = urlencode($GET_search);
 	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<a href=\"account_manage.php?page=$i&search=$GET_search\">$i</a>";
+		echo "<a href=\"account_manage.php?page=$i&search=$safe_search\">$i</a>";
 		if ($i % 50 == 0) {
 			echo "<br>";
 		}
@@ -162,7 +163,7 @@ if ($display_table) {
 			echo "-";
 		}
 	}
-	echo "<a href=\"account_manage.php?page=$i&search=$GET_search\">$i</a>
+	echo "<a href=\"account_manage.php?page=$i&search=$safe_search\">$i</a>
 	<form action=\"account_manage.php\" method=\"GET\">
 		<table border=0 align=\"center\">
 			<tr>
@@ -280,13 +281,11 @@ function display_account_table($input_query, $start, $size) {
 			elseif ($display_index == 6) {
 				break;
 			}
+			if ($display_index == 2 && $STORED_level == 3) {
+				// GMs must not see any passwords
+				$col_value = '***********';
+			}
 			if ($access_type > 1) {
-				if ($display_index == 2) {
-					if ($STORED_level == 3) {
-						// Censors the password
-						$col_value = '***********';
-					}
-				}
 				if ($access_type == 4) {
 					$col_value = "<font color=#$CONFIG_admin_colour>$col_value</font>";
 				}

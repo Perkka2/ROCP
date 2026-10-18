@@ -198,6 +198,7 @@ GMs of %s
 'forums' => "Forums:",
 'patch' => "Patch:",
 'irc' => "IRC Channel:",
+'discord' => "Discord server link:",
 'totalacc' => "Total Accounts:",
 'totalchar' => "Total Characters:",
 'totalguild' => "Total Guilds:",

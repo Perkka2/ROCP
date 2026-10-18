@@ -32,9 +32,9 @@ $start = ($page * $display_size) - $display_size;
 	</form>
 	";
 	echo "<tr><td colspan=6></p>";
-	$clientMobNameTable = ParseMobDefNames("./dbtranslation/mobdef.sc");
+	$clientMobNameTable = cached_parse_table('mobdef', "./dbtranslation/mobdef.sc", 'ParseMobDefNames');
 	//$mobIdTable = ParseNPCIdentityTable("./dbtranslation/NPCIdentity.lua");
-	$mobIdTable = ParseMobNameDefTable("./dbtranslation/mobname.def");
+	$mobIdTable = cached_parse_table('mobname', "./dbtranslation/mobname.def", 'ParseMobNameDefTable');
 	$property_type = array("Neutral", "Water", "Earth", "Fire", "Wind", "Poison",
 	"Holy", "Shadow", "Ghost", "Undead");
 	$size = array("Small", "Medium", "Large");
@@ -117,20 +117,18 @@ $start = ($page * $display_size) - $display_size;
 			$item[$line[0]] = $line[1];
 		}
 	}
-	echo "<table class=\"pageing\"><tr>";
+	echo "<table class=\"pageing\"><tr><td colspan=26 align=center>";
 	$query = query_format(COUNT_FULL_MOBS, $condition);
-	$result = execute_query($query, "view_mobs.php");
-	$max_pages = intval($result->RowCount() / 30) + 1;
-	if (isset($GET_MVP)) {
-		$MVPPageing = "&MVP";
+	$total_mobs = count_rows_cached($query, "view_mobs.php");
+	$max_pages = intval(($total_mobs - 1) / 30) + 1;
+	if ($page > $max_pages) {
+		$page = $max_pages;
+		$start = ($page * $display_size) - $display_size;
 	}
-	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value$MVPPageing\">$i</a></td>";
-		if ($i % 26 == 0) {
-			echo "</tr><tr>";
-		}
-	}
-	echo "<td><a href=\"view_mobs.php?view=monster&page=$i&column=$GET_column&value=$GET_value$MVPPageing\">$i</a></td></tr><tr>";
+	$MVPPageing = isset($GET_MVP) ? "&MVP" : "";
+	$mob_base = "view=monster&column=" . urlencode($GET_column) . "&value=" . urlencode($GET_value) . $MVPPageing;
+	echo pager_html($page, $max_pages, $mob_base, "view_mobs.php");
+	echo "</td></tr><tr>";
 
 	for ($i = 1; $i < 27; $i++) {
 		$code = $i + 64;
@@ -140,7 +138,13 @@ $start = ($page * $display_size) - $display_size;
 	echo "</tr></table><br/>";
 
 	$query = query_format(SHOW_FULL_MOBS, $condition);
-	$result = execute_query($query, "view_mobs.php", $display_size, $start);
+	if ($CONFIG_server_type == 0) {
+		$query .= " OFFSET $start ROWS FETCH NEXT $display_size ROWS ONLY";
+		$result = execute_query($query, "view_mobs.php");
+	}
+	else {
+		$result = execute_query($query, "view_mobs.php", $display_size, $start);
+	}
 
 	echo '<table class="contentTable mobList">'
 ;

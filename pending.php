@@ -5,6 +5,9 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 if ($GET_auth) {
 	$query = query_format(AUTH_PENDING, $GET_auth);
 	$result = execute_query($query, "pending.php");
+	if ($result->RowCount() == 0) {
+		redir("pending.php", "Pending registration not found!");
+	}
 	$line = $result->FetchRow();
 	// Adds account, skips the encryption
 	add_account($line[2], $line[3], $line[4], $line[5], $CONFIG_default_level, true);

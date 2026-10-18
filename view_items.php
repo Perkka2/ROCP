@@ -12,7 +12,7 @@ else {
 $display_size = 30;
 $start = ($page * $display_size) - $display_size;
 
-	$clientItemNameTable = ParseIdNum2ItemDisplayNameTable("./dbtranslation/idnum2itemdisplaynametable.txt");
+	$clientItemNameTable = cached_parse_table('itemdisplayname', "./dbtranslation/idnum2itemdisplaynametable.txt", 'ParseIdNum2ItemDisplayNameTable');
 	if ($CONFIG_server_type == 0) {
 		$item_type = array("Armor", "Arrow", "Weapon", "Card", "Event", "Guest", "Heal", "Special", "ThrowWeapon");
 	}
@@ -120,17 +120,19 @@ $start = ($page * $display_size) - $display_size;
 	}
 
 
-	echo "<br/><table class=\"pageing\"><tr>";
+	echo "<br/><table class=\"pageing\"><tr><td colspan=26 align=center>";
 	$query = query_format(COUNT_FULL_ITEMS, $condition);
-	$result = execute_query($query, "view_items.php");
-	$max_pages = intval($result->RowCount() / 30) + 1;
-	for ($i = 1; $i < $max_pages; $i++) {
-		echo "<td><a href=\"view_items.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a></td>";
-		if ($i % 26 == 0) {
-			echo "</tr><tr>";
-		}
+	$total_items = count_rows_cached($query, "view_items.php");
+	$max_pages = intval(($total_items - 1) / 30) + 1;
+	if ($page > $max_pages) {
+		$page = $max_pages;
+		$start = ($page * $display_size) - $display_size;
 	}
-	echo "<td><a href=\"view_items.php?view=item&page=$i&col=$GET_col&value=$GET_value&class=$GET_class\">$i</a></td></tr><tr>";
+	$safe_col = urlencode($GET_col);
+	$safe_value = urlencode($GET_value);
+	$safe_class = urlencode($GET_class);
+	echo pager_html($page, $max_pages, "view=item&col=$safe_col&value=$safe_value&class=$safe_class", "view_items.php");
+	echo "</td></tr><tr>";
 
 	for ($i = 1; $i < 27; $i++) {
 		$code = $i + 64;
@@ -140,7 +142,13 @@ $start = ($page * $display_size) - $display_size;
 	echo "</tr></table><br/>";
 
 	$query = query_format(SHOW_FULL_ITEMS, $condition);
-	$result = execute_query($query, "view_items.php", $display_size, $start);
+	if ($CONFIG_server_type == 0) {
+		$query .= " OFFSET $start ROWS FETCH NEXT $display_size ROWS ONLY";
+		$result = execute_query($query, "view_items.php");
+	}
+	else {
+		$result = execute_query($query, "view_items.php", $display_size, $start);
+	}
 	while ($line = $result->FetchRow()) {
 		foreach ($na_cols as $value) {
 			if (!$line[$value]) {

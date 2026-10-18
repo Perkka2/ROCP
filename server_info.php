@@ -13,8 +13,6 @@ switch ($CONFIG_server_type) {
 		$server_type = "Freya";
 		break;
 }
-// Get SQL version
-$sql_info = $link->ServerInfo();
 EchoHead(50);
 echo "
 	<tr class=mytitle>
@@ -45,10 +43,19 @@ if ($CONFIG_patch_location) {
 		</tr>
 	";
 }
-if ($CONFIG_irc_channel) {
+if (!empty($CONFIG_irc_channel) && $CONFIG_irc_channel != "irc://") {
+	$safe_irc = html_escape($CONFIG_irc_channel);
 	echo "
 		<tr class=mycell>
-			<td>{$lang['irc']} <a href=\"$CONFIG_irc_channel\">$CONFIG_irc_channel</a></td>
+			<td>{$lang['irc']} <a href=\"$safe_irc\">$safe_irc</a></td>
+		</tr>
+	";
+}
+if (!empty($CONFIG_discord_url)) {
+	$safe_discord = html_escape($CONFIG_discord_url);
+	echo "
+		<tr class=mycell>
+			<td>{$lang['discord']} <a href=\"$safe_discord\">$safe_discord</a></td>
 		</tr>
 	";
 }
@@ -113,16 +120,6 @@ echo "
 		}
 	}
 echo "   	</td>
-	   	</tr>
-		<tr class=mycell>
-		   	<td>
-		   		PHP: Version " . phpversion() . "
-		   	</td>
-	   	</tr>
-		<tr class=mycell>
-		   	<td>
-		   		SQL: {$sql_info['version']}
-		   	</td>
 	   	</tr>
 	<tr class=mytitle>
 		<td>

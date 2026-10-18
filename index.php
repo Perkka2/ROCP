@@ -223,7 +223,7 @@ else {
 </table>
 		";
 	}
-	$mapName = ParseMapNameTable("./dbtranslation/mapnametable.txt");
+	$mapName = cached_parse_table('mapname', "./dbtranslation/mapnametable.txt", 'ParseMapNameTable');
 	EchoHead(80);
 	echo "
 	<tr class=mytitle>

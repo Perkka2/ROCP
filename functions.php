@@ -8,6 +8,95 @@
  */
 
 /**
+ * @return string
+ * @desc Resolves the visitor IP address. If real_ip_header is set in config.php
+ * AND the direct TCP source matches trusted_proxy, the named header is trusted
+ * and its value is returned; otherwise the direct connection IP is used.
+ * For X-Forwarded-For style headers the rightmost entry (the one appended by
+ * the trusted proxy) is used. Falls back to the direct IP on anything invalid.
+*/
+function get_client_ip() {
+	global $CONFIG_real_ip_header, $CONFIG_trusted_proxy;
+	$direct = $_SERVER['REMOTE_ADDR'];
+	if (empty($CONFIG_real_ip_header) || empty($CONFIG_trusted_proxy)) {
+		return $direct;
+	}
+	if (!ip_in_proxy_list($direct, $CONFIG_trusted_proxy)) {
+		return $direct;
+	}
+	$header_key = 'HTTP_' . strtoupper(str_replace("-", "_", $CONFIG_real_ip_header));
+	$header_val = isset($_SERVER[$header_key]) ? trim($_SERVER[$header_key]) : "";
+	if ($header_val == "") {
+		return $direct;
+	}
+	if (stripos($CONFIG_real_ip_header, "forwarded") !== false) {
+		// X-Forwarded-For may be a client-supplied chain; the entry appended by
+		// the trusted proxy we just validated is the rightmost one.
+		$chain = array_map('trim', explode(",", $header_val));
+		$header_val = end($chain);
+	}
+	return filter_var($header_val, FILTER_VALIDATE_IP) ? $header_val : $direct;
+}
+
+/**
+ * @return bool
+ * @param string $ip The address to test
+ * @param string $list Comma-separated list of IPs or CIDR networks
+ * @desc True if $ip matches any entry in $list (exact match or CIDR, v4 or v6).
+*/
+function ip_in_proxy_list($ip, $list) {
+	foreach (array_map('trim', explode(",", $list)) as $entry) {
+		if ($entry == "") {
+			continue;
+		}
+		if (strpos($entry, "/") === false) {
+			if ($ip == $entry) {
+				return true;
+			}
+			continue;
+		}
+		list($net, $bits) = explode("/", $entry, 2);
+		$ip_bin = @inet_pton($ip);
+		$net_bin = @inet_pton($net);
+		if ($ip_bin === false || $net_bin === false || strlen($ip_bin) != strlen($net_bin)) {
+			continue;
+		}
+		$bits = (int)$bits;
+		if ($bits < 0 || $bits > strlen($ip_bin) * 8) {
+			continue;
+		}
+		$full_bytes = intdiv($bits, 8);
+		if ($full_bytes > 0 && substr($ip_bin, 0, $full_bytes) !== substr($net_bin, 0, $full_bytes)) {
+			continue;
+		}
+		$rest_bits = $bits % 8;
+		if ($rest_bits > 0) {
+			$mask = (0xFF << (8 - $rest_bits)) & 0xFF;
+			if ((ord($ip_bin[$full_bytes]) & $mask) !== (ord($net_bin[$full_bytes]) & $mask)) {
+				continue;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+/**
+ * @return int
+ * @param int $long A 32-bit IPv4 address as returned by ip2long()
+ * @desc Normalizes to signed 32-bit so the value fits SQL INT columns.
+ * 64-bit PHP returns 0..4294967295; 32-bit PHP (ROCP's original target)
+ * returned -2147483648..2147483647, which is what the INT columns store.
+*/
+function ip_to_signed($long) {
+	$long = (int)$long;
+	if ($long > 2147483647) {
+		$long -= 4294967296;
+	}
+	return $long;
+}
+
+/**
  * @return void
  * @param string $login The login name
  * @param string $password The password
@@ -53,7 +142,7 @@ function add_account($login, $password, $sex, $email, $level, $skip_encrypt = fa
 		$result = execute_query($query, "functions.php");
 	}
 	// Inserts the ip, time, as well as account that was registered into register log.
-	$ip = ip2long($_SERVER['REMOTE_ADDR']);
+	$ip = ip_to_signed(ip2long(get_client_ip()));
 	$query = query_format(ADD_REGISTER_ENTRY, $login, $ip, $email,$level);
 	$result = execute_query($query, "functions.php", 0, 0, true);
 	$message = sprintf($lang['accountadded'], $CONFIG_server_name, $login,
@@ -87,6 +176,26 @@ function SendMail($contactname, $contactemail, $subject, $message) {
 		}
 		else {
 			$mail->SMTPAuth = true;     // turn on SMTP authentication
+		}
+		// SMTP encryption: '' = plain (port 25), 'ssl' = implicit TLS (port 465),
+		// 'tls' = STARTTLS (port 587). Port stays at PHPMailer's default (25)
+		// unless smtp_port is set in config.php.
+		if (!empty($CONFIG_smtp_secure)) {
+			$mail->SMTPSecure = $CONFIG_smtp_secure;
+		}
+		if (!empty($CONFIG_smtp_port)) {
+			$mail->Port = intval($CONFIG_smtp_port);
+		}
+		// Self-signed / mismatched SMTP TLS certificates are only allowed when
+		// smtp_verify_cert is 0; otherwise PHPMailer verifies peer as usual.
+		if (isset($CONFIG_smtp_verify_cert) && $CONFIG_smtp_verify_cert == 0) {
+			$mail->SMTPOptions = array(
+				'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true,
+				),
+			);
 		}
 		$mail->Username = $CONFIG_smtp_login;  // SMTP username
 		$mail->Password = $CONFIG_smtp_pass; // SMTP password
@@ -367,7 +476,7 @@ function csrf_add_link_token($match) {
  * @desc Returns true if this IP has logged $log_action at least $max_attempts times in the last $minutes
 */
 function too_many_attempts($log_action, $max_attempts, $minutes) {
-	$query = query_format(COUNT_RECENT_ACCESS, $_SERVER['REMOTE_ADDR'], $log_action, $minutes);
+	$query = query_format(COUNT_RECENT_ACCESS, get_client_ip(), $log_action, $minutes);
 	$result = execute_query($query, "functions.php", 0, 0, true);
 	return $result->fields[0] >= $max_attempts;
 }
@@ -440,9 +549,8 @@ function checkbasename($name) {
  * The URL is absolute, some very old browsers only follow absolute redirects.
 */
 function redirect_to($page) {
-	$https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off';
 	$folder = rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/');
-	header("Location: " . ($https ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . "$folder/$page");
+	header("Location: $folder/$page");
 	exit();
 }
 
@@ -595,6 +703,8 @@ function execute_query($input_query, $page_source = 'none.php', $limit = 0, $off
 	if ($log_query) {
 		// replaces each line break with a space
 		$input_query = str_replace("\r\n", " ", $input_query);
+		// Never store cleartext passwords in the query log
+		$input_query = preg_replace("/(user_pass\s*=\s*'?)([^',\s\)]+)('?)/i", "$1***$3", $input_query);
 		add_query_entry($page_source, $input_query);
 	}
 	return $result;
@@ -682,6 +792,8 @@ function execute_query_union($input_query, $page_source = 'none.php', $limit = 0
 	if ($log_query) {
 		// replaces each line break with a space
 		$input_query = str_replace("\r\n", " ", $input_query);
+		// Never store cleartext passwords in the query log
+		$input_query = preg_replace("/(user_pass\s*=\s*'?)([^',\s\)]+)('?)/i", "$1***$3", $input_query);
 		add_query_entry($page_source, $input_query);
 	}
 	return $result;
@@ -912,7 +1024,7 @@ function add_access_entry($log_action) {
 	// 1: Went to a page that they weren't allowed to be.
 	// 2: Logged in as a GM/Admin
 	global $STORED_login;
-	$log_source = $_SERVER['REMOTE_ADDR'];
+	$log_source = get_client_ip();
 	$query = query_format(ADD_ACCESS_ENTRY, $log_source, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
 }
@@ -947,7 +1059,7 @@ function add_exploit_entry($log_action) {
 	global $STORED_login;
 	$log_account = $STORED_login;
 	if ($log_account == "") {
-		$log_account = $_SERVER['REMOTE_ADDR'];
+		$log_account = get_client_ip();
 	}
 	$query = query_format(ADD_EXPLOIT_ENTRY, $log_account, $log_action);
 	$result = execute_query($query, 'functions.php', 0, 0, true);
@@ -970,7 +1082,7 @@ function add_money_entry($from, $to, $log_action) {
 function add_query_entry($source, $log_query) {
 	global $STORED_login, $link;
 	$log_account = $STORED_login;
-	$log_ip = $_SERVER['REMOTE_ADDR'];
+	$log_ip = get_client_ip();
 	$query = query_format(ADD_QUERY_ENTRY, $log_account, $log_ip, $source, $log_query);
 	$result = $link->Execute($query) or die("Query ($query) failed: " . $link->ErrorMsg());
 }
@@ -1596,7 +1708,90 @@ function ShowGuildInfo($guild_id) {
 	}
 // End Guild Functions
 
+/**
+ * @return int
+ * @param string $query COUNT(*) query, returning one value
+ * @desc Row count, cached in the session for 5 minutes so paging between
+ * pages doesn't re-run the heavy join each click.
+ */
+function count_rows_cached($query, $page_source) {
+	$key = 'rowcount_' . md5($query);
+	if (isset($_SESSION[$key]) && time() - $_SESSION[$key][1] < 300) {
+		return $_SESSION[$key][0];
+	}
+	$result = execute_query($query, $page_source);
+	$line = $result->FetchRow();
+	$total = $line ? intval($line[0]) : 0;
+	$_SESSION[$key] = array($total, time());
+	return $total;
+}
+
+/**
+ * @return string
+ * @param int $current Current page (1-based)
+ * @param int $max_pages Total pages
+ * @param string $base_query Query string without page (e.g. "view=item&col=x")
+ * @param string $script Target page name
+ * @desc Compact pager: current page with 2 either side, first/last, and
+ * arrows that move 1 page, plus << >> that move 5 pages.
+ */
+function pager_html($current, $max_pages, $base_query, $script) {
+	if ($max_pages <= 1) {
+		return "";
+	}
+	$link = function ($p, $label) use ($base_query, $script) {
+		return "<a href=\"$script?$base_query&page=$p\">$label</a>";
+	};
+	$html = "";
+	if ($current > 1) {
+		$html .= $link(max(1, $current - 5), "&laquo;") . " " . $link($current - 1, "&lsaquo;") . " ";
+	}
+	if ($current > 3) {
+		$html .= $link(1, "1") . " ... ";
+	}
+	for ($p = max(1, $current - 2); $p <= min($max_pages, $current + 2); $p++) {
+		if ($p == $current) {
+			$html .= "<b>[$p]</b> ";
+		}
+		else {
+			$html .= $link($p, $p) . " ";
+		}
+	}
+	if ($current < $max_pages - 2) {
+		$html .= "... " . $link($max_pages, $max_pages) . " ";
+	}
+	if ($current < $max_pages) {
+		$html .= $link($current + 1, "&rsaquo;") . " " . $link(min($max_pages, $current + 5), "&raquo;");
+	}
+	return $html;
+}
+
 // Mobdef name parser by xmarv
+// NOTE: callers should use cached_parse_table() below instead of calling
+// these Parse* functions directly - the source files are re-read from disk
+// and re-parsed on every page view otherwise.
+function cached_parse_table($cache_name, $source_path, $parser_function) {
+	// File cache for the dbtranslation parsers. The cache entry is rebuilt
+	// only when the source file is newer than the cache. Stored as a PHP
+	// file returning a serialized string, so direct web access outputs nothing.
+	$cache_name = preg_replace('/[^A-Za-z0-9_-]/', '', $cache_name);
+	$cache_dir = "dbtranslation/cache";
+	$cache_file = "$cache_dir/$cache_name.php";
+	if (is_file($source_path) && is_file($cache_file)
+	&& filemtime($cache_file) >= filemtime($source_path)) {
+		$raw = include $cache_file;
+		$data = is_string($raw) ? @unserialize($raw) : false;
+		if (is_array($data)) {
+			return $data;
+		}
+	}
+	$data = call_user_func($parser_function, $source_path);
+	if (is_array($data) && (is_dir($cache_dir) || @mkdir($cache_dir))) {
+		@file_put_contents($cache_file, "<?php return " . var_export(serialize($data), true) . ";");
+	}
+	return $data;
+}
+
 function ParseMobDefNames($path)
 {
 		// Read file
@@ -2020,6 +2215,7 @@ function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
 }
 
 function GetTooltipText($characterItems){
+							$printout = "";
 							if($characterItems['slots'] > '0'){$socketsui = "<box>&boxv;</box>";}
 							else {$socketsui = "";}
 							if($characterItems['identified'] > '0'){
@@ -2047,7 +2243,7 @@ function GetTooltipText($characterItems){
 							$equippedClass = " damaged";
 							}
 							if($characterItems['refinelvl'] > '0'){
-							$printout .= "$socketsui<b> Is refined lvl $refinelvl</b> <br/>";
+							$printout .= "$socketsui<b> Is refined lvl " . $characterItems['refinelvl'] . "</b> <br/>";
 							}
 							if($characterItems['slots'] > '0'){
 								if($characterItems['slot1'] > '0'){$socketsUsed = 1;}else{$socketsUsed = 0;}

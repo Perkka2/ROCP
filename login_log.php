@@ -5,7 +5,7 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 set_time_limit(0);
 if ($GET_login != "") {
 	$query = "SELECT ip FROM `loginlog` WHERE ip <> '' AND user = '" . add_escape($GET_login) . "' GROUP BY ip ORDER BY ip DESC";
-	$header = "IPs that have accessed $GET_login";
+	$header = "IPs that have accessed " . html_escape($GET_login);
 	$display_type = 1;
 }
 elseif ($GET_ip != "") {
@@ -47,7 +47,7 @@ else {
 			}
 			else {
 				if ($display_type == 1 or $display_type == 4) {
-					$long_ip = ip2long($col_value);
+					$long_ip = ip_to_signed(ip2long($col_value));
 					$display = "<a href=\"login_log.php?ip=$long_ip\">$col_value</a>";
 				}
 				else {

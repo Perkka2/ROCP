@@ -2,7 +2,7 @@
 require 'memory.php';
 require 'header.inc';
 check_auth($_SERVER['PHP_SELF']); // checks for required access
-if (is_online($STORED_login)) {
+if (is_online($STORED_id)) {
 	redir("index.php", "You cannot edit your account options while logged on. Please log off and try again.");
 }
 if (!$POST_action) {
