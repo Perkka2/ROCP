@@ -139,7 +139,9 @@ echo "{$lang['current']}</br>
 			{$lang['accserv']} $accsrv</br>
 			{$lang['charserv']}	$charsrv</br>
 			<div class=\"tooltip\">{$lang['mapserv']} $mapsrv";
-	if($CONFIG_mapcount > 1){"		  	<span class=\"tooltipcontainer\">$maptooltip</span>";}
+	if($CONFIG_mapcount > 1 && !empty($maptooltip)){
+		echo "<span class=\"tooltipcontainer\">$maptooltip</span>";
+	}
 echo "			</div>
 			$total_online
 
