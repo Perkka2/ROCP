@@ -10,6 +10,7 @@ $itemTable = ParseAllItems($result);
 $clientItemNameTable = ParseIdNum2ItemDisplayNameTable("./dbtranslation/idnum2itemdisplaynametable.txt");
 $itemdesctable = ParseIdNum2ItemDescTable('dbtranslation/idnum2itemdesctable.txt');
 $garmentSpriteIdTable = ParseIdNum2ItemDisplayNameTable("./dbtranslation/garmentspriteidtable.txt");
+$mapNameTable = ParseMapNameTable("./dbtranslation/mapnametable.txt");
 $headgearId = array(
 	"F" => array( 2,2,4,7,1,5,3,6,12,10,9,11,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27),
 	"M" => array( 2,2,1,7,5,4,3,6,8,9,10,12,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
@@ -81,6 +82,11 @@ $headgearId = array(
 										<div>Class: <b>" . determine_class($line[2])."</b></div>\n
 										<div>Job Lvl:<b> $line[4]</b></div>\n
 										<div>Zeny:<b> $line[5]</b></div>\n
+									</td>\n
+								</tr>\n
+								<tr class=\"contentRowHeader charlist charmap\">\n
+									<td><div class=\"charMap\">Map:<b> <a href=\"maplist.php?zone=0&amp;map=" . urlencode(str_replace('.gat', '', $line[15])) . "\">"
+											. (isset($mapNameTable[$line[15]]) ? html_escape($mapNameTable[$line[15]]) : $line[15]) . "</a></b> ($line[16], $line[17])</div>\n
 									</td>\n
 								</tr>\n
 							<tr valign=top><td><div class=\"charstats\">"

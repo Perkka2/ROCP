@@ -266,6 +266,10 @@ form[action="login.php"] input[type=text], form[action="login.php"] input[type=p
 .contentRowHeader.charlist td div b {
 	font-size: 13px;
 }
+/* the map gets a line of its own */
+.contentRowHeader.charlist td div.charMap {
+	width: 100% !important;
+}
 /* picture next to the hairstyle controls */
 .charstats {
 	float: none !important;

@@ -1,3 +1,11 @@
+5.1.0 - October 18th, 2026 [Perkka]
+
+Map list: search by map name or file name, looking through every zone server while typing.
+Map list: filter by map type (towns, fields, dungeons, indoors, castles, PvP & battle, jobs & quests, events).
+Map list: each zone server shows its status (when Check Server is on) and its number of maps.
+Map list: maps without a thumbnail show their file name instead of an empty box, thumbnails load when scrolled to.
+Inventory: each character shows the map it is on and its position, linked to that map in the map list (maplist.php?map=<file> shows one map).
+
 5.0.10 - October 18th, 2026 [Perkka]
 
 Ammo items are shown with the misc items in the inventory (they were read but never listed).

@@ -1764,6 +1764,35 @@ function ParseMapNameTable($path)
     return $MapNameTable;
 }
 
+// Groups a map for the map list. The Aegis map type is about the rules of a map more than what it is
+// (Yuno is an indoor type, Morroc fields share a type with the job change maps), so the name decides
+// first and the type is only used when the name does not tell.
+function map_category($mapname, $type) {
+	$towns = array('prontera', 'geffen', 'payon', 'morocc', 'alberta', 'izlude', 'aldebaran', 'yuno', 'comodo',
+		'umbala', 'niflheim', 'amatsu', 'gonryun', 'louyang', 'ayothaya', 'jawaii', 'einbroch', 'einbech',
+		'lighthalzen', 'hugel', 'rachel', 'veins', 'moscovia', 'mid_camp', 'manuk', 'splendide', 'brasilis',
+		'dicastes01', 'eclage', 'malangdo', 'malaya', 'mora', 'dewata', 'lasagna', 'harboro1', 'xmas');
+	$map = strtolower(str_replace('.gat', '', $mapname));
+	if (in_array($map, $towns)) return 'Towns';
+	if (preg_match('/_cas\d|^te_\w*cas\d/', $map)) return 'Castles';
+	if (preg_match('/^(job3?_|que_|\w+_que\d|ordeal_|force_|new_\d|(knight|sword|wizard|priest|hunter|thief)_\d|\w+_test$)/', $map)) return 'Jobs & quests';
+	if (preg_match('/^(quiz_|turbo_|p_track|evt_|poring_w|new_event)/', $map)) return 'Events';
+	if (preg_match('/^(jupe_|e_tower|kh_kiehl)/', $map)) return 'Dungeons';
+	if (preg_match('/^(pvp_|guild_vs|bat_[a-z]\d)/', $map)) return 'PvP & battle';
+	if (preg_match('/fild\d/', $map)) return 'Fields';
+	if (preg_match('/_dun(\d|$)/', $map)) return 'Dungeons';
+	if (preg_match('/_in(\d+)?$/', $map)) return 'Indoors';
+	switch ((int)$type) {
+		case 0: case 23: return 'Towns';
+		case 1: return 'Indoors';
+		case 2: return 'Fields';
+		case 3: case 9: case 10: case 16: case 24: return 'Dungeons';
+		case 8: case 18: return 'Castles';
+		case 5: case 6: case 7: case 19: return 'PvP & battle';
+	}
+	return 'Other';
+}
+
 //DEBUG
 //$table = ParseMapNameTable("./dbtranslation/mapnametable.txt");
 //var_dump($table);

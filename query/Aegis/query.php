@@ -781,7 +781,7 @@ else{
 	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [guest]");
 }
 // roster.php
-DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money, bodypalette, head, headpalette, accessory, accessory2, accessory3, weapon, shield, effectstate
+DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money, bodypalette, head, headpalette, accessory, accessory2, accessory3, weapon, shield, effectstate, mapname, xPos, yPos
 FROM $char.charinfo
 WHERE AID = %d ORDER BY charname
 ");
