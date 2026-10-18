@@ -1,3 +1,10 @@
+5.0.10 - October 18th, 2026 [Perkka]
+
+Ammo items are shown with the misc items in the inventory (they were read but never listed).
+Character picture: the clothes colour is passed as the colour (characters with clothes colour 2 or higher got no picture).
+Character picture: drawn from the items worn in the inventory (headgear, weapon, shield), so it also matches when charinfo was not saved. Top, mid and lower headgear from charinfo were in the wrong places.
+Character picture: shows the garment worn (wings and bags). The item to sprite list is in dbtranslation/garmentspriteidtable.txt (from the client ItemInfo), ROChargen knows all 21 garment sprites.
+
 5.0.9 - October 18th, 2026 [Perkka]
 
 Fixed the zone server list not showing when hovering over Zone Servers (the list was never printed).

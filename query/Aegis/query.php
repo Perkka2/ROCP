@@ -674,111 +674,111 @@ DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
 WHERE GID = %d");
 if($CONFIG['aegis_version'] == 0 ){
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
-	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
+	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [ammo]
 	UNION
-	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armor]
 	UNION
-	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorMB]
 	UNION
-	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTB]
 	UNION
-	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTM]
 	UNION
-	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTMB]
 	UNION
-	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [arrow]
 	UNION
-	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bothhand]
 	UNION
-	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bow]
 	UNION
-	SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT] FROM [cannonball]
+	SELECT [ID],[NAME],'cannonball' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [cannonball]
 	UNION
-	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [card]
 	UNION
-	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
+	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [CashPointItem]
 	UNION
-	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [event]
 	UNION
-	SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
+	SELECT [ID],[NAME],'gun' AS table_name, [SLOT], [LOCA], [CLASS] FROM [gun]
 	UNION
-	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [heal]
 	UNION
-	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [special]
 	UNION
-	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
+	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [ThrowWeapon]
 	UNION
-	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT], [LOCA], [CLASS] FROM [weapon]
 	UNION
-	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [guest]");
 }
 elseif($CONFIG['aegis_version'] == 2){
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
-	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT] FROM [ammo]
+	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [ammo]
 	UNION
-	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armor]
 	UNION
-	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorMB]
 	UNION
-	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTB]
 	UNION
-	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTM]
 	UNION
-	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTMB]
 	UNION
-	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [arrow]
 	UNION
-	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bothhand]
 	UNION
-	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bow]
 	UNION
-	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [card]
 	UNION
-	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT] FROM [CashPointItem]
+	SELECT [ID],[NAME],'CashPointItem' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [CashPointItem]
 	UNION
-	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [event]
 	UNION
-	SELECT [ID],[NAME],'gun' AS table_name, [SLOT] FROM [gun]
+	SELECT [ID],[NAME],'gun' AS table_name, [SLOT], [LOCA], [CLASS] FROM [gun]
 	UNION
-	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [heal]
 	UNION
-	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [special]
 	UNION
-	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT] FROM [ThrowWeapon]
+	SELECT [ID],[NAME],'ThrowWeapon' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [ThrowWeapon]
 	UNION
-	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT], [LOCA], [CLASS] FROM [weapon]
 	UNION
-	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [guest]");
 }
 else{
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
-	SELECT [ID],[NAME],'armor' AS table_name, [SLOT] FROM [armor]
+	SELECT [ID],[NAME],'armor' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armor]
 	UNION
-	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT] FROM [armorMB]
+	SELECT [ID],[NAME],'armorMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorMB]
 	UNION
-	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT] FROM [armorTB]
+	SELECT [ID],[NAME],'armorTB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTB]
 	UNION
-	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT] FROM [armorTM]
+	SELECT [ID],[NAME],'armorTM' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTM]
 	UNION
-	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT] FROM [armorTMB]
+	SELECT [ID],[NAME],'armorTMB' AS table_name, [SLOT], [LOCA], [CLASS] FROM [armorTMB]
 	UNION
-	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT] FROM [arrow]
+	SELECT [ID],[NAME],'arrow' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [arrow]
 	UNION
-	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT] FROM [bothhand]
+	SELECT [ID],[NAME],'bothhand' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bothhand]
 	UNION
-	SELECT [ID],[NAME],'bow' AS table_name, [SLOT] FROM [bow]
+	SELECT [ID],[NAME],'bow' AS table_name, [SLOT], [LOCA], [CLASS] FROM [bow]
 	UNION
-	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT] FROM [card]
+	SELECT [ID],[NAME],'card' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [card]
 	UNION
-	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT] FROM [event]
+	SELECT [ID],[NAME],'event' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [event]
 	UNION
-	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT] FROM [heal]
+	SELECT [ID],[NAME],'heal' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [heal]
 	UNION
-	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT] FROM [special]
+	SELECT [ID],[NAME],'special' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [special]
 	UNION
-	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT] FROM [weapon]
+	SELECT [ID],[NAME],'weapon' AS table_name, [SLOT], [LOCA], [CLASS] FROM [weapon]
 	UNION
-	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT] FROM [guest]");
+	SELECT [ID],[NAME],'guest' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [guest]");
 }
 // roster.php
 DEFINE('GET_CHARACTER_FROM_USER', "SELECT GID, charname, job, clevel, joblevel, money, bodypalette, head, headpalette, accessory, accessory2, accessory3, weapon, shield, effectstate

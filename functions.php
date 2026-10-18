@@ -1781,6 +1781,8 @@ function ParseAllItems($ItemsFromDB)
         $ItemTable[$line[0]]['name'] = $line[1];
         $ItemTable[$line[0]]['table'] = $line[2];
         $ItemTable[$line[0]]['slots'] = $line[3];
+        $ItemTable[$line[0]]['loca'] = $line[4]; // where it is worn (Aegis LOCA bits)
+        $ItemTable[$line[0]]['class'] = $line[5]; // sprite of a headgear, type of a weapon or shield
     }
     return $ItemTable;
 }
