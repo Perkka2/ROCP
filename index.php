@@ -7,266 +7,126 @@ check_auth($_SERVER['PHP_SELF']); // checks for required access
 if ($STORED_login == 'CP') {
 	redir("privileges.php", "Setting Up Administrator Account");
 }
-else {
-	$welcome = sprintf($lang['welcome'], $CONFIG_panel_name, $CONFIG_server_name);
-	echo "
-<table align=\"center\" class=\"dashed\" cellpadding='0' cellspacing='0' width='600'>
-	<tr class=mycell>
-		<td>$welcome $welcomept2</td>
-	</tr>
-	";
-	if ($CONFIG_server_type > 0) {
-		// Backups are for athena only
 
-		// Open the backup text file
-		$file = fopen("last_backup.txt", "a+");
-		$data = fread($file, 2000);
-		if (!$data) {
-			// File is empty, reset the counter
-			fputs($file, 1);
-			$data = 1;
-		}
-		// Determine how long it's been since last update
-		$difference = time() - $data;
-		// Time duration to display
-		$days = floor($difference / 86400);
-		$hours = floor(($difference - ($days * 86400)) / 3600);
-		$minutes = floor(($difference - ($days * 86400) - ($hours * 3600)) / 60);
-		$seconds = floor(($difference - ($days * 86400) - ($hours * 3600) - ($minutes * 60)));
-		if ($difference > 60 * 60 * ($CONFIG_backup_interval + 6)) {
-			// Over six hours past due backup time
-			$bold_tag = "<b><span style='color: red'>";
-			$bold_close = "</span></b>";
-		}
-		elseif ($difference > 60 * 60 * $CONFIG_backup_interval) {
-			// Longer than the backup duration
-			$bold_tag = "<b>";
-			$bold_close = "</b>";
-		}
-		else {
-			// Less than the backup duration
-			$bold_tag = "";
-			$bold_close = "";
-		}
-		if ($data == "1") {
-			$last_string = $lang['nobackup'];
-		}
-		else {
-			$last_string = sprintf($lang['backup'], $days, $hours, $minutes, $seconds);
-		}
-		echo "
-	<tr class=\"mycell\">
-		<td>
-			{$bold_tag}$last_string{$bold_close}
-		</td>
-	</tr>
-		";
-		if ($STORED_level > 2) {
-			// Gives GMs/Admins a chance to backup the server
-			echo "
-	<tr class=\"mycell\">
-		<td>
-			<a href=\"backup_server.php?action=backup\">{$lang['backupnow']}</a>
-		</td>
-	</tr>
-			";
-		}
+$welcome = sprintf($lang['welcome'], $CONFIG_panel_name, $CONFIG_server_name);
+echo "<div class=\"homePage\">
+	<div class=\"homeWelcome\">" . html_escape($welcome) . "</div>
+";
+
+if ($CONFIG_server_type > 0) {
+	// Backups are for athena only
+
+	// Open the backup text file
+	$file = fopen("last_backup.txt", "a+");
+	$data = fread($file, 2000);
+	if (!$data) {
+		// File is empty, reset the counter
+		fputs($file, 1);
+		$data = 1;
 	}
-	echo "
-</table>
-	";
-
-	EchoHead(80);
-	echo "
-	<tr class=mytitle>
-		<td colspan=3>{$lang['userheader']}</td>
-	</tr>
-	<tr class=myheader>
-		<td width=25%>{$lang['poster']}</td>
-		<td width=50%>{$lang['message']}</td>
-		<td width=25%>{$lang['date']}</td>
-	</tr>
-	";
-	$query = USER_ANNOUNCE;
-	$result = execute_query($query, "home.php", $CONFIG_max_announce);
-	while ($line = $result->FetchRow()) {
-		echo "
-	<tr class=mycell>
-		";
-		foreach ($line as $display_index => $col_value) {
-			$col_value = safe_message($col_value);
-			if ($display_index == 2) {
-				$col_value = convert_date($col_value);
-			}
-			switch ($display_index) {
-				case 0:
-					$width = "25%";
-					break;
-				case 1:
-					$width = "50%";
-					break;
-				case 2:
-					$width = "25%";
-					break;
-			}
-			echo "<td width=$width>$col_value</td>";
-		}
-		echo "
-	</tr>
-		";
+	// Determine how long it's been since last update
+	$difference = time() - $data;
+	// Time duration to display
+	$days = floor($difference / 86400);
+	$hours = floor(($difference - ($days * 86400)) / 3600);
+	$minutes = floor(($difference - ($days * 86400) - ($hours * 3600)) / 60);
+	$seconds = floor(($difference - ($days * 86400) - ($hours * 3600) - ($minutes * 60)));
+	if ($difference > 60 * 60 * ($CONFIG_backup_interval + 6)) {
+		// Over six hours past due backup time
+		$bold_tag = "<b><span style='color: red'>";
+		$bold_close = "</span></b>";
 	}
-	echo "
-	<tr>
-		<td colspan=3 class=mycell>
-			<a href='view_announcement.php?viewtype=1'>{$lang['viewmore']}&nbsp;</a>
-		</td>
-	</tr>
-</table>
-	";
-
-	if ($STORED_level > 1) {
-		EchoHead(80);
-		echo "
-	<tr class=mytitle>
-		<td colspan=3>{$lang['gmheader']}</td>
-	</tr>
-	<tr class=myheader>
-		<td width=25%>{$lang['poster']}</td>
-		<td width=50%>{$lang['message']}</td>
-		<td width=25%>{$lang['date']}</td>
-	</tr>
-		";
-		$query = GM_ANNOUNCE;
-		$result = execute_query($query, "home.php", $CONFIG_max_announce);
-		while ($line = $result->FetchRow()) {
-			echo "
-		<tr class=mycell>
-			";
-			foreach ($line as $display_index => $col_value) {
-				$col_value = safe_message($col_value);
-				if ($display_index == 2) {
-					$col_value = convert_date($col_value);
-				}
-				switch ($display_index) {
-					case 0:
-						$width = "25%";
-						break;
-					case 1:
-						$width = "50%";
-						break;
-					case 2:
-						$width = "25%";
-						break;
-				}
-				echo "<td width=$width>$col_value</td>";
-			}
-			echo "
-		</tr>
-			";
-		}
-		echo "
-	<tr>
-		<td colspan=3 class=mycell>
-			<a href='view_announcement.php?viewtype=2'>{$lang['viewmore']}&nbsp;</a>
-		</td>
-	</tr>
-</table>
-		";
-	}
-
-	if ($STORED_level > 3) {
-		EchoHead(80);
-		echo "
-	<tr>
-		<td colspan=3 class=mytitle>{$lang['adminheader']}</td>
-	</tr>
-	<tr class=myheader>
-		<td width=25%>{$lang['poster']}</td>
-		<td width=50%>{$lang['message']}</td>
-		<td width=25%>{$lang['date']}</td>
-	</tr>
-		";
-		$query = ADMIN_ANNOUNCE;
-		$result = execute_query($query, "home.php", $CONFIG_max_announce);
-		while ($line = $result->FetchRow()) {
-			echo "
-		<tr class=mycell>
-			";
-			foreach ($line as $display_index => $col_value) {
-				$col_value = safe_message($col_value);
-				if ($display_index == 2) {
-					$col_value = convert_date($col_value);
-				}
-				switch ($display_index) {
-					case 0:
-						$width = "25%";
-						break;
-					case 1:
-						$width = "50%";
-						break;
-					case 2:
-						$width = "25%";
-						break;
-				}
-				echo "<td width=$width>$col_value</td>";
-			}
-			echo "
-		</tr>
-			";
-		}
-		echo "
-	<tr>
-		<td colspan=3 class=mycell>
-			<a href='view_announcement.php?viewtype=3'>{$lang['viewmore']}&nbsp;</a>
-		</td>
-	</tr>
-</table>
-		";
-	}
-	$mapName = cached_parse_table('mapname', "./dbtranslation/mapnametable.txt", 'ParseMapNameTable');
-	EchoHead(80);
-	echo "
-	<tr class=mytitle>
-		<td colspan=6>
-			{$lang['yourchars']}
-		</td>
-	</tr>
-	<tr class=myheader>
-		<td>{$lang['yourname']}</td>
-		<td>{$lang['yourclass']}</td>
-		<td>{$lang['yourbase']}</td>
-		<td>{$lang['yourjob']}</td>
-		<td>{$lang['yourzeny']}</td>
-		<td>{$lang['yourmap']}</td>
-	</tr>
-	";
-
-	$query = query_format(HOME_CHARS, $STORED_id);
-	$result = execute_query($query, 'home.php');
-	if ($result->RowCount() == 0) {
-		echo "
-	<tr class=mycell>
-		<td colspan=5>You have no characters!</td>
-	</tr>
-		";
+	elseif ($difference > 60 * 60 * $CONFIG_backup_interval) {
+		// Longer than the backup duration
+		$bold_tag = "<b>";
+		$bold_close = "</b>";
 	}
 	else {
-		while ($line = $result->FetchRow()) {
-			echo "<tr class=mycell>";
-			foreach ($line as $display_index => $col_value) {
-				if ($display_index == 1) {
-					$col_value = determine_class($col_value);
-				}
-				if ($display_index == 5) {
-					$col_value = $mapName[$col_value];
-				}
-				echo "<td>$col_value</td>";
-			}
-			echo "</tr>";
-		}
+		// Less than the backup duration
+		$bold_tag = "";
+		$bold_close = "";
 	}
-	echo "</table>";
+	if ($data == "1") {
+		$last_string = $lang['nobackup'];
+	}
+	else {
+		$last_string = sprintf($lang['backup'], $days, $hours, $minutes, $seconds);
+	}
+	echo "<div class=\"homeWelcome\">{$bold_tag}$last_string{$bold_close}";
+	if ($STORED_level > 2) {
+		// Gives GMs/Admins a chance to backup the server
+		echo " &middot; <a href=\"backup_server.php?action=backup\">{$lang['backupnow']}</a>";
+	}
+	echo "</div>\n";
 }
+
+// The server at a glance
+$online = (int)GetUserCount();
+echo "
+	<div class=\"homeGlance\">
+		<div class=\"glanceItem\"><b>$online</b> " . ($online == 1 ? "player" : "players") . " online</div>
+		<div class=\"glanceItem\">" . woe_schedule() . "</div>
+	</div>
+";
+
+// The newest announcements; GMs and admins also see theirs
+show_announcements(USER_ANNOUNCE, $lang['userheader'], 1);
+if ($STORED_level > 1) {
+	show_announcements(GM_ANNOUNCE, $lang['gmheader'], 2);
+}
+if ($STORED_level > 3) {
+	show_announcements(ADMIN_ANNOUNCE, $lang['adminheader'], 3);
+}
+
+// The characters of this account, as cards with their picture
+$mapName = cached_parse_table('mapname', "./dbtranslation/mapnametable.txt", 'ParseMapNameTable');
+echo "<div class=\"homeSection\"><div class=\"mytitle homeTitle\">{$lang['yourchars']}</div><div class=\"charCards\">";
+$characters = array();
+if (defined('GET_CHARACTER_FROM_USER')) {
+	// Aegis: everything the picture needs (what is worn is saved in charinfo when the character logs out:
+	// accessory = lower, accessory2 = top, accessory3 = mid headgear)
+	$result = execute_query(query_format(CHECK_SEX_AID, $STORED_id), "index.php");
+	$line = $result->FetchRow();
+	$sex = ($line && $line[0] == 0) ? "F" : "M";
+	$result = execute_query(query_format(GET_CHARACTER_FROM_USER, $STORED_id), "index.php");
+	while ($line = $result->FetchRow()) {
+		$characters[] = array(
+			'name' => $line[1], 'job' => $line[2], 'clevel' => $line[3], 'joblevel' => $line[4], 'money' => $line[5],
+			'map' => $line[15], 'x' => $line[16], 'y' => $line[17],
+			'picture' => character_picture_url($sex, $line[2], $line[7], $line[8], $line[6], array(
+				'top' => $line[10], 'mid' => $line[11], 'bottom' => $line[9],
+				'weapon' => $line[12], 'shield' => $line[13], 'robe' => 0))
+		);
+	}
+}
+else {
+	$result = execute_query(query_format(HOME_CHARS, $STORED_id), "index.php");
+	while ($line = $result->FetchRow()) {
+		$characters[] = array('name' => $line[0], 'job' => $line[1], 'clevel' => $line[2], 'joblevel' => $line[3],
+			'money' => $line[4], 'map' => $line[5], 'x' => '', 'y' => '', 'picture' => '');
+	}
+}
+if (count($characters) == 0) {
+	echo "<div class=\"newsItem\">You have no characters yet.</div>";
+}
+foreach ($characters as $c) {
+	$map = isset($mapName[$c['map']]) ? $mapName[$c['map']] : str_replace(".gat", "", $c['map']);
+	$position = ($c['x'] !== '') ? " (" . (int)$c['x'] . ", " . (int)$c['y'] . ")" : "";
+	echo "
+		<div class=\"charCard\">"
+			. ($c['picture'] ? "<a href=\"equipment.php\"><img class=\"charPicture\" src=\"{$c['picture']}\" alt=\"\"></a>" : "") . "
+			<div class=\"charInfo\">
+				<div class=\"charName\">" . html_escape($c['name']) . "</div>
+				<div class=\"charClass\">" . html_escape(determine_class($c['job'])) . "</div>
+				<div>Base Lv. <b>" . (int)$c['clevel'] . "</b> &middot; Job Lv. <b>" . (int)$c['joblevel'] . "</b></div>
+				<div><b>" . number_format((float)$c['money']) . "</b> zeny</div>
+				<div><a href=\"maplist.php?zone=0&amp;map=" . urlencode(str_replace(".gat", "", $c['map'])) . "\">" . html_escape($map) . "</a>$position</div>
+			</div>
+		</div>";
+}
+echo "</div></div>
+</div>
+";
 
 require 'footer.inc';   // displays the header
 ?>

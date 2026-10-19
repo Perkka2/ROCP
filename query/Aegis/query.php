@@ -499,6 +499,16 @@ WHERE $cp.ladder_ignore.AID IS NULL
 AND (job = %d OR job = %d)
 ORDER BY clevel DESC, exp DESC
 ");
+// the highest character of every class in one query (TOP 1 per class, also on SQL Server 2000)
+DEFINE('CLASS_TOP_CHARS', "SELECT c.job, c.charname, c.clevel
+FROM $char.charinfo AS c
+WHERE c.GID = (
+	SELECT TOP 1 best.GID FROM $char.charinfo AS best
+	LEFT JOIN $cp.ladder_ignore ON best.AID = $cp.ladder_ignore.AID
+	WHERE $cp.ladder_ignore.AID IS NULL AND best.job = c.job
+	ORDER BY best.clevel DESC, best.exp DESC
+)
+");
 
 // unban.php
 DEFINE('UNBAN_ACCOUNT', "UPDATE $login.login

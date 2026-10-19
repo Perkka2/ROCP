@@ -1,3 +1,8 @@
+5.3.0 - October 19th, 2026 [Perkka]
+
+Start page: your characters as cards with their picture, level, zeny and map (linked to the map list), announcements as news items, and the players online and War of Emperium times at a glance. Works on phones too.
+Server information: the numbers as tiles, only the links that are set, the classes as compact cards with their highest character (one query on Aegis), and the staff as name tags. Works on phones too.
+
 5.2.2 - October 19th, 2026 [Perkka]
 
 Glass skins: softer look, the panel edges only catch the light in two corners, lines and the menu hover fade out, and an open menu extends from its button.

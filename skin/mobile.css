@@ -386,3 +386,11 @@ tr.charitems:not(:has(.equipmentList)) {
 	box-sizing: border-box;
 	overflow-x: auto;
 }
+
+/* Start page: the character cards and the glance boxes use the full width */
+.charCard, .glanceItem, .classCard {
+	width: 100% !important;
+}
+.homePage {
+	padding: 4px 0 10px;
+}

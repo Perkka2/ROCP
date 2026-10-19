@@ -750,3 +750,163 @@ input, .myctl {
 		overflow: hidden;
 	}
 }
+
+/* Start page: the welcome line, the server at a glance, announcements as news items and the
+   characters as cards with their picture */
+.homePage {
+	padding: 4px 10px 10px;
+	text-align: left;
+}
+.homeWelcome {
+	text-align: center;
+	padding: 6px;
+	font-size: 13px;
+}
+.homeGlance {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 4px 0 14px;
+}
+.glanceItem {
+	margin: 4px;
+	padding: 6px 14px;
+	border: 1px solid rgba(127, 127, 127, .35);
+	border-radius: 8px;
+	background: rgba(127, 127, 127, .12);
+	font-size: 12px;
+	text-align: center;
+}
+.homeSection {
+	margin-bottom: 14px;
+}
+.homeTitle {
+	box-sizing: border-box;
+	padding: 2px 10px 2px 40px;
+	margin-bottom: 4px;
+}
+.newsItem {
+	padding: 8px 12px;
+	border-bottom: 1px solid rgba(127, 127, 127, .25);
+}
+.newsMessage {
+	font-size: 13px;
+}
+.newsInfo {
+	margin-top: 3px;
+	font-size: 11px;
+	opacity: .7;
+}
+.newsMore {
+	padding: 6px 12px;
+	font-size: 12px;
+	text-align: right;
+}
+.charCards {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -5px;
+}
+.charCard {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	width: 300px;
+	margin: 5px;
+	padding: 8px;
+	border: 1px solid rgba(127, 127, 127, .3);
+	border-radius: 10px;
+	background: rgba(127, 127, 127, .1);
+	font-size: 12px;
+}
+.charPicture {
+	flex: none;
+	width: 100px;
+	height: 100px;
+	margin-right: 10px;
+}
+.charName {
+	font-size: 15px;
+	font-weight: bold;
+}
+.charClass {
+	margin-bottom: 4px;
+	opacity: .8;
+}
+
+/* Server information: the numbers as tiles, the links as buttons, the classes as cards and the
+   staff as name tags (the sections themselves use the start page styles) */
+.infoTiles {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 6px -5px;
+}
+.infoTile {
+	flex: 1 1 130px;
+	margin: 5px;
+	padding: 10px 8px;
+	border: 1px solid rgba(127, 127, 127, .3);
+	border-radius: 10px;
+	background: rgba(127, 127, 127, .1);
+	text-align: center;
+}
+.infoNumber {
+	font-size: 20px;
+	font-weight: bold;
+}
+.infoLabel {
+	font-size: 11px;
+	opacity: .75;
+}
+.infoLinks {
+	padding: 4px 0 8px;
+	text-align: center;
+}
+.infoLink {
+	display: inline-block;
+	margin: 3px;
+	padding: 5px 14px;
+	border: 1px solid rgba(127, 127, 127, .35);
+	border-radius: 8px;
+	background: rgba(127, 127, 127, .12);
+}
+.classCards {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -5px;
+}
+.classCard {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	width: 260px;
+	margin: 5px;
+	padding: 6px 8px;
+	border: 1px solid rgba(127, 127, 127, .3);
+	border-radius: 10px;
+	background: rgba(127, 127, 127, .1);
+	font-size: 12px;
+}
+.classPicture {
+	flex: none;
+	width: 59px;
+	height: 55px;
+	margin-right: 10px;
+}
+.staffList {
+	padding: 6px 0;
+}
+.staffMember {
+	display: inline-block;
+	margin: 3px;
+	padding: 4px 10px;
+	border: 1px solid rgba(127, 127, 127, .3);
+	border-radius: 8px;
+	background: rgba(127, 127, 127, .1);
+	font-size: 12px;
+}
+.staffRole {
+	margin-left: 4px;
+	font-size: 10px;
+	opacity: .75;
+}

@@ -1107,6 +1107,56 @@ function add_user_entry($log_action) {
 
 // End logging functions
 
+/**
+ * @return int
+ * @param string $sex "F" or "M"
+ * @param int $style The hairstyle saved in charinfo.head
+ * @desc The hair sprite ROChargen draws for a hairstyle (the client numbers them differently)
+ */
+function hair_view($sex, $style) {
+	$hairstyles = array(
+		"F" => array( 2,2,4,7,1,5,3,6,12,10,9,11,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27),
+		"M" => array( 2,2,1,7,5,4,3,6,8,9,10,12,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
+	);
+	return isset($hairstyles[$sex][(int)$style]) ? $hairstyles[$sex][(int)$style] : (int)$style;
+}
+
+/**
+ * @return string
+ * @param string $sex "F" or "M"
+ * @param array $worn Sprites of what is worn: top, mid, bottom (headgears), weapon, shield, robe
+ * @desc Address of the character picture drawn by ROChargen
+ */
+function character_picture_url($sex, $job, $head, $head_palette, $body_palette, $worn) {
+	$sex = ($sex == "F") ? "F" : "M";
+	return "/ROChargenPHP/index.php/generate/body=$sex-" . (int)$job . "-0-" . (int)$body_palette
+		. "/hair=" . hair_view($sex, $head) . "-" . (int)$head_palette . "-0"
+		. "/hats=" . (int)$worn['top'] . "-" . (int)$worn['mid'] . "-" . (int)$worn['bottom']
+		. "/equip=" . (int)$worn['weapon'] . "-" . (int)$worn['shield'] . "-" . (int)$worn['robe']
+		. "/option=1/actdir=0-0-5";
+}
+
+/**
+ * @return void
+ * @param string $query USER_ANNOUNCE, GM_ANNOUNCE or ADMIN_ANNOUNCE
+ * @param string $title Heading of the list
+ * @param int $viewtype The list on view_announcement.php (1 users, 2 GMs, 3 admins)
+ * @desc Shows the newest announcements as news items: the message, with who posted it and when under it
+ */
+function show_announcements($query, $title, $viewtype) {
+	global $CONFIG_max_announce, $lang;
+	$result = execute_query($query, "index.php", $CONFIG_max_announce);
+	echo "<div class=\"homeSection\"><div class=\"mytitle homeTitle\">" . html_escape($title) . "</div>";
+	if ($result->RowCount() == 0) {
+		echo "<div class=\"newsItem\">No announcements yet.</div>";
+	}
+	while ($line = $result->FetchRow()) {
+		echo "<div class=\"newsItem\"><div class=\"newsMessage\">" . safe_message($line[1]) . "</div>"
+			. "<div class=\"newsInfo\">" . safe_message($line[0]) . " &middot; " . convert_date($line[2]) . "</div></div>";
+	}
+	echo "<div class=\"newsMore\"><a href=\"view_announcement.php?viewtype=" . (int)$viewtype . "\">{$lang['viewmore']}</a></div></div>";
+}
+
 function GetUserCount() {
 	// returns the number of users online
 	$query = GET_ONLINE;
@@ -1710,6 +1760,49 @@ function ShowGuildInfo($guild_id) {
 		}
 	}
 // End Guild Functions
+
+/**
+ * @return string
+ * @desc The War of Emperium days and times from config.php (agit_days, agit_start, agit_end,
+ * agit_offset), one line per time when the days have different times. Without the "War of Emperium:"
+ * label when $with_label is false (for a box that has it as its title).
+ */
+function woe_schedule($with_label = true) {
+	global $lang, $CONFIG_agit_days, $CONFIG_agit_start, $CONFIG_agit_end, $CONFIG_agit_offset;
+	ob_start();
+	$label = $with_label ? "{$lang['guildwars']}: " : "";
+	$agit_days = explode(",", $CONFIG_agit_days); //every agitday
+	$days = array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"); //every day name
+	$agit_starts = explode(",",$CONFIG_agit_start);
+	$agit_ends = explode(",",$CONFIG_agit_end);
+	$agit_offset = $CONFIG_agit_offset;
+
+	for ($day_off = 0; $agit_offset >= 2400; $day_off++) { $agit_offset -= 2400; }
+	$hour_off = $agit_offset;
+
+	if ((count($agit_starts) == 1) && (count($agit_ends) == 1)) {
+		echo $label . gettime($CONFIG_agit_start,$CONFIG_agit_end,$hour_off);
+		foreach ($agit_days as $index => $value) {
+		if (strstr($value,"-")) { $day = explode("-",$value); $display_days[$value] =  "{$days[$day[0]]} - {$days[$day[1]]}"; }
+		else { $display_days[$value] = $days[$value + $day_off]; } }
+		$display_days = implode(", ", $display_days);
+		echo " ($display_days)";
+	}
+	else {
+		echo $with_label ? "{$lang['guildwars']}:<br>" : "";
+		foreach ($agit_days as $index => $value) {
+			$agit_starttime = $agit_starts[$index]; if (!$agit_starttime) { $agit_starttime = $agit_starts[count($agit_starts)-1]; }
+			$agit_endtime = $agit_ends[$index]; if (!$agit_endtime) { $agit_endtime = $agit_ends[count($agit_ends)-1]; }
+			if (strstr($value,"-")) { $day = explode("-",$value); echo "{$days[$day[0]]} to {$days[$day[1]]} - " . gettime($agit_starttime,$agit_endtime,$hour_off);  echo "<br>"; }
+			elseif ((!$agit_starts[$index+1]) && (!$agit_ends[$index+1]) && ($index<(count($agit_days)-1))) { echo "{$days[$value + $day_off]}, "; }
+			else {
+				echo $days[$value + $day_off] . " - " .  gettime($agit_starttime,$agit_endtime,$hour_off);
+				if ($index != count($agit_days)) { echo "<br>"; }
+			}
+		}
+	}
+	return ob_get_clean();
+}
 
 /**
  * @return string
