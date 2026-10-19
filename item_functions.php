@@ -188,7 +188,7 @@ function display_source_id_items ($source_type, $name_id) {
 		if ($source_type == "AID") {
 			$table[0] = "storeitem";
 			$column[0] = "storedItem";
-			$source_name = AccountID_To_UserID($name_id);
+			$source_name = html_escape(AccountID_To_UserID($name_id));
 			$header[0] = "Account $source_name Storage";
 			$stop = 1;
 		}
@@ -197,7 +197,7 @@ function display_source_id_items ($source_type, $name_id) {
 			$table[1] = "cartItem";
 			$column[0] = "equipItem";
 			$column[1] = "cartitem";
-			$source_name = CharID_To_CharName($name_id);
+			$source_name = html_escape(CharID_To_CharName($name_id));
 			$header[0] = "$source_name's Inventory:";
 			$header[1] = "$source_name's Cart Items:";
 			$stop = 2;
@@ -317,14 +317,14 @@ function display_source_id_items ($source_type, $name_id) {
 	}
 	else {
 		if ($source_type == "account_id") {
-			$account_name = AccountID_To_UserID($name_id);
+			$account_name = html_escape(AccountID_To_UserID($name_id));
 			$header[0] = "Account $account_name Storage";
 			$table[0] = "storage";
 			$delete[0] = "delete_stor";
 			$stop = 1;
 		}
 		elseif ($source_type = "char_id") {
-			$char_name = CharID_To_CharName($name_id);
+			$char_name = html_escape(CharID_To_CharName($name_id));
 			$header[0] = "$char_name's Inventory:";
 			$header[1] = "$char_name's Cart Items:";
 			$table[0] = "inventory";
@@ -462,45 +462,62 @@ function convert_equip ($weapon_name, $refine, $card0, $card1) {
 	return $final_expression;		// Returns the final expression (+5 Very Very Strong Fire Damascus)
 }
 
+/**
+ * @return boolean
+ * @param int $ID Item ID
+ * @param array $tables Script tables to look in (code constants only, never user input)
+ * @desc Single-query EXISTS check with per-request static cache. Replaces up
+ * to N round-trips (one per table) plus repeated lookups of the same ID.
+ */
+function item_in_tables($ID, $tables) {
+	static $cache = array();
+	global $script;
+	$ID = intval($ID);
+	$key = implode(',', $tables) . ':' . $ID;
+	if (isset($cache[$key])) {
+		return $cache[$key];
+	}
+	if (empty($script)) {
+		// Non-Aegis layout: fall back to one query per table
+		foreach ($tables as $query_table) {
+			$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
+			$result = execute_query($query, "item_functions.php");
+			if ($result->RowCount() > 0) {
+				$cache[$key] = true;
+				return true;
+			}
+		}
+		$cache[$key] = false;
+		return false;
+	}
+	$checks = array();
+	foreach ($tables as $query_table) {
+		$checks[] = "EXISTS (SELECT 1 FROM $script.$query_table WHERE ID = $ID)";
+	}
+	$query = "SELECT CASE WHEN " . implode(" OR ", $checks) . " THEN 1 ELSE 0 END";
+	$result = execute_query($query, "item_functions.php");
+	$found = ($result && $result->fields[0] == 1);
+	$cache[$key] = $found;
+	return $found;
+}
+
 function IsEquip($ID) {
 	$db = array('armor','weapon','bothhand','bow','armorMB','armorTB','armorTM','armorTMB','gun');
-
-	foreach ($db as $query_table) {
-		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
-		$result = execute_query($query, "item_functions.php");
-		if ($result->RowCount() > 0) {
-			return true;
-		}
-	}
-	return false;
+	return item_in_tables($ID, $db);
 }
 
 function IsQuest($ID) {
 
 	$db = array('guest');
 
-	foreach ($db as $query_table) {
-		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
-		$result = execute_query($query, "item_functions.php");
-		if ($result->RowCount() > 0) {
-			return true;
-		}
-	}
-	return false;
+	return item_in_tables($ID, $db);
 }
 
 function IsArrow($ID) {
 
 	$db = array('arrow','cannonball','ammo');
 
-	foreach ($db as $query_table) {
-		$query = query_format(IS_IN_ITEMDB, $query_table, $ID);
-		$result = execute_query($query, "item_functions.php");
-		if ($result->RowCount() > 0) {
-			return true;
-		}
-	}
-	return false;
+	return item_in_tables($ID, $db);
 }
 
 ?>

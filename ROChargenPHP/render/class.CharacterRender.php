@@ -99,13 +99,13 @@ class CharacterRender extends RORender
 		/*
 		// Falcon test
 		$this->renderImage( $img, array(
-			"path" => "data/sprite/ÀÌÆÑÆ®/¸Å2", 
+			"path" => "data/sprite/ï¿½ï¿½ï¿½ï¿½Æ®/ï¿½ï¿½2", 
 			"pos"  => (object)array( 'x' => -10, 'y' => -140)
 		));
 
 		// Cart test
 		$this->renderImage( $img, array(
-			"path" => "data/sprite/ÀÌÆÑÆ®/¼Õ¼ö·¹3",
+			"path" => "data/sprite/ï¿½ï¿½ï¿½ï¿½Æ®/ï¿½Õ¼ï¿½ï¿½ï¿½3",
 			"pos"  => (object)array( 'x' => -35, 'y' => 0)
 		));
 		*/
@@ -223,7 +223,7 @@ class CharacterRender extends RORender
 				case 4054: $id = 4080; return;   // Rune Knight
 				case 4060: $id = 4081; return;   // Rune Knight T
 				case 4066: $id = 4082; return;   // Royal Guard
-				case 4073; $id = 4083; return;   // Royal Guard T
+				case 4073: $id = 4083; return;   // Royal Guard T
 				case 4096: $id = 4109; return;   // Baby Rune
 				case 4102: $id = 4110; return;   // Baby Guard
 			}

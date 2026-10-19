@@ -550,13 +550,12 @@ FROM $cp.item_db
 %s AND (Type < 4 OR Type = 6 OR Type = 8)
 ORDER BY NAME
 ");
-DEFINE('COUNT_FULL_ITEMS', "SELECT id
+DEFINE('COUNT_FULL_ITEMS', "SELECT COUNT(*) AS total
 FROM $cp.item_db
 %s AND (Type < 4 OR Type = 6)
-ORDER BY NAME
 ");
 DEFINE('SEARCH_CLASS', "WHERE SUBSTRING($cp.DecToBin(Equip_jobs, 20) COLLATE SQL_Latin1_General_CP1_CI_AS, 20 - %d, 1) = '1' AND Equip_jobs IS NOT NULL");
-DEFINE('COUNT_FULL_MOBS', "SELECT $script.monparameter.Name
+DEFINE('COUNT_FULL_MOBS', "SELECT COUNT(*) AS total
 FROM $script.monparameter
 LEFT JOIN $script.MVP ON $script.MVP.Name = $script.monparameter.Name 
 LEFT JOIN $script.monmakingitem ON $script.monmakingitem.Name = $script.monparameter.Name
@@ -572,7 +571,6 @@ LEFT JOIN $cp.item_db AS MVPID1 ON MVPID1.Name = $script.MVP.itemName1
 LEFT JOIN $cp.item_db AS MVPID2 ON MVPID2.Name = $script.MVP.itemName2
 LEFT JOIN $cp.item_db AS MVPID3 ON MVPID3.Name = $script.MVP.itemName3
 %s AND LV > 0
-ORDER BY $script.monparameter.Name
 ");
 /*DEFINE('COUNT_FULL_MOBS', "SELECT $script.monparameter.Name
 FROM $script.monparameter

@@ -17,7 +17,7 @@ $zone = isset($GET_zone) ? (int)$GET_zone : ($search != '' ? 0 : 1);
 $maps = array();
 $zoneCount = array();
 if ($CONFIG_server_type == 0) {
-	$mapName = ParseMapNameTable("./dbtranslation/mapnametable.txt");
+	$mapName = cached_parse_table('mapname', "./dbtranslation/mapnametable.txt", 'ParseMapNameTable');
 	$query = query_format(GET_ALL_MAPS);
 	$result = execute_query($query, "maplist.php");
 	$zsids = array();

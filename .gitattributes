@@ -1,0 +1,25 @@
+# Normalize line endings so the repo is consistent (was mixed LF/CRLF).
+* text=auto eol=lf
+
+# Explicitly binary assets (never touch line endings)
+*.png binary
+*.jpg binary
+*.gif binary
+*.bmp binary
+*.ani binary
+*.ico binary
+*.dll binary
+
+# Treat these as text even if heuristics disagree
+*.php text
+*.inc text
+*.txt text
+*.css text
+*.js text
+*.sql text
+*.config text
+.htaccess text
+
+# .def data files are parsed by the app with explode("\r\n"), so they MUST
+# be checked out with CRLF (repo stores LF, working tree/deploy gets CRLF).
+*.def text eol=crlf

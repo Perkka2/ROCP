@@ -68,7 +68,7 @@ else {
 	<tr class=mytitle>
 		<td colspan=7>
 	";
-	printf($lang['onlineusersmap'], $GET_map);
+	printf($lang['onlineusersmap'], html_escape($GET_map));
 	echo "
 			
 		</td>

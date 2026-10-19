@@ -91,10 +91,11 @@ $number_of_guilds = GetGuildCount();
 $max_pages = intval($number_of_guilds / $CONFIG_results_per_page) + 1;
 if ($display_table) {
 	if ($max_pages > 1) {
+		$safe_gsearch = urlencode($GET_search);
 		for ($i = 1; $i < $max_pages; $i++) {
-			echo "<a href=\"guild_manage.php?page=$i&search=$GET_search\">$i</a>-";
+			echo "<a href=\"guild_manage.php?page=$i&search=$safe_gsearch\">$i</a>-";
 		}
-		echo "<a href=\"guild_manage.php?page=$i&search=$GET_search\">$i</a>";
+		echo "<a href=\"guild_manage.php?page=$i&search=$safe_gsearch\">$i</a>";
 	}
 	echo "
 	<form action=\"guild_manage.php\" method=\"GET\">

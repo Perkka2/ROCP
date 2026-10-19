@@ -43,12 +43,12 @@ if ($POST_step == "1") {
 	
 	while ($line = $result->FetchRow()) {
 		$GID = md5($line[0] . $CONFIG_passphrase);
-		$slot = $line[1];
-		$charname = $line[2];
-		$class = determine_class($line[3]);
-		$clevel = $line[4];
-		$joblevel = $line[5];
-		$money = $line[6];
+		$slot = intval($line[1]);
+		$charname = html_escape($line[2]);
+		$class = html_escape(determine_class($line[3]));
+		$clevel = intval($line[4]);
+		$joblevel = intval($line[5]);
+		$money = intval($line[6]);
 		
 		echo "    
 	<tr class=mycell>
@@ -94,12 +94,12 @@ elseif ($POST_step == "2") {
 	";
 	while ($line = $result->FetchRow()) {
 		$GID = md5($line[0] . $CONFIG_passphrase);
-		$slot = $line[1];
-		$charname = $line[2];
-		$class = determine_class($line[3]);
-		$clevel = $line[4];
-		$joblevel = $line[5];
-		$money = $line[6];
+		$slot = intval($line[1]);
+		$charname = html_escape($line[2]);
+		$class = html_escape(determine_class($line[3]));
+		$clevel = intval($line[4]);
+		$joblevel = intval($line[5]);
+		$money = intval($line[6]);
 		
 		if ($GID != $POST_GID1) {
 			echo "
@@ -128,12 +128,12 @@ elseif ($POST_step == "2") {
 elseif ($POST_step == "3") {
 	$query = query_format(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID1);
 	$result = execute_query($query, "money_transfer.php");
-	$char1 = $result->fields[0];
-	$money1 = $result->fields[1];
+	$char1 = html_escape($result->fields[0]);
+	$money1 = intval($result->fields[1]);
 	$query = query_format(GET_TRANSFER_INFO, $CONFIG_passphrase, $POST_GID2);
 	$result = execute_query($query, "money_transfer.php");
-	$char2 = $result->fields[0];
-	$money2 = $result->fields[1];
+	$char2 = html_escape($result->fields[0]);
+	$money2 = intval($result->fields[1]);
 	EchoHead(50);
 	echo "
 	<tr class=mytitle>

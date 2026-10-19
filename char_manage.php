@@ -35,7 +35,7 @@ if ($GET_search != "") {
 	display_char_table($query, $total_results, "none", "none", false, $size, $start);
 }
 elseif ($GET_option == "deletechar") {
-	$name = CharID_To_CharName($GET_char_id);
+	$name = html_escape(CharID_To_CharName($GET_char_id));
 	echo "Are you sure you want to delete $name?<p>";
 	echo "
 	<form action=\"char_manage.php\" method=\"GET\">
@@ -254,22 +254,27 @@ $display_search = true, $size = 0, $start = 0, $highlight = false
 		";
 		$account_name = $line[2];
 		foreach ($line as $display_index => $col_value) {
+			$raw_value = $col_value;
 			if ($highlight) {
 				$col_value = highlight_search_term($col_value, $_GET['search']);
 			}
 			else {
-				$col_value = htmlspecialchars($col_value);
+				$col_value = html_escape($col_value);
 			}
 			if ($display_index == 1) {
-				$account_name = htmlspecialchars($account_name);
-				$col_value = "<a href=\"account_manage.php?search={$line[2]}\" title=\"AccountID: {$line[1]}\">{$line[2]}</a>";
+				$account_name = html_escape($account_name);
+				$safe_search = urlencode($line[2]);
+				$safe_label = html_escape($line[2]);
+				$safe_id = intval($line[1]);
+				$col_value = "<a href=\"account_manage.php?search=$safe_search\" title=\"AccountID: $safe_id\">$safe_label</a>";
 			}
 			elseif ($display_index == 2) {
 				continue;
 			}
 			elseif ($display_index == 5) {
-				$class_name = determine_class($col_value);
-				$col_value = "<a href=\"char_manage.php?class=$col_value\">$class_name</a>";
+				$class_id = intval($raw_value);
+				$class_name = html_escape(determine_class($raw_value));
+				$col_value = "<a href=\"char_manage.php?class=$class_id\">$class_name</a>";
 			}
 			elseif ($display_index == 17) {
 				continue;
@@ -296,10 +301,12 @@ $display_search = true, $size = 0, $start = 0, $highlight = false
 	echo "</table>\n";
 	// Gets # of results
 	$max_pages = intval($number_of_results / $CONFIG_results_per_page) + 1;
-	$this_page = $_SERVER['PHP_SELF'];
+	$this_page = "char_manage.php";
+	$safe_index = urlencode($search_index);
+	$safe_value = urlencode($search_value);
 	if ($max_pages > 1) {
 		for ($i = 1; $i < $max_pages; $i++) {
-			echo "<a href=\"$this_page?$search_index=$search_value&page=$i\">$i</a>";
+			echo "<a href=\"$this_page?$safe_index=$safe_value&page=$i\">$i</a>";
 			if ($i % 50 == 0) {
 				echo "<br>";
 			}
@@ -307,7 +314,7 @@ $display_search = true, $size = 0, $start = 0, $highlight = false
 				echo "-";
 			}
 		}
-		echo "<a href=\"$this_page?$search_index=$search_value&page=$i\">$i</a>";
+		echo "<a href=\"$this_page?$safe_index=$safe_value&page=$i\">$i</a>";
 	}
 	if ($display_search) {
 		echo "

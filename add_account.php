@@ -16,6 +16,9 @@ if ($POST_action == "Register Account!") {
 	elseif (strlen($register_password) < 4 or strlen($register_password) > 24) {
 		display_error("Password has to be between 4 and 24 letters.");
 	}
+	elseif (!isalphanumeric($register_user) or !isalphanumeric($register_password)) {
+		display_error("Illegal characters detected. Please use A-Z, a-z, 0-9 only.");
+	}
 	elseif (!is_numeric($register_level) && $CONFIG_server_type != 0) {
 		display_error("Level must be numeric");
 	}
@@ -28,18 +31,14 @@ if ($POST_action == "Register Account!") {
 		display_error("GM level cannot exceed your own");
 		}
 	}
-	else {
-			$query = query_format(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
-			$result = execute_query($query, "register.php");
-			if ($result->RowCount() > 0) {
-				redir("add_account.php", "Account Already Exists, please choose another one.");
-			}
-			else{
-			add_account($register_user, $register_password, $register_gender, $register_email, $register_level);
-			add_admin_entry("Registered $register_user");
-			redir("add_account.php", "Account $register_user Added!");
-		}
+	$query = query_format(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
+	$result = execute_query($query, "add_account.php");
+	if ($result->RowCount() > 0) {
+		redir("add_account.php", "Account Already Exists, please choose another one.");
 	}
+	add_account($register_user, $register_password, $register_gender, $register_email, $register_level);
+	add_admin_entry("Registered $register_user");
+	redir("add_account.php", "Account $register_user Added!");
 }
 else {
 	EchoHead(50);

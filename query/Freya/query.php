@@ -546,16 +546,14 @@ FROM $cp.item_db
 %s
 ORDER BY name_english
 ");
-DEFINE('COUNT_FULL_ITEMS', "SELECT id
+DEFINE('COUNT_FULL_ITEMS', "SELECT COUNT(*) AS total
 FROM $cp.item_db
 %s
-ORDER BY name_english
 ");
 DEFINE('SEARCH_CLASS', "WHERE substring(lpad(bin(equip_jobs), 24, 0), 24 - %d, 1) = 1 AND equip_locations IS NOT NULL");
-DEFINE('COUNT_FULL_MOBS', "SELECT $cp.mob_db.Name
+DEFINE('COUNT_FULL_MOBS', "SELECT COUNT(*) AS total
 FROM $cp.mob_db
 %s AND exp > 0
-ORDER BY $cp.mob_db.Name
 ");
 DEFINE('SHOW_FULL_MOBS', "SELECT $cp.mob_db.Name, LV, HP, EXP, JEXP, ATK1, ATK2, mob_db.DEF, MDEF,
 Element, scale, race, STR, AGI, VIT, `INT`, DEX, LUK,

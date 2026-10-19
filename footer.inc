@@ -24,14 +24,11 @@ if (!valid_skin($STORED_skin)) {
 
 // Get the skin author
 require "skin/$STORED_skin/skin.php";
-$sql_type = $CONFIG_server_type == 0? "MSSQL" : "MySQL";
-$powered = sprintf($lang['poweredby'], $php_version, $sql_type);
 $codedby = sprintf($lang['codedby'], $cp_version);
 $skinby = sprintf($lang['skinby'], $SKIN['name'], $SKIN['author']);
 echo "
 <div class=\"footer\">
 <div class=\"footerinfo\" >
-			$powered<br/>
 		$codedby<br />
 		$skinby<br />
 		</div>
@@ -84,7 +81,7 @@ echo "
 
 
 if ($CONFIG_debug && $STORED_level > 2 && $queries > 0) {
-	$debug_message = preg_replace("/$CONFIG_passphrase/", "********", $debug_message);
+	$debug_message = preg_replace("/" . preg_quote($CONFIG_passphrase, "/") . "/", "********", $debug_message);
 	echo "<div class=\"debuginfo\"><table>{$lang['queriesexecuted']} $queries</br>
 	{$lang['querytotal']}</br>
 	$total_execution</br>

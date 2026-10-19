@@ -13,6 +13,7 @@ class Grf
 
 	private $fileTable, $header;
 	public $loaded = false;
+	public $filename = "";
 	protected $fp;
 
 	const HEADER_SIZE = 46;

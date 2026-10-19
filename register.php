@@ -90,17 +90,12 @@ if ($POST_action == "Register Account!") {
 	$query = query_format(CHECK_DUPE_ACCOUNT, $register_user);	// searches if account already exists
 	$result = execute_query($query, "register.php");
 	if ($result->RowCount() > 0) {
-		display_error("Account Already Exists, please choose another one.");
+		display_error("Account name unavailable, please choose another one.");
 	}
 	$query = query_format(CHECK_DUPE_PENDING_ACCOUNT, $register_user);	// searches if account already exists
 	$result = execute_query($query, "register.php");
 	if ($result->RowCount() > 0) {
-		if ($CONFIG_register_type == 1) {
-			display_error("This account has already been requested! If it is yours, please validate it by email.");
-		}
-		else {
-			display_error("This account has already been requested! If it is yours, please wait for a GM to accept you.");
-		}
+		display_error("Account name unavailable, please choose another one.");
 	}
 	if ($CONFIG_secure_mode) {
 		// Checks that security code entered is the same as code in DB
@@ -120,7 +115,7 @@ if ($POST_action == "Register Account!") {
 		$register_password = md5($register_password);
 	}
 	
-	$ip = ip2long($_SERVER['REMOTE_ADDR']);
+	$ip = ip_to_signed(ip2long(get_client_ip()));
 	
 	// Checks the limits of the server
 	
@@ -180,7 +175,7 @@ if ($POST_action == "Register Account!") {
 			break;
 		case 1: case 2:
 			// Inserts the user to pending table
-			$reg_id = md5(uniqid(microtime()) ); // generate a unique session id
+			$reg_id = random_hex(16); // generate a unique session id
 			// Adds the account, with encrypted password to pending table
 			$query = query_format(ADD_PENDING, $reg_id, $register_user, $register_password, $register_gender, $register_email, $ip);
 			$result = execute_query($query, "register.php", 0, 0, true);
@@ -300,10 +295,14 @@ else {
 		$query = query_format(CLEAR_CODES, time() - (60*60));
 		$result = execute_query($query, 'register.php', 0, 0, true);
 		
-		$reg_id = md5(uniqid(microtime()) ); // set a unique session id
+		$reg_id = random_hex(16); // set a unique session id
 		// Generates the random number
-		mt_srand ((double) microtime() * 1000000);
-		$reg_code = mt_rand(100000, 999999);
+		if (function_exists('random_int')) {
+			$reg_code = random_int(100000, 999999);
+		}
+		else {
+			$reg_code = mt_rand(100000, 999999);
+		}
 		
 		// Stores the security code into the DB
 		$query = query_format(INSERT_CODE, $reg_id, $reg_code, time());

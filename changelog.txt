@@ -1,3 +1,15 @@
+5.2.0 - October 19th, 2026 [Perkka]
+
+Merged the security and hardening work from maldiablo (pull request #1):
+Real visitor IP behind a trusted proxy for the logs, registration and login limit (config real_ip_header and trusted_proxy, off by default).
+SMTP port and TLS settings for the mailer (smtp_port, smtp_secure, smtp_verify_cert).
+Discord link on the server info page (discord_url).
+The dbtranslation files are cached in dbtranslation/cache, row counts of the item and monster lists are cached for 5 minutes, and those lists have a compact pager.
+More escaping on the admin pages, the account page checks if the account is online by account id, GMs no longer see passwords in the account list, a missing pending registration is rejected.
+The PHP and SQL versions are no longer shown on the server info page and in the footer.
+Line endings are normalized to LF by .gitattributes, the .def files are checked out with CRLF.
+Upgrading: add the new settings to config.php (discord_url, smtp_port, smtp_secure, smtp_verify_cert, real_ip_header, trusted_proxy), see the repo config.php.
+
 5.1.1 - October 19th, 2026 [Perkka]
 
 Map list: the search script no longer errors in old browsers without querySelector (IE 7 and older), the Search button works there. In browsers that only search on the button (IE 8) a search looks through every zone server.

@@ -471,7 +471,7 @@ if ($CONFIG_server_type == 0) {
 			<td colspan=20>
 		";
 		for ($i = 1; $i < $max_pages; $i++) {
-			echo "<a href=\"view_server_log.php?view=$GET_view&page=$i&column=$GET_column&value=$GET_value&act=$GET_act\">$i</a>";
+			echo "<a href=\"view_server_log.php?view=" . urlencode($GET_view) . "&page=$i&column=" . urlencode($GET_column) . "&value=" . urlencode($GET_value) . "&act=" . urlencode($GET_act) . "\">$i</a>";
 			if ($i % 50 == 0) {
 				echo "<br>";
 			}
@@ -479,7 +479,7 @@ if ($CONFIG_server_type == 0) {
 				echo "-";
 			}
 		}
-		echo "<a href=\"view_server_log.php?view=$GET_view&page=$i&column=$GET_column&value=$GET_value&act=$GET_act\">$i</a>
+		echo "<a href=\"view_server_log.php?view=" . urlencode($GET_view) . "&page=$i&column=" . urlencode($GET_column) . "&value=" . urlencode($GET_value) . "&act=" . urlencode($GET_act) . "\">$i</a>
 			</td>
 		</tr>";
 		
@@ -1327,7 +1327,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 			<td colspan=20>
 		";
 		for ($i = 1; $i < $max_pages; $i++) {
-			echo "<a href=\"view_server_log.php?view=$GET_view&page=$i&column=$GET_column&value=$GET_value\">$i</a>";
+			echo "<a href=\"view_server_log.php?view=" . urlencode($GET_view) . "&page=$i&column=" . urlencode($GET_column) . "&value=" . urlencode($GET_value) . "\">$i</a>";
 			if ($i % 50 == 0) {
 				echo "<br>";
 			}
@@ -1335,7 +1335,7 @@ elseif (($CONFIG_server_type == 1) || ($CONFIG_server_type == 2 && $CONFIG_db_lo
 				echo "-";
 			}
 		}
-		echo "<a href=\"view_server_log.php?view=$GET_view&page=$i&column=$GET_column&value=$GET_value\">$i</a>
+		echo "<a href=\"view_server_log.php?view=" . urlencode($GET_view) . "&page=$i&column=" . urlencode($GET_column) . "&value=" . urlencode($GET_value) . "\">$i</a>
 			</td>
 		</tr>";
 		

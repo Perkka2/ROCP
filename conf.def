@@ -70,3 +70,9 @@ Colour used for Game GM
 EXP Rate
 JEXP Rate
 Drop Rate
+Discord server invite URL
+SMTP Port (blank = default 25)
+SMTP Encryption ('' = plain, 'ssl' = implicit TLS/465, 'tls' = STARTTLS/587)
+Verify SMTP TLS certificate (1 = verify, 0 = allow self-signed)
+Header with the real visitor IP (blank = use direct connection IP)
+Comma-separated IPs/CIDRs allowed to supply that header (blank = trust none)

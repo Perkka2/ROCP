@@ -71,4 +71,10 @@ $CONFIG['adjust_rate'] 			=			'0';			// 1 if you are using Stored Procedure to i
 $CONFIG['exp_rate'] 			=			'1';			// EXP Rate
 $CONFIG['jexp_rate'] 			=			'1';			// JEXP Rate
 $CONFIG['drop_rate'] 			=			'1';			// Drop Rate
+$CONFIG['discord_url'] 			=			'';			// Discord server invite URL
+$CONFIG['smtp_port'] 			=			'';			// SMTP Port (blank = default 25)
+$CONFIG['smtp_secure'] 		=			'';			// SMTP Encryption ('' = plain, 'ssl' = implicit TLS/465, 'tls' = STARTTLS/587)
+$CONFIG['smtp_verify_cert'] 	=			'1';			// Verify SMTP TLS certificate (1 = verify, 0 = allow self-signed)
+$CONFIG['real_ip_header'] 		=			'';			// Header with the real visitor IP (blank = use direct connection IP)
+$CONFIG['trusted_proxy'] 		=			'';			// Comma-separated IPs/CIDRs allowed to supply that header (blank = trust none)
 ?>

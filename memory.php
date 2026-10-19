@@ -35,7 +35,7 @@ if (!defined('CSRF_OUTPUT_FILTER')) {
 
 
 $php_version = phpversion();
-$cp_version = "5.1.1";
+$cp_version = "5.2.0";
 // Checks PHP Versions, will be used when PHP5 is mandatory
 /*
 if (!version_compare($version, "5.0.0", ">=")) {
@@ -137,7 +137,7 @@ $config_array = array(
 "forums_location", "patch_location", "irc_channel", "cp_location",
 "max_characters", "ladder_limit", "display_guild_limit", "register",
 "register_type", "secure_mode", "max_per_ip", "max_per_email", "max_accounts",
-"inactive_days", "smtp_host", "smtp_auth", "smtp_login", "smtp_pass",
+"inactive_days", "smtp_host", "smtp_auth", "smtp_login", "smtp_pass", "smtp_port", "smtp_secure", "smtp_verify_cert", "real_ip_header", "trusted_proxy",
 "sendmail_name", "sendmail_from", "admin_colour", "gm_colour", "game_gm_colour",
 "adjust_rate", "exp_rate", "jexp_rate", "drop_rate"
 );
