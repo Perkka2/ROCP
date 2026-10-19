@@ -658,10 +658,11 @@ A:hover {
 .main:before {
 	content: "";
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	/* -1px: the glass also lies under the 1px border, else the border shows the background unblurred */
+	top: -1px;
+	left: -1px;
+	right: -1px;
+	bottom: -1px;
 	z-index: -1;
 	border-radius: 16px;
 	background: rgba(255, 255, 255, .08);
@@ -717,12 +718,16 @@ A:hover {
 .content {
 	border-radius: 12px;
 }
-/* Menu: a frosted sidebar, always open, a darker strip of the main panel */
+/* Menu: a sidebar on the same glass as the content, always open, divided from it by a line.
+   The lines fade out at their ends; browsers without gradients show them plain */
 .menu {
-	background: #262f41 !important;
-	background: rgba(20, 26, 40, .35) !important;
-	border: 1px solid rgba(255, 255, 255, .2);
-	border-radius: 12px;
+	background: none !important;
+	border: none;
+	border-right: 1px solid rgba(255, 255, 255, .25);
+	-webkit-border-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+	border-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+	border-radius: 0;
+	padding-right: 8px;
 	overflow: hidden;
 }
 .dropdowncontainer {
@@ -734,6 +739,27 @@ A:hover {
 }
 .menuheader {
 	border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+.menuheader, .menusubheader {
+	-webkit-border-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+	border-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+}
+/* The menu is always open next to the content, so the "User Options:" title is left out.
+   Admins keep the "GM/Admin Options:" title, it tells their two lists apart. On phones the
+   titles stay, there they open the sections. */
+@media screen and (min-width: 761px) {
+	.menu .dropdowncontainer:first-child .menuheader {
+		display: none;
+	}
+}
+/* on phones the menu is above the content (skin/mobile.css), so the line goes under it */
+@media screen and (max-width: 760px) {
+	.menu {
+		border-right: none;
+		border-bottom: 1px solid rgba(255, 255, 255, .25);
+		-webkit-border-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+		border-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, .3) 20%, rgba(255, 255, 255, .3) 80%, rgba(255, 255, 255, 0)) 1;
+	}
 }
 .menu a, .menusubheader {
 	background: none !important;
@@ -801,4 +827,94 @@ input[type=submit]:hover, input[type=button]:hover {
 .items img, .tooltipleft img {
 	background: rgba(255, 255, 255, .12);
 	border-radius: 8px;
+}
+
+/* Borders: only the top-left and bottom-right corners of a panel have a visible edge, where the
+   light catches it, fading out to nothing along the sides. It is a 1px ring just inside the
+   panel, on its blurred glass (masked so only the line shows). Browsers without CSS masks
+   keep a plain border around the panel. */
+.header, .loginstatus, .main, .footer, .debuginfo, .serverinfo, .dropdownmenu,
+.tooltip .tooltipcontainer {
+	border-color: rgba(255, 255, 255, .2);
+}
+.equipmentList {
+	border-color: rgba(255, 255, 255, .3);
+}
+.equipmentList .tooltiptext {
+	border-color: rgba(255, 255, 255, .7);
+}
+input, select, textarea, .myctl {
+	border-color: rgba(255, 255, 255, .3) !important;
+}
+input[type=submit], input[type=button], .menuheader a {
+	border-color: rgba(255, 255, 255, .35) !important;
+}
+@supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+	.header, .loginstatus, .footer, .debuginfo, .serverinfo {
+		position: relative;
+	}
+	/* Positioning the header and the status box (for the corner light) must not break the zone
+	   server tooltip in the status box: the header and the box no longer clip it (flow-root still
+	   holds the floating status box), the tooltip is as wide as its lines, and the header stays
+	   above the panels below it so the tooltip shows on top of them */
+	.header {
+		overflow: visible;
+		display: flow-root;
+		z-index: 2;
+	}
+	.serverinfo {
+		overflow: visible;
+	}
+	.tooltip .tooltipcontainer {
+		white-space: nowrap;
+		width: -webkit-max-content;
+		width: max-content;
+	}
+	/* The panels lose their border, the corner light is drawn inside them on the glass */
+	.header, .loginstatus, .main, .footer, .debuginfo, .serverinfo,
+	.tooltip .tooltipcontainer {
+		border-width: 0;
+	}
+	.main:before {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	/* (the menu lists are plain sidebar lists here, without a frame, so they get no ring) */
+	.header:after, .loginstatus:after, .main:after, .footer:after, .debuginfo:after,
+	.serverinfo:after, .tooltip .tooltipcontainer:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 1px;
+		border-radius: inherit;
+		pointer-events: none;
+		background:
+			/* each light fades out within its own box of at most 130px and at most half the panel,
+			   so on a low panel the light of one corner does not reach round to the opposite edge */
+			radial-gradient(farthest-side at 0 0, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0)) 0 0 / min(130px, 50%) min(130px, 50%) no-repeat,
+			radial-gradient(farthest-side at 100% 100%, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0)) 100% 100% / min(130px, 50%) min(130px, 50%) no-repeat;
+		-webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+		-webkit-mask-composite: xor;
+		mask: linear-gradient(#000, #000) content-box exclude, linear-gradient(#000, #000);
+	}
+}
+/* the amount bar sits inside the rounded item frame, so its bottom corners follow the frame
+   (6px corners less the 1px border) */
+.amountInfo {
+	border-radius: 0 0 5px 5px;
+}
+/* Menu hover: a soft band that fades out towards both ends (the links in the lists, not the
+   section titles, which keep their own rounded look) */
+.dropdownmenu a:hover {
+	background: #3c475d !important;
+	background: rgba(255, 255, 255, .08) !important;
+	background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, .11) 25%, rgba(255, 255, 255, .11) 75%, rgba(255, 255, 255, 0)) !important;
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, .11) 25%, rgba(255, 255, 255, .11) 75%, rgba(255, 255, 255, 0)) !important;
+	border-radius: 0;
 }

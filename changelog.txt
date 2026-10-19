@@ -1,3 +1,8 @@
+5.2.2 - October 19th, 2026 [Perkka]
+
+Glass skins: softer look, the panel edges only catch the light in two corners, lines and the menu hover fade out, and an open menu extends from its button.
+Glass with leftside menu: the menu is divided from the content by a line instead of being a darker box.
+
 5.2.1 - October 19th, 2026 [Perkka]
 
 An older config.php without the settings added in 5.2.0 no longer stops the panel: they get their defaults, Edit Config shows them, and saving any setting writes them into config.php.
