@@ -57,6 +57,7 @@ $lang = array(
 	'clear.php' => "Clear Accounts/Characters",
 	'rebuild_items.php' => "Rebuild Item Database",
 	'rebuild_mobs.php' => "Rebuild Mob Database",
+	'class_pictures.php' => "Class Pictures",
 	'privileges.php' => "Privileges",
 	'none5' => "Logs",
 	'view_access_log.php' => "View Access Logs",

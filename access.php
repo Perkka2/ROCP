@@ -85,6 +85,7 @@ else {
 $access['pending.php'] = 3;
 $access['privileges.php'] = 4;
 $access['rebuild_items.php'] = 4;
+$access['class_pictures.php'] = 4;
 if ($CONFIG_server_type == 0) {
 	$access['rebuild_mobs.php'] = -1;
 }

@@ -1,3 +1,8 @@
+5.6.0 - October 19th, 2026 [Perkka]
+
+Class pictures for the classes that had none (Rune Knight, the other third classes, babies, mounted classes and more), drawn from the game sprites. Baby classes are drawn like the game does, as their adult class shrunk to 2/3. Server information leaves the picture out for the few classes without sprites instead of showing a broken image.
+Class Pictures: a new admin tool that draws the class pictures from the game sprites, for the classes that have none or again for one class, and redraws the pictures it drew (the ones that came with the panel are left as they are).
+
 5.5.1 - October 19th, 2026 [Perkka]
 
 Doram (Summoner): the character picture uses their own hairstyles 1 to 6 (it used the human ones and could show no head), and the hairstyle change offers and accepts only those 6. Other classes can only pick their 27 styles too.

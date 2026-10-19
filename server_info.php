@@ -97,7 +97,9 @@ foreach ($class_count as $job => $count) {
 		: "Highest: none";
 	echo "
 		<div class=\"classCard\">
-			<img class=\"classPicture\" src=\"images/classes/$job.png\" alt=\"\" loading=\"lazy\">
+			" . (file_exists("images/classes/$job.png")
+				? "<img class=\"classPicture\" src=\"images/classes/$job.png\" alt=\"\" loading=\"lazy\">"
+				: "<span class=\"classPicture\"></span>") . "
 			<div>
 				<div class=\"charName\">" . html_escape(determine_class($job)) . "</div>
 				<div>" . number_format((float)$count) . " " . ($count == 1 ? "character" : "characters") . "</div>
