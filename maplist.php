@@ -110,8 +110,10 @@ echo "</table>";
 <script type="text/javascript">
 // Filters the list while typing, without reloading the page
 (function () {
+	// Old browsers (IE 7 and older) have no querySelector, the Search button still works there
+	if (!document.querySelector || !document.querySelectorAll) return;
 	var form = document.querySelector('.mapFilter');
-	if (!form || !document.querySelectorAll) return;
+	if (!form) return;
 	var rows = document.querySelectorAll('tr.mapRow');
 	var zones = document.querySelectorAll('.mapZones a');
 	var none = document.querySelector('tr.noMaps');
@@ -143,7 +145,12 @@ echo "</table>";
 		filter();
 	};
 	form.elements['type'].onchange = filter;
-	form.onsubmit = function () { filter(); return false; };
+	form.onsubmit = function () {
+		// browsers without oninput (IE 8) search when the button is pressed
+		if (form.elements['q'].value != '') zone.value = '0';
+		filter();
+		return false;
+	};
 	for (var k = 0; k < zones.length; k++) {
 		zones[k].onclick = function () { setZone(this.getAttribute('data-zone')); return false; };
 	}

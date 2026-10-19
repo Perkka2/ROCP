@@ -1,3 +1,7 @@
+5.1.1 - October 19th, 2026 [Perkka]
+
+Map list: the search script no longer errors in old browsers without querySelector (IE 7 and older), the Search button works there. In browsers that only search on the button (IE 8) a search looks through every zone server.
+
 5.1.0 - October 18th, 2026 [Perkka]
 
 Map list: search by map name or file name, looking through every zone server while typing.
