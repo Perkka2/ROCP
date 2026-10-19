@@ -1108,12 +1108,32 @@ function add_user_entry($log_action) {
 // End logging functions
 
 /**
+ * @return bool
+ * @desc True for the Doram classes (Summoner, Baby Summoner): they have their own body and hair sprites
+ */
+function is_doram($job) {
+	return in_array((int)$job, array(4217, 4218, 4219, 4220));
+}
+
+/**
+ * @return int
+ * @desc How many hairstyles a character of this class can choose from
+ */
+function hairstyle_count($job) {
+	return is_doram($job) ? 6 : 27;
+}
+
+/**
  * @return int
  * @param string $sex "F" or "M"
  * @param int $style The hairstyle saved in charinfo.head
- * @desc The hair sprite ROChargen draws for a hairstyle (the client numbers them differently)
+ * @param int $job The class: the Doram have their own hairstyles 1 to 6, numbered as they are drawn
+ * @desc The hair sprite ROChargen draws for a hairstyle (the client numbers the human ones differently)
  */
-function hair_view($sex, $style) {
+function hair_view($sex, $style, $job = 0) {
+	if (is_doram($job)) {
+		return max(1, min(6, (int)$style));
+	}
 	$hairstyles = array(
 		"F" => array( 2,2,4,7,1,5,3,6,12,10,9,11,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27),
 		"M" => array( 2,2,1,7,5,4,3,6,8,9,10,12,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
@@ -1130,7 +1150,7 @@ function hair_view($sex, $style) {
 function character_picture_url($sex, $job, $head, $head_palette, $body_palette, $worn) {
 	$sex = ($sex == "F") ? "F" : "M";
 	return "/ROChargenPHP/index.php/generate/body=$sex-" . (int)$job . "-0-" . (int)$body_palette
-		. "/hair=" . hair_view($sex, $head) . "-" . (int)$head_palette . "-0"
+		. "/hair=" . hair_view($sex, $head, $job) . "-" . (int)$head_palette . "-0"
 		. "/hats=" . (int)$worn['top'] . "-" . (int)$worn['mid'] . "-" . (int)$worn['bottom']
 		. "/equip=" . (int)$worn['weapon'] . "-" . (int)$worn['shield'] . "-" . (int)$worn['robe']
 		. "/option=1/actdir=0-0-5";

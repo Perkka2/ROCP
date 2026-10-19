@@ -1,3 +1,8 @@
+5.5.1 - October 19th, 2026 [Perkka]
+
+Doram (Summoner): the character picture uses their own hairstyles 1 to 6 (it used the human ones and could show no head), and the hairstyle change offers and accepts only those 6. Other classes can only pick their 27 styles too.
+Creating accounts works on newer Aegis versions (EP16) that have more columns in t_user.
+
 5.5.0 - October 19th, 2026 [Perkka]
 
 Storage: a new menu item showing the Kafra storage of the account, its items (with the same tooltips as the inventory) and zeny (Aegis).

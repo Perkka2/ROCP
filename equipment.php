@@ -11,10 +11,6 @@ $clientItemNameTable = cached_parse_table('itemdisplayname', "./dbtranslation/id
 $itemdesctable = cached_parse_table('itemdesc', 'dbtranslation/idnum2itemdesctable.txt', 'ParseIdNum2ItemDescTable');
 $garmentSpriteIdTable = cached_parse_table('garmentspriteid', "./dbtranslation/garmentspriteidtable.txt", 'ParseIdNum2ItemDisplayNameTable');
 $mapNameTable = cached_parse_table('mapname', "./dbtranslation/mapnametable.txt", 'ParseMapNameTable');
-$headgearId = array(
-	"F" => array( 2,2,4,7,1,5,3,6,12,10,9,11,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27),
-	"M" => array( 2,2,1,7,5,4,3,6,8,9,10,12,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
-);
 ?>
 
 <?php
@@ -40,6 +36,16 @@ $headgearId = array(
 		redir("index.php", "You do not have any characters");
 	}
 	if ($GET_action) {
+		// only the hairstyles the class of that character has (the Doram have 6)
+		$job = -1;
+		while ($line = $result->FetchRow()) {
+			if ($line[0] == $GET_char) {
+				$job = $line[2];
+			}
+		}
+		if ($job == -1 || (int)$GET_Style < 1 || (int)$GET_Style > hairstyle_count($job)) {
+			redir("equipment.php", "That hairstyle does not exist for this character!");
+		}
 		$query = query_format(UPDATE_HAIR, $GET_Style, $GET_char, $STORED_id);
 		$result = execute_query($query, "hairstyle.php");
 		if ($link->Affected_Rows() > 0) {
@@ -91,18 +97,18 @@ $headgearId = array(
 								</tr>\n
 							<tr valign=top><td><div class=\"charstats\">"
 							/*<img src=\"./images/classes/{$line[2]}.png\"/ \">*/ ."
-							<img id=\"$line[0]\" src=\"/ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-0-{$line[6]}/hair={$headgearId[$sex][$line[7]]}-{$line[8]}-0/hats={$worn['top']}-{$worn['mid']}-{$worn['bottom']}/equip={$worn['weapon']}-{$worn['shield']}-{$worn['robe']}/option=1/actdir=0-0-5\"/ \">
+							<img id=\"$line[0]\" src=\"" . character_picture_url($sex, $line[2], $line[7], $line[8], $line[6], $worn) . "\"/ \">
 							<br/>\n
 					<table><form name=\"Hair\" method=\"GET\">
 							<tr><td><select name=\"Style\" class=\"myctl\" size=\"1\" onchange=\"document.getElementById('$line[0]').src = this.options[this.selectedIndex].getAttribute('data-value');\">
 					";
-					$max = 28;
+					$max = hairstyle_count($line[2]) + 1;
 					for ($b = 1; $b < $max; $b++) {
 						if ($b == $line[7]) {
-							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-0-{$line[6]}/hair={$headgearId[$sex][$b]}-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\" selected>Style $b</option>";
+							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-0-{$line[6]}/hair=" . hair_view($sex, $b, $line[2]) . "-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\" selected>Style $b</option>";
 						}
 						else {
-							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-0-{$line[6]}/hair={$headgearId[$sex][$b]}-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\">Style $b</option>";
+							echo "<option value='{$b}' data-value=\"ROChargenPHP/index.php/generate/body={$sex}-{$line[2]}-0-{$line[6]}/hair=" . hair_view($sex, $b, $line[2]) . "-{$line[8]}-0/hats=0-0-0/equip=0-0-0/option=1/actdir=0-0-5\">Style $b</option>";
 						}
 						echo "\n";
 					}
