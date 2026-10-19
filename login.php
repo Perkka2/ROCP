@@ -82,11 +82,15 @@ elseif ($POST_action == "login") {
 			// Adds to the login log
 			add_access_entry("Logged in as $POST_login_user");
 		}
+		// Every login is also kept for the account itself (Account Options shows the recent ones)
+		execute_query(query_format(ADD_USER_ENTRY, substr($POST_login_user, 0, 24), "Logged in from " . get_client_ip()), "login.php", 0, 0, true);
 		// Straight to the start page, no "You are now logged in" page in between
 		redirect_to("index.php");
 	}
 	else {
 		add_access_entry("Failed login");
+		// and for the account that was tried, so its owner sees it on Account Options
+		execute_query(query_format(ADD_USER_ENTRY, substr($POST_login_user, 0, 24), "Failed login from " . get_client_ip()), "login.php", 0, 0, true);
 		require 'header.inc';
 		redir("login.php", "The username/password you entered is incorrect");
 	}

@@ -10,7 +10,8 @@ $defence = "defence";
 $price = "price_buy";
 
 // account.php
-DEFINE('CHECK_BARD', "SELECT * FROM `char` WHERE account_id = %d AND (class = 19 OR class = 20)");
+// characters in a class that only exists for one gender (Bard, Dancer, Clown, Gypsy, Minstrel, Wanderer, Kagerou, Oboro and their baby and transcendent versions)
+DEFINE('CHECK_BARD', "SELECT name, class FROM `char` WHERE account_id = %d AND class IN (19, 20, 4020, 4021, 4042, 4043, 4068, 4069, 4075, 4076, 4104, 4105, 4211, 4212, 4223, 4224)");
 DEFINE('CHECK_SEX', "SELECT sex FROM login WHERE userid = '%s'");
 DEFINE('CHECK_OLD_PASS', "SELECT * FROM login WHERE userid = '%s' AND user_pass = '%s'");
 DEFINE('CHECK_OLD_MD5_PASS', "SELECT * FROM login WHERE userid = '%s' AND user_pass = MD5('%s')");
@@ -18,6 +19,10 @@ DEFINE('UPDATE_NEW_PASS', "UPDATE login SET user_pass = '%s' WHERE account_id = 
 DEFINE('UPDATE_NEW_MD5_PASS', "UPDATE login SET user_pass = MD5('%s') WHERE account_id = %d");
 DEFINE('UPDATE_SEX', "UPDATE login SET sex = '%s' WHERE account_id = %d");
 DEFINE('UPDATE_EMAIL', "UPDATE login SET email = '%s' WHERE account_id = '%s'");
+DEFINE('GET_LOGIN_HISTORY', "SELECT Date, Action FROM $cp.user_log
+WHERE User = '%s' AND (Action LIKE 'Logged in%%' OR Action LIKE 'Failed login%%')
+ORDER BY Date DESC LIMIT 10
+");
 
 // account_manage.php
 DEFINE('ACCOUNT_SEARCH', "SELECT login.account_id, userid, user_pass, sex, email, level,

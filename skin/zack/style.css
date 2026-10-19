@@ -905,3 +905,30 @@ input, .myctl {
 	font-size: 10px;
 	opacity: .75;
 }
+
+/* Account options: the forms, one field per line, and failed logins marked */
+.accountForm {
+	padding: 6px 12px 10px;
+	font-size: 12px;
+}
+.accountForm label {
+	display: block;
+	margin: 6px 0;
+}
+.accountForm label input, .accountForm label select {
+	display: block;
+	box-sizing: border-box;
+	width: 260px;
+	max-width: 100%;
+	margin-top: 2px;
+}
+.accountForm .newsInfo {
+	margin: 4px 0 8px;
+}
+.loginFailed .newsMessage {
+	color: #e05555;
+	font-weight: bold;
+}
+.accountNote {
+	padding: 6px 12px;
+}

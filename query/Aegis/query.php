@@ -9,7 +9,8 @@ $user = "[user].dbo";
 // Query "dictionary" for MSSQL
 
 // account.php
-DEFINE('CHECK_BARD', "SELECT * FROM $char.charinfo WHERE AID = %d AND (job = 19 OR job = 20)");
+// characters in a class that only exists for one gender (Bard, Dancer, Clown, Gypsy, Minstrel, Wanderer, Kagerou, Oboro and their baby and transcendent versions)
+DEFINE('CHECK_BARD', "SELECT charname, job FROM $char.charinfo WHERE AID = %d AND job IN (19, 20, 4020, 4021, 4042, 4043, 4068, 4069, 4075, 4076, 4104, 4105, 4211, 4212, 4223, 4224)");
 DEFINE('CHECK_SEX', "SELECT sex FROM $login.account WHERE [Name] = '%s'");
 DEFINE('CHECK_OLD_PASS', "SELECT * FROM $login.login WHERE ID = '%s' AND passwd = '%s'");
 DEFINE('CHECK_OLD_MD5_PASS', "SELECT * FROM login WHERE ID = '%s' AND passwd = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', '%s')), 3, 32)");
@@ -17,6 +18,16 @@ DEFINE('UPDATE_NEW_PASS', "UPDATE $login.login SET passwd = '%s' WHERE AID = %d"
 DEFINE('UPDATE_NEW_MD5_PASS', "UPDATE $login.login SET passwd = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', '%s')), 3, 32) WHERE AID = %d");
 DEFINE('UPDATE_SEX', "UPDATE $login.account SET sex = %d WHERE AID = %d");
 DEFINE('UPDATE_EMAIL', "UPDATE $login.account SET Email = '%s' WHERE AID = '%s'");
+DEFINE('GET_ACCOUNT_INFO', "SELECT $login.login.ID, $login.account.Email, $login.account.sex, $login.login.regDate,
+(SELECT count(*) FROM $char.charinfo WHERE $char.charinfo.AID = $login.login.AID)
+FROM $login.login
+LEFT JOIN $login.account ON $login.account.AID = $login.login.AID
+WHERE $login.login.AID = %d
+");
+DEFINE('GET_LOGIN_HISTORY', "SELECT TOP 10 [Date], Action FROM $cp.user_log
+WHERE CAST([User] AS varchar(24)) = '%s' AND (Action LIKE 'Logged in%%' OR Action LIKE 'Failed login%%')
+ORDER BY [Date] DESC
+");
 
 // account_manage.php
 DEFINE('ACCOUNT_SEARCH', "SELECT login.AID, login.ID, login.passwd, account.sex, account.Email, login.isConfirmed,

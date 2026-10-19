@@ -1,3 +1,7 @@
+5.4.0 - October 19th, 2026 [Perkka]
+
+Account options: an overview of the account, changing the password or email needs the current password (the new password is no longer shown, and you stay logged in), the gender change is blocked by every class that only exists for one gender, and the recent logins to the control panel are listed with failed attempts marked.
+
 5.3.0 - October 19th, 2026 [Perkka]
 
 Start page: your characters as cards with their picture, level, zeny and map (linked to the map list), announcements as news items, and the players online and War of Emperium times at a glance. Works on phones too.
