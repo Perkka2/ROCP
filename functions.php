@@ -2229,15 +2229,35 @@ function reverse_bytes($hex)
 //Get character items
 
 function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
-			$query = query_format(GET_CHARACTER_ITEMS, $characterID);
-			$result = execute_query($query, "functions.php");
-			$charitems = $result->FetchRow();
+	$query = query_format(GET_CHARACTER_ITEMS, $characterID);
+	$result = execute_query($query, "functions.php");
+	$charitems = $result->FetchRow();
+	return ParseItemBlob($charitems ? $charitems[0] : "", $clientItemNameTable, $itemTable);
+}
+
+/**
+ * @return array
+ * @desc The Kafra storage of an account: its items and zeny (Aegis storeitem)
+ */
+function GetStorageItems($clientItemNameTable, $accountID, $itemTable) {
+	$result = execute_query(query_format(GET_STORAGE, $accountID), "functions.php");
+	$storage = $result->FetchRow();
+	return array(
+		'items' => ParseItemBlob($storage ? $storage[0] : "", $clientItemNameTable, $itemTable),
+		'zeny' => $storage ? (int)$storage[1] : 0
+	);
+}
+
+/**
+ * @return array
+ * @desc Reads a stored item list (an Aegis inventory, cart or storage: 2 bytes version + zlib data)
+ */
+function ParseItemBlob($itemBinaryString, $clientItemNameTable, $itemTable) {
 			$characterItems = array();
-			// Characters without items have no row (or an empty blob)
-			if (!$charitems || strlen($charitems[0]) <= 2) {
+			// No items: no row, or an empty blob
+			if (strlen($itemBinaryString) <= 2) {
 				return $characterItems;
 			}
-			$itemBinaryString = $charitems[0];
 			$itemVersion = hexdec(reverse_bytes(bin2hex(substr($itemBinaryString,0,2))));
 			$itemBinaryString = hex2bin(substr(bin2hex($itemBinaryString), 4));
 			$itemBinaryString = bin2hex(gzuncompress($itemBinaryString));
@@ -2349,6 +2369,22 @@ function GetCharacterItems($clientItemNameTable,$characterID,$itemTable) {
 				}
 		}
 		return $characterItems;
+}
+
+/**
+ * @return string
+ * @param array $item An item from ParseItemBlob()
+ * @param array $itemdesctable The client item descriptions
+ * @desc The icon of an item with its amount, and its description as a tooltip
+ */
+function item_tile($item, $itemdesctable) {
+	$equippedClass = ($item['equipped'] == 1) ? " equipped" : "";
+	return "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
+										<div class=\"tooltiptext$equippedClass\">
+											<div class=\"tooltipleft\">".($item['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $item['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
+											<div class=\"tooltipright\"><b>" . $item['name'] . "</b> (". $item['db_name'] . ")<br/>" . GetTooltipText($item) . htmldescription($itemdesctable[$item['id']]) . "</div></div></span>
+										<div class=\"amountInfo\">".$item['amount']."</div>".($item['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $item['id'] .".png\"/ \">") ."
+									</div>\n";
 }
 
 function getClientItemName($clientItemNameTable,$itemID,$itemTable){

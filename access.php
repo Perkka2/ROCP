@@ -26,6 +26,12 @@ $access['ban.php'] = 3;
 $access['char_manage.php'] = 3;
 $access['change_skin.php'] = 1;
 $access['equipment.php'] = 1;
+if ($CONFIG_server_type == 0) {
+	$access['storage.php'] = 1;
+}
+else {
+	$access['storage.php'] = -1; // reads the Aegis storage only
+}
 $access['exptable.php'] = 1;
 $access['maplist.php'] = 1;
 if ($CONFIG_server_type == 0) {

@@ -1,3 +1,7 @@
+5.5.0 - October 19th, 2026 [Perkka]
+
+Storage: a new menu item showing the Kafra storage of the account, its items (with the same tooltips as the inventory) and zeny (Aegis).
+
 5.4.0 - October 19th, 2026 [Perkka]
 
 Account options: an overview of the account, changing the password or email needs the current password (the new password is no longer shown, and you stay logged in), the gender change is blocked by every class that only exists for one gender, and the recent logins to the control panel are listed with failed attempts marked.

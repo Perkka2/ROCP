@@ -24,6 +24,7 @@ $lang = array(
 	'account.php' => "Account Options",
 	'roster.php' => "Roster",
 	'equipment.php' => "Inventory",
+	'storage.php' => "Storage",
 	'exptable.php' => "Experience Table",
 	'maplist.php' => "Maplist",
 	'money_transfer.php' => "Transfer Money",

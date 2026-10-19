@@ -691,6 +691,8 @@ WHERE tu_state = 1
 //equipment.php
 DEFINE('GET_CHARACTER_ITEMS', "SELECT equipItem FROM $char.item
 WHERE GID = %d");
+// storage.php
+DEFINE('GET_STORAGE', "SELECT storedItem, money FROM $char.storeitem WHERE AID = %d");
 if($CONFIG['aegis_version'] == 0 ){
 	DEFINE('GET_ALL_ITEMS', "USE [Script]
 	SELECT [ID],[NAME],'ammo' AS table_name, Null as [SLOT], Null as [LOCA], Null as [CLASS] FROM [ammo]

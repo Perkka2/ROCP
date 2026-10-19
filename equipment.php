@@ -122,12 +122,7 @@ $headgearId = array(
 				for($i = 0; $i < count($characterItems); $i++) {
 					if($characterItems[$i]['equipped'] == 1){
 						$equippedClass = " equipped";
-						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
-										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($characterItems[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $characterItems[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
-											<div class=\"tooltipright\"><b>" . $characterItems[$i]['name'] . "</b> (". $characterItems[$i]['db_name'] . ")<br/>" . GetTooltipText($characterItems[$i]) . htmldescription($itemdesctable[$characterItems[$i]['id']]) . "</div></div></span>
-										<div class=\"amountInfo\">".$characterItems[$i]['amount']."</div>".($characterItems[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $characterItems[$i]['id'] .".png\"/ \">") ."
-									</div>\n";
+						echo item_tile($characterItems[$i], $itemdesctable);
 					}
 					//if($characterItems[$i]['equipped'] == 1){
 						//foreach ($characterItems[$i] as $key => $val) {
@@ -139,48 +134,28 @@ $headgearId = array(
 				for($i = 0; $i < count($consumables); $i++) {
 					if($consumables[$i]['equipped'] == 0){
 						$equippedClass = "";
-						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
-										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($consumables[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $consumables[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
-											<div class=\"tooltipright\"><b>" . $consumables[$i]['name'] . "</b> (". $consumables[$i]['db_name'] . ")<br/>" . GetTooltipText($consumables[$i]) . htmldescription($itemdesctable[$consumables[$i]['id']]) . "</div></div></span>
-										<div class=\"amountInfo\">".$consumables[$i]['amount']."</div>".($consumables[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $consumables[$i]['id'] .".png\"/ \">") ."
-									</div>\n";
+						echo item_tile($consumables[$i], $itemdesctable);
 					}
 				}
 				echo "</td></tr><tr class=\"charitems\"><td>Gear</td><td>";
 				for($i = 0; $i < count($wearable); $i++) {
 					if($wearable[$i]['equipped'] == 0){
 						$equippedClass = "";
-						echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
-										<div class=\"tooltiptext$equippedClass\">
-											<div class=\"tooltipleft\">".($wearable[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $wearable[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
-											<div class=\"tooltipright\"><b>" . $wearable[$i]['name'] . "</b> (". $wearable[$i]['db_name'] . ")<br/>" . GetTooltipText($wearable[$i]) . htmldescription($itemdesctable[$wearable[$i]['id']]) . "</div></div></span>
-										<div class=\"amountInfo\">".$wearable[$i]['amount']."</div>".($wearable[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $wearable[$i]['id'] .".png\"/ \">") ."
-									</div>\n";
+						echo item_tile($wearable[$i], $itemdesctable);
 					}
 				}
 				echo "</td></tr><tr class=\"charitems\"><td>Misc</td><td>";
 					for($i = 0; $i < count($misc); $i++) {
 						if($misc[$i]['equipped'] == 0){
 							$equippedClass = "";
-							echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
-											<div class=\"tooltiptext$equippedClass\">
-												<div class=\"tooltipleft\">".($misc[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $misc[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
-												<div class=\"tooltipright\"><b>" . $misc[$i]['name'] . "</b> (". $misc[$i]['db_name'] . ")<br/>" . GetTooltipText($misc[$i]) . htmldescription($itemdesctable[$misc[$i]['id']]) . "</div></div></span>
-											<div class=\"amountInfo\">".$misc[$i]['amount']."</div>".($misc[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $misc[$i]['id'] .".png\"/ \">") ."
-										</div>\n";
+							echo item_tile($misc[$i], $itemdesctable);
 						}
 				}
 				echo "</td></tr><tr class=\"charitems\"><td>Quest</td><td>";
 					for($i = 0; $i < count($quests); $i++) {
 						if($quests[$i]['equipped'] == 0){
 							$equippedClass = "";
-							echo "<div class=\"equipmentList$equippedClass\"><span class=\"tooltipcontainer\">
-											<div class=\"tooltiptext$equippedClass\">
-												<div class=\"tooltipleft\">".($quests[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/images/". $quests[$i]['id'] .".png\" onerror=\"this.onerror=''; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';\"/>") ."</div>
-												<div class=\"tooltipright\"><b>" . $quests[$i]['name'] . "</b> (". $quests[$i]['db_name'] . ")<br/>" . GetTooltipText($quests[$i]) . htmldescription($itemdesctable[$quests[$i]['id']]) . "</div></div></span>
-											<div class=\"amountInfo\">".$quests[$i]['amount']."</div>".($quests[$i]['type'] == 'guest' ? '' : "<img class=\"equipmentImage\" src=\"./images/items/icons/". $quests[$i]['id'] .".png\"/ \">") ."
-										</div>\n";
+							echo item_tile($quests[$i], $itemdesctable);
 						}
 				}
 				echo "</table>\n";
