@@ -1,6 +1,17 @@
 <?php
 extract($_GET, EXTR_PREFIX_ALL, "GET");
 extract($_POST, EXTR_PREFIX_ALL, "POST");
+// Settings added in newer versions, used when an older config.php does not have them yet.
+// Same order as at the end of conf.def, so Edit Config writes them back with the right descriptions.
+$config_defaults = array(
+	'discord_url' => '',
+	'smtp_port' => '',
+	'smtp_secure' => '',
+	'smtp_verify_cert' => '1',
+	'real_ip_header' => '',
+	'trusted_proxy' => ''
+);
+$CONFIG += $config_defaults;
 extract($CONFIG, EXTR_PREFIX_ALL, "CONFIG");
 
 // Login state is kept server-side in a PHP session; the browser only holds the session id.

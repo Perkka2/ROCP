@@ -10,6 +10,7 @@ if ($POST_saveedit != "") {
 
 	// Reload the config.php file
 	require 'config.php';
+	$CONFIG += $config_defaults; // settings an older config.php does not have yet
 	if ($POST_edit == "server_rules") {
 		$edit_message = "Changed \$CONFIG['$POST_edit'] to $POST_new_value";
 	}
@@ -23,6 +24,7 @@ if ($POST_saveedit != "") {
 if (!$GET_edit) {
 	// refreshes the config variables to display properly
 	require 'config.php';
+	$CONFIG += $config_defaults; // settings an older config.php does not have yet
 	echo "
 	<tr class=mytitle>
 		<td colspan=4>config.php</td>

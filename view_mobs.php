@@ -138,7 +138,7 @@ $start = ($page * $display_size) - $display_size;
 	echo "</tr></table><br/>";
 
 	$query = query_format(SHOW_FULL_MOBS, $condition);
-	if ($CONFIG_server_type == 0) {
+	if ($CONFIG_server_type == 0 && sql_supports_offset()) {
 		$query .= " OFFSET $start ROWS FETCH NEXT $display_size ROWS ONLY";
 		$result = execute_query($query, "view_mobs.php");
 	}

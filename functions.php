@@ -65,7 +65,7 @@ function ip_in_proxy_list($ip, $list) {
 		if ($bits < 0 || $bits > strlen($ip_bin) * 8) {
 			continue;
 		}
-		$full_bytes = intdiv($bits, 8);
+		$full_bytes = (int)($bits / 8); // intdiv() is PHP 7 only
 		if ($full_bytes > 0 && substr($ip_bin, 0, $full_bytes) !== substr($net_bin, 0, $full_bytes)) {
 			continue;
 		}
@@ -704,7 +704,7 @@ function execute_query($input_query, $page_source = 'none.php', $limit = 0, $off
 		// replaces each line break with a space
 		$input_query = str_replace("\r\n", " ", $input_query);
 		// Never store cleartext passwords in the query log
-		$input_query = preg_replace("/(user_pass\s*=\s*'?)([^',\s\)]+)('?)/i", "$1***$3", $input_query);
+		$input_query = redact_passwords($input_query);
 		add_query_entry($page_source, $input_query);
 	}
 	return $result;
@@ -793,7 +793,7 @@ function execute_query_union($input_query, $page_source = 'none.php', $limit = 0
 		// replaces each line break with a space
 		$input_query = str_replace("\r\n", " ", $input_query);
 		// Never store cleartext passwords in the query log
-		$input_query = preg_replace("/(user_pass\s*=\s*'?)([^',\s\)]+)('?)/i", "$1***$3", $input_query);
+		$input_query = redact_passwords($input_query);
 		add_query_entry($page_source, $input_query);
 	}
 	return $result;
@@ -953,7 +953,10 @@ function determine_config_desc ($conf_index) {
 }
 
 function edit_config($edit_index, $edit_value) {
+	global $config_defaults;
 	require 'config.php';
+	// Settings an older config.php does not have yet are written into it with their defaults
+	$CONFIG += $config_defaults;
 	if (!array_key_exists($edit_index, $CONFIG)) {
 		return false;
 	}
@@ -1709,6 +1712,100 @@ function ShowGuildInfo($guild_id) {
 // End Guild Functions
 
 /**
+ * @return string
+ * @param string $query A query about to be written to the query log
+ * @desc Replaces the passwords in a query with ***: "passwd = '...'" (Aegis) and "user_pass = '...'"
+ * (Athena/Freya), HashBytes('MD5', '...'), the password column of INSERT ... (columns) VALUES (...)
+ * and the password of a pending registration (4th value of INSERT INTO pending VALUES).
+ */
+function redact_passwords($query) {
+	$text = "'(?:[^'\\\\]|''|\\\\.)*'"; // a quoted SQL string, '' or \' inside
+	$query = preg_replace("/\\b(passwd|user_pass)(\\s*=\\s*)$text/i", "$1$2'***'", $query);
+	$query = preg_replace("/(HashBytes\\(\\s*'MD5'\\s*,\\s*)$text/i", "$1'***'", $query);
+	// Replaces value number $index of "a, 'b,c', f(d, e)": commas inside quotes and brackets do not count
+	$redact_value = function ($values, $index) {
+		$parts = array();
+		$current = "";
+		$quoted = false;
+		$depth = 0;
+		for ($i = 0; $i < strlen($values); $i++) {
+			$c = $values[$i];
+			if ($quoted) {
+				if ($c == "\\" && $i + 1 < strlen($values)) {
+					$current .= $c . $values[++$i];
+					continue;
+				}
+				if ($c == "'") {
+					if ($i + 1 < strlen($values) && $values[$i + 1] == "'") {
+						$current .= "''";
+						$i++;
+						continue;
+					}
+					$quoted = false;
+				}
+			}
+			elseif ($c == "'") {
+				$quoted = true;
+			}
+			elseif ($c == "(") {
+				$depth++;
+			}
+			elseif ($c == ")") {
+				$depth--;
+			}
+			elseif ($c == "," && $depth == 0) {
+				$parts[] = trim($current);
+				$current = "";
+				continue;
+			}
+			$current .= $c;
+		}
+		$parts[] = trim($current);
+		if (isset($parts[$index])) {
+			$parts[$index] = "'***'";
+		}
+		return implode(", ", $parts);
+	};
+	$query = preg_replace_callback("/(INSERT\\s+INTO\\s+[^\\s(]+\\s*\\(([^)]*)\\)\\s*VALUES\\s*\\()(.*)(\\))/is", function ($m) use ($redact_value) {
+		foreach (explode(",", $m[2]) as $index => $column) {
+			if (in_array(strtolower(trim($column, " \t\r\n[]`")), array("passwd", "user_pass"))) {
+				return $m[1] . $redact_value($m[3], $index) . $m[4];
+			}
+		}
+		return $m[0];
+	}, $query);
+	$query = preg_replace_callback("/(INSERT\\s+INTO\\s+\\S*pending\\s+VALUES\\s*\\()(.*)(\\))/is", function ($m) use ($redact_value) {
+		return $m[1] . $redact_value($m[2], 3) . $m[3];
+	}, $query);
+	return $query;
+}
+
+/**
+ * @return bool
+ * @desc True when the database is SQL Server 2012 (version 11) or newer, which pages with
+ * OFFSET ... FETCH NEXT. SQL Server 2005/2008 do not have it, the lists then page the old way.
+ * Asked once per session.
+ */
+function sql_supports_offset() {
+	global $CONFIG_server_type;
+	static $supported = null;
+	if ($supported !== null) {
+		return $supported;
+	}
+	if ($CONFIG_server_type != 0) {
+		return $supported = false;
+	}
+	if (isset($_SESSION['sql_supports_offset'])) {
+		return $supported = $_SESSION['sql_supports_offset'];
+	}
+	$result = execute_query("SELECT CAST(SERVERPROPERTY('ProductVersion') AS varchar(32))", "functions.php");
+	$version = ($result && !$result->EOF) ? $result->fields[0] : "";
+	$supported = intval($version) >= 11;
+	$_SESSION['sql_supports_offset'] = $supported;
+	return $supported;
+}
+
+/**
  * @return int
  * @param string $query COUNT(*) query, returning one value
  * @desc Row count, cached in the session for 5 minutes so paging between
@@ -1771,23 +1868,36 @@ function pager_html($current, $max_pages, $base_query, $script) {
 // these Parse* functions directly - the source files are re-read from disk
 // and re-parsed on every page view otherwise.
 function cached_parse_table($cache_name, $source_path, $parser_function) {
-	// File cache for the dbtranslation parsers. The cache entry is rebuilt
-	// only when the source file is newer than the cache. Stored as a PHP
-	// file returning a serialized string, so direct web access outputs nothing.
+	// File cache for the dbtranslation parsers. The cache remembers the date and size of the
+	// file it was made from and is rebuilt when either differs, so a replaced file is picked up
+	// even when it keeps an older date (files extracted from the client often do). Stored as a
+	// PHP file returning a serialized string, so direct web access outputs nothing.
 	$cache_name = preg_replace('/[^A-Za-z0-9_-]/', '', $cache_name);
 	$cache_dir = "dbtranslation/cache";
 	$cache_file = "$cache_dir/$cache_name.php";
-	if (is_file($source_path) && is_file($cache_file)
-	&& filemtime($cache_file) >= filemtime($source_path)) {
+	if (!is_file($source_path)) {
+		return call_user_func($parser_function, $source_path);
+	}
+	$mtime = filemtime($source_path);
+	$size = filesize($source_path);
+	if (is_file($cache_file)) {
 		$raw = include $cache_file;
-		$data = is_string($raw) ? @unserialize($raw) : false;
-		if (is_array($data)) {
-			return $data;
+		$entry = is_string($raw) ? @unserialize($raw) : false;
+		if (is_array($entry) && isset($entry['mtime'], $entry['size'], $entry['data'])
+		&& $entry['mtime'] == $mtime && $entry['size'] == $size && is_array($entry['data'])) {
+			return $entry['data'];
 		}
 	}
 	$data = call_user_func($parser_function, $source_path);
 	if (is_array($data) && (is_dir($cache_dir) || @mkdir($cache_dir))) {
-		@file_put_contents($cache_file, "<?php return " . var_export(serialize($data), true) . ";");
+		$entry = array('mtime' => $mtime, 'size' => $size, 'data' => $data);
+		// Written to a temporary file first, a page reading the cache never sees half a file
+		$temp_file = "$cache_file." . getmypid() . ".tmp";
+		if (@file_put_contents($temp_file, "<?php return " . var_export(serialize($entry), true) . ";") !== false) {
+			if (!@rename($temp_file, $cache_file)) {
+				@unlink($temp_file);
+			}
+		}
 	}
 	return $data;
 }

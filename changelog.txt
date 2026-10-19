@@ -1,3 +1,13 @@
+5.2.1 - October 19th, 2026 [Perkka]
+
+An older config.php without the settings added in 5.2.0 no longer stops the panel: they get their defaults, Edit Config shows them, and saving any setting writes them into config.php.
+Trusted proxy ranges (CIDR) work on PHP 5.6 (intdiv() is PHP 7 only).
+The item and monster lists only page with OFFSET ... FETCH on SQL Server 2012 and newer, SQL Server 2005/2008 page the old way.
+Passwords are kept out of the query log for Aegis too: passwd = ..., HashBytes('MD5', ...), new accounts and pending registrations.
+The dbtranslation cache is rebuilt when a file's date or size changes in either direction (a replaced file with an older date was ignored), and cache files are written so a half-written one is never read.
+dbtranslation/cache is ignored by git.
+Glass skin author back to Perkka.
+
 5.2.0 - October 19th, 2026 [Perkka]
 
 Merged the security and hardening work from maldiablo (pull request #1):
