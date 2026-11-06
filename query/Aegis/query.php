@@ -989,16 +989,18 @@ FROM $login.login
 LEFT JOIN $cashshop.TwCash TwCash ON TwCash.ID = $login.login.ID
 WHERE $login.login.ID = '%s'
 ");
-// adds the amounts (negative takes), never below 0 or above the int maximum
+// adds the amount (negative takes), never below 0 or above the int maximum. Bonus points (FreeCash) are left as
+// they are: the shop spends Cash, and what the zone does with FreeCash is not known yet.
 DEFINE('CASH_ADD', "IF EXISTS (SELECT 1 FROM $cashshop.TwCash WHERE ID = '%s')
 	UPDATE $cashshop.TwCash SET
 		Cash = CASE WHEN CAST(Cash AS bigint) + %d < 0 THEN 0 WHEN CAST(Cash AS bigint) + %d > 2147483647 THEN 2147483647 ELSE Cash + %d END,
-		FreeCash = CASE WHEN CAST(FreeCash AS bigint) + %d < 0 THEN 0 WHEN CAST(FreeCash AS bigint) + %d > 2147483647 THEN 2147483647 ELSE FreeCash + %d END,
 		UpdateDate = GETDATE()
 	WHERE ID = '%s'
 ELSE
-	INSERT INTO $cashshop.TwCash (ID, Cash, FreeCash, UpdateDate) VALUES ('%s', %d, %d, GETDATE())
+	INSERT INTO $cashshop.TwCash (ID, Cash, FreeCash, UpdateDate) VALUES ('%s', %d, 0, GETDATE())
 ");
+// account.php: the player's own points
+DEFINE('CASH_OWN', "SELECT ISNULL(SUM(TwCash.Cash), 0), ISNULL(SUM(TwCash.FreeCash), 0) FROM $cashshop.TwCash TwCash WHERE TwCash.ID = '%s'");
 DEFINE('CASH_LIST', "SELECT TOP 100 TwCash.ID, TwCash.Cash, TwCash.FreeCash, TwCash.UpdateDate
 FROM $cashshop.TwCash TwCash
 WHERE TwCash.Cash > 0 OR TwCash.FreeCash > 0
@@ -1009,10 +1011,12 @@ FROM $cashshop.TwCash WHERE Cash > 0 OR FreeCash > 0");
 DEFINE('CASH_LOG', "SELECT TOP 20 [Date], [User], Action FROM $cp.admin_log WHERE Action LIKE 'Cash points %%' ORDER BY action_id DESC");
 
 // account_mail.php: RoDEX mail to an account, which all its characters see (the item by ID and count, the zeny)
-DEFINE('MAIL_ACCOUNT_COUNT', "SELECT COUNT(*) FROM $login.login");
-// to one account (AID > 0) or to every account (AID 0)
+// "every account" is every account with a character; one account gets it either way
+DEFINE('MAIL_ACCOUNT_COUNT', "SELECT COUNT(*) FROM $login.login WHERE EXISTS (SELECT 1 FROM $char.charinfo WHERE $char.charinfo.AID = $login.login.AID)");
+// to one account (AID > 0) or to every account with a character (AID 0)
 DEFINE('MAIL_SEND', "INSERT INTO $globalinfo.RoDex (AID, SenderName, Title, [Text], ItemID, ItemCnt, Zeny, CheckSum, [Date], ExpireDate, IsRead)
-SELECT AID, %s, %s, %s, %s, %s, %s, 0, GETDATE(), DATEADD(day, %d, GETDATE()), 0 FROM $login.login WHERE %d IN (0, AID)");
+SELECT AID, %s, %s, %s, %s, %s, %s, 0, GETDATE(), DATEADD(day, %d, GETDATE()), 0 FROM $login.login
+WHERE $login.login.AID = %d OR (%d = 0 AND EXISTS (SELECT 1 FROM $char.charinfo WHERE $char.charinfo.AID = $login.login.AID))");
 DEFINE('MAIL_LAST_ID', "SELECT ISNULL(MAX(MID), 0) FROM $globalinfo.RoDex");
 DEFINE('MAIL_SENT', "SELECT ISNULL(MIN(MID), 0), ISNULL(MAX(MID), 0), COUNT(*) FROM $globalinfo.RoDex WHERE MID > %d");
 // one row per send: the mails written by one INSERT share their date, sender and title

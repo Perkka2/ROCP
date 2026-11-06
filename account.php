@@ -117,6 +117,14 @@ if ($info['registered'] != '') {
 if ($info['characters'] !== '') {
 	$tiles[] = array((int)$info['characters'], "Characters");
 }
+// Cash shop points of the twRO EP17.1 servers (memory.php checks the server has them)
+if ($CONFIG_server_type == 0 && !empty($twro_tables['cash']) && $info['name'] != '') {
+	$result = execute_query(query_format(CASH_OWN, $info['name']), "account.php");
+	$tiles[] = array(number_format($result->fields[0]), "Cash points");
+	if ($result->fields[1] > 0) {
+		$tiles[] = array(number_format($result->fields[1]), "Bonus points");
+	}
+}
 echo "<div class=\"homePage\">
 	<div class=\"homeSection\"><div class=\"mytitle homeTitle\">Account Options</div><div class=\"infoTiles\">";
 foreach ($tiles as $tile) {

@@ -1,12 +1,9 @@
 # To do
 
-## Aegis (twRO EP17.1 servers, ASB7 Beta 2 and later)
+Nothing open.
 
-The twRO servers keep these in the database, but on twRO they were filled by the web shop and other web tools,
-and nothing in the game fills them. Until the panel can, a GM has to set them by hand in SQL.
+## Decided against
 
-- **Mobile events**: twRO's mobile app/event rewards (the mobile event table the Character server reads). Only if
-  there is a use for it; otherwise leave empty.
-
-Done in 5.7.0: cash shop points (Cash Points, `CashItemShop.dbo.TwCash`) and account mail (Account Mail,
-`GlobalInfo.dbo.RoDex`).
+- **Mobile events** (twRO EP17.1, `GlobalInfo.dbo.mobileEvent`): rewards from twRO's mobile app, collected from the
+  "Cool Event Employee" NPC in Alberta once `mobile_event` in the zones' RO.inf is 3-5. Account Mail covers giving an
+  account items and zeny. Only worth adding for rental-item rewards (`HireItemTime`), which account mail can't send.

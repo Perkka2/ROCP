@@ -1,3 +1,10 @@
+5.8.0 - November 6th, 2026 [Perkka]
+
+Cash Points: bonus points are shown but no longer changed, since what the game does with them is not known yet.
+Account Mail: "every account" is every account with a character, so abandoned registrations get no mail.
+Account options shows the account's cash points on twRO EP17.1 servers.
+Mobile events are left out (Account Mail covers them), see TODO.md.
+
 5.7.0 - November 6th, 2026 [Perkka]
 
 Cash Points: a new admin tool for the twRO EP17.1 servers (ASB7 Beta 2 and later) to see and give the points the in-game cash shop spends, per account, with bonus points, the accounts that have points and the recent changes. On twRO the web shop sold them; nothing in the game gives them.

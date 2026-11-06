@@ -61,7 +61,7 @@ if (isset($POST_action) && $POST_action == "Send Mail") {
 		}
 	}
 	elseif (mail_post('confirm') != "1") {
-		$errors[] = "Tick the box to confirm sending it to every account.";
+		$errors[] = "Tick the box to confirm sending it to every account with a character.";
 	}
 	if ($form['sender'] == "" || strlen($form['sender']) > 24) {
 		$errors[] = "The sender needs a name of 1 to 24 characters.";
@@ -101,7 +101,7 @@ if (isset($POST_action) && $POST_action == "Send Mail") {
 		$result = execute_query(MAIL_LAST_ID, "account_mail.php");
 		$last_id = (int)$result->fields[0];
 		$query = query_format(MAIL_SEND, sql_text($form['sender'], 24), sql_text($form['title'], 50), sql_text($form['text'], 1000),
-			$item_id ? $item_id : "NULL", $item_id ? (int)$count : "NULL", $zeny > 0 ? (int)$zeny : "NULL", (int)$days, $aid);
+			$item_id ? $item_id : "NULL", $item_id ? (int)$count : "NULL", $zeny > 0 ? (int)$zeny : "NULL", (int)$days, $aid, $aid);
 		execute_query($query, "account_mail.php");
 		$result = execute_query(query_format(MAIL_SENT, $last_id), "account_mail.php");
 		$first = (int)$result->fields[0];
@@ -114,7 +114,7 @@ if (isset($POST_action) && $POST_action == "Send Mail") {
 		if ($zeny > 0) {
 			$attached[] = number_format($zeny) . " zeny";
 		}
-		$to = $aid ? "account " . $form['account'] : "all $sent accounts";
+		$to = $aid ? "account " . $form['account'] : ($sent == 1 ? "the 1 account" : "all $sent accounts") . " with a character";
 		add_admin_entry("Account mail #$first-#$last to $to" . (count($attached) ? ": " . implode(", ", $attached) : ""));
 		redir("account_mail.php", "The mail was sent to " . html_escape($to) . ".");
 	}
@@ -136,8 +136,8 @@ echo "
 		<form action=\"account_mail.php\" method=\"POST\" class=\"accountForm\">
 			<label><input type=\"radio\" name=\"to\" value=\"one\"$checked_one> To one account</label>
 			<label>Account name <input type=\"text\" name=\"account\" class=\"myctl\" maxlength=\"24\" value=\"" . html_escape($form['account']) . "\"></label>
-			<label><input type=\"radio\" name=\"to\" value=\"all\"$checked_all> To every account (" . number_format($accounts) . ")</label>
-			<label><input type=\"checkbox\" name=\"confirm\" value=\"1\"> Yes, send it to every account</label>
+			<label><input type=\"radio\" name=\"to\" value=\"all\"$checked_all> To every account with a character (" . number_format($accounts) . ")</label>
+			<label><input type=\"checkbox\" name=\"confirm\" value=\"1\"> Yes, send it to all of them</label>
 			<label>Sender <input type=\"text\" name=\"sender\" class=\"myctl\" maxlength=\"24\" value=\"" . html_escape($form['sender']) . "\"></label>
 			<label>Title <input type=\"text\" name=\"title\" class=\"myctl\" maxlength=\"50\" value=\"" . html_escape($form['title']) . "\"></label>
 			<label>Text <textarea name=\"text\" class=\"myctl\" rows=\"6\" maxlength=\"1000\">" . html_escape($form['text']) . "</textarea></label>
