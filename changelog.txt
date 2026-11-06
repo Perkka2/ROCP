@@ -1,3 +1,9 @@
+5.7.0 - November 6th, 2026 [Perkka]
+
+Cash Points: a new admin tool for the twRO EP17.1 servers (ASB7 Beta 2 and later) to see and give the points the in-game cash shop spends, per account, with bonus points, the accounts that have points and the recent changes. On twRO the web shop sold them; nothing in the game gives them.
+Account Mail: a new admin tool for the same servers to send RoDEX mail to one account or to every account, which all characters of the account see, with zeny and an item to take, and to list and delete what was sent.
+Both show only on servers that have their tables (CashItemShop TwCash, GlobalInfo RoDex), and every change is in the admin log.
+
 5.6.0 - October 19th, 2026 [Perkka]
 
 Class pictures for the classes that had none (Rune Knight, the other third classes, babies, mounted classes and more), drawn from the game sprites. Baby classes are drawn like the game does, as their adult class shrunk to 2/3. Server information leaves the picture out for the few classes without sprites instead of showing a broken image.

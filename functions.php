@@ -1323,6 +1323,31 @@ function AccountID_To_UserID($input_account_id) {
 	}
 }
 
+/**
+ * @return array
+ * @desc Which tables of the twRO EP17.1 servers (ASB7 Beta 2 and later) this Aegis server has: 'cash' for the cash
+ * shop points (CashItemShop.dbo.TwCash), 'mail' for account mail (GlobalInfo.dbo.RoDex). Checked once per session.
+*/
+function twro_tables() {
+	if (!isset($_SESSION['twro_tables'])) {
+		$result = execute_query(TWRO_TABLES, 'functions.php', 0, 0, true);
+		$_SESSION['twro_tables'] = array('cash' => $result->fields[0] > 0, 'mail' => $result->fields[1] > 0);
+	}
+	return $_SESSION['twro_tables'];
+}
+
+/**
+ * @return string
+ * @param string $value Free text, e.g. a mail title
+ * @param int $max_length Length of the varchar column
+ * @desc The text as an SQL varchar literal written in hex, cut to $max_length bytes. Free text may hold quotes,
+ * "--" or words that execute_query() refuses; in hex it can do neither. Use it with %s outside quotes.
+*/
+function sql_text($value, $max_length) {
+	$value = substr((string)$value, 0, $max_length);
+	return $value === "" ? "''" : "CONVERT(varchar($max_length), 0x" . bin2hex($value) . ")";
+}
+
 function UserID_To_AccountID($input_user_id) {
 	// Converts Account Name to Account ID
 	$query = query_format(USERID_TO_ACCOUNTID, $input_user_id);

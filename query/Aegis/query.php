@@ -978,4 +978,53 @@ else {
 DEFINE('GET_ALL_MAPS', "USE [IPInfo]
 SELECT * FROM MapInfo ORDER BY ZSID");
 
+// twRO EP17.1 servers (ASB7 Beta 2 and later): the tables twRO's web shop and events filled
+$cashshop = "CashItemShop.dbo";
+$globalinfo = "GlobalInfo.dbo";
+DEFINE('TWRO_TABLES', "SELECT ISNULL(OBJECT_ID('$cashshop.TwCash'), 0), ISNULL(OBJECT_ID('$globalinfo.RoDex'), 0)");
+
+// cash_points.php: the cash shop points, per account name (Cash is spent in the shop, FreeCash is bonus points)
+DEFINE('CASH_GET', "SELECT $login.login.AID, $login.login.ID, ISNULL(TwCash.Cash, 0), ISNULL(TwCash.FreeCash, 0), TwCash.UpdateDate
+FROM $login.login
+LEFT JOIN $cashshop.TwCash TwCash ON TwCash.ID = $login.login.ID
+WHERE $login.login.ID = '%s'
+");
+// adds the amounts (negative takes), never below 0 or above the int maximum
+DEFINE('CASH_ADD', "IF EXISTS (SELECT 1 FROM $cashshop.TwCash WHERE ID = '%s')
+	UPDATE $cashshop.TwCash SET
+		Cash = CASE WHEN CAST(Cash AS bigint) + %d < 0 THEN 0 WHEN CAST(Cash AS bigint) + %d > 2147483647 THEN 2147483647 ELSE Cash + %d END,
+		FreeCash = CASE WHEN CAST(FreeCash AS bigint) + %d < 0 THEN 0 WHEN CAST(FreeCash AS bigint) + %d > 2147483647 THEN 2147483647 ELSE FreeCash + %d END,
+		UpdateDate = GETDATE()
+	WHERE ID = '%s'
+ELSE
+	INSERT INTO $cashshop.TwCash (ID, Cash, FreeCash, UpdateDate) VALUES ('%s', %d, %d, GETDATE())
+");
+DEFINE('CASH_LIST', "SELECT TOP 100 TwCash.ID, TwCash.Cash, TwCash.FreeCash, TwCash.UpdateDate
+FROM $cashshop.TwCash TwCash
+WHERE TwCash.Cash > 0 OR TwCash.FreeCash > 0
+ORDER BY TwCash.UpdateDate DESC
+");
+DEFINE('CASH_TOTALS', "SELECT COUNT(*), ISNULL(SUM(CAST(Cash AS bigint)), 0), ISNULL(SUM(CAST(FreeCash AS bigint)), 0)
+FROM $cashshop.TwCash WHERE Cash > 0 OR FreeCash > 0");
+DEFINE('CASH_LOG', "SELECT TOP 20 [Date], [User], Action FROM $cp.admin_log WHERE Action LIKE 'Cash points %%' ORDER BY action_id DESC");
+
+// account_mail.php: RoDEX mail to an account, which all its characters see (the item by ID and count, the zeny)
+DEFINE('MAIL_ACCOUNT_COUNT', "SELECT COUNT(*) FROM $login.login");
+// to one account (AID > 0) or to every account (AID 0)
+DEFINE('MAIL_SEND', "INSERT INTO $globalinfo.RoDex (AID, SenderName, Title, [Text], ItemID, ItemCnt, Zeny, CheckSum, [Date], ExpireDate, IsRead)
+SELECT AID, %s, %s, %s, %s, %s, %s, 0, GETDATE(), DATEADD(day, %d, GETDATE()), 0 FROM $login.login WHERE %d IN (0, AID)");
+DEFINE('MAIL_LAST_ID', "SELECT ISNULL(MAX(MID), 0) FROM $globalinfo.RoDex");
+DEFINE('MAIL_SENT', "SELECT ISNULL(MIN(MID), 0), ISNULL(MAX(MID), 0), COUNT(*) FROM $globalinfo.RoDex WHERE MID > %d");
+// one row per send: the mails written by one INSERT share their date, sender and title
+DEFINE('MAIL_SENDS', "SELECT TOP 50 MIN(RoDex.MID), MAX(RoDex.MID), COUNT(*), MIN($login.login.ID), RoDex.SenderName, RoDex.Title,
+	RoDex.[Date], MAX(RoDex.ExpireDate), SUM(CAST(ISNULL(RoDex.IsRead, 0) AS int)),
+	SUM(CASE WHEN RoDex.ItemID > 0 AND RoDex.ItemCnt > 0 THEN 1 ELSE 0 END), SUM(CASE WHEN RoDex.Zeny > 0 THEN 1 ELSE 0 END),
+	MAX(RoDex.ItemID), MAX(RoDex.ItemCnt), MAX(RoDex.Zeny)
+FROM $globalinfo.RoDex RoDex
+LEFT JOIN $login.login ON $login.login.AID = RoDex.AID
+GROUP BY RoDex.[Date], RoDex.SenderName, RoDex.Title
+ORDER BY MIN(RoDex.MID) DESC
+");
+DEFINE('MAIL_DELETE', "DELETE FROM $globalinfo.RoDex WHERE MID BETWEEN %d AND %d");
+
 ?>

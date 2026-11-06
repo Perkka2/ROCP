@@ -762,12 +762,19 @@ font-size: 13px;
 	display: block;
 	margin: 6px 0;
 }
-.accountForm label input, .accountForm label select {
+.accountForm label input, .accountForm label select, .accountForm label textarea {
 	display: block;
 	box-sizing: border-box;
 	width: 260px;
 	max-width: 100%;
 	margin-top: 2px;
+}
+.accountForm label textarea {
+	width: 520px;
+}
+.accountForm label input[type=radio], .accountForm label input[type=checkbox] {
+	display: inline;
+	width: auto;
 }
 .accountForm .newsInfo {
 	margin: 4px 0 8px;

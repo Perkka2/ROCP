@@ -35,7 +35,7 @@ if (!defined('CSRF_OUTPUT_FILTER')) {
 
 
 $php_version = phpversion();
-$cp_version = "5.6.0";
+$cp_version = "5.7.0";
 // Checks PHP Versions, will be used when PHP5 is mandatory
 /*
 if (!version_compare($version, "5.0.0", ">=")) {
@@ -96,6 +96,17 @@ switch ($CONFIG_server_type) {
 	case 3:
 		include_once "query/Freya/query.php"; // imports queries
 		break;
+}
+
+// Pages for tables only the twRO EP17.1 servers have (ASB7 Beta 2 and later): off on servers without them
+if ($CONFIG_server_type == 0 && empty($error)) {
+	$twro_tables = twro_tables();
+	if (!$twro_tables['cash']) {
+		$access['cash_points.php'] = -1;
+	}
+	if (!$twro_tables['mail']) {
+		$access['account_mail.php'] = -1;
+	}
 }
 
 

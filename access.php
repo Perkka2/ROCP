@@ -86,6 +86,15 @@ $access['pending.php'] = 3;
 $access['privileges.php'] = 4;
 $access['rebuild_items.php'] = 4;
 $access['class_pictures.php'] = 4;
+// twRO EP17.1 servers only (ASB7 Beta 2 and later); memory.php turns them off when the server lacks their tables
+if ($CONFIG_server_type == 0) {
+	$access['cash_points.php'] = 4;
+	$access['account_mail.php'] = 4;
+}
+else {
+	$access['cash_points.php'] = -1;
+	$access['account_mail.php'] = -1;
+}
 if ($CONFIG_server_type == 0) {
 	$access['rebuild_mobs.php'] = -1;
 }
