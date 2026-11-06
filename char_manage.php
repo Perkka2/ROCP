@@ -112,6 +112,7 @@ elseif ($POST_finishedit == "Edit This Character!") {
 		$effect_value, $POST_var[0]);
 	}
 	$result = execute_query($query, "char_manage.php");
+	fix_zeny_checksum('CHAR_FIX_CHECKSUM', $POST_var[0]);
 	redir("char_manage.php","Character Updated! Bringing you to Character Management");
 }
 elseif ($GET_delete == "Delete") {

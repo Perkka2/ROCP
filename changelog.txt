@@ -1,3 +1,7 @@
+5.8.1 - November 6th, 2026 [Perkka]
+
+Character editing and Money Transfer keep the zeny checksum up to date. Servers with ZENY_CHECKSUM = 1 (twRO EP17.1, ASB 6, ASB 7) check it at every login and refused a character whose zeny had been changed in the panel. Older databases without the checksum column (ASB 3, ASB 4) and characters with an empty checksum are left as they were.
+
 5.8.0 - November 6th, 2026 [Perkka]
 
 Cash Points: bonus points are shown but no longer changed, since what the game does with them is not known yet.

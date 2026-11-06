@@ -219,8 +219,10 @@ elseif ($POST_step == "4") {
 				}
 				$query = query_format(FINAL_TRANSFER, "-", $POST_amount, $CONFIG_passphrase, $POST_GID1, $money1);
 				$result = execute_query($query, "money_transfer.php");
+				fix_zeny_checksum('TRANSFER_FIX_CHECKSUM', $CONFIG_passphrase, $POST_GID1);
 				$query = query_format(FINAL_TRANSFER, "+", $POST_amount, $CONFIG_passphrase, $POST_GID2, $money2);
 				$result = execute_query($query, "money_transfer.php");
+				fix_zeny_checksum('TRANSFER_FIX_CHECKSUM', $CONFIG_passphrase, $POST_GID2);
 				add_money_entry($POST_GID1, $POST_GID2, "Transferred $POST_amount zeny");
 				redir("index.php", "$POST_amount zeny has been transfered from $char1 to $char2");
 			}

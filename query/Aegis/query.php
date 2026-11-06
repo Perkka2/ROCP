@@ -414,6 +414,17 @@ DEFINE('FINAL_TRANSFER', "UPDATE $char.charinfo SET money = money %s %d
 WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
 AND money = %d
 ");
+// charinfo.checksum guards the zeny: twRO EP17.1 zones (ZENY_CHECKSUM = 1 in RO.inf) refuse to load a character
+// whose checksum is not GID XOR money XOR 0x294029 (4 bytes, little-endian), so it is set again after the panel changes
+// money (fix_zeny_checksum()). Characters with a NULL checksum keep it; older databases (ASB 3, ASB 4) have no column.
+DEFINE('CHAR_HAS_CHECKSUM', "SELECT ISNULL(COL_LENGTH('$char.charinfo', 'checksum'), 0)");
+DEFINE('CHAR_FIX_CHECKSUM', "UPDATE $char.charinfo SET checksum = CAST(REVERSE(CAST(GID ^ money ^ 0x294029 AS binary(4))) AS varbinary(4))
+WHERE GID = %d AND checksum IS NOT NULL
+");
+DEFINE('TRANSFER_FIX_CHECKSUM', "UPDATE $char.charinfo SET checksum = CAST(REVERSE(CAST(GID ^ money ^ 0x294029 AS binary(4))) AS varbinary(4))
+WHERE SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('MD5', CAST(GID AS varchar(6)) + '%s')), 3, 32) LIKE '%s' COLLATE SQL_Latin1_General_CP1_CI_AS
+AND checksum IS NOT NULL
+");
 
 // mvp_ladder.php
 DEFINE('GET_MVP_DATE', "SELECT logtime FROM $log.itemLog WHERE Action = 7 ORDER BY logtime");

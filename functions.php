@@ -1324,6 +1324,29 @@ function AccountID_To_UserID($input_account_id) {
 }
 
 /**
+ * @return void
+ * @desc After the panel changes a character's zeny on an Aegis server: sets charinfo.checksum again from the new money
+ * (twRO EP17.1 zones refuse a character whose checksum does not match). $query is CHAR_FIX_CHECKSUM or
+ * TRANSFER_FIX_CHECKSUM, followed by its arguments. Does nothing on databases without the column (checked once per
+ * session) or on other server types.
+*/
+function fix_zeny_checksum($query) {
+	global $CONFIG_server_type;
+	if ($CONFIG_server_type != 0) {
+		return;
+	}
+	if (!isset($_SESSION['zeny_checksum'])) {
+		$result = execute_query(CHAR_HAS_CHECKSUM, 'functions.php', 0, 0, true);
+		$_SESSION['zeny_checksum'] = $result->fields[0] > 0;
+	}
+	if ($_SESSION['zeny_checksum']) {
+		$args = func_get_args();
+		$args[0] = constant($query);
+		execute_query(call_user_func_array('query_format', $args), 'functions.php', 0, 0, true);
+	}
+}
+
+/**
  * @return array
  * @desc Which tables of the twRO EP17.1 servers (ASB7 Beta 2 and later) this Aegis server has: 'cash' for the cash
  * shop points (CashItemShop.dbo.TwCash), 'mail' for account mail (GlobalInfo.dbo.RoDex). Checked once per session.
