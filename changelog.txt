@@ -1,3 +1,7 @@
+5.9.0 - November 7th, 2026 [Perkka]
+
+Item Pictures: a new admin tool that extracts the item pictures and inventory icons from the game client GRFs (the ones ROChargen uses), for the items that have none, again for one item, or again for the ones it extracted (the ones that came with the panel are left as they are). It reads the item file names from the GRFs' idnum2itemresnametable.txt and, for newer clients that keep them only there, from System/itemInfo.lub (or .lua) next to a GRF. Long runs continue by themselves in batches.
+
 5.8.1 - November 6th, 2026 [Perkka]
 
 Character editing and Money Transfer keep the zeny checksum up to date. Servers with ZENY_CHECKSUM = 1 (twRO EP17.1, ASB 6, ASB 7) check it at every login and refused a character whose zeny had been changed in the panel. Older databases without the checksum column (ASB 3, ASB 4) and characters with an empty checksum are left as they were.

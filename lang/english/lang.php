@@ -58,6 +58,7 @@ $lang = array(
 	'rebuild_items.php' => "Rebuild Item Database",
 	'rebuild_mobs.php' => "Rebuild Mob Database",
 	'class_pictures.php' => "Class Pictures",
+	'item_pictures.php' => "Item Pictures",
 	'cash_points.php' => "Cash Points",
 	'account_mail.php' => "Account Mail",
 	'privileges.php' => "Privileges",
